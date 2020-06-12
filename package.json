@@ -1,6 +1,6 @@
 {
   "name": "plug-r-qw",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "this is a collection fo plug-in developed when I was in qw",
   "main": "./src/index.js",
   "scripts": {
