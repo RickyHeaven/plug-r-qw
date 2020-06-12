@@ -1,0 +1,24 @@
+{
+  "name": "plug-r-qw",
+  "version": "1.0.0",
+  "description": "this is a collection fo plug-in developed when I was in qw",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickyHeaven/plug-r-qw.git"
+  },
+  "keywords": [
+    "qw",
+    "ricky",
+    "zhangqingcq"
+  ],
+  "author": "RickyHeaven",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RickyHeaven/plug-r-qw/issues"
+  },
+  "homepage": "https://github.com/RickyHeaven/plug-r-qw#readme"
+}
