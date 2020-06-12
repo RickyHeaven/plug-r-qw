@@ -1,14 +1,15 @@
-import hello from "./components/hello"
+import hello from "./components/hello.vue"
+
 const components = {
-  helloR:hello
+  helloR: hello
 }
 
-const install = function (Vue, opts={}) {
-  if(install.installed){
+const install = function (Vue, opts = {}) {
+  if (install.installed) {
     return
   }
-  Object.keys(components).forEach(key=>{
-    Vue.component(key,components[key])
+  Object.keys(components).forEach(key => {
+    Vue.component(key, components[key])
   })
 }
 
@@ -19,7 +20,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 const API = {
   version: process.env.VERSION, // eslint-disable-line no-undef
-  install
+  install,
+  ...components
 }
 
-export default API
+module.exports.default = module.exports = API
