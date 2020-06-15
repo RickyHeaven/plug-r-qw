@@ -9,4 +9,5 @@ dist/
 vue.config.js
 babel.config.js
 postcss.config.js
+.browserslistrc
 *.map
