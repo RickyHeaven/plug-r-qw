@@ -1,0 +1,12 @@
+examples/
+src/
+public/
+dist/
+.idea/
+.git/
+
+
+vue.config.js
+babel.config.js
+postcss.config.js
+*.map
