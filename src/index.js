@@ -18,8 +18,8 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export default{
+export default {
   version: process.env.VERSION, // eslint-disable-line no-undef
   install,
-  ...components
+  components: components
 }
