@@ -1,5 +1,5 @@
 <template>
-  
+  <div class="txtI">我是测试样式的</div>
 </template>
 
 <script>
@@ -8,6 +8,9 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .txtT{
+    font-size: 20px;
+    color: #46be87;
+  }
 </style>
