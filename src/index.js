@@ -1,13 +1,13 @@
-import hello from "./components/hello.vue"
-import testViewDesign from "./components/testViewDesign.vue"
+import Hello from "./components/hello.vue"
+import TestViewDesign from "./components/test-view-design.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 // import $fetch from "./components/fetch.js"
 
 
 const components = {
-  helloR: hello,
-  testStyle: testViewDesign
+  HelloR: Hello,
+  TestStyle: TestViewDesign
 }
 
 const methodsR = {
