@@ -46,7 +46,7 @@
       box-shadow: none;
 
       &:not([disabled]):hover {
-        background-color: $swalOkBtHoverBg;
+        opacity: .85;
       }
     }
   }

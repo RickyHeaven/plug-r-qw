@@ -2,7 +2,7 @@ import Hello from "./components/hello.vue"
 import TestViewDesign from "./components/test-view-design.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
-// import $fetch from "./components/fetch.js"
+import $fetch from "./methods/fetch.js"
 
 
 const components = {
@@ -55,10 +55,14 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
+const init = function (data) {
+  if (data.hasOwnProperty('store')) {
+    $fetch.init({store: data.store})
+  }
+}
+
 export default {
   version: process.env.VERSION,
   install,
-  ...components,
-  ...methodsR,
-  ...windowMethods
+  init, ...components, ...methodsR, ...windowMethods
 }

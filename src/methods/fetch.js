@@ -3,7 +3,6 @@
  * @author Ricky <zhangqingcq@foxmail.com>
  */
 import axios from 'axios'
-import store from '../../store.js'
 import messageBox from './messageBox.js'
 
 const host = window.location.origin
@@ -13,6 +12,10 @@ let service = axios.create({
   baseURL: host,
   withCredentials: true // 允许携带cookie
 })
+
+function notInitYet() {
+  console.info('未初始化,store为空，请在引入plug-r-qw后进行初始化操作（init({store:XXX,...})）')
+}
 
 /**
  * 拦截器，在发起请求前调用
@@ -24,7 +27,12 @@ service.interceptors.request.use(config => {
 })
 
 function logoutHandle() {
-  store.dispatch("logout");
+  if (service.store) {
+    service.store.dispatch("logout");
+  }
+  else {
+    notInitYet()
+  }
 }
 
 /**
@@ -36,7 +44,8 @@ service.interceptors.response.use(res => {
       content: '登录状态失效,请重新登录！',
       onOk: logoutHandle
     })
-  } else if (res && res.data && res.data.code === 409) {
+  }
+  else if (res && res.data && res.data.code === 409) {
     messageBox({
       content: '该账号已在其他地方登录,点击确定退出。',
       onOk: logoutHandle
@@ -50,7 +59,8 @@ service.interceptors.response.use(res => {
         content: '登录状态失效,请重新登录！',
         onOk: logoutHandle
       })
-    } else if (err.response.status === 409) {
+    }
+    else if (err.response.status === 409) {
       messageBox({
         content: '该账号已在其他地方登录,点击确定退出。',
         onOk: logoutHandle
@@ -58,10 +68,12 @@ service.interceptors.response.use(res => {
     }
     if (err.response.data) {
       return Promise.reject(err.response.data)
-    } else {
+    }
+    else {
       return Promise.reject(err.response)
     }
-  } else {
+  }
+  else {
     return Promise.reject(err)
   }
 })
@@ -71,7 +83,12 @@ service.interceptors.response.use(res => {
  */
 function checkResult(res, msg, rPath, config) {
   if (config && config.spin) {
-    store.commit('MINUS_FETCH_COUNT')
+    if (service.store) {
+      service.store.commit('MINUS_FETCH_COUNT')
+    }
+    else {
+      notInitYet()
+    }
   }
   let yes = true
   let temp = res && res.data
@@ -83,11 +100,13 @@ function checkResult(res, msg, rPath, config) {
     }
     if (yes) {
       return temp
-    } else {
+    }
+    else {
       console.warn(msg ? msg : '请求失败')
       return false
     }
-  } else {
+  }
+  else {
     console.warn(msg ? msg : '请求失败')
     return false
   }
@@ -164,6 +183,7 @@ function handleRequest(method, url, data, msg, rPath, config, isUrlData) {
     }
   })
 }
+
 /**
  * 请求主体
  * @param method
@@ -180,27 +200,35 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
     if (url) {
       config = config || {}
       if (config && config.spin) {
-        store.commit('ADD_FETCH_COUNT')
+        if (service.store) {
+          service.store.commit('ADD_FETCH_COUNT')
+        }
+        else {
+          notInitYet()
+        }
       }
-      //所有请求地址都按接口类型，加上config.js里配置的地址域名变成绝对地址
-      let url_ = ''
-      let mgrReg = /^\/mgr(?=\/.*$)/i
-      let dccReg = /^\/dcc(?=\/.*$)/i
-      let umcReg = /^\/umc(?=\/.*$)/i
-      let wmcReg = /^\/wmc(?=\/.*$)/i
-      let crmReg = /^\/crm(?=\/.*$)/i
-      if (mgrReg.test(url)) {
-        url_ = window.g.mgrURL + url.replace(/^\/mgr(?=\/.*$)/i, '')
-      } else if (dccReg.test(url)) {
-        url_ = window.g.dccURL + url.replace(/^\/dcc(?=\/.*$)/i, '')
-      } else if (umcReg.test(url)) {
-        url_ = window.g.umcURL + url.replace(/^\/umc(?=\/.*$)/i, '')
-      } else if (wmcReg.test(url)) {
-        url_ = window.g.wmcURL + url.replace(/^\/wmc(?=\/.*$)/i, '')
-      } else if (crmReg.test(url)) {
-        url_ = window.g.crmURL + url.replace(/^\/crm(?=\/.*$)/i, '')
-      } else {
-        url_ = url
+      let url_ = url
+      if (window && window.g) {
+        //所有请求地址都按接口类型，加上config.js里配置的地址域名变成绝对地址
+        const httpEnv = [
+          'mgr',
+          'dcc',
+          'crm',
+          'umc',
+          'wmc',
+          'amc',
+          'pmc',
+          'oa',
+          'mmc'
+        ]
+        
+        for (let item of httpEnv) {
+          let regExp = new RegExp('^\/' + item + '(?=\/.*$）', 'i')
+          if (regExp.test(url) && window.g[item + 'URL']) {
+            url_ = window.g[item + 'URL'] + url.replace(regExp, '')
+            break
+          }
+        }
       }
       let data_
       if (config && config.headers && config.headers['Content-Type'] === 'multipart/form-data') {
@@ -289,6 +317,12 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
  *   )
  */
 export default {
+  init(data) {
+    if (data.hasOwnProperty('store')) {
+      service.store = data.store
+    }
+  },
+  
   post(url, data = {}, msg, rPath, config) {
     return new Promise((resolve, reject) => {
       checkRequest('post', url, data, msg, rPath, config).then(r => {
@@ -298,7 +332,7 @@ export default {
       })
     })
   },
-
+  
   put(url, data = {}, msg, rPath, config) {
     return new Promise((resolve, reject) => {
       checkRequest('put', url, data, msg, rPath, config).then(r => {
@@ -323,7 +357,7 @@ export default {
       })
     })
   },
-
+  
   delete(url, data = {}, msg, rPath, config, isUrlData = true) {
     return new Promise((resolve, reject) => {
       checkRequest('delete', url, data, msg, rPath, config, isUrlData).then(r => {
@@ -333,8 +367,8 @@ export default {
       })
     })
   },
-
+  
   all: axios.all,
-
+  
   spread: axios.spread
 }
