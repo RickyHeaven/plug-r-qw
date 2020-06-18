@@ -11,7 +11,8 @@ const components = {
 }
 
 const methodsR = {
-  messageBox, // $fetch
+  messageBox,
+  $fetch
 }
 
 const windowMethods = {
