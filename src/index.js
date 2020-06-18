@@ -57,9 +57,14 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 const init = function (data) {
-  if (data.hasOwnProperty('store')) {
-    $fetch.init({store: data.store})
-  }
+  let fetchConfig = {}
+  let fetchItem = ['store','changeFetchUrl']
+  fetchItem.forEach(e=>{
+    if(data.hasOwnProperty(e)){
+      fetchConfig[e] = data[e]
+    }
+  })
+  $fetch.init(fetchConfig)
 }
 
 export default {

@@ -13,6 +13,8 @@ let service = axios.create({
   withCredentials: true // 允许携带cookie
 })
 
+service.changeUrl = false
+
 function notInitYet() {
   console.info('未初始化,store为空，请在引入plug-r-qw后进行初始化操作（init({store:XXX,...})）')
 }
@@ -208,7 +210,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
         }
       }
       let url_ = url
-      if (window && window.g) {
+      if (service.changeUrl && window && window.g) {
         //所有请求地址都按接口类型，加上config.js里配置的地址域名变成绝对地址
         const httpEnv = [
           'mgr',
@@ -223,7 +225,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
         ]
         
         for (let item of httpEnv) {
-          let regExp = new RegExp('^\/' + item + '(?=\/.*$）', 'i')
+          let regExp = new RegExp('^\/' + item + '(?=\/.*$)', 'i')
           if (regExp.test(url) && window.g[item + 'URL']) {
             url_ = window.g[item + 'URL'] + url.replace(regExp, '')
             break
@@ -320,6 +322,9 @@ export default {
   init(data) {
     if (data.hasOwnProperty('store')) {
       service.store = data.store
+    }
+    if (data.hasOwnProperty('changeFetchUrl')) {
+      service.changeUrl = data.changeFetchUrl
     }
   },
   
