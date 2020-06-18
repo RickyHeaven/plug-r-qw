@@ -56,7 +56,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: process.env.VERSION, // eslint-disable-line no-undef
+  version: process.env.VERSION,
   install,
-  components: components
+  ...components,
+  ...methodsR,
+  ...windowMethods
 }

@@ -9,7 +9,7 @@ import './global/iViewTheme.less'
 import _ from "lodash"
 import VueAMap from 'vue-amap'
 import plugRQw from '../lib/plugRQw.umd.min.js'
-// import '../lib/plugRQw.css'
+import '../lib/plugRQw.min.css'
 
 Vue.config.productionTip = false
 

@@ -1,12 +1,12 @@
 {
   "name": "@zhangqingcq/plug-r-qw",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "this is a collection fo plug-in developed when I was in qw",
   "main": "/lib/plugRQw.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib": "vue-cli-service build --target lib --name plugRQw --dest lib src/index.js"
+    "lib": "vue-cli-service build --target lib --name plugRQw --dest lib src/index.js && gulp"
   },
   "repository": {
     "type": "git",
