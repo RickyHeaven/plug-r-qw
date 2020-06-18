@@ -3,7 +3,6 @@
  */
 
 import {Modal} from 'view-design'
-import _ from 'lodash'
 import {myTypeof} from './functionGroup.js'
 
 
@@ -27,7 +26,7 @@ import {myTypeof} from './functionGroup.js'
 export default function messageBox({height, width = 416, title, content, onOk, onOkPromise, okText, cancelText, noWarnIcon, footerAlign, cancelBt}) {
   let heightTemp = height && Number(height) - 90 > 40 ? Number(height) - 90 + 'px' : 0
   let heightT = heightTemp || '40px'
-  let stringContent = _.isString(content)
+  let stringContent = myTypeof(content) === 'String'
   Modal.warning({
     width: width,
     render: (h) => {
@@ -105,11 +104,13 @@ export default function messageBox({height, width = 416, title, content, onOk, o
                         .catch(() => {
                           Modal.remove()
                         })
-                    } else {
+                    }
+                    else {
                       onOk()
                       Modal.remove()
                     }
-                  } else {
+                  }
+                  else {
                     Modal.remove()
                   }
                 }
