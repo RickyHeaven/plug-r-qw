@@ -1,6 +1,6 @@
 {
   "name": "@zhangqingcq/plug-r-qw",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "this is a collection fo plug-in developed when I was in qw",
   "main": "/lib/plugRQw.umd.min.js",
   "scripts": {
@@ -68,14 +68,17 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "sweetalert": "^2.1.2",
-    "view-design": "^4.2.0",
     "vue": "^2.6.11",
+    "view-design": "^4.2.0",
+    "sweetalert": "^2.1.2",
     "vue-amap": "^0.5.10",
     "vuex": "^3.0.1",
+    "lodash": "^4.17.15",
     "iview-area": "^1.6.0",
     "axios": "^0.19.2",
     "echarts": "^4.5.0",
+    "wangeditor": "^3.1.1",
+    "js-cookie": "2.1.4",
     "moment": "^2.22.2"
   }
 }
