@@ -1,0 +1,21 @@
+@import "variables.scss";
+
+.inlineBlock{
+  display: inline-block;
+}
+
+.linkM{
+  color: $vueColor;
+  cursor: pointer;
+  &:hover{
+    opacity: .85;
+  }
+}
+
+.examplePageL{
+  padding: 20px;
+}
+
+.tcG{
+  text-align: center;
+}

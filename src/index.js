@@ -2,19 +2,60 @@ import Hello from "./components/hello.vue"
 import TestViewDesign from "./components/test-view-design.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
+import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
+import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
+import {
+  myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
+  getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
+  decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
+  isEmptyValue, stringLength
+} from "./methods/functionGroup.js"
 
-
+/*直接使用的组件（注册为全局Vue组件）*/
 const components = {
   HelloR: Hello,
   TestStyle: TestViewDesign
 }
 
-const methodsR = {
-  messageBox,
-  $fetch
+/*需要从插件中单独引入的方法（使用频率低）*/
+const plugMethods = {
+  fullScreenImgPreview,
+  fullScreenImgByDom,
+  toHump,
+  toLine,
+  htmlEncode,
+  htmlDecode,
+  getFileSrc,
+  getFileTypeByName,
+  isImgByFile,
+  getFileTypeIconByName,
+  downloadFileReaderFile,
+  fakeALinkClick,
+  findPath,
+  getStringWidth
 }
 
+/*挂在Vue原型对象上的方法*/
+const methodsR = {
+  messageBox,
+  myTypeof,
+  $fetch,
+  trimObj,
+  clearObj,
+  formDataHeadConfig,
+  toFormData,
+  oneOf,
+  decimalDigitsLimit,
+  downloadFileByFormSubmit,
+  isValidValue,
+  isNumberValue,
+  isEmptyValue,
+  tooltipManual,
+  stringLength
+}
+
+/*挂在window对象上的方法*/
 const windowMethods = {
   $swal
 }
@@ -58,9 +99,12 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 const init = function (data) {
   let fetchConfig = {}
-  let fetchItem = ['store','changeFetchUrl']
-  fetchItem.forEach(e=>{
-    if(data.hasOwnProperty(e)){
+  let fetchItem = [
+    'store',
+    'changeFetchUrl'
+  ]
+  fetchItem.forEach(e => {
+    if (data.hasOwnProperty(e)) {
       fetchConfig[e] = data[e]
     }
   })
@@ -70,5 +114,5 @@ const init = function (data) {
 export default {
   version: process.env.VERSION,
   install,
-  init, ...components, ...methodsR, ...windowMethods
+  init, ...components, ...methodsR, ...windowMethods, ...plugMethods
 }

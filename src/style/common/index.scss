@@ -32,6 +32,7 @@
   display: inline-block;
 }
 
+/*$swal弹框*/
 .swalBoxX {
   .swal-footer {
     text-align: center;
@@ -52,6 +53,7 @@
   }
 }
 
+/*messageBox对话框*/
 .customMessageBox {
   position: relative;
   top: -16px;
@@ -122,5 +124,65 @@
         }
       }
     }
+  }
+}
+
+/*基于Modal的全屏图片预览组件*/
+.previewModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .previewModalInner {
+    position: relative;
+
+    > img {
+      max-height: 92vh;
+      max-width: 92vw;
+    }
+
+    .previewModalDelete {
+      position: absolute;
+      right: -20px;
+      top: -20px;
+      cursor: pointer;
+      color: #fff;
+
+      &:hover {
+        color: $warningColor;
+      }
+    }
+  }
+}
+
+/*原生DOM全屏图片预览组件*/
+.fullScreenImgByDom {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 100000000;
+  background-color: rgba(0, 0, 0, .4);
+  padding: 20px;
+
+  > img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .iconfont {
+    cursor: pointer;
+    vertical-align: top;
+    position: relative;
+    top: -4px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, .25);
   }
 }
