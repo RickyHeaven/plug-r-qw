@@ -17,10 +17,18 @@ function build(cb) {
   cb()
 }
 
+
+// 拷贝字体文件
+function fonts(cb) {
+  src('./src/style/font/iconfont/fonts/*.*')
+    .pipe(dest('./lib/fonts'))
+  cb()
+}
+
 function clean(cb) {
-  del(['plugRQw.min.css'])
+  del(['plugRQw.min.css','./lab/fonts/'])
   cb()
 }
 
 
-exports.default = series(clean, build)
+exports.default = series(clean, build, fonts)
