@@ -9,12 +9,14 @@
 </template>
 
 <script>
-  import logo  from '../assets/logo.png'
+  import PR from '../../src/index.js'
+  import logo from '../assets/logo.png'
+
   export default {
     name: "fullScreenImgByDomEX",
-    methods:{
-      confirmHandle(){
-        this.fullScreenImgByDom(logo)
+    methods: {
+      confirmHandle() {
+        PR.fullScreenImgByDom(logo)
       }
     }
   }
