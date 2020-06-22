@@ -20,13 +20,13 @@ function build(cb) {
 
 // 拷贝字体文件
 function fonts(cb) {
-  src('./src/style/font/iconfont/fonts/*.*')
-    .pipe(dest('./lib/fonts'))
+  src('./src/style/iconfont/*.*')
+    .pipe(dest('./lib/iconfont'))
   cb()
 }
 
 function clean(cb) {
-  del(['plugRQw.min.css','./lab/fonts/'])
+  del(['plugRQw.min.css','./lab/iconfont/'])
   cb()
 }
 
