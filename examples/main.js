@@ -8,10 +8,10 @@ import iviewArea from 'iview-area'
 import './global/iViewTheme.less'
 import _ from "lodash"
 import VueAMap from 'vue-amap'
-// import plugRQw from '../src/index.js'
-// import '../src/style/index.scss'
-import plugRQw from '../lib/plugRQw.umd.min.js'
-import '../lib/plugRQw.min.css'
+import plugRQw from '../src/index.js'
+import '../src/style/index.scss'
+// import plugRQw from '../lib/plugRQw.umd.min.js'
+// import '../lib/plugRQw.min.css'
 import './global/init.js'
 
 Vue.config.productionTip = false
