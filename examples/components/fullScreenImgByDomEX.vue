@@ -9,14 +9,13 @@
 </template>
 
 <script>
-  import PRQW from '../../src/index.js'
   import npm from '../assets/testo.png'
 
   export default {
     name: "fullScreenImgByDomEX",
     methods: {
       confirmHandle() {
-        PRQW.fullScreenImgByDom(npm)
+        this.fullScreenImgByDom(npm)
       }
     }
   }

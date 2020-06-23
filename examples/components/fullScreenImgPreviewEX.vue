@@ -10,13 +10,13 @@
 
 <script>
   import PRQW from '../../src/index.js'
-  import npm from '../assets/testo.png'
+  import testo from '../assets/testo.png'
 
   export default {
     name: "fullScreenImgPreviewEX",
     methods: {
       confirmHandle() {
-        PRQW.fullScreenImgPreview(npm)
+        PRQW.fullScreenImgPreview(testo)
       }
     }
   }

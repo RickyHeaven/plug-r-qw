@@ -21,7 +21,6 @@ const components = {
 /*需要从插件中单独引入的方法（使用频率低）*/
 const plugMethods = {
   fullScreenImgPreview,
-  fullScreenImgByDom,
   toHump,
   toLine,
   htmlEncode,
@@ -46,13 +45,14 @@ const methodsR = {
   formDataHeadConfig,
   toFormData,
   oneOf,
-  decimalDigitsLimit,
-  downloadFileByFormSubmit,
+  fullScreenImgByDom,
   isValidValue,
   isNumberValue,
   isEmptyValue,
   tooltipManual,
-  stringLength
+  stringLength,
+  decimalDigitsLimit,
+  downloadFileByFormSubmit
 }
 
 /*挂在window对象上的方法*/
