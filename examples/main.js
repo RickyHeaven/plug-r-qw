@@ -9,7 +9,7 @@ import './global/iViewTheme.less'
 import _ from "lodash"
 import VueAMap from 'vue-amap'
 import plugRQw from '../src/index.js'
-import '../src/style/index.scss'
+import '../src/style/index.less'
 // import plugRQw from '../lib/plugRQw.umd.min.js'
 // import '../lib/plugRQw.min.css'
 import './global/init.js'
