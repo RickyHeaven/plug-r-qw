@@ -8,6 +8,7 @@ export default function (src) {
   let id = 'previewImg'+Math.floor(Math.random()*10000000)
   Modal.info({
     closable:false,
+    'transition-names':['linear', 'fade'],
     render: (h) => {
       return h(
         'div',
