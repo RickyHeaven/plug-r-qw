@@ -1,5 +1,5 @@
 <template>
-  <div class="examplePageL tcG">
+  <div class="examplePageL tc">
     <toHome/>
     <Button @click="swalHandle('success')">成功</Button>
     <Button @click="swalHandle('error')">失败</Button>

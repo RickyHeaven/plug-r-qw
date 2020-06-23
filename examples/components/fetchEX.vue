@@ -1,5 +1,5 @@
 <template>
-  <div class="examplePageL tcG">
+  <div class="examplePageL tc">
     <toHome/>
     <Button @click="confirmHandle">点击模拟请求</Button>
   </div>

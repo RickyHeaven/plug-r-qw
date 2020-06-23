@@ -1,5 +1,5 @@
 <template>
-  <div class="examplePageL tcG">
+  <div class="examplePageL tc">
     <toHome/>
     <div class="linkM inlineBlock" @click="confirmHandle" style="height: 15px;">
       <img style="height: 100%" src="../assets/testo.png" alt="logo">

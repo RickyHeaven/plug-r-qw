@@ -1,5 +1,5 @@
 <template>
-  <div class="examplePageL tcG">
+  <div class="examplePageL tc">
     <toHome/>
     <Button @click="confirmHandle">对话框</Button>
   </div>

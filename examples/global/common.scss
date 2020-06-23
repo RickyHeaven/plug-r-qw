@@ -1,9 +1,5 @@
 @import "variables.scss";
 
-.inlineBlock{
-  display: inline-block;
-}
-
 .linkM{
   color: $vueColor;
   cursor: pointer;
@@ -14,16 +10,4 @@
 
 .examplePageL{
   padding: 20px;
-}
-
-.tcG{
-  text-align: center;
-}
-
-.trG{
-  text-align: right;
-}
-
-.tlG{
-  text-align: left;
 }
