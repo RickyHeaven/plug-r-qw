@@ -1,6 +1,6 @@
 {
   "name": "@zhangqingcq/plug-r-qw",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "this is a collection fo plug-in developed when I was in qw",
   "main": "/lib/plugRQw.umd.min.js",
   "scripts": {
