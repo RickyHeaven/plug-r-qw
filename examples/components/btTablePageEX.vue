@@ -1,27 +1,22 @@
 <template>
   <div class="exBox">
-    <!--<div class="fullHeight flexColumnBox">-->
-    <!--<div class="notGrow">-->
-    <!--<search-form :data="data" @on-search="search"></search-form>-->
-    <!--</div>-->
-    <!--<div class="growFlexItem">-->
-
-    <bt-table-page
-        ref="btTab"
-        :columns="columns"
-        url="/umc/admin/maintaince/files"
-        :search-data="searchData"
-        @on-row-click="onRowClick"
-        sortable="custom"
-    />
-
-    <!--</div>-->
-    <!--</div>-->
+    <toHome/>
+    <div class="tableLK">
+      <bt-table-page
+          ref="btTab"
+          :columns="columns"
+          url="testData/btTablePage.json"
+          :search-data="searchData"
+          @on-row-click="onRowClick"
+          sortable="custom"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   import {downloadFileReaderFile} from '../../src/methods/functionGroup'
+  import imgK from '../assets/testo.png'
 
   export default {
     name: "btTablePageEX",
@@ -41,7 +36,7 @@
                 class: 'linkM',
                 on: {
                   click: () => {
-                    downloadFileReaderFile(window.g.umcURL + "/admin/maintaince/file/" + params.row.id+"/download")
+                    downloadFileReaderFile('模拟文件下载',imgK)
                   }
                 },
               }, params.row.name)
@@ -60,14 +55,14 @@
             tooltip: "true"
           },
           {
-            title: "存储路径", /*后端接口明明错误storage*/
-            key: "storegePath",
+            title: "存储路径",
+            key: "storagePath",
             align: "center",
             tooltip: "true"
           },
           {
             title: "存储组",
-            key: "storegeGroup",
+            key: "storageGroup",
             align: "center",
             tooltip: "true"
           },
@@ -88,7 +83,7 @@
                   on: {
                     click: () => {
                       this.messageBox({
-                        content: '确定执行删除操作？',
+                        content: '确定模拟执行删除操作？',
                         onOk: () => {
                           /*在这里调接口删除数据并给成功失败提示，然后主动拉取table数据*/
                           setTimeout(() => {
@@ -119,5 +114,11 @@
 <style scoped>
   .exBox {
     height: 100vh;
+    padding-top: 50px;
+  }
+
+  .tableLK{
+    height: calc(100vh - 50px);
+    position: relative;
   }
 </style>

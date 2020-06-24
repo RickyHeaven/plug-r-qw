@@ -1,57 +1,56 @@
 <template>
-  <div class="fullHeight">
+  <div class="fullHeightLK">
     <div class="loginFormBox">
-      <div class="loginContent">
-        <div class="loginFormContainer">
-          <Form
-              ref="loginForm"
-              autocomplete="on"
-              :model="loginForm"
-              :rules="loginRules"
-              class="loginForm"
-          >
-            <Form-item prop="username">
-              <div class="pubWords">
-                用户名
-                <span>Account</span>
-              </div>
-              <Input
-                  type="text"
-                  v-model="loginForm.username"
-                  placeholder="请输入用户名"
-                  autocomplete="on"
-              >
-              </Input>
-            </Form-item>
-            <Form-item prop="password">
-              <div class="pubWords">
-                密码
-                <span>Password</span>
-              </div>
-              <Input
-                  type="password"
-                  v-model="loginForm.password"
-                  placeholder="请输入密码"
-                  @keyup.enter.native="handleLogin('loginForm')"
-              >
-              </Input>
-            </Form-item>
-            <Form-item>
-              <Button
-                  class="mt"
-                  type="primary"
-                  @click="handleLogin('loginForm')"
-                  long
-                  :loading="loading"
-              >
-                <span v-if="!loading">登录</span>
-                <span v-else>Loading...</span>
-              </Button>
-            </Form-item>
-            <div class="tips">提示：忘记用户名和密码请联系系统管理员</div>
-          </Form>
-        </div>
+      <div class="titleLK">
+        PLUG-R-QW 示例系统
       </div>
+      <Form
+          ref="loginForm"
+          autocomplete="on"
+          :model="loginForm"
+          :rules="loginRules"
+          class="loginForm"
+      >
+        <Form-item prop="username">
+          <div class="pubWords">
+            用户名
+            <span>Account</span>
+          </div>
+          <Input
+              type="text"
+              v-model="loginForm.username"
+              placeholder="请输入用户名"
+              autocomplete="on"
+          >
+          </Input>
+        </Form-item>
+        <Form-item prop="password">
+          <div class="pubWords">
+            密码
+            <span>Password</span>
+          </div>
+          <Input
+              type="password"
+              v-model="loginForm.password"
+              placeholder="请输入密码"
+              @keyup.enter.native="handleLogin('loginForm')"
+          >
+          </Input>
+        </Form-item>
+        <Form-item>
+          <Button
+              class="mt"
+              type="primary"
+              @click="handleLogin('loginForm')"
+              long
+              :loading="loading"
+          >
+            <span v-if="!loading">登录</span>
+            <span v-else>Loading...</span>
+          </Button>
+        </Form-item>
+        <div class="tips">提示：登录是为了拉取后端接口数据，否则可直接在地址栏输入"/index"</div>
+      </Form>
     </div>
   </div>
 </template>
@@ -131,22 +130,23 @@
   };
 </script>
 <style scoped>
+  .fullHeightLK {
+    height: 100vh;
+    background-color: #fafafa;
+  }
+
+  .titleLK {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
   .loginFormBox {
-    width: 100%;
-    height: calc(100% - 60px);
     position: relative;
-  }
-
-  .loginFormContainer {
     width: 600px;
-    margin: 0 auto;
-  }
-
-  .loginContent {
-    margin: 0 auto;
-    height: 100%;
-    overflow-y: auto;
-    position: relative;
+    top: calc(40% - 204px);
+    left: calc(50% - 300px);
   }
 
   .loginForm {
@@ -172,23 +172,6 @@
     color: #999999;
     font-weight: 500;
     letter-spacing: 0;
-  }
-
-  .loginContent ul li {
-    background: #ffffff;
-    float: left;
-    list-style: none;
-    border: solid 1px gray;
-    width: 270px;
-    height: 260px;
-    padding: 0 30px;
-    text-align: center;
-    margin-right: 195px;
-    cursor: pointer;
-  }
-
-  .loginContent ul li img {
-    margin-top: 42px;
   }
 </style>
 
