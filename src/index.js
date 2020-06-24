@@ -111,8 +111,10 @@ const init = function (data) {
   $fetch.init(fetchConfig)
 }
 
-export default {
+const API = {
   version: process.env.VERSION,
   install,
   init, ...components, ...methodsR, ...windowMethods, ...plugMethods
 }
+
+export default API
