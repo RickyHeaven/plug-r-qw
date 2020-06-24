@@ -1,5 +1,5 @@
 import Hello from "./components/hello.vue"
-import TestViewDesign from "./components/test-view-design.vue"
+import btTablePage from "./components/btTablePage/btTablePage.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -15,7 +15,7 @@ import {
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
   HelloR: Hello,
-  TestStyle: TestViewDesign
+  btTablePage: btTablePage
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -111,10 +111,8 @@ const init = function (data) {
   $fetch.init(fetchConfig)
 }
 
-const API = {
+export default {
   version: process.env.VERSION,
   install,
   init, ...components, ...methodsR, ...windowMethods, ...plugMethods
 }
-
-export default API

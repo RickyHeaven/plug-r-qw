@@ -6,13 +6,13 @@ const domain = window.g.domain
 
 export default {
   state: {
-    isLogin: Cookies.get("isFirst") && JSON.parse(Cookies.get("isFirst"))
+    isLoginr: Cookies.get("isLoginr") && JSON.parse(Cookies.get("isLoginr"))
   },
   
   mutations: {
     SET_IS_LOGIN(state, data) {
-      state.isLogin = data;
-      Cookies.set("isFirst", JSON.stringify(data), domain);
+      state.isLoginr = data;
+      Cookies.set("isLoginr", JSON.stringify(data), domain);
     }
   },
   
@@ -22,7 +22,7 @@ export default {
       Vue.prototype.$fetch.get("/umc/logout")
         .then(() => {
           commit("SET_IS_LOGIN", false)
-          Cookies.remove("isFirst", domain)
+          Cookies.remove("isLoginr", domain)
           router.push('/login')
         })
         .catch(e => {

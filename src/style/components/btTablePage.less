@@ -1,0 +1,107 @@
+@import "../common/size";
+@import "../common/color";
+
+.btTablePage {
+  position: relative;
+
+  .topBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: @headerH;
+    line-height: @headerH;
+
+    .btMTL {
+      margin: 0 0 0 4px;
+    }
+
+    .btMTR {
+      margin: 0 4px 0 0;
+    }
+  }
+
+  .tableContainer {
+    padding-top: @headerH;
+    padding-bottom: @headerH;
+
+    &.noTop {
+      padding-top: 3px;
+    }
+
+    &.noPage {
+      padding-bottom: 0;
+    }
+  }
+
+  .pageContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: @headerH;
+    text-align: right;
+  }
+}
+
+.fullHeightTable {
+  height: 100%;
+
+  .ivu-table {
+    height: 100% !important;
+
+    .ivu-table-body {
+      height: calc(~'100% - @{headerH}') !important;
+      overflow-y: auto;
+      box-sizing: border-box;
+
+      table {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+
+.noBorderTable {
+  border: none !important;
+
+  .ivu-table:before {
+    display: none !important;
+  }
+
+  &:not(.hasRightBorder) .ivu-table:after {
+    display: none !important;
+  }
+
+  .ivu-table-header {
+    position: relative;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 1px;
+      background-color: @lightBg;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.noRightBorderTable {
+  .ivu-table:after {
+    display: none !important;
+  }
+}
+
+
+.withBtn,
+.withHeader {
+  height: calc(~'100% - @{headerH}') !important;
+}
+
+.withPage {
+  height: calc(~'100% - @{headerH}') !important;
+}

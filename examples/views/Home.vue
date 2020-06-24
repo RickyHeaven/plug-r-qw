@@ -45,6 +45,10 @@
           {
             name: 'fullScreenImgByDom',
             path: '/fullScreenImgByDom'
+          },
+          {
+            name: 'btTablePage',
+            path: '/btTablePage'
           }
         ]
       }

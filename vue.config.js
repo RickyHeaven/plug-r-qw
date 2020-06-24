@@ -1,6 +1,13 @@
 const compressionPlugin = require("compression-webpack-plugin")
 
 module.exports = {
+  devServer:{
+    open: true,
+    host:'local.qwgas.com'
+  },
+  
+  publicPath: './',
+  
   pages: {
     index: {
       entry: 'examples/main.js',
@@ -8,6 +15,7 @@ module.exports = {
       filename: 'index.html'
     }
   },
+  
   configureWebpack: config =>{
     if(process.env.NODE_ENV === 'production'){
       return {
@@ -86,6 +94,7 @@ module.exports = {
       }
     }
   },
+  
   chainWebpack: config =>{
     config.module
       .rule('js')
@@ -98,6 +107,5 @@ module.exports = {
         // 修改它的选项...
         return options
       })
-  },
-  publicPath: '/'
+  }
 }

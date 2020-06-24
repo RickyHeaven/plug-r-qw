@@ -10,19 +10,6 @@
               :rules="loginRules"
               class="loginForm"
           >
-            <Form-item prop="tenantCode">
-              <div class="pubWords">
-                单位代码
-                <span>Code</span>
-              </div>
-              <Input
-                  type="text"
-                  v-model="loginForm.tenantCode"
-                  placeholder="请输入单位代码"
-                  autocomplete="on"
-                  @on-enter="handleLogin('loginForm')"
-              ></Input>
-            </Form-item>
             <Form-item prop="username">
               <div class="pubWords">
                 用户名
@@ -32,7 +19,6 @@
                   type="text"
                   v-model="loginForm.username"
                   placeholder="请输入用户名"
-                  @on-blur="getCheck"
                   autocomplete="on"
               >
               </Input>
@@ -79,16 +65,10 @@
         loading: false,
         isShow: false,
         loginForm: {
-          tenantCode: "",
           username: "",
           password: ""
         },
         loginRules: {
-          tenantCode: {
-            required: true,
-            message: "该项为必填项",
-            trigger: "blur"
-          },
           username: {
             required: true,
             message: "该项为必填项",
@@ -115,32 +95,22 @@
       ...mapMutations([
         'SET_IS_LOGIN'
       ]),
-      getCheck() {
-        //登录检查验证码
-        if (!this.loginForm.tenantCode || !this.loginForm.username) {
-          return
-        }
-        this.$fetch.get("/mgr/check?username=" + this.loginForm.username + "&tenantCode=" + this.loginForm.tenantCode)
-          .then(res => {
-            this.isShow = (res && res.code === 100001)
-          })
-      },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true;
             let temp = new FormData()
-            temp.append('tenantCode', this.loginForm.tenantCode)
             temp.append('username', this.loginForm.username)
             temp.append('password', this.loginForm.password)
-            this.$fetch.post("/mgr/login", temp, null, [], {
+            this.$fetch.post("/umc/login", temp, null, [], {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
             })
               .then(res => {
-                this.SET_IS_LOGIN(true);
                 if (res && res.code === 0) {
+                  this.SET_IS_LOGIN(true);
+
                   this.$nextTick(function () {
                     this.loading = false
                   })

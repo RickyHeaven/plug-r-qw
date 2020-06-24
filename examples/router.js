@@ -44,6 +44,11 @@ export default new Router({
       path: '/fullScreenImgByDom',
       name: 'fullScreenImgByDom',
       component: ()=>import('./components/fullScreenImgByDomEX.vue')
+    },
+    {
+      path: '/btTablePage',
+      name: 'btTablePage',
+      component: ()=>import('./components/btTablePageEX.vue')
     }
   ]
 })
