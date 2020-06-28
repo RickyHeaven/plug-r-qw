@@ -49,6 +49,10 @@
           {
             name: 'btTablePage',
             path: '/btTablePage'
+          },
+          {
+            name: 'wellCard',
+            path: '/wellCard'
           }
         ]
       }
@@ -82,6 +86,7 @@
         >li{
           width: 250px;
           margin-right: 15px;
+          line-height: 40px;
           .rLinkN{
             color: #46be87;
           }

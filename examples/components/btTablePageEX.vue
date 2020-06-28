@@ -30,7 +30,6 @@
             key: "name",
             align: "center",
             minWidth: 250,
-            tooltip: "true",
             render: (h, params) => {
               return h("span", {
                 class: 'linkM',
@@ -45,32 +44,27 @@
           {
             title: "文件类型",
             key: "mimeType",
-            align: "center",
-            tooltip: "true"
+            align: "center"
           },
           {
             title: "文件大小",
             key: "size",
-            align: "center",
-            tooltip: "true"
+            align: "center"
           },
           {
             title: "存储路径",
             key: "storagePath",
-            align: "center",
-            tooltip: "true"
+            align: "center"
           },
           {
             title: "存储组",
             key: "storageGroup",
-            align: "center",
-            tooltip: "true"
+            align: "center"
           },
           {
             title: "创建时间",
             key: "createdAt",
-            align: "center",
-            tooltip: "true"
+            align: "center"
           },
           {
             title: '操作',

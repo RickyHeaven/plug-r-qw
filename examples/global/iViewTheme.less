@@ -79,15 +79,21 @@
 @shadow-right           : 1px 0 6px @shadow-color;
 
 // Button
+@btn-height-base        : 32px;
+@btn-height-large       : 40px;
+@btn-height-small       : 24px;
+
+@btn-padding-base       : 5px @padding-md - 1px 6px;
+@btn-padding-large      : 6px @padding-md - 1px;
+@btn-padding-small      : 1px @padding-xs - 1px 2px;
+
 @btn-font-weight        : normal;
-@btn-padding-base       : 5px 15px 6px;
-@btn-padding-large      : 6px 15px 6px 15px;
-@btn-padding-small      : 1px 7px 2px;
 @btn-padding-base-icon  : 5px 15px 6px;
 @btn-padding-large-icon : 6px 15px 6px 15px;
 @btn-padding-small-icon : 1px 7px 2px;
-@btn-font-size          : 12px;
-@btn-font-size-large    : 14px;
+@btn-font-size          : @font-size-base;
+@btn-font-size-large    : @font-size-large;
+@btn-font-size-small    : @font-size-base;
 @btn-border-radius      : 4px;
 @btn-border-radius-small: 3px;
 @btn-group-border       : shade(@primary-color, 5%);
@@ -107,9 +113,13 @@
 @btn-ghost-bg           : #fff;
 @btn-ghost-border       : @border-color-base;
 
-@btn-circle-size        : 32px;
-@btn-circle-size-large  : 36px;
-@btn-circle-size-small  : 24px;
+@btn-circle-size        : @btn-height-base;
+@btn-circle-size-large  : @btn-height-large - 4px;
+@btn-circle-size-small  : @btn-height-small;
+
+@btn-square-size        : @btn-height-base;
+@btn-square-size-large  : @btn-height-large;
+@btn-square-size-small  : @btn-height-small;
 
 // Layout and Grid
 @grid-columns                : 24;

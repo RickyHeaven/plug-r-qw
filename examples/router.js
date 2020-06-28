@@ -49,6 +49,11 @@ export default new Router({
       path: '/btTablePage',
       name: 'btTablePage',
       component: ()=>import('./components/btTablePageEX.vue')
+    },
+    {
+      path: '/wellCard',
+      name: 'wellCard',
+      component: ()=>import('./components/wellCardEX.vue')
     }
   ]
 })

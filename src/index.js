@@ -1,5 +1,6 @@
 import Hello from "./components/hello.vue"
 import btTablePage from "./components/btTablePage/btTablePage.vue"
+import wellCard from "./components/wellCard/wellCard.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -15,7 +16,8 @@ import {
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
   HelloR: Hello,
-  btTablePage: btTablePage
+  btTablePage: btTablePage,
+  wellCard: wellCard,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
