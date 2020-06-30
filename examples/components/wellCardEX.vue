@@ -24,9 +24,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .examplePageL{
-    padding-top: 40px;
-  }
-</style>

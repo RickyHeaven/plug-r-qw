@@ -9,7 +9,7 @@
       <div class="menuBox">
         <h3>目录</h3>
         <ol class="menuList">
-          <li v-for="(item,index) of menu" :key="'menu'+index">
+          <li v-for="(item,index) of routeArr" :key="'menu'+index">
             <span style="margin-right: 8px">{{index+1}}.</span><router-link class="rLinkN" :to="item.path">{{item.name}}</router-link>
           </li>
         </ol>
@@ -23,38 +23,13 @@
 
   export default {
     name: 'home',
-    data() {
-      return {
-        menu: [
-          {
-            name: '$swal',
-            path: '/swal'
-          },
-          {
-            name: 'messageBox',
-            path: '/messageBox'
-          },
-          {
-            name: '$fetch',
-            path: '/fetch'
-          },
-          {
-            name: 'fullScreenImgPreview',
-            path: '/fullScreenImgPreview'
-          },
-          {
-            name: 'fullScreenImgByDom',
-            path: '/fullScreenImgByDom'
-          },
-          {
-            name: 'btTablePage',
-            path: '/btTablePage'
-          },
-          {
-            name: 'wellCard',
-            path: '/wellCard'
+    computed:{
+      routeArr(){
+        return this.$router.options.routes.filter(e=>{
+          if(e.name&&e.name!=='login'&&e.name!=='index'){
+            return e
           }
-        ]
+        })
       }
     }
   }

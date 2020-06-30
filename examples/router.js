@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: '/swal',
-      name: 'swal',
+      name: '$swal',
       component: ()=>import('./components/swalEX.vue')
     },
     {
@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '/fetch',
-      name: 'fetch',
+      name: '$fetch',
       component: ()=>import('./components/fetchEX.vue')
     },
     {
@@ -54,6 +54,11 @@ export default new Router({
       path: '/wellCard',
       name: 'wellCard',
       component: ()=>import('./components/wellCardEX.vue')
+    },
+    {
+      path: '/tableTree',
+      name: 'tableTree',
+      component: ()=>import('./components/tableTreeEX.vue')
     }
   ]
 })

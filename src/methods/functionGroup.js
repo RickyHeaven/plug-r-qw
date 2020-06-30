@@ -16,6 +16,7 @@ export function toLine(name) {
   return name.replace(/([A-Z])/g, "_$1")
     .toLowerCase();
 }
+
 /**
  * 去掉对象属性前后空格
  */
@@ -55,7 +56,8 @@ export function clearObj(val, ignoreList) {
       }
     })
     return val
-  } else if (myTypeof(val) === 'Object') {
+  }
+  else if (myTypeof(val) === 'Object') {
     for (let key in val) {
       if (val.hasOwnProperty(key)) {
         let go = true
@@ -82,7 +84,8 @@ export function clearObj(val, ignoreList) {
       }
     }
     return val
-  } else {
+  }
+  else {
     return val
   }
 }
@@ -259,14 +262,17 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
             if (condition(item)) {
               if (pathKey && item[pathKey]) {
                 temp.push(item[pathKey])
-              } else {
+              }
+              else {
                 temp.push(key)
               }
               return temp
-            } else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
+            }
+            else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
               if (pathKey && item[pathKey]) {
                 temp.push(item[pathKey])
-              } else {
+              }
+              else {
                 temp.push(key)
               }
               let rr = findPath({
@@ -282,20 +288,24 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
             }
           }
         }
-      } else if (_.isArray(group)) {
+      }
+      else if (_.isArray(group)) {
         for (let item of group) {
           let temp = _.cloneDeep(path)
           if (condition(item)) {
             if (pathKey && item[pathKey]) {
               temp.push(item[pathKey])
-            } else {
+            }
+            else {
               temp.push(group.indexOf(item))
             }
             return temp
-          } else if (item[childKey] && item[childKey].length > 0) {
+          }
+          else if (item[childKey] && item[childKey].length > 0) {
             if (pathKey && item[pathKey]) {
               temp.push(item[pathKey])
-            } else {
+            }
+            else {
               temp.push(group.indexOf(item))
             }
             let rr = findPath({
@@ -311,7 +321,8 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
           }
         }
       }
-    } else {
+    }
+    else {
       if (_.isPlainObject(group)) {
         for (let key in group) {
           if (group.hasOwnProperty(key)) {
@@ -320,7 +331,8 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
             if (item === condition) {
               temp.push(key)
               return temp
-            } else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
+            }
+            else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
               temp.push(key)
               let rr = findPath({
                 group: item[childKey],
@@ -335,13 +347,15 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
             }
           }
         }
-      } else if (_.isArray(group)) {
+      }
+      else if (_.isArray(group)) {
         for (let item of group) {
           let temp = _.cloneDeep(path)
           if (item === condition) {
             temp.push(group.indexOf(item))
             return temp
-          } else if (item[childKey] && item[childKey].length > 0) {
+          }
+          else if (item[childKey] && item[childKey].length > 0) {
             temp.push(group.indexOf(item))
             let rr = findPath({
               group: item[childKey],
@@ -378,7 +392,8 @@ export function decimalDigitsLimit(val, num = 2) {
   if (expStr.test(valStr)) {
     return Number(valStr
       .replace(expStr, '$1'))
-  } else {
+  }
+  else {
     return val
   }
 }
@@ -409,7 +424,8 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
     setTimeout(() => {
       body.removeChild(form)
     }, 8000)
-  } else {
+  }
+  else {
     console.error('请求数据格式有误，无法下载文件')
   }
 }
@@ -486,7 +502,8 @@ export function getStringWidth(str, fontSize = 12) {
     const width = nodesH.clientWidth
     document.body.removeChild(nodesH)
     return width
-  } else {
+  }
+  else {
     return 0
   }
 }
@@ -500,14 +517,16 @@ export function isEmptyValue(data) {
       }
     }
     return true
-  } else if (_.isArray(data)) {
+  }
+  else if (_.isArray(data)) {
     for (let item of data) {
       if (isValidValue(item)) {
         return false
       }
     }
     return true
-  } else {
+  }
+  else {
     return !isValidValue(data)
   }
 }
@@ -515,11 +534,43 @@ export function isEmptyValue(data) {
 /*获取字符串长度，中文2，其他1（一般用于用户输入长度限制）*/
 export function stringLength(str) {
   if (myTypeof(str) === 'String') {
-    return str.replace(/[^\x00-\xff]/g,"01").length
-  }else if(myTypeof(str) === 'Number'){
-    str+=''
-    return str.replace(/[^\x00-\xff]/g,"01").length
-  }else {
+    return str.replace(/[^\x00-\xff]/g, "01").length
+  }
+  else if (myTypeof(str) === 'Number') {
+    str += ''
+    return str.replace(/[^\x00-\xff]/g, "01").length
+  }
+  else {
     return 0
   }
 }
+
+/**
+ * 按条件设置集合中指定字段的值
+ * @param {Array} group 目标集合
+ * @param {Function} condition 匹配条件
+ * @param {String} key 要设置的字段键名
+ * @param val 要设置的字段的值
+ * @param {String} childKey 子集键名
+ */
+export function setValByOption({group, condition, key, val, childKey = 'children'}) {
+  if (myTypeof(group) !== 'Array' || myTypeof(condition) !== 'Function' || myTypeof(key) !== 'String' ||
+    myTypeof(childKey) !== 'String') {
+    return false
+  }
+  group.forEach(item => {
+    if (condition(item)) {
+      item[key] = val
+    }
+    if (myTypeof(item[childKey]) === 'Array' && item[childKey].length > 0) {
+      setValByOption({
+        group: item[childKey],
+        condition,
+        key,
+        val,
+        childKey
+      })
+    }
+  })
+}
+
