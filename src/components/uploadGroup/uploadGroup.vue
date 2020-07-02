@@ -54,7 +54,7 @@
         class="customFileList"
         v-show="previewType === 'localList'&& fileList.length>0"
     >
-      <p class="customFileListItem" v-for="(item,index) of fileList" :key="'manualItem'+index">
+      <p class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList" :key="'manualItem'+index">
         <Icon :type="getFileTypeIconByName(item.name)"/>
         <span class="upNameT" @click="downloadManualFile(item)" title="点击下载">{{item.name}}</span>
         <span class="btBoxJ">
@@ -67,7 +67,7 @@
         class="customFileList"
         v-show="previewType === 'list' && fileDefaultList.length>0"
     >
-      <p class="customFileListItem" v-for="(item,index) of fileDefaultList" :key="'defaultItem'+index">
+      <p class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList" :key="'defaultItem'+index">
         <Icon :type="getFileTypeIconByName(item.name)"/>
         <span class="upNameT" @click="downloadDefaultFile(item)" title="点击下载">{{item.name||'文件'+(index+1)}}</span>
         <span class="btBoxJ">
@@ -372,16 +372,25 @@
         }
       },
       listExpand(file) {//列表图片预览
-        getFileSrc(file)
-          .then(r => {
-            if (isImgByFile(file.type)) {
-              //图片的 base64 格式, 可以直接当成 img 的 src 属性值
-              fullScreenImgByDom(r)
-            }
-            else {
-              $swal('提示', '文件不是图片，不可预览', 'info')
-            }
-          })
+        if(this.manualUpload){
+          getFileSrc(file)
+            .then(r => {
+              if (isImgByFile(file.type)) {
+                //图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                fullScreenImgByDom(r)
+              }
+              else {
+                $swal('提示', '文件不是图片，不可预览', 'info')
+              }
+            })
+        }else if (file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id) {
+          if(isImgByFile(file.mimeType)){
+            fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download')
+          }
+          else {
+            $swal('提示', '文件不是图片，不可预览', 'info')
+          }
+        }
       },
       downloadManualFile(file) {
         getFileSrc(file)
