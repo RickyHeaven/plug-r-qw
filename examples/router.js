@@ -59,6 +59,11 @@ export default new Router({
       path: '/tableTree',
       name: 'tableTree',
       component: ()=>import('./components/tableTreeEX.vue')
+    },
+    {
+      path: '/uploadGroup',
+      name: 'uploadGroup',
+      component: ()=>import('./components/uploadGroupEX.vue')
     }
   ]
 })
