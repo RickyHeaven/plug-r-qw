@@ -81,8 +81,9 @@
 
 <script>
   import {
-    getFileSrc, getFileTypeByName, isImgByFile, getFileTypeIconByName, downloadFileReaderFile
+    myTypeof,getFileSrc, getFileTypeByName, isImgByFile, getFileTypeIconByName, downloadFileReaderFile
   } from '../../methods/functionGroup.js'
+  import $fetch from '../../methods/fetch.js'
   import fullScreenImgByDom from '../../methods/fullScreenImgByDom.js'
   import $swal from '../../windowMethods/swal.js'
 
@@ -247,7 +248,7 @@
       },
       fileIdList: {
         get() {
-          switch (this.myTypeof(this.fileIdListProp)) {
+          switch (myTypeof(this.fileIdListProp)) {
             case 'Number':
               return [this.fileIdListProp]
             case 'String':
@@ -259,7 +260,7 @@
               }
             case 'Array':
               return this.fileIdListProp.filter(e => e !== '--')
-            case 'file':
+            case 'File':
               return [this.fileIdListProp]
             default:
               return []
@@ -314,7 +315,7 @@
             for (let item of after) {
               if (item.name === undefined) {
                 if (item.response && item.response.data && item.response.data[0] && item.response.data[0].id) {
-                  this.$fetch.get(this.url + '/' + item.response.data[0].id)
+                  $fetch.get(this.url + '/' + item.response.data[0].id)
                     .then(r => {
                       let itemT = _.cloneDeep(item)
                       itemT.name =
@@ -445,7 +446,7 @@
         let type = file && file.response && file.response.data && file.response.data[0] &&
           file.response.data[0].mimeType
         if (id) {
-          if (this.myTypeof(type) === 'String' && type.indexOf('image') > -1) {
+          if (myTypeof(type) === 'String' && type.indexOf('image') > -1) {
             fullScreenImgByDom(this.url + '/' + id + '/download')
           }
           else {
