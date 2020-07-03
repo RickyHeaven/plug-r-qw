@@ -1,5 +1,5 @@
 # plug-r-qw
-plug-in developed when I was in qw
+plug-in lib developed when I was in qw
 
 ### 注意：
 * 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，推荐使用*cnpm*或淘宝镜像，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
