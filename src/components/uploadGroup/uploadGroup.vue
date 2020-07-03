@@ -26,7 +26,7 @@
           :class="{disabledR:length > 0 && fileList.length >= length||Boolean(disabled)}"
       >选择文件</Button>
     </Upload>
-    <div class="previewBox" v-show="previewType === 'img' && fileIdList.length>0">
+    <div class="previewBoxM" v-show="previewType === 'img' && fileIdList.length>0">
       <div class="previewImg" v-if="!manualUpload && item !== null" v-for="item of fileIdList" :key="item">
         <img :src="url+'/'+item+'/download'" :alt="item">
         <div class="deleteModal">
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="previewBox" v-show="previewType === 'localImg' && fileSrcList.length>0">
+    <div class="previewBoxM" v-show="previewType === 'localImg' && fileSrcList.length>0">
       <div
           class="previewImg" v-if="manualUpload && item !== null" v-for="(item,index) of fileSrcList"
           :key="'manualImg'+index"
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div
-        class="customFileList"
+        class="customFileListM"
         v-show="previewType === 'localList'&& fileList.length>0"
     >
       <p class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList" :key="'manualItem'+index">
@@ -64,7 +64,7 @@
       </p>
     </div>
     <div
-        class="customFileList"
+        class="customFileListM"
         v-show="previewType === 'list' && fileDefaultList.length>0"
     >
       <p class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList" :key="'defaultItem'+index">
@@ -182,6 +182,7 @@
     data() {
       return {
         getFileTypeIconByName: getFileTypeIconByName,
+        fullScreenImgByDom: fullScreenImgByDom,
         fileSrcList: [],
         fileDefaultList: []
       }

@@ -2,7 +2,7 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="flexColumnBox wellCard">
+  <div class="flexColumnBox wellCardR">
     <div class="panelHeader notGrow">
       <div class="fl" style="font-weight: bold">{{title}}</div>
       <slot name="bts"/>

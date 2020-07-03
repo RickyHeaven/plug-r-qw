@@ -64,6 +64,11 @@ export default new Router({
       path: '/uploadGroup',
       name: 'uploadGroup',
       component: ()=>import('./components/uploadGroupEX.vue')
+    },
+    {
+      path: '/tableSetting',
+      name: 'tableSetting',
+      component: ()=>import('./components/tableSettingEX.vue')
     }
   ]
 })

@@ -4,6 +4,7 @@
  */
 import axios from 'axios'
 import messageBox from './messageBox.js'
+import _ from 'lodash'
 
 const host = window.location.origin
 
@@ -237,14 +238,14 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
         data_ = data
       }
       else {
-        if (window._.isArray(data)) {
+        if (_.isArray(data)) {
           data_ = []
         }
         else {
           data_ = {}
         }
-        if (data && (!window._.isEmpty(data))) {
-          if (window._.isArray(data)) {
+        if (data && (!_.isEmpty(data))) {
+          if (_.isArray(data)) {
             for (let item of data) {
               if (item || item === 0 || item === false || item === '') {
                 data_.push(item)

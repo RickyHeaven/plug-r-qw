@@ -50,7 +50,9 @@
 </template>
 
 <script>
-  import {toLine, oneOf} from '../../methods/functionGroup.js'
+  import {toLine, oneOf, tooltipManual} from '../../methods/functionGroup.js'
+  import $fetch from '../../methods/fetch.js'
+  import _ from 'lodash'
 
   export default {
     name: "btTablePage",
@@ -206,7 +208,7 @@
     data() {
       return {
         dataT: this.data,
-        searchDataT: window._.cloneDeep(this.searchData),
+        searchDataT: _.cloneDeep(this.searchData),
         pageSizeT: this.pageSize,
         current: 1,
         total: 0,
@@ -266,7 +268,7 @@
           temp.forEach(item => {
             if (item.key && item.render === undefined) {
               if (item.tooltip) {
-                item.render = this.tooltipManual(item.key, true)
+                item.render = tooltipManual(item.key, true)
               }
               else {
                 item.render = (h, params) => {
@@ -291,13 +293,13 @@
       this.firstGetHeight()
       if (window.onresize) {
         let temp = window.onresize
-        window.onresize = window._.debounce(() => {
+        window.onresize = _.debounce(() => {
           temp()
           this.handleResize()
         })
       }
       else {
-        window.onresize = window._.debounce(this.handleResize)
+        window.onresize = _.debounce(this.handleResize)
       }
     },
     watch: {
@@ -306,7 +308,7 @@
           for (let key in after) {
             if (after.hasOwnProperty(key)) {
               if (this.searchDataT[key] === undefined || after[key] !== this.searchDataT[key]) {
-                this.searchDataT = window._.cloneDeep(after)
+                this.searchDataT = _.cloneDeep(after)
                 this.current = 1
                 this.getDataAndClickRow()
                 break
@@ -341,17 +343,17 @@
         }
       },
       addRow(row) {
-        this.dataT.unshift(window._.cloneDeep(row))
+        this.dataT.unshift(_.cloneDeep(row))
         setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
       setRowData(row, setCurrentRow, clickCurrentRow) { /*更新行数据（公开）*/
         let index = null
-        if (window._.isBoolean(setCurrentRow) && setCurrentRow) {
+        if (_.isBoolean(setCurrentRow) && setCurrentRow) {
           index = this.currentRowIndex
         }
-        else if (window._.isNumber(setCurrentRow)) {
+        else if (_.isNumber(setCurrentRow)) {
           index = setCurrentRow
         }
         if (index !== null) {
@@ -430,7 +432,7 @@
       onSelectAll(selection) {
         if (!this.radio) {
           this.selectedIds = []
-          this.selected = window._.cloneDeep(selection)
+          this.selected = _.cloneDeep(selection)
           for (let item of selection) {
             this.selectedIds.push(item.id)
           }
@@ -456,7 +458,7 @@
         }
       },
       getSelected() {/*获取已选行数据*/
-        return window._.cloneDeep(this.selected)
+        return _.cloneDeep(this.selected)
       },
       onRowClick(row, index) {
         if (row.id === this.currentRowId) {
@@ -501,7 +503,7 @@
             this.key = orderKey
           }
           if (this.url && this.url !== '') {
-            this.$fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
+            $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
               .then(r => {
                 this.clearPage()
                 if (r.data || r.data === null) {
