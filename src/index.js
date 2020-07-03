@@ -4,6 +4,7 @@ import wellCard from "./components/wellCard/wellCard.vue"
 import tableTree from "./components/tableTree/tableTree.vue"
 import uploadGroup from "./components/uploadGroup/uploadGroup.vue"
 import tableSetting from "./components/tableSetting/tableSetting.vue"
+import inputMap from "./components/inputMap/inputMap.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -24,6 +25,7 @@ const components = {
   tableTree,
   uploadGroup,
   tableSetting,
+  inputMap,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/

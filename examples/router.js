@@ -69,6 +69,11 @@ export default new Router({
       path: '/tableSetting',
       name: 'tableSetting',
       component: ()=>import('./components/tableSettingEX.vue')
+    },
+    {
+      path: '/inputMap',
+      name: 'inputMap',
+      component: ()=>import('./components/inputMapEX.vue')
     }
   ]
 })
