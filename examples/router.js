@@ -79,6 +79,11 @@ export default new Router({
       path: '/tableIconBtn',
       name: 'tableIconBtn',
       component: ()=>import('./components/tableIconBtnEX.vue')
+    },
+    {
+      path: '/showHidePanel',
+      name: 'showHidePanel',
+      component: ()=>import('./components/showHidePanelEX.vue')
     }
   ]
 })
