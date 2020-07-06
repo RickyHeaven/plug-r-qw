@@ -24,8 +24,8 @@ import {myTypeof} from './functionGroup.js'
  *                    })
  */
 export default function messageBox({height, width = 416, title, content, onOk, onOkPromise, okText, cancelText, noWarnIcon, footerAlign, cancelBt}) {
-  let heightTemp = height && Number(height) - 90 > 40 ? Number(height) - 90 + 'px' : 0
-  let heightT = heightTemp || '40px'
+  let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
+  let heightT = heightTemp || '100px'
   let stringContent = myTypeof(content) === 'String'
   Modal.warning({
     width: width,
@@ -70,19 +70,13 @@ export default function messageBox({height, width = 416, title, content, onOk, o
           }, [
             h('Icon', {
               props: {
-                type: 'md-warning',
-                size: 40,
-                color: '#669'
+                type: 'ios-alert-outline',
+                size: 60,
+                color: '#f8bb86'
               },
               class: stringContent && (noWarnIcon !== true) ? '' : 'hide'
             }),
-            h('div', {
-              style: {
-                display: stringContent ? 'inline-block' : 'block',
-                position: stringContent ? 'relative' : 'unset',
-                top: stringContent ? '-8px' : 'unset'
-              }
-            }, content)
+            h('div', {class:'msgBoxConO'},content)
           ]),
           h('div', {
             class: 'footerN',

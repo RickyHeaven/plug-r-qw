@@ -10,6 +10,7 @@ import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
+import $swalConfirm from "./methods/swalConfirm.js"
 import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
@@ -63,6 +64,7 @@ const methodsR = {
   stringLength,
   decimalDigitsLimit,
   downloadFileByFormSubmit,
+  $swalConfirm,
   setValByOption
 }
 

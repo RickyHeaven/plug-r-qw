@@ -7,7 +7,8 @@ import swal from "sweetalert"
 import {myTypeof} from '../methods/functionGroup.js'
 
 /**
- * @param option object/string object:{title:'标题',content(or text):'内容，可以为空',type(or icon):'success(or error or warning)'}---string:'标题'
+ * @param option object/string object:{title:'标题',content(or text):'内容，可以为空',type(or icon):'success(or error or
+ *   warning)'}---string:'标题'
  * @param text string 当option为object时不传此变量，当option为string时该变量为'内容'
  * @param icon string 当option为object时不传此变量，当option为string时该变量为弹出框类型'success'or'error'or'warning'
  */
@@ -25,7 +26,8 @@ export default function (option, text, icon) {
         option.className = option.className || 'swalBoxX'
         if (option.button === false) {
           //不设置button相关参数
-        } else {
+        }
+        else {
           if (option.buttons && myTypeof(option.buttons) === 'Object') {
             if (option.buttons.cancel) {
               option.buttons.cancel.text && (cancelTxt = option.buttons.cancel.text) && (cancelVisible = true)
@@ -33,7 +35,8 @@ export default function (option, text, icon) {
               option.buttons.confirm.text && (okTxt = option.buttons.confirm.text)
               option.buttons.confirm.className && (okClass = option.buttons.confirm.className)
             }
-          } else if (option.buttons && myTypeof(option.buttons) === 'Array') {
+          }
+          else if (option.buttons && myTypeof(option.buttons) === 'Array') {
             if (option.buttons[0]) {
               if (option.buttons[0] !== true) {
                 cancelTxt = option.buttons[0]
