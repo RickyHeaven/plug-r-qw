@@ -74,6 +74,11 @@ export default new Router({
       path: '/inputMap',
       name: 'inputMap',
       component: ()=>import('./components/inputMapEX.vue')
+    },
+    {
+      path: '/tableIconBtn',
+      name: 'tableIconBtn',
+      component: ()=>import('./components/tableIconBtnEX.vue')
     }
   ]
 })

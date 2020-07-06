@@ -5,6 +5,7 @@ import tableTree from "./components/tableTree/tableTree.vue"
 import uploadGroup from "./components/uploadGroup/uploadGroup.vue"
 import tableSetting from "./components/tableSetting/tableSetting.vue"
 import inputMap from "./components/inputMap/inputMap.vue"
+import tableIconBtn from "./components/tableIconBtn/tableIconBtn.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -27,6 +28,7 @@ const components = {
   uploadGroup,
   tableSetting,
   inputMap,
+  tableIconBtn,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -102,6 +104,33 @@ const install = function (Vue, opts = {}) {
         })
       }
     })
+  }
+  
+  console.log()
+  
+  if (Vue.directive('has') === undefined) {
+    /**权限指令**/
+    Vue.directive("has", {
+      bind: function (el, binding) {
+        if (binding.value && (!Vue.prototype.$_has(binding.value))) {
+          el.style.display = 'none'
+        }
+      }
+    })
+    
+    /*权限检查方法*/
+    Vue.prototype.$_has = function (value) {
+      let isExist = false
+      let btnPermissions = sessionStorage.getItem("btnPermissions")
+      if (btnPermissions === undefined || btnPermissions === null) {
+        return false
+      }
+      let buttonPerms = btnPermissions.split(',')
+      if (buttonPerms.indexOf(value) > -1) {
+        isExist = true
+      }
+      return isExist
+    }
   }
 }
 
