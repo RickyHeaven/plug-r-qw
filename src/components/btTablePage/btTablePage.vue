@@ -519,6 +519,7 @@
                     this.dataT = r.data || []
                   }
                   this.total = r.data.page && r.data.page.total || r.data.total || r.total || 0
+                  this.$emit('on-data-change')
                   resolve(r)
                 }
                 else {

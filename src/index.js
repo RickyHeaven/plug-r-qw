@@ -6,6 +6,7 @@ import uploadGroup from "./components/uploadGroup/uploadGroup.vue"
 import tableSetting from "./components/tableSetting/tableSetting.vue"
 import inputMap from "./components/inputMap/inputMap.vue"
 import tableIconBtn from "./components/tableIconBtn/tableIconBtn.vue"
+import iconTxtBtn from "./components/iconTxtBtn/iconTxtBtn.vue"
 import showHidePanel from "./components/showHidePanel/showHidePanel.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
@@ -30,6 +31,7 @@ const components = {
   tableSetting,
   inputMap,
   tableIconBtn,
+  iconTxtBtn,
   showHidePanel,
 }
 

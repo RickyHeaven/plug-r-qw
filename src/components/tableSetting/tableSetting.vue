@@ -1,8 +1,8 @@
 <template>
   <div class="tabSetF">
-    <div class="tabSetBt">
+    <div class="tabSetBt" @click="labelClick">
       <Icon type="md-settings" size="17"/>
-      <span style="cursor: pointer" @click="labelClick">列表显示设置</span>
+      <span>列表显示设置</span>
     </div>
     <div class="tabSetCard" v-show="show" :style="{top:top,right:right,width:width,backgroundColor:bg}">
       <div class="topCheck">

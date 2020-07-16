@@ -48,19 +48,17 @@ export default function (option, text, icon) {
             }
           }
           option.buttons = {
-            cancel: {
-              text: cancelTxt,
-              value: null,
-              visible: cancelVisible,
-              className: cancelClass,
-              closeModal: true,
-            },
             confirm: {
               text: okTxt,
               value: true,
               visible: true,
-              className: okClass,
-              closeModal: true
+              className: okClass
+            },
+            cancel: {
+              text: cancelTxt,
+              value: null,
+              visible: cancelVisible,
+              className: cancelClass
             }
           }
         }

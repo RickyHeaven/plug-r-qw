@@ -102,14 +102,19 @@ img {
   .swal-footer {
     text-align: center;
 
-    .swalCancelBt {
-
+    .swalCancelBt,
+    .swalConfirmBt{
+      box-shadow: none;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 25px;
     }
 
     .swalConfirmBt {
       background-color: @primary;
       color: #fff;
-      box-shadow: none;
 
       &:not([disabled]):hover {
         opacity: @hoverOpacity;

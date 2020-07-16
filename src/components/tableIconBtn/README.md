@@ -4,7 +4,7 @@
 ### 属性
 * icon: 字符串，组件的图标，view-design的icon，如：
 ```angular2html
-<inputMap icon="ios-cart"/>
+<tableIconBtn icon="ios-cart"/>
 ```
 
 * title: 字符串，按钮提示信息
