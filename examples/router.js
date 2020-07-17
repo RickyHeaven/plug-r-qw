@@ -89,6 +89,11 @@ export default new Router({
       path: '/showHidePanel',
       name: 'showHidePanel',
       component: ()=>import('./components/showHidePanelEX.vue')
+    },
+    {
+      path: '/selectInput',
+      name: 'selectInput',
+      component: ()=>import('./components/selectInputEX.vue')
     }
   ]
 })
