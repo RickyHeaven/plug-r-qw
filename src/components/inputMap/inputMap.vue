@@ -139,7 +139,8 @@
         if (this.$refs[this.vidT] && this.$refs[this.vidT].clientHeight < 10 || (!this.$refs[this.vidT])) {
           setTimeout(this.checkHeight, 100)
         } else {
-          setTimeout(this.initMap, 10)
+          /*高德地图实例初始化较慢，暂时延时1秒，后面寻找完美解决方案*/
+          setTimeout(this.initMap, 1000)
         }
       },
       initMap() {
