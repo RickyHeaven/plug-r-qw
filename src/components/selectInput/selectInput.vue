@@ -4,7 +4,10 @@
 <template>
   <div>
     <Select v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer>
-      <Option v-for="(item,index) in selectOption" :value="item.val" :key="'selectInputOp'+item.value+index" :style="{textAlign: labelTextAlign}">{{
+      <Option
+          v-for="(item,index) in selectOption" :value="item.val" :key="'selectInputOp'+item.value+index"
+          :style="{textAlign: labelTextAlign}"
+      >{{
         item.label }}</Option>
     </Select>
     <Input
@@ -39,10 +42,10 @@
           return 160
         }
       },
-      labelTextAlign:{
+      labelTextAlign: {
         /*select内容对齐方式*/
-        type:String,
-        default(){
+        type: String,
+        default() {
           return 'right'
         }
       },
@@ -88,8 +91,10 @@
         set(val) {
           let temp = {
             key: val,
-            beforeKey: this.selectVal,
             val: this.inputVal
+          }
+          if (this.selectVal && this.selectVal !== val) {
+            temp.beforeKey = this.selectVal
           }
           this.$emit('subVal', temp)
           this.$emit('on-change', temp)
@@ -109,7 +114,10 @@
         }
       },
       labelSelectStyle() {
-        return {width: this.labelWidth + 'px',textAlign:this.labelTextAlign}
+        return {
+          width: this.labelWidth + 'px',
+          textAlign: this.labelTextAlign
+        }
       },
       inputStyle() {
         return {width: this.itemWidth + 'px'}
