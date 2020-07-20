@@ -4,7 +4,7 @@
 <template>
   <div>
     <Select
-        v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer @on-change="selectChange"
+        v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer
     >
       <Option
           v-for="(item,index) in selectOption" :value="item.val" :key="'selectInputOp'+item.value+index"
@@ -95,12 +95,13 @@
         set(val) {
           let temp = {
             key: val,
-            val: this.inputVal
+            val: null
           }
           if (this.selectVal && this.selectVal !== val) {
             temp.beforeKey = this.selectVal
           }
           this.$emit('subVal', temp)
+          this.$emit('on-change', temp)
         }
       },
       inputVal: {
@@ -126,12 +127,6 @@
       }
     },
     methods: {
-      selectChange(val) {
-        this.$emit('on-change', {
-          key: val,
-          val: this.inputVal
-        })
-      },
       inputChange(e) {
         if (e && e.target && e.target.value !== undefined) {
           this.handleChange({
