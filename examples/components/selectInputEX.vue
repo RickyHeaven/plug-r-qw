@@ -1,7 +1,7 @@
 <template>
   <div class="examplePageL vh100">
     <toHome/>
-    <selectInput v-model="value" :selectOption="selectOption"/>
+    <selectInput v-model="value" :selectOption="selectOption" @on-change="handleChange"/>
     <p class="outJ">组件key： <span>{{value.key}}</span> </p>
     <p class="outJ">组件val： <span>{{value.val}}</span></p>
     <p class="outJ">组件beforeKey： <span>{{value.beforeKey}}</span></p>
@@ -27,6 +27,11 @@
             val: 'id'
           }
         ]
+      }
+    },
+    methods:{
+      handleChange(val){
+        console.log(val)
       }
     }
   }

@@ -3,7 +3,9 @@
 
 <template>
   <div>
-    <Select v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer>
+    <Select
+        v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer @on-change="selectChange"
+    >
       <Option
           v-for="(item,index) in selectOption" :value="item.val" :key="'selectInputOp'+item.value+index"
           :style="{textAlign: labelTextAlign}"
@@ -12,12 +14,14 @@
     </Select>
     <Input
         v-model="inputVal" :placeholder="placeholder" :style="inputStyle" :clearable="clearable"
-        :disabled="Boolean(disabled)"
+        :disabled="Boolean(disabled)" @on-change="inputChange"
     />
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
+
   export default {
     name: "selectInput",
     model: {
@@ -97,7 +101,6 @@
             temp.beforeKey = this.selectVal
           }
           this.$emit('subVal', temp)
-          this.$emit('on-change', temp)
         }
       },
       inputVal: {
@@ -110,7 +113,6 @@
             val: val
           }
           this.$emit('subVal', temp)
-          this.$emit('on-change', temp)
         }
       },
       labelSelectStyle() {
@@ -122,6 +124,25 @@
       inputStyle() {
         return {width: this.itemWidth + 'px'}
       }
+    },
+    methods: {
+      selectChange(val) {
+        this.$emit('on-change', {
+          key: val,
+          val: this.inputVal
+        })
+      },
+      inputChange(e) {
+        if (e && e.target && e.target.value !== undefined) {
+          this.handleChange({
+            key: this.selectVal,
+            val: e.target.value
+          }, this)
+        }
+      },
+      handleChange: _.debounce((data, root) => {
+        root.$emit('on-change', data)
+      }, 1000)
     }
   }
 </script>
