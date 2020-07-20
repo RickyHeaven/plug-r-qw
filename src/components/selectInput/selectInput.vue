@@ -142,7 +142,7 @@
       },
       handleChange: _.debounce((data, root) => {
         root.$emit('on-change', data)
-      }, 1000)
+      }, 500)
     }
   }
 </script>
