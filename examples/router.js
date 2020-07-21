@@ -99,6 +99,11 @@ export default new Router({
       path: '/orgCascader',
       name: 'orgCascader',
       component: ()=>import('./components/orgCascaderEX.vue')
+    },
+    {
+      path: '/editor',
+      name: 'editor',
+      component: ()=>import('./components/editorEX.vue')
     }
   ]
 })

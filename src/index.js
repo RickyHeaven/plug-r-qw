@@ -10,6 +10,7 @@ import iconTxtBtn from "./components/iconTxtBtn/iconTxtBtn.vue"
 import showHidePanel from "./components/showHidePanel/showHidePanel.vue"
 import selectInput from "./components/selectInput/selectInput.vue"
 import orgCascader from "./components/orgCascader/orgCascader.vue"
+import editor from "./components/editor/editor.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -37,6 +38,7 @@ const components = {
   showHidePanel,
   selectInput,
   orgCascader,
+  editor,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
