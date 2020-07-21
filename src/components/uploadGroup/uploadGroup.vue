@@ -54,7 +54,10 @@
         class="customFileListM"
         v-show="previewType === 'localList'&& fileList.length>0"
     >
-      <p class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList" :key="'manualItem'+index">
+      <p
+          class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList"
+          :key="'manualItem'+index"
+      >
         <Icon :type="getFileTypeIconByName(item.name)"/>
         <span class="upNameT" @click="downloadManualFile(item)" title="点击下载">{{item.name}}</span>
         <span class="btBoxJ">
@@ -67,7 +70,10 @@
         class="customFileListM"
         v-show="previewType === 'list' && fileDefaultList.length>0"
     >
-      <p class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList" :key="'defaultItem'+index">
+      <p
+          class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList"
+          :key="'defaultItem'+index"
+      >
         <Icon :type="getFileTypeIconByName(item.name)"/>
         <span class="upNameT" @click="downloadDefaultFile(item)" title="点击下载">{{item.name||'文件'+(index+1)}}</span>
         <span class="btBoxJ">
@@ -81,7 +87,7 @@
 
 <script>
   import {
-    myTypeof,getFileSrc, getFileTypeByName, isImgByFile, getFileTypeIconByName, downloadFileReaderFile
+    myTypeof, getFileSrc, getFileTypeByName, isImgByFile, getFileTypeIconByName, downloadFileReaderFile
   } from '../../methods/functionGroup.js'
   import $fetch from '../../methods/fetch.js'
   import fullScreenImgByDom from '../../methods/fullScreenImgByDom.js'
@@ -109,7 +115,10 @@
         /*文件上传的地址*/
         type: String,
         default() {
-          return window.g.mgrURL + '/fsc/file'
+          if (window.g && window.g.mgrURL) {
+            return window.g.mgrURL + '/fsc/file'
+          }
+          return ''
         }
       },
       data: {
@@ -374,7 +383,7 @@
         }
       },
       listExpand(file) {//列表图片预览
-        if(this.manualUpload){
+        if (this.manualUpload) {
           getFileSrc(file)
             .then(r => {
               if (isImgByFile(file.type)) {
@@ -385,8 +394,9 @@
                 $swal('提示', '文件不是图片，不可预览', 'info')
               }
             })
-        }else if (file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id) {
-          if(isImgByFile(file.mimeType)){
+        }
+        else if (file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id) {
+          if (isImgByFile(file.mimeType)) {
             fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download')
           }
           else {

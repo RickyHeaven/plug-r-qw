@@ -1,4 +1,5 @@
 import _ from 'lodash'
+
 //判断变量类型
 export function myTypeof(v) {
   let str = Object.prototype.toString.call(v)
@@ -468,7 +469,8 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
           width: '100%'
         },
         props: {
-          content: content
+          content: content,
+          maxWidth: tdWidth
         }
       }, [
         h('span', {

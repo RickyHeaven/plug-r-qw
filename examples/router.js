@@ -94,6 +94,11 @@ export default new Router({
       path: '/selectInput',
       name: 'selectInput',
       component: ()=>import('./components/selectInputEX.vue')
+    },
+    {
+      path: '/orgCascader',
+      name: 'orgCascader',
+      component: ()=>import('./components/orgCascaderEX.vue')
     }
   ]
 })
