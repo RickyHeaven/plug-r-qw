@@ -5,7 +5,7 @@
       <wellCard title="3级（level:2)常用">
         <div class="boxInnerSC">
           行政区域：
-          <alCascaderMC v-model="value" class="alAK"/>
+          <alCascaderMC v-model="value" class="alAK" @on-name-change="handleChange"/>
           <p class="msgD">组件值： {{value}}</p>
         </div>
       </wellCard>
@@ -65,6 +65,11 @@
           '解放碑街道'
         ],
         value5: 500112000000,
+      }
+    },
+    methods:{
+      handleChange(data){
+        console.log('name change',data)
       }
     }
   }

@@ -159,11 +159,14 @@
               })
                 .join(this.separator)
             }
+            if (code) {
+              if(code === this.value){
+                return
+              }
+              this.$emit('subVal', code)
+            }
             if (name) {
               this.$emit('on-name-change', name)
-            }
-            if (code) {
-              this.$emit('subVal', code)
             }
           }
         }
