@@ -4,7 +4,7 @@
     <div class="eBoxA">
       <editor v-model="value"/>
     </div>
-    <div class="eBoxA">
+    <div class="eBoxA" style="padding-top: 10px">
       <p>组件值： {{value}}</p>
     </div>
   </div>

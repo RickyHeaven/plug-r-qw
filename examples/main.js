@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
-import iviewArea from 'iview-area'
 import './global/iViewTheme.less'
 import _ from "lodash"
 import VueAMap from 'vue-amap'
@@ -17,7 +16,6 @@ import './global/init.js'
 Vue.config.productionTip = false
 
 Vue.use(ViewUI)
-Vue.use(iviewArea)
 Vue.use(VueAMap)
 Vue.use(plugRQw)
 

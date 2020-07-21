@@ -25,12 +25,10 @@
       },
       valueType: {/*绑定的值的类型*/
         type: String,
-        validator: (val) => {
-          return oneOf(val, [
-            'html',
-            'text'
-          ])
-        },
+        validator: val => oneOf(val, [
+          'html',
+          'text'
+        ]),
         default() {
           return 'html'
         }

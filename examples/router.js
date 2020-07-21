@@ -104,6 +104,11 @@ export default new Router({
       path: '/editor',
       name: 'editor',
       component: ()=>import('./components/editorEX.vue')
+    },
+    {
+      path: '/alCascaderMC',
+      name: 'alCascaderMC',
+      component: ()=>import('./components/alCascaderMCEX.vue')
     }
   ]
 })

@@ -11,12 +11,14 @@ import showHidePanel from "./components/showHidePanel/showHidePanel.vue"
 import selectInput from "./components/selectInput/selectInput.vue"
 import orgCascader from "./components/orgCascader/orgCascader.vue"
 import editor from "./components/editor/editor.vue"
+import alCascaderMC from "./components/alCascaderMC/alCascaderMC.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
 import $swalConfirm from "./methods/swalConfirm.js"
+import iviewArea from 'iview-area'
 import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
@@ -39,6 +41,7 @@ const components = {
   selectInput,
   orgCascader,
   editor,
+  alCascaderMC,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -89,6 +92,8 @@ const install = function (Vue, opts = {}) {
   if (install.installed) {
     return
   }
+  
+  Vue.use(iviewArea)
   
   Object.keys(components).forEach(key => {
     Vue.component(key, components[key])
