@@ -1,3 +1,6 @@
+<!--created 2019.10.17-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <div :style="containerStyle" class="containerIKJ">
     <Input

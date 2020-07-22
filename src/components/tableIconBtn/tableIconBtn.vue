@@ -1,3 +1,6 @@
+<!--created 2020.04.14-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <div class="tableBtnsG" :class="{disabled:disabled}" v-has="has" @click="onClick" :title="title">
     <Icon :type="icon" :size="size"></Icon>

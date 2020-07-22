@@ -1,3 +1,6 @@
+<!--created 2020.03.23-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <div class="tabSetF">
     <div class="tabSetBt" @click="labelClick">

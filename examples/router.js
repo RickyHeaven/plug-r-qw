@@ -109,6 +109,11 @@ export default new Router({
       path: '/alCascaderMC',
       name: 'alCascaderMC',
       component: ()=>import('./components/alCascaderMCEX.vue')
+    },
+    {
+      path: '/checkboxTree',
+      name: 'checkboxTree',
+      component: ()=>import('./components/checkboxTreeEX.vue')
     }
   ]
 })
