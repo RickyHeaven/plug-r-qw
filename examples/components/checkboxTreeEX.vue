@@ -2,8 +2,38 @@
   <div class="examplePageL vh100">
     <toHome/>
     <div class="boxKJ">
-      <p>组件值：{{value}}</p>
-      <checkboxTree v-model="value" :data="data"/>
+      <wellCard title="leaf模式(收集选中叶子节点)">
+        <div class="inF">
+          <p>组件值：{{value}}</p>
+          <checkboxTree v-model="value" :data="data" @on-change="handleChange"/>
+        </div>
+      </wellCard>
+    </div>
+    <div class="boxKJ">
+      <wellCard title="收集全部选中节点模式">
+        <div class="inF">
+          <p>组件值：{{value2}}</p>
+          <checkboxTree v-model="value2" :data="data" :leaf="false"/>
+        </div>
+      </wellCard>
+    </div>
+
+    <div class="boxKJ">
+      <wellCard title="leaf模式，节点多字段收集">
+        <div class="inF">
+          <p>组件值：{{value3}}</p>
+          <checkboxTree v-model="value3" :data="data" :collect-val="['id','name']"/>
+        </div>
+      </wellCard>
+    </div>
+
+    <div class="boxKJ">
+      <wellCard title="leaf模式，全部禁用">
+        <div class="inF">
+          <p>组件值：{{value4}}</p>
+          <checkboxTree v-model="value4" :data="data" :disabled="true"/>
+        </div>
+      </wellCard>
     </div>
   </div>
 </template>
@@ -13,8 +43,23 @@
     name: "checkboxTreeEX",
     data() {
       return {
-        value: [112],
-        data:[
+        value: [
+          111,
+          112
+        ],
+        value2: [
+          11,
+          111,
+          112
+        ],
+        value3: [
+          {
+            id: 112,
+            name: 'leaf 1-1-2'
+          }
+        ],
+        value4: [112],
+        data: [
           {
             name: 'parent 1',
             id: 1,
@@ -53,12 +98,24 @@
           }
         ]
       }
+    },
+    methods: {
+      handleChange(val) {
+        console.log(val)
+      }
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .boxKJ {
-    padding: 20px 0 0 20px;
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+
+    .inF {
+      padding: 10px 0 0 10px;
+    }
   }
 </style>

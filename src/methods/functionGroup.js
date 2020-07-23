@@ -470,7 +470,7 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
         },
         props: {
           content: content,
-          maxWidth: tdWidth
+          maxWidth: tdWidth * 2
         }
       }, [
         h('span', {

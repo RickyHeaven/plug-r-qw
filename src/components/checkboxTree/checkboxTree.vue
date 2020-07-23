@@ -6,6 +6,7 @@
 </template>
 <script>
   import {myTypeof} from "../../methods/functionGroup"
+  import _ from 'lodash'
 
   export default {
     name: "checkboxTree",
@@ -15,22 +16,63 @@
     },
     props: {
       value: {
+        /*选中的节点的集合（内容依据collectVal中的字段）*/
         type: Array,
         default() {
           return []
         }
       },
       data: {
+        /*树结构数据*/
         type: Array,
         default() {
           return []
         }
       },
       expandAll: {
+        /*是否默认全部展开*/
         type: Boolean,
-        default() {
-          return false
+        default: false
+      },
+      label: {
+        /*节点的标签*/
+        type: String,
+        default: 'name'
+      },
+      collectVal: {
+        /*v-model收集节点的哪些字段*/
+        type: [
+          String,
+          Array
+        ],
+        default: 'id'
+      },
+      leaf: {
+        /*叶子节点模式，v-model只返回叶子节点数据，任何选择操作都会选择叶子节点*/
+        type: Boolean,
+        default: true
+      },
+      disabled: {
+        /*禁用整颗树的checkbox选择功能*/
+        type: Boolean,
+        default: false
+      }
+    },
+    computed: {
+      collectValT() {
+        if (myTypeof(this.collectVal) === 'Array') {
+          return this.collectVal
         }
+        if (myTypeof(this.collectVal) === 'String') {
+          return [this.collectVal]
+        }
+        return []
+      },
+      valueT() {
+        if (myTypeof(this.value) === 'Array') {
+          return this.value
+        }
+        return []
       }
     },
     watch: {
@@ -46,16 +88,23 @@
     },
     methods: {
       initData(data, root = []) {
-        let value = []
-        if (myTypeof(this.value) === 'Array') {
-          value = this.value
-        }
         for (let item of data) {
+          let checked = false
+          if (this.collectValT.length > 1) {
+            /*valueT的元素为Object*/
+            checked = _.find(this.valueT, e => e[this.collectValT[0]] === item[this.collectValT[0]]) !== undefined
+          }
+          else {
+            checked = this.valueT.indexOf(item[this.collectValT[0]]) !== -1
+          }
           let temp = {
-            name: item.name,
-            id: item.id,
+            name: item[this.label],
             expand: Boolean(this.expandAll || item.expand),
-            checked: value.indexOf(item.id) !== -1
+            checked: checked,
+            disableCheckbox: this.disabled
+          }
+          for (let keyI of this.collectValT) {
+            temp[keyI] = item[keyI]
           }
           root.push(temp)
           if (item.children && item.children.length > 0) {
@@ -65,16 +114,23 @@
         }
       },
       initDataB(data, root = []) {
-        let value = []
-        if (myTypeof(this.value) === 'Array') {
-          value = this.value
-        }
         for (let item of data) {
+          let checked = false
+          if (this.collectValT.length > 1) {
+            /*valueT的元素为Object*/
+            checked = _.find(this.valueT, e => e[this.collectValT[0]] === item[this.collectValT[0]]) !== undefined
+          }
+          else {
+            checked = this.valueT.indexOf(item[this.collectValT[0]]) !== -1
+          }
           let temp = {
-            name: item.name,
-            id: item.id,
+            name: item[this.label],
             expand: Boolean(this.expandAll || item.expand),
-            checked: value.indexOf(item.id) !== -1
+            checked: checked,
+            disableCheckbox: this.disabled
+          }
+          for (let keyI of this.collectValT) {
+            temp[keyI] = item[keyI]
           }
           root.push(temp)
           if (item.children && item.children.length > 0) {
@@ -101,12 +157,38 @@
       },
       updateVal(data) {
         let temp = []
-        for (let item of data) {
-          if (!item.children) {
-            temp.push(item.id)
+        if (this.leaf) {
+          for (let item of data) {
+            if (!item.children) {
+              if (myTypeof(this.collectVal) === 'Array') {
+                let valT = {}
+                for (let keyI of this.collectVal) {
+                  valT[keyI] = item[keyI]
+                }
+                temp.push(valT)
+              }
+              else {
+                temp.push(item[this.collectVal])
+              }
+            }
+          }
+        }
+        else {
+          for (let item of data) {
+            if (myTypeof(this.collectVal) === 'Array') {
+              let valT = {}
+              for (let keyI of this.collectVal) {
+                valT[keyI] = item[keyI]
+              }
+              temp.push(valT)
+            }
+            else {
+              temp.push(item[this.collectVal])
+            }
           }
         }
         this.$emit('subVal', temp)
+        this.$emit('on-change', _.cloneDeep(temp))
       }
     }
   }
