@@ -28,9 +28,9 @@
       <well-card title="收集多个字段">
         <template slot="bts">
           <div class="headerBt withIcoL" type="text" ghost size="small" @click="disabled1=!disabled1">
-          <Icon class="bbD" :type="disabled1?'md-unlock':'md-lock'" size="18"/>
-          {{disabled1?'解禁':'禁用'}}
-        </div>
+            <Icon class="bbD" :type="disabled1?'md-unlock':'md-lock'" size="18"/>
+            {{disabled1?'解禁':'禁用'}}
+          </div>
           <div class="headerBt withIcoL" type="text" ghost size="small" @click="value1=[]">
             <Icon class="bbD" type="ios-trash" size="18"/>
             清空

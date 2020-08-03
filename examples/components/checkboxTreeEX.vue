@@ -29,9 +29,15 @@
 
     <div class="boxKJ">
       <wellCard title="leaf模式，全部禁用">
+        <template #bts>
+          <div class="headerBt withIcoL" type="text" ghost size="small" @click="disabled = !disabled">
+            <Icon class="bbD" :type="disabled?'md-unlock':'md-lock'" size="18"/>
+            {{disabled?'解禁':'禁用'}}
+          </div>
+        </template>
         <div class="inF">
           <p>组件值：{{value4}}</p>
-          <checkboxTree v-model="value4" :data="data" :disabled="true"/>
+          <checkboxTree v-model="value4" :data="data" :disabled="disabled"/>
         </div>
       </wellCard>
     </div>
@@ -52,6 +58,7 @@
     name: "checkboxTreeEX",
     data() {
       return {
+        disabled: true,
         value: [
           111,
           112

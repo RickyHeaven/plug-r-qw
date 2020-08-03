@@ -8,7 +8,7 @@
   ></Tree>
 </template>
 <script>
-  import {myTypeof} from "../../methods/functionGroup"
+  import {myTypeof, setValByOption} from "../../methods/functionGroup"
   import _ from 'lodash'
 
   export default {
@@ -68,6 +68,7 @@
     },
     data() {
       return {
+        dataT: [],
         id: 'CKT' + Math.floor(Math.random() * 10000000 + 10000000)
       }
     },
@@ -93,13 +94,27 @@
         handler(after) {
           let temp = []
           this.initData(after, temp)
+          this.dataT = temp
           if (this.inlineLeaf) {
             this.$nextTick(this.changeStyle)
           }
-          this.dataT = temp
         },
         immediate: true,
         deep: true
+      },
+      disabled: {
+        handler(after) {
+          setValByOption({
+            group: this.dataT,
+            condition: e => e.disableCheckbox !== after,
+            key: 'disableCheckbox',
+            val: after
+          })
+          if (this.inlineLeaf) {
+            this.$nextTick(this.changeStyle)
+          }
+        },
+        immediate: true
       }
     },
     methods: {
@@ -184,13 +199,13 @@
         ]);
       },
       changeStyle(data) {
-        if(data){
-          if(data.expand){
+        if (data) {
+          if (data.expand) {
             this.$nextTick(this.changeStyle)
           }
           return
         }
-        let arr = document.querySelectorAll('#'+this.id+' .inlineChildXA')
+        let arr = document.querySelectorAll('#' + this.id + ' .inlineChildXA')
         if (arr.length > 0) {
           for (let item of arr) {
             let parent = item.parentNode
