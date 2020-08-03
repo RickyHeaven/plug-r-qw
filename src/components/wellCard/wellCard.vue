@@ -5,7 +5,9 @@
   <div class="flexColumnBox wellCardR" :style="wellStyle">
     <div class="panelHeader notGrow">
       <div class="fl" style="font-weight: bold">{{title}}</div>
-      <slot name="bts"/>
+      <div class="btsF">
+        <slot name="bts"/>
+      </div>
     </div>
     <div class="growFlexItem relativeBox">
       <div class="fullFlowContent">

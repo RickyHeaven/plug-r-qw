@@ -4,80 +4,72 @@
 .wellCardR {
   height: 100%;
   border: 1px solid @titleBg;
+  border-top: none;
   color: @textColor;
 
   .panelHeader {
     background-color: @titleBg;
     overflow: hidden;
-    padding: 0 10px;
+    padding-left: 10px;
     height: @headerH;
     line-height: @headerH;
     width: 100% !important;
     box-sizing: border-box;
-    .popHeaderBt {
-      color: @textColor;
-      border-radius: 0;
-      font-weight: bold;
-      box-shadow: none !important;
-
-      &:before {
-        content: '';
-        display: inline-block;
-        height: calc(100% + 1px);
-        width: 1px;
-        background-color: #fff;
-        left: 0;
-        top: 0;
-        opacity: 1;
-      }
-    }
-
-
-    .headerBt {
-      border: none;
-      padding: 0 10px 0 20px;
-      box-sizing: border-box;
-      position: relative;
-      top: -1px;
-      color: @textColor;
-      border-radius: 0;
-      font-weight: bold;
+    .btsF{
+      display: inline-block;
+      float: right;
       height: @headerH;
-      line-height: 30px;
-      box-shadow: none !important;
+      line-height: @headerH;
 
-      &:hover {
-        background-color: rgba(228, 228, 228, 0.3);
+      .popHeaderBt {
+        color: @textColor;
+        border-radius: 0;
+        font-weight: bold;
+        box-shadow: none !important;
+
+        &:before {
+          content: '';
+          display: inline-block;
+          height: 100%;
+          width: 1px;
+          background-color: #fff;
+          left: 0;
+          top: 0;
+          opacity: 1;
+        }
       }
 
-      &:before {
-        content: '';
+      .headerBt {
+        border: none;
+        padding: 0 20px 0 20px;
+        box-sizing: border-box;
+        color: @textColor;
+        border-radius: 0;
+        font-weight: bold;
+        height: @headerH;
+        line-height: @headerH;
+        box-shadow: none !important;
+        overflow: hidden;
         display: inline-block;
-        height: calc(100% + 1px);
-        width: 1px;
-        background-color: #fff;
-        left: 0;
-        top: 0;
-        opacity: 1;
-      }
+        border-left: 1px solid #fff;
+        cursor: pointer;
 
-      & + .headerBt {
-        margin-left: 4px;
-      }
+        &:hover {
+          background-color: rgba(228, 228, 228, 0.3);
+        }
 
-      &.withIcoL {
-        padding-left: 16px;
-      }
+        &.withIcoL {
+          padding-left: 16px;
+        }
 
-      > span {
-        position: relative;
-        top: -2px;
-        display: inline-block;
-        height: 27px;
-        line-height: inherit;
+        > span {
+          display: inline-block;
+          height: 27px;
+          line-height: inherit;
 
-        > i {
-          font-size: 14px;
+          > i {
+            font-size: 14px;
+          }
         }
       }
     }

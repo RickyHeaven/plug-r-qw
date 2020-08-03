@@ -1,26 +1,26 @@
 <template>
   <div class="examplePageL vh100">
     <toHome/>
-    <well-card class="upBox" title="本地上传">
+    <well-card class="upBox" height="350px" width="520px" title="本地上传">
       <div class="innerK">
         <p style="margin-bottom: 10px">说明：文件本地上传，组件的值为file对象的集合，需要获取file对象自行处理上传逻辑时使用</p>
         <uploadGroup v-model="fileId" :manual-upload="true"/>
       </div>
     </well-card>
-    <well-card class="upBox" title="本地上传-图片模式">
+    <well-card class="upBox" height="350px" width="520px" title="本地上传-图片模式">
       <div class="innerK">
         <p style="margin-bottom: 10px">说明：上传格式限制为图片时，该模式可预览上传的图片，如果文件列表中有非图片文件，则自动转换为列表模式</p>
         <uploadGroup v-model="fileId2" :manual-upload="true" :show-img="true"/>
       </div>
     </well-card>
-    <well-card class="upBox" title="上传到服务器">
+    <well-card class="upBox" height="350px" width="520px" title="上传到服务器">
       <div class="innerK">
         <p style="margin-bottom: 10px">
           说明：文件直接上传到服务器，因为本组件该模式是定制化开发，接口数据格式限定死了，本例子用的私有地址，只在特定环境有效,如果需要在其他接口数据格式下使用该组件，推荐使用本地模式，然后自己处理上传到服务器的逻辑，或者使用iview的upload组件</p>
         <uploadGroup v-model="fileId3" :url="url"/>
       </div>
     </well-card>
-    <well-card class="upBox" title="上传到服务器-图片模式">
+    <well-card class="upBox" height="350px" width="520px" title="上传到服务器-图片模式">
       <div class="innerK">
         <p style="margin-bottom: 10px">
           说明：上传格式限制为图片时，该模式可预览上传的图片，如果文件列表中有非图片文件，则自动转换为列表模式</p>
@@ -66,8 +66,6 @@
     align-content: space-between;
     .upBox {
       text-align: left;
-      width: 520px;
-      height: 350px;
       margin-bottom: 20px;
       .innerK {
         padding: 20px;

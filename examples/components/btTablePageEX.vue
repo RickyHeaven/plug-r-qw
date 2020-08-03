@@ -7,9 +7,19 @@
           :columns="columns"
           url="testData/btTablePage.json"
           :search-data="searchData"
+          :show-top-row="true"
           @on-row-click="onRowClick"
+          @on-data-change="setTotal"
           sortable="custom"
-      />
+      >
+        <template slot="topMsg">共有：{{total}} 条数据。</template>
+        <template slot="topBtnGroup">
+          <div style="display: inline-block;float: right">
+            <Button class="bbA">导出</Button>
+            <Button class="bbA">新增</Button>
+          </div>
+        </template>
+      </bt-table-page>
     </div>
   </div>
 </template>
@@ -22,6 +32,7 @@
     name: "btTablePageEX",
     data() {
       return {
+        total:0,
         searchData: {},
         data: [],
         columns: [
@@ -100,6 +111,9 @@
       },
       onRowClick(row, index) {
         console.log(row, index)
+      },
+      setTotal(){
+        this.total = this.$refs.btTab.total
       }
     }
   }
@@ -114,5 +128,9 @@
   .tableLK{
     height: calc(100vh - 50px);
     position: relative;
+  }
+
+  .bbA{
+    margin-left: 8px;
   }
 </style>

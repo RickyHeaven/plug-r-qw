@@ -3,7 +3,11 @@
     <toHome/>
     <header class="headerKH"></header>
     <showHidePanel>
-      我是内容
+      <p>我是内容~~~~~</p>
+      <p>我是内容~~~~~</p>
+      <p>我是内容~~~~~</p>
+      <p>我是内容~~~~~</p>
+      <p>我是内容~~~~~</p>
     </showHidePanel>
   </div>
 </template>
