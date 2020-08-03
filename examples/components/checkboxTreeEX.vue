@@ -35,6 +35,15 @@
         </div>
       </wellCard>
     </div>
+
+    <div class="boxKJ long">
+      <wellCard title="leaf模式，行内叶子节点">
+        <div class="inF">
+          <p>组件值：{{value5}}</p>
+          <checkboxTree v-model="value5" :data="data" :inline-leaf="true"/>
+        </div>
+      </wellCard>
+    </div>
   </div>
 </template>
 
@@ -59,6 +68,7 @@
           }
         ],
         value4: [112],
+        value5: [112],
         data: [
           {
             name: 'parent 1',
@@ -113,6 +123,9 @@
     height: 300px;
     display: inline-block;
     margin: 0 10px 10px 0;
+    &.long {
+      width: 600px;
+    }
 
     .inF {
       padding: 10px 0 0 10px;

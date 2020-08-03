@@ -2,7 +2,10 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <Tree class="checkboxTreeGA" :data="dataT" :render="renderContent" @on-check-change="updateVal" show-checkbox></Tree>
+  <Tree
+      :id="id" class="checkboxTreeGA" :data="dataT" :render="renderContent"
+      @on-check-change="updateVal" @on-toggle-expand="changeStyle" show-checkbox
+  ></Tree>
 </template>
 <script>
   import {myTypeof} from "../../methods/functionGroup"
@@ -52,10 +55,20 @@
         type: Boolean,
         default: true
       },
+      inlineLeaf: {
+        /*叶子节点为行内模式，横向排列*/
+        type: Boolean,
+        default: false
+      },
       disabled: {
         /*禁用整颗树的checkbox选择功能*/
         type: Boolean,
         default: false
+      }
+    },
+    data() {
+      return {
+        id: 'CKT' + Math.floor(Math.random() * 10000000 + 10000000)
       }
     },
     computed: {
@@ -80,6 +93,9 @@
         handler(after) {
           let temp = []
           this.initData(after, temp)
+          if (this.inlineLeaf) {
+            this.$nextTick(this.changeStyle)
+          }
           this.dataT = temp
         },
         immediate: true,
@@ -140,13 +156,25 @@
         }
       },
       renderContent(h, {root, node, data}) {
+        let classA = ''
+        let isLeaf = true
+        if (data.children && data.children.length > 0) {
+          for (let ii of data.children) {
+            if (ii.children !== undefined) {
+              isLeaf = false
+              break
+            }
+          }
+          if (isLeaf && this.inlineLeaf) {
+            classA = 'inlineChildXA'
+          }
+        }
         return h('div', {
           style: {
             display: 'inline-block',
             width: '100%'
           },
-          class: data.children && data.children.length > 0 && (data.children[0].children === undefined) ?
-            'inlineChild' : ''
+          class: classA
         }, [
           h('span', {
             style: {
@@ -154,6 +182,39 @@
             }
           }, data.name)
         ]);
+      },
+      changeStyle(data) {
+        if(data){
+          if(data.expand){
+            this.$nextTick(this.changeStyle)
+          }
+          return
+        }
+        let arr = document.querySelectorAll('#'+this.id+' .inlineChildXA')
+        if (arr.length > 0) {
+          for (let item of arr) {
+            let parent = item.parentNode
+            let tt = parent.nextElementSibling
+            if (!tt) {
+              return
+            }
+            if (tt.tagName !== 'BR') {
+              let grandParent = parent.parentNode
+              let br = document.createElement('br')
+              grandParent.insertBefore(br, tt)
+              tt = br.nextElementSibling
+              if (tt.className.indexOf('inlineTreeNodeF') == -1) {
+                tt.setAttribute('class', tt.className + ' inlineTreeNodeF')
+              }
+            }
+            while (tt.nextElementSibling) {
+              tt = tt.nextElementSibling
+              if (tt.className.indexOf('inlineTreeNodeF') == -1) {
+                tt.setAttribute('class', tt.className + ' inlineTreeNodeF')
+              }
+            }
+          }
+        }
       },
       updateVal(data) {
         let temp = []
