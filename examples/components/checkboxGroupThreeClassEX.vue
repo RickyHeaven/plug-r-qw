@@ -1,6 +1,7 @@
 <template>
   <div class="examplePageL vh100">
     <toHome/>
+
     <div class="exBox">
       <well-card title="简单用法">
         <template slot="bts">
@@ -18,7 +19,7 @@
             <p>组件值： {{value}}</p>
           </div>
           <div class="flowAA">
-            <checkboxGroupTwoClass v-model="value" :data="data" :disabled="disabled"/>
+            <checkboxGroupThreeClass :data="data" v-model="value" :disabled="disabled"/>
           </div>
         </div>
       </well-card>
@@ -41,7 +42,7 @@
             <p>组件值： {{value2}}</p>
           </div>
           <div class="flowAA">
-            <checkboxGroupTwoClass v-model="value2" :data="data" :collect-val="['id','name']" :disabled="disabled2"/>
+            <checkboxGroupThreeClass v-model="value2" :data="data" :collect-val="['id','name']" :disabled="disabled2"/>
           </div>
         </div>
       </well-card>
@@ -60,7 +61,7 @@
             <p>组件值： {{value3}}</p>
           </div>
           <div class="flowAA">
-            <checkboxGroupTwoClass v-model="value3" :data="data" :leaf="false"/>
+            <checkboxGroupThreeClass v-model="value3" :data="data" :leaf="false"/>
           </div>
         </div>
       </well-card>
@@ -79,7 +80,7 @@
             <p>组件值： {{value4}}</p>
           </div>
           <div class="flowAA">
-            <checkboxGroupTwoClass v-model="value4" :data="data" :leaf="false" :collect-val="['id','name']"/>
+            <checkboxGroupThreeClass v-model="value4" :data="data" :leaf="false" :collect-val="['id','name']"/>
           </div>
         </div>
       </well-card>
@@ -89,26 +90,34 @@
 
 <script>
   export default {
-    name: "checkboxGroupTwoClassEX",
+    name: "checkboxGroupThreeClassEX",
     data() {
       return {
-        value: [76],
+        data: [],
+        value: [],
         disabled: false,
         disabled2: true,
         value2: [
           {
-            "id": 76,
-            "name": "123"
+            "id": 1590,
+            "name": "列表"
           }
         ],
-        value3: [76],
+        value3: [1,1584,1590],
         value4: [
           {
-            "id": 76,
-            "name": "123"
+            "id": 1,
+            "name": "首页"
+          },
+          {
+            "id": 1584,
+            "name": "首页"
+          },
+          {
+            "id": 1590,
+            "name": "列表"
           }
-        ],
-        data: []
+        ]
       }
     },
     created() {
@@ -116,10 +125,11 @@
     },
     methods: {
       getData() {
-        this.$fetch.get("/testData/checkboxGroupTwoClass33.json")
-          .then(r => {
-            this.data = r
-          })
+        this.$fetch.get('./testData/checkboxGroupThreeClass.json').then(r => {
+          this.value = r && r.value || []
+
+          this.data = r && r.group || []
+        })
       }
     }
   }
@@ -129,7 +139,7 @@
   .exBox {
     display: inline-block;
     width: 920px;
-    height: 534px;
+    height: 680px;
     margin-right: 10px;
     margin-bottom: 10px;
     .headerBt {

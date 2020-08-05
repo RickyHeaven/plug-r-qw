@@ -119,6 +119,11 @@ export default new Router({
       path: '/checkboxGroupTwoClass',
       name: 'checkboxGroupTwoClass',
       component: ()=>import('./components/checkboxGroupTwoClassEX.vue')
+    },
+    {
+      path: '/checkboxGroupThreeClass',
+      name: 'checkboxGroupThreeClass',
+      component: ()=>import('./components/checkboxGroupThreeClassEX.vue')
     }
   ]
 })

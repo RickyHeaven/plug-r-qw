@@ -1,0 +1,71 @@
+@import "../common/size";
+
+.boxLPB {
+  border-left: 1px solid @CKGBorderColor;
+  border-top: 1px solid @CKGBorderColor;
+
+  .borderBoxKa{
+    border-bottom: 1px solid @CKGBorderColor;
+    border-right: 1px solid @CKGBorderColor;
+    padding-left: @CKGContentLeftPadding;
+    box-sizing: border-box;
+  }
+
+  .headerF {
+    height: @headerH;
+    display: flex;
+
+    > div {
+      line-height: @headerH;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .firstT {
+      width: @CKGFistW;
+    }
+
+    .secondT {
+      width: @CKGSecondW;
+    }
+
+    .thirdT {
+      width: calc(~'100% - @{CKGFistW} - @{CKGSecondW}');
+    }
+  }
+
+  .bodyF {
+    display: flex;
+
+    .firstCol {
+      width: @CKGFistW;
+      display: flex;
+      align-items: center;
+    }
+
+    .rightBoxAL{
+      width: calc(~'100% - @{CKGFistW}');
+      .rightBoxInner{
+        display: flex;
+        .secondCol {
+          width: @CKGSecondW;
+          display: flex;
+          align-items: center;
+        }
+
+        .thirdCol {
+          width: calc(~'100% -  @{CKGSecondW}');
+          min-height: @headerH*.7;
+          display: flex;
+          flex-wrap: wrap;
+
+          .thirdItem {
+            padding-right:@CKGItemPadding;
+            line-height: @headerH*.7;
+            min-width: 120px;
+          }
+        }
+      }
+    }
+  }
+}

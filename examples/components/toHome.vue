@@ -10,6 +10,7 @@
 <style lang="scss" scoped>
   .backLink{
     position: fixed;
+    z-index: 1000;
     top: 20px;
     right: 40px;
     color: #46be87;

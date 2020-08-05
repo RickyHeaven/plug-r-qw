@@ -1,17 +1,17 @@
 <template>
   <div class="boxLPA">
     <div class="headerJ">
-      <div class="firstT">{{firstTitle}}</div>
-      <div class="secondT">{{secondTitle}}</div>
+      <div class="firstT borderBoxAS">{{firstTitle}}</div>
+      <div class="secondT borderBoxAS">{{secondTitle}}</div>
     </div>
     <div class="bodyJ" v-for="(item,index) in dataT" :key="'checkboxJ'+index">
-      <div class="firstCol">
+      <div class="firstCol borderBoxAS">
         <Checkbox
             v-model="item.checked" :indeterminate="item.indeterminate" @on-change="checkAll(item,$event)"
             :disabled="disabled"
         >{{item[label]}}</Checkbox>
       </div>
-      <div class="secondCol">
+      <div class="secondCol borderBoxAS">
         <div class="secItem" v-for="(secItem,indexSec) in item.children" :key="'secItem'+indexSec">
           <Checkbox
               v-model="secItem.checked"
@@ -103,8 +103,8 @@
                 if (myTypeof(valTemp[valIndex]) === 'Object') {
                   /*收集多个字段的情况*/
                   let equalI = true
-                  for (let item of this.collectVal) {
-                    if (valTemp[valIndex][item] !== secItem[item]) {
+                  for (let collectKey of this.collectVal) {
+                    if (valTemp[valIndex][collectKey] !== secItem[collectKey]) {
                       /*遍历中当前节点和value的当前遍历元素不等（收集字段对应的值有不等的），判断为当前节点没有被选中，不在判断其他收集字段，跳出循环*/
                       equalI = false
                       break
@@ -127,8 +127,8 @@
                   break
                 }
               }
-              (!secItem.checked) && (secItem.checked = false)
               /*避免checked为Undefined*/
+              (!secItem.checked) && (secItem.checked = false)
             }
           }
           if (checkCount === 0) {
@@ -208,7 +208,7 @@
           this.leafChecked = temp
           if (this.leaf) {
             this.$emit('subVal', temp)
-            this.$emit('on-change',temp)
+            this.$emit('on-change', _.cloneDeep(temp))
           }
           else {
             this.$nextTick(function () {
@@ -218,7 +218,7 @@
         }
         else {
           this.$emit('subVal', temp)
-          this.$emit('on-change',temp)
+          this.$emit('on-change', _.cloneDepp(temp))
         }
       }
     }

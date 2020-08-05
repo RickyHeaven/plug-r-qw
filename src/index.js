@@ -14,6 +14,7 @@ import editor from "./components/editor/editor.vue"
 import alCascaderMC from "./components/alCascaderMC/alCascaderMC.vue"
 import checkboxTree from "./components/checkboxTree/checkboxTree.vue"
 import checkboxGroupTwoClass from "./components/checkboxGroupTwoClass/checkboxGroupTwoClass.vue"
+import checkboxGroupThreeClass from "./components/chechboxGroupThreeClass/checkboxGroupThreeClass.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -46,6 +47,7 @@ const components = {
   alCascaderMC,
   checkboxTree,
   checkboxGroupTwoClass,
+  checkboxGroupThreeClass,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/

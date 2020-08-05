@@ -1,0 +1,266 @@
+[
+  {
+    "id": 1,
+    "name": "系统A",
+    "children": [
+      {
+        "id": 6,
+        "name": "系统A超级管理员",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 9,
+        "name": "two_test",
+        "appId": 1,
+        "appName": "test"
+      },
+      {
+        "id": 13,
+        "name": "系统A测试角色",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 22,
+        "name": "hw-dcc-test",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 27,
+        "name": "gy",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 29,
+        "name": "collector权限",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 34,
+        "name": "系统A超管",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 43,
+        "name": "r_dcc",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 132,
+        "name": "系统A角色",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 150,
+        "name": "游客",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 152,
+        "name": "新系统A权限",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 157,
+        "name": "cat_test_permission1",
+        "appId": 1,
+        "appName": "系统A"
+      },
+      {
+        "id": 158,
+        "name": "copy_role",
+        "appId": 1,
+        "appName": "系统A"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "系统B",
+    "children": [
+      {
+        "id": 10,
+        "name": "afa",
+        "appId": 2,
+        "appName": "系统B"
+      },
+      {
+        "id": 25,
+        "name": "hw-umc-test",
+        "appId": 2,
+        "appName": "系统B"
+      },
+      {
+        "id": 30,
+        "name": "Permissions-权限",
+        "appId": 2,
+        "appName": "系统B"
+      },
+      {
+        "id": 35,
+        "name": "系统B超管",
+        "appId": 2,
+        "appName": "系统B"
+      },
+      {
+        "id": 154,
+        "name": "新系统B",
+        "appId": 2,
+        "appName": "系统B"
+      },
+      {
+        "id": 156,
+        "name": "kyw_测试权限",
+        "appId": 2,
+        "appName": "系统B"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "系统C",
+    "children": [
+      {
+        "id": 7,
+        "name": "系统C超级管理员",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 12,
+        "name": "系统B权限测试wy",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 23,
+        "name": "hw-crm-test",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 28,
+        "name": "zh",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 31,
+        "name": "Revenue-权限",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 36,
+        "name": "系统C超管",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 44,
+        "name": "r_crm",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 76,
+        "name": "123",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 141,
+        "name": "系统C权限",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 151,
+        "name": "系统B权限0108",
+        "appId": 3,
+        "appName": "系统C"
+      },
+      {
+        "id": 159,
+        "name": "新系统C权限",
+        "appId": 3,
+        "appName": "系统C"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "系统D",
+    "children": [
+      {
+        "id": 26,
+        "name": "hw-fsc-test",
+        "appId": 4,
+        "appName": "系统D"
+      },
+      {
+        "id": 32,
+        "name": "DOC-权限",
+        "appId": 4,
+        "appName": "系统D"
+      },
+      {
+        "id": 37,
+        "name": "系统D超管",
+        "appId": 4,
+        "appName": "系统D"
+      },
+      {
+        "id": 42,
+        "name": "测试角色复制",
+        "appId": 4,
+        "appName": "系统D"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "系统E",
+    "children": [
+      {
+        "id": 77,
+        "name": "系统E人员",
+        "appId": 5,
+        "appName": "系统E"
+      },
+      {
+        "id": 128,
+        "name": "aaa",
+        "appId": 5,
+        "appName": "系统E"
+      },
+      {
+        "id": 130,
+        "name": "测权限列表",
+        "appId": 5,
+        "appName": "系统E"
+      },
+      {
+        "id": 131,
+        "name": "系统Eapp管理",
+        "appId": 5,
+        "appName": "系统E"
+      },
+      {
+        "id": 160,
+        "name": "新系统E系统",
+        "appId": 5,
+        "appName": "系统E"
+      }
+    ]
+  }
+]
