@@ -116,7 +116,7 @@
     },
     methods: {
       getData() {
-        this.$fetch.get("/testData/checkboxGroupTwoClass33.json")
+        this.$fetch.get("/testData/checkboxGroupTwoClass1.json")
           .then(r => {
             this.data = r
           })
