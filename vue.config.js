@@ -43,9 +43,9 @@ module.exports = {
           },
           'view-design': {
             root: 'ViewUI',
-            commonjs: 'ViewUI',
-            commonjs2: 'ViewUI',
-            amd: 'ViewUI'
+            commonjs: 'view-design',
+            commonjs2: 'view-design',
+            amd: 'view-design'
           },
           'sweetalert': {
             root: 'swal',
