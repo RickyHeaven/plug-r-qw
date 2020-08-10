@@ -23,19 +23,84 @@ module.exports = {
           libraryExport: 'default'
         },
         externals: {
-          vue: 'Vue',
-          'vue-router': 'VueRouter',
-          vuex: 'Vuex',
-          'view-design': 'ViewUI',
-          'sweetalert': 'swal',
-          'lodash': '_',
-          'axios': 'axios',
-          'echarts': 'echarts',
-          'moment': 'moment',
-          'wangeditor': 'wangEditor',
-          'js-cookie': 'Cookies',
-          'iview-area': 'iviewArea',
-          'vue-amap': 'VueAMap'
+          vue: {
+            root: 'Vue',
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            amd: 'vue'
+          },
+          'vue-router': {
+            root: 'VueRouter',
+            commonjs: 'vue-router',
+            commonjs2: 'vue-router',
+            amd: 'vue-router'
+          },
+          vuex: {
+            root: 'Vuex',
+            commonjs: 'vuex',
+            commonjs2: 'vuex',
+            amd: 'vuex'
+          },
+          'view-design': {
+            root: 'ViewUI',
+            commonjs: 'ViewUI',
+            commonjs2: 'ViewUI',
+            amd: 'ViewUI'
+          },
+          'sweetalert': {
+            root: 'swal',
+            commonjs: 'sweetalert',
+            commonjs2: 'sweetalert',
+            amd: 'sweetalert'
+          },
+          'lodash': {
+            root: '_',
+            commonjs: 'lodash',
+            commonjs2: 'lodash',
+            amd: 'lodash'
+          },
+          'axios': {
+            root: 'axios',
+            commonjs: 'axios',
+            commonjs2: 'axios',
+            amd: 'axios'
+          },
+          'echarts': {
+            root: 'echarts',
+            commonjs: 'echarts',
+            commonjs2: 'echarts',
+            amd: 'echarts'
+          },
+          'moment': {
+            root: 'moment',
+            commonjs: 'moment',
+            commonjs2: 'moment',
+            amd: 'moment'
+          },
+          'wangeditor': {
+            root: 'wangEditor',
+            commonjs: 'wangeditor',
+            commonjs2: 'wangeditor',
+            amd: 'wangeditor'
+          },
+          'js-cookie': {
+            root: 'Cookies',
+            commonjs: 'js-cookie',
+            commonjs2: 'js-cookie',
+            amd: 'js-cookie'
+          },
+          'iview-area': {
+            root: 'iviewArea',
+            commonjs: 'iview-area',
+            commonjs2: 'iview-area',
+            amd: 'iview-area'
+          },
+          'vue-amap': {
+            root: 'VueAMap',
+            commonjs: 'vue-amap',
+            commonjs2: 'vue-amap',
+            amd: 'vue-amap'
+          }
         },
         plugins: [
           new compressionPlugin({
