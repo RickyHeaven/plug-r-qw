@@ -8,11 +8,11 @@
 <script>
   export default {
     name: "fetchEX",
-    methods:{
-      confirmHandle(){
-        this.$fetch.get('testData/fetch.json').then(r=>{
-          if(r&&r.code===0){
-            window.$swal('请求成功','姓名：'+r.data.name+'; 邮箱：'+r.data.email,'success')
+    methods: {
+      confirmHandle() {
+        this.$fetch.get(location.pathname + 'testData/fetch.json').then(r => {
+          if (r && r.code === 0) {
+            window.$swal('请求成功', '姓名：' + r.data.name + '; 邮箱：' + r.data.email, 'success')
           }
         })
       }

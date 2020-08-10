@@ -125,7 +125,7 @@
     },
     methods: {
       getData() {
-        this.$fetch.get('./testData/checkboxGroupThreeClass.json').then(r => {
+        this.$fetch.get(location.pathname + 'testData/checkboxGroupThreeClass.json').then(r => {
           this.value = r && r.value || []
 
           this.data = r && r.group || []
@@ -139,7 +139,7 @@
   .exBox {
     display: inline-block;
     width: 920px;
-    height: 680px;
+    height: 425px;
     margin-right: 10px;
     margin-bottom: 10px;
     .headerBt {

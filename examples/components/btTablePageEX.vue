@@ -5,7 +5,7 @@
       <bt-table-page
           ref="btTab"
           :columns="columns"
-          url="testData/btTablePage.json"
+          :url='url'
           :search-data="searchData"
           :show-top-row="true"
           @on-row-click="onRowClick"
@@ -32,6 +32,7 @@
     name: "btTablePageEX",
     data() {
       return {
+        url:location.pathname + "testData/btTablePage.json",
         total:0,
         searchData: {},
         data: [],

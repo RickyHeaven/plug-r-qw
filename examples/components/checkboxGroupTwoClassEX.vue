@@ -92,20 +92,24 @@
     name: "checkboxGroupTwoClassEX",
     data() {
       return {
-        value: [76],
+        value: [77],
         disabled: false,
         disabled2: true,
         value2: [
           {
-            "id": 76,
-            "name": "123"
+            "id": 77,
+            "name": "系统A人员"
           }
         ],
-        value3: [76],
+        value3: [5,77],
         value4: [
           {
-            "id": 76,
-            "name": "123"
+            "id": 5,
+            "name": "系统A"
+          },
+          {
+            "id": 77,
+            "name": "系统A人员"
           }
         ],
         data: []
@@ -116,7 +120,7 @@
     },
     methods: {
       getData() {
-        this.$fetch.get("/testData/checkboxGroupTwoClass1.json")
+        this.$fetch.get(location.pathname + "testData/checkboxGroupTwoClass.json")
           .then(r => {
             this.data = r
           })
@@ -129,7 +133,7 @@
   .exBox {
     display: inline-block;
     width: 920px;
-    height: 534px;
+    height: 422px;
     margin-right: 10px;
     margin-bottom: 10px;
     .headerBt {

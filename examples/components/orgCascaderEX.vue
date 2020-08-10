@@ -64,7 +64,7 @@
     name: "orgCascaderEX",
     data() {
       return {
-        url:'/testData/orgCascader.json',
+        url: location.pathname + 'testData/orgCascader.json',
         value: null,
         value2: null,
         value3: [
@@ -95,7 +95,7 @@
     margin-bottom: 10px;
     height: 300px;
 
-    .wellInnerK{
+    .wellInnerK {
       padding-top: 10px;
       padding-left: 10px;
     }

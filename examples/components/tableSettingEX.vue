@@ -7,7 +7,7 @@
     <div class="tableLK">
       <bt-table-page
           :columns="columns"
-          url="testData/btTablePage.json"
+          :url="url"
       />
     </div>
   </div>
@@ -16,26 +16,27 @@
 <script>
   export default {
     name: "tableSettingEX",
-    data(){
-      return{
+    data() {
+      return {
+        url: location.pathname + 'testData/btTablePage.json',
         columns: [
           {
             title: "文件名称",
             key: "name",
             align: "center",
             minWidth: 250,
-            showSettingCheck:true
+            showSettingCheck: true
           },
           {
             title: "文件类型",
             key: "mimeType",
-            showSettingCheck:true,
+            showSettingCheck: true,
             align: "center"
           },
           {
             title: "文件大小",
             key: "size",
-            showSettingCheck:true,
+            showSettingCheck: true,
             align: "center"
           },
           {
@@ -57,8 +58,8 @@
             title: '操作',
             width: 240,
             align: "center",
-            showSettingCheck:true,
-            disableShowSetting:true,
+            showSettingCheck: true,
+            disableShowSetting: true,
             render: (h, params) => {
               return h("div", [
                 h("Button", {
@@ -88,22 +89,23 @@
 
 <style lang="scss" scoped>
   @import "../global/variables";
+
   .exBox {
     height: 100vh;
     padding: 50px 20px 20px 20px;
   }
 
-  .tableLK{
+  .tableLK {
     height: calc(100vh - 50px - #{$headerH});
     position: relative;
   }
 
-  .headBR{
+  .headBR {
     height: $headerH;
     line-height: $headerH;
     background-color: $headerBg;
 
-    &:after{
+    &:after {
       content: "";
       display: block;
       clear: both;
