@@ -1,5 +1,5 @@
-## checkboxGroupTwoClass
-二级复选框组，支持v-model，可自定义label和v-model收集字段，可定义v-model只收集叶子节点数据或全部选中的节点数据，全局UI组件，直接用
+## checkboxGroupThreeClass
+三级复选框组，支持v-model，可自定义label和v-model收集字段，可定义v-model只收集叶子节点数据或全部选中的节点数据，全局UI组件，直接用
 
 ### 属性
 * value: 数组，选中节点数据组成的数组（默认只收集叶子节点），推荐使用v-model绑定
@@ -13,11 +13,23 @@
       children: [
         {
           name: 'child 1-1',
-          id: 11
+          id: 11,
+          children: [
+            {
+              name: 'child 1-1-1',
+              id: 111
+            }
+          ]
         },
         {
           name: 'child 1-2',
-          id: 12
+          id: 12,
+          children: [
+            {
+              name: 'child 1-2-1',
+              id: 121
+            }
+          ]
         }
       ]
     }
@@ -26,6 +38,8 @@
 * firstTitle 字符串，一级标题，默认：`'一级'`
 
 * secondTitle 字符串，二级标题，默认：`'二级'`
+
+* thirdTitle 字符串，三级标题，默认：`'三级'`
 
 * label 字符串，节点的标签，默认：`'name'`
 
@@ -38,4 +52,4 @@
 * on-change 选择的节点发生变化，返回选中的节点数据，默认只返回叶子几点
 ### 注意
 * v-model默认只包含叶子节点数据（默认id）
-* data数据必须完整（二级结构不能缺少第二级）
+* data 数据结构必须完整，三级结构每一级都不能少
