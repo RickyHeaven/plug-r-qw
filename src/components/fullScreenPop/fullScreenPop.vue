@@ -21,7 +21,7 @@
 
   export default {
     name: "fullScreenPop",
-    components: ['headerBt'],
+    components: {headerBt},
     props: {
       title: {
         type: String,
