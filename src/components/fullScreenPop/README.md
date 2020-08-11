@@ -6,7 +6,7 @@
 
 * headerColor: 字符串，header文字颜色，默认继承父元素
 
-* headerBg: 字符串，header背景颜色，默认主题色`@primary`减淡60%
+* headerBg: 字符串，header背景颜色，默认：`@titleBg`
 
 * headerFontSize: 数字/字符串，header字体大小，默认：`12`
 ### 事件
