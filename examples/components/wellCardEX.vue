@@ -3,11 +3,9 @@
     <toHome/>
     <wellCard title="模块A">
       <template #bts>
-        <div class="headerBt" type="text" @click="handleClick" size="small" ghost>按钮A</div>
-        <div class="headerBt" type="text" @click="handleClick" size="small" ghost>按钮B</div>
-        <div class="headerBt withIcoL" type="text" @click="handleClick" size="small" ghost>
-          <icon type="md-add"/>新增
-        </div>
+        <headerBt icon="md-add" @click="handleClick">新增</headerBt>
+        <headerBt>按钮B</headerBt>
+        <headerBt :disabled="true">按钮A</headerBt>
       </template>
       我是内容~~~~~~~~~~
     </wellCard>

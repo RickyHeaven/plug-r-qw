@@ -1,0 +1,34 @@
+@import "../common/color";
+@import "../common/size";
+
+.fullScreenPopBoxAM {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: #fff;
+  padding-top: @headerH;
+  .headerAM {
+    height: @headerH;
+    line-height: @headerH;
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: lighten(@primary, 60%);
+
+    .headerTxtAM {
+      font-weight: bold;
+    }
+    .headerBtAM {
+      float: right;
+    }
+  }
+  .contentAM{
+    overflow: auto;
+  }
+}

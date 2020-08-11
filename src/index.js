@@ -15,6 +15,8 @@ import alCascaderMC from "./components/alCascaderMC/alCascaderMC.vue"
 import checkboxTree from "./components/checkboxTree/checkboxTree.vue"
 import checkboxGroupTwoClass from "./components/checkboxGroupTwoClass/checkboxGroupTwoClass.vue"
 import checkboxGroupThreeClass from "./components/chechboxGroupThreeClass/checkboxGroupThreeClass.vue"
+import fullScreenPop from "./components/fullScreenPop/fullScreenPop.vue"
+import headerBt from "./components/headerBt/headerBt.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -48,6 +50,8 @@ const components = {
   checkboxTree,
   checkboxGroupTwoClass,
   checkboxGroupThreeClass,
+  fullScreenPop,
+  headerBt,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/

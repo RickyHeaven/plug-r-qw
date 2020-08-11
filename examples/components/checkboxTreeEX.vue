@@ -30,10 +30,8 @@
     <div class="boxKJ">
       <wellCard title="leaf模式，全部禁用">
         <template #bts>
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="disabled = !disabled">
-            <Icon class="bbD" :type="disabled?'md-unlock':'md-lock'" size="18"/>
-            {{disabled?'解禁':'禁用'}}
-          </div>
+          <headerBt :icon="disabled?'md-unlock':'md-lock'" @click="disabled = !disabled">{{disabled?'解禁':'禁用'}}
+          </headerBt>
         </template>
         <div class="inF">
           <p>组件值：{{value4}}</p>

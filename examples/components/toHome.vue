@@ -1,20 +1,30 @@
 <template>
-  <router-link to="/index" class="backLink"><Icon type="md-rewind" /> 返回</router-link>
+  <router-link to="/index" :style="{color:color}" class="backLink">
+    <Icon type="md-rewind"/>
+    返回
+  </router-link>
 </template>
 
 <script>
   export default {
-    name: "toHome"
+    name: "toHome",
+    props: {
+      color: {
+        type: String,
+        default() {
+          return '#46be87'
+        }
+      }
+    }
   }
 </script>
 <style lang="scss" scoped>
-  .backLink{
+  .backLink {
     position: fixed;
     z-index: 1000;
     top: 20px;
     right: 40px;
-    color: #46be87;
-    &:hover{
+    &:hover {
       opacity: .85;
     }
   }

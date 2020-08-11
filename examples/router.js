@@ -124,6 +124,11 @@ export default new Router({
       path: '/checkboxGroupThreeClass',
       name: 'checkboxGroupThreeClass',
       component: ()=>import('./components/checkboxGroupThreeClassEX.vue')
+    },
+    {
+      path: '/fullScreenPop',
+      name: 'fullScreenPop',
+      component: ()=>import('./components/fullScreenPopEX.vue')
     }
   ]
 })

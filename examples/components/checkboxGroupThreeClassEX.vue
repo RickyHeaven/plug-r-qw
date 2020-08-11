@@ -5,14 +5,10 @@
     <div class="exBox">
       <well-card title="简单用法">
         <template slot="bts">
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="disabled=!disabled">
-            <Icon class="bbD" :type="disabled?'md-unlock':'md-lock'" size="18"/>
+          <headerBt icon="ios-trash" @click="value=[]">清空</headerBt>
+          <headerBt :icon="disabled?'md-unlock':'md-lock'" @click="disabled=!disabled">
             {{disabled?'解禁':'禁用'}}
-          </div>
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="value=[]">
-            <Icon class="bbD" type="ios-trash" size="18"/>
-            清空
-          </div>
+          </headerBt>
         </template>
         <div class="boxJA">
           <div class="topKK">
@@ -28,14 +24,10 @@
     <div class="exBox">
       <well-card title="收集多个字段">
         <template slot="bts">
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="disabled2=!disabled2">
-            <Icon class="bbD" :type="disabled2?'md-unlock':'md-lock'" size="18"/>
+          <headerBt icon="ios-trash" @click="value2=[]">清空</headerBt>
+          <headerBt :icon="disabled2?'md-unlock':'md-lock'" @click="disabled2=!disabled2">
             {{disabled2?'解禁':'禁用'}}
-          </div>
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="value2=[]">
-            <Icon class="bbD" type="ios-trash" size="18"/>
-            清空
-          </div>
+          </headerBt>
         </template>
         <div class="boxJA">
           <div class="topKK">
@@ -51,10 +43,7 @@
     <div class="exBox">
       <well-card title="全部收集模式">
         <template slot="bts">
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="value3=[]">
-            <Icon class="bbD" type="ios-trash" size="18"/>
-            清空
-          </div>
+          <headerBt icon="ios-trash" @click="value3=[]">清空</headerBt>
         </template>
         <div class="boxJA">
           <div class="topKK">
@@ -70,10 +59,7 @@
     <div class="exBox">
       <well-card title="全部收集模式-多字段收集">
         <template slot="bts">
-          <div class="headerBt withIcoL" type="text" ghost size="small" @click="value4=[]">
-            <Icon class="bbD" type="ios-trash" size="18"/>
-            清空
-          </div>
+          <headerBt icon="ios-trash" @click="value4=[]">清空</headerBt>
         </template>
         <div class="boxJA">
           <div class="topKK">
