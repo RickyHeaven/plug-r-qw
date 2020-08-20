@@ -5,8 +5,10 @@
   "main": "/lib/plugRQw.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "example": "npm run start-node-js-server && npm run serve",
     "build": "vue-cli-service build",
-    "lib": "vue-cli-service build --target lib --name plugRQw --dest lib src/index.js && gulp"
+    "lib": "vue-cli-service build --target lib --name plugRQw --dest lib src/index.js && gulp",
+    "node-serve": "node node-serve/index.js"
   },
   "repository": {
     "type": "git",
@@ -66,6 +68,7 @@
     "view-design": "^4.3.2",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10",
+    "vue-json-viewer": "^2.2.14",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
     "wangeditor": "^3.1.1"

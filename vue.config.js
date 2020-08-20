@@ -3,7 +3,16 @@ const compressionPlugin = require("compression-webpack-plugin")
 module.exports = {
   devServer: {
     open: true,
-    host: 'local.qwgas.com'
+    host: 'local.qwgas.com',
+    proxy: {
+      '/node-serve': {
+        target: 'http://localhost:7890/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/node-serve': ''
+        }
+      }
+    }
   },
   
   publicPath: './',
@@ -100,6 +109,12 @@ module.exports = {
             commonjs: 'vue-amap',
             commonjs2: 'vue-amap',
             amd: 'vue-amap'
+          },
+          'vue-json-viewer': {
+            root: 'JsonView',
+            commonjs: 'vue-json-viewer',
+            commonjs2: 'vue-json-viewer',
+            amd: 'vue-json-viewer'
           }
         },
         plugins: [

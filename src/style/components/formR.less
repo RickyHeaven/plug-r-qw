@@ -1,0 +1,88 @@
+@import "../common/color";
+
+.formXN {
+  .inlineFormBtXN {
+    margin-top: 13px;
+    &.okBtnXN {
+      margin-right: 3px;
+      width: 100px;
+    }
+  }
+
+  .inlineFormItemXN {
+    margin-top: 12px;
+    margin-bottom: 0 !important;
+  }
+
+  .ivu-form-item-error {
+    .ivu-radio-inner {
+      border-color: @errorColor;
+    }
+  }
+
+  .ivu-form-item-content {
+    position: unset !important;
+
+    .single-cancel-btn {
+      width: 186px;
+      margin-left: 15px;
+    }
+
+    .ivu-form-item-error-tip {
+      position: relative;
+      display: inline-block;
+      color: @errorColor;
+    }
+
+    .ivu-cascader {
+      display: inline-block;
+    }
+  }
+
+  .ivu-cascader{
+    width: 100%;
+  }
+
+  .formInfoTxtXN {
+    color: @infoBlue;
+    position: absolute;
+    bottom: -10px;
+  }
+
+  .formTitleTxtXN{
+
+  }
+
+  .ivu-form-item.withInfo {
+    padding-bottom: 20px;
+  }
+
+  .ivu-form-item.withTitle {
+    margin-top: 45px;
+    position: relative;
+
+    .titleTxt,
+    .formTitleTxtXN {
+      position: absolute;
+      top: -35px;
+      left: 5px;
+      font-weight: bold;
+      font-size: 14px;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 5px;
+        background-color: #000;
+        height: 13px;
+        position: relative;
+        top: 1px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .noLabel .ivu-form-item-content {
+    margin-left: 0 !important;
+  }
+}

@@ -129,6 +129,11 @@ export default new Router({
       path: '/fullScreenPop',
       name: 'fullScreenPop',
       component: ()=>import('./components/fullScreenPopEX.vue')
+    },
+    {
+      path: '/formR',
+      name: 'formR',
+      component: ()=>import('./components/formREX.vue')
     }
   ]
 })

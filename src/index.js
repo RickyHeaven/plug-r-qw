@@ -17,6 +17,7 @@ import checkboxGroupTwoClass from "./components/checkboxGroupTwoClass/checkboxGr
 import checkboxGroupThreeClass from "./components/chechboxGroupThreeClass/checkboxGroupThreeClass.vue"
 import fullScreenPop from "./components/fullScreenPop/fullScreenPop.vue"
 import headerBt from "./components/headerBt/headerBt.vue"
+import formR from "./components/formR/formR.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -24,6 +25,7 @@ import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
 import $swalConfirm from "./methods/swalConfirm.js"
 import iviewArea from 'iview-area'
+import JsonView from 'vue-json-viewer'
 import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
@@ -52,6 +54,7 @@ const components = {
   checkboxGroupThreeClass,
   fullScreenPop,
   headerBt,
+  formR,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -104,6 +107,7 @@ const install = function (Vue, opts = {}) {
   }
   
   Vue.use(iviewArea)
+  Vue.use(JsonView)
   
   Object.keys(components).forEach(key => {
     Vue.component(key, components[key])
