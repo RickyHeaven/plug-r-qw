@@ -119,7 +119,7 @@
 
 * itemBorder RadioGroup选项是否带边框，默认`false`
 
-* key{#keya} 表单被提交时该项收集的数据所在字段，如：`{type:'input',key:'name'}`,用户输入`'Ricky'`，提交时返回`{name:'Ricky'}`
+* <a name='keya'>key</a> 表单被提交时该项收集的数据所在字段，如：`{type:'input',key:'name'}`,用户输入`'Ricky'`，提交时返回`{name:'Ricky'}`
 
 * key2 除key以外的另一要收集的数据，如时间区间，key为起始，key2为终止，以此类推，如果有三个数据，则有key3等
 
