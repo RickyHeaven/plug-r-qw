@@ -104,9 +104,17 @@
 
 * <a name='data'>data</a> 对象，uploadGroup远程上传时，一并携带的参数（除了文件）
 
-* <a name='dateType'>dateType</a> 字符串，DatePicker的日期格式
+* <a name='dateType'>dateType</a> 字符串，DatePicker的日期格式，可选值：date、daterange、datetime、datetimerange、year、month，
+如：`dateType:'daterange'`，注意：为区间时，需给2个key，如：`key:'start',key2:'end'`
 
-* <a name='dateOptions'>dateOptions</a> 对象，DatePicker选择器额外配置，比如不可选日期与快捷选项
+* <a name='dateOptions'>dateOptions</a> 对象，DatePicker选择器额外配置，比如不可选日期与快捷选项，如：
+```
+dateOptions: {
+  disabledDate(date) {
+    return date && date.valueOf() < Date.now() - 86400000
+  }
+}
+```
 
 * <a name='defaultVal'>defaultVal</a> 表单项的默认值，组件第一次渲染时会带上该值并在UI上回显，不是所有类型都支持该字段，具体见后面的'type说明'
 
