@@ -27,7 +27,7 @@
       <!--数字输入框-->
       <InputNumber
           :style="itemStyle"
-          v-else-if="item.type === 'input'&&item.inputType === 'number'"
+          v-else-if="item.type === 'inputNumber'"
           v-model="tempKeys[item.tempKey]"
           :max="item.max||Infinity"
           :min="item.min||-Infinity"
@@ -44,7 +44,7 @@
       <!--输入框-->
       <Input
           :style="itemStyle"
-          v-else-if="item.type === 'input'&&item.inputType !== 'number'"
+          v-else-if="item.type === 'input'"
           v-model="tempKeys[item.tempKey]"
           :maxlength="item.maxLength||null"
           :placeholder="item.placeholder||'请输入'"

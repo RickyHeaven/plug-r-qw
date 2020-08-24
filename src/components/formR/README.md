@@ -109,11 +109,11 @@
 
 * <a name='dateOptions'>dateOptions</a> 对象，DatePicker选择器额外配置，比如不可选日期与快捷选项，如：
 ```
-dateOptions: {
-  disabledDate(date) {
-    return date && date.valueOf() < Date.now() - 86400000
+  dateOptions: {
+    disabledDate(date) {
+      return date && date.valueOf() < Date.now() - 86400000
+    }
   }
-}
 ```
 
 * <a name='defaultVal'>defaultVal</a> 表单项的默认值，组件第一次渲染时会带上该值并在UI上回显，不是所有类型都支持该字段，具体见后面的'type说明'
@@ -129,8 +129,6 @@ dateOptions: {
 * <a name='format'>format</a> 数组，uploadGroup支持的格式，不限制的话不用设置该字段，如：`['jpg','png']`
 
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
-
-* <a name='inputType'>inputType</a> 字符串，input类型，区分普通input和数字输入框，只在type为input时有效，目前唯一值：`number`
 
 * <a name='itemBorder'>itemBorder</a> 布尔对象，RadioGroup选项是否带边框，默认：`false`
 
@@ -198,7 +196,7 @@ dateOptions: {
 
 * <a name='title'>title</a> 字符串，表单项的标题，位于表单项左上方，样式见示例
 
-* <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、input（inputType === 'number'）、select、selectInput、alCascader、orgCascader、radio、
+* <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、orgCascader、radio、
 radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inputMap、custom
 
 * <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如机构级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
@@ -261,7 +259,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
 
-#### input (inputType==='number') 数字输入框
+#### inputNumber 数字输入框
 * [label](#label) 标签
 
 * [key](#key) 表单项收集的数据在提交时所在字段

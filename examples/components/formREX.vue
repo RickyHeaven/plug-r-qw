@@ -187,8 +187,7 @@
             ]
           },
           {
-            type: 'input',
-            inputType: 'number', /*输出值是数字*/
+            type: 'inputNumber',/*数字输入框，输出值是数字*/
             label: '年龄',
             key: 'age',
             min: 1,
