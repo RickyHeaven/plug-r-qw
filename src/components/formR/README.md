@@ -14,11 +14,11 @@
 ```
 * formRules 对象，表单验证数据，如：
 ```angular2html
-  [
+  {
     name: {
       required: true
     }
-  ]
+  }
 ```
 * showMessage 布尔对象，是否显示校验信息，默认：`true`
 
