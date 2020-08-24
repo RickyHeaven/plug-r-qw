@@ -337,8 +337,7 @@
             type: 'select',
             label: '负责人(借用待选项)',
             key: 'friendC',
-            borrowOption: true, /*借用另外一个组件的待选项*/
-            borrowKey: 'friend'
+            borrowOption: 'friend' /*借用另外一个组件的待选项*/
           },
           {
             type: 'select',

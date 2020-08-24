@@ -743,8 +743,8 @@
                   this.initOption(item.optionUrl, item)
                 }
               }
-              else if (item.borrowOption && item.borrowKey) {/*借用待选项*/
-                item.options = _.find(temp, {key: item.borrowKey}).options
+              else if (myTypeof(item.borrowOption)==='String') {/*借用待选项*/
+                item.options = _.find(temp, {key: item.borrowOption}).options
               }
               
               if (item.type !== 'checkboxGroup') {
