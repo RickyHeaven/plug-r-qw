@@ -96,9 +96,9 @@ export default new Router({
       component: ()=>import('./components/selectInputEX.vue')
     },
     {
-      path: '/orgCascader',
-      name: 'orgCascader',
-      component: ()=>import('./components/orgCascaderEX.vue')
+      path: '/asyncCascader',
+      name: 'asyncCascader',
+      component: ()=>import('./components/asyncCascaderEX.vue')
     },
     {
       path: '/editor',

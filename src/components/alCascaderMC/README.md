@@ -8,7 +8,7 @@
 
 * transfer: 布尔对象，弹出框元素直接放置于body下，默认：`true`
 
-* searchable: 布尔对象，可搜索，默认：`true`
+* filterable: 布尔对象，可搜索，默认：`true`
 
 * placeholder: 字符串，占位符，默认：`'请选择'`
 

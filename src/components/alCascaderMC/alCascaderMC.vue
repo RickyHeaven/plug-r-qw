@@ -10,7 +10,7 @@
       :disabled="disabled"
       :placeholder="placeholder"
       :transfer="transfer"
-      :searchable="searchable"
+      :searchable="filterable"
   />
 </template>
 
@@ -66,7 +66,7 @@
           return true
         }
       },
-      searchable: {
+      filterable: {
         /*可搜索*/
         type: Boolean,
         default() {

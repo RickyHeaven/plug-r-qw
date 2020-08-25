@@ -201,11 +201,11 @@
             level: 2
           },
           {
-            type: 'orgCascader',
+            type: 'asyncCascader',
             label: '机构',
             key: 'orgId',
             key2: 'orgName',
-            url: location.pathname + 'testData/orgCascader.json'
+            url: location.pathname + 'testData/asyncCascader.json'
           },
           {
             type: 'upload', /*上传组件*/

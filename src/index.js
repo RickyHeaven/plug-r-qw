@@ -9,7 +9,7 @@ import tableIconBtn from "./components/tableIconBtn/tableIconBtn.vue"
 import iconTxtBtn from "./components/iconTxtBtn/iconTxtBtn.vue"
 import showHidePanel from "./components/showHidePanel/showHidePanel.vue"
 import selectInput from "./components/selectInput/selectInput.vue"
-import orgCascader from "./components/orgCascader/orgCascader.vue"
+import asyncCascader from "./components/asyncCascader/asyncCascader.vue"
 import editor from "./components/editor/editor.vue"
 import alCascaderMC from "./components/alCascaderMC/alCascaderMC.vue"
 import checkboxTree from "./components/checkboxTree/checkboxTree.vue"
@@ -46,7 +46,7 @@ const components = {
   iconTxtBtn,
   showHidePanel,
   selectInput,
-  orgCascader,
+  asyncCascader,
   editor,
   alCascaderMC,
   checkboxTree,

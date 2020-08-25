@@ -94,18 +94,25 @@
           v-model="valGroup[item.key]"
           :level="(item.level||item.level ===0)?item.level:2"
           :disabled="Boolean(item.disabled) || disabled"
+          :filterable="item.filterable!==false"
           :placeholder="item.placeholder||'请选择'"
           @on-name-change="alNameChange($event,item)"
       />
-      <!--机构级联-->
-      <org-cascader
+      <!--远程数据级联-->
+      <async-cascader
           :style="itemStyle"
-          v-else-if="item.type === 'orgCascader'"
+          v-else-if="item.type === 'asyncCascader'"
           v-model="valGroup[item.key]"
           :url="item.url||mgrUrl + '/umc/orgs'"
+          :option-val="item.optionVal||'id'"
+          :option-label="item.optionLabel||'name'"
           :only-last-val="item.onlyLastVal !== false"
-          :only-last-label="item.onlyLastLabel !== false" :disabled="Boolean(item.disabled) || disabled"
-          @on-name-change="orgNameChange($event,item)"
+          :only-last-label="item.onlyLastLabel !== false"
+          :separator="item.separator || '/'"
+          :placeholder="item.placeholder || '请选择'"
+          :filterable="Boolean(item.filterable)"
+          :disabled="Boolean(item.disabled) || disabled"
+          @on-label-change="asyncLabelChange($event,item)"
       />
       <!--单选（不可取消选择）-->
       <Radio
@@ -1216,11 +1223,11 @@
           })
         }, 1)
       },
-      orgNameChange(name, root) { /*更新机构名称（私有）*/
+      asyncLabelChange(label, root) { /*更新远程数据级联名称（私有）*/
         if (root.key2) {
-          this.$set(this.valGroup, root.key2, name)
+          this.$set(this.valGroup, root.key2, label)
         }
-        this.itemChange(name, root)
+        this.itemChange(label, root)
       },
       onSelectInputChange(data) { /*更新选择输入框值（私有）*/
         if (data.beforeKey) {

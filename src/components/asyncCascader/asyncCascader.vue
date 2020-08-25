@@ -4,7 +4,7 @@
 <template>
   <Cascader
       ref="cascaderRT" :data="data" v-model="val" @on-change="onChange" change-on-select transfer
-      :disabled="disabled" :render-format="format" :placeholder="placeholder"
+      :disabled="disabled" :render-format="format" :placeholder="placeholder" :filterable="filterable"
   ></Cascader>
 </template>
 
@@ -12,10 +12,10 @@
   import {findPath} from '../../methods/functionGroup'
 
   export default {
-    name: "orgCascader",
+    name: "asyncCascader",
     model: {
       prop: 'valProp',
-      event: 'submitVal'
+      event: 'subVal'
     },
     props: {
       url: {
@@ -36,19 +36,25 @@
           String
         ]
       },
+      optionVal: {
+        /*v-model收集节点的哪些字段*/
+        type: String,
+        default:'id'
+      },
+      optionLabel: {
+        /*选项的标签对应接口字段*/
+        type: String,
+        default: 'name'
+      },
       separator: {
         /*选中的label分隔符（多级展示时）,valProp为String（多级）时分隔符*/
         type: String,
-        default() {
-          return '/'
-        }
+        default: '/'
       },
       onlyLastVal: {
         /*只取最后一级*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       onlyLastLabel: {
         /*只显示最后一级*/
@@ -57,17 +63,17 @@
           return true
         }
       },
+      filterable: {
+        type: Boolean,
+        default: false
+      },
       placeholder: {
         type: String,
-        default() {
-          return '请选择'
-        }
+        default: '请选择'
       },
       disabled: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -99,17 +105,18 @@
         set(val) {
           if (this.onlyLastVal) {
             if (window._.isEmpty(val)) {
-              this.$emit('submitVal', null)
+              this.$emit('subVal', null)
+              this.$emit('on-label-change', null)
             }
             else {
-              this.$emit('submitVal', window._.last(val))
+              this.$emit('subVal', window._.last(val))
             }
           }
           else {
-            if(_.isEqual(this.valProp,val)){
+            if (_.isEqual(this.valProp, val)) {
               return
             }
-            this.$emit('submitVal', [].concat(val))
+            this.$emit('subVal', [].concat(val))
           }
         }
       }
@@ -120,7 +127,7 @@
     methods: {
       getData() {
         if (!this.url) {
-          console.error('没有用于拉取机构数据的有效接口地址')
+          console.error('没有用于拉取级联数据的有效接口地址')
           return
         }
         this.$fetch.get(this.url)
@@ -139,20 +146,19 @@
               this.data = this.dataFilter(data)
             }
             else {
-              console.warn('机构数据错误，不能使用')
+              console.warn('级联数据错误，不能使用')
             }
           })
           .catch(() => {
-            console.warn('拉取机构数据出错')
+            console.warn('拉取级联数据出错')
           })
       },
       dataFilter(data) {
         let temp = []
         for (let item of data) {
           let tt = {
-            value: item.id,
-            label: item.name,
-            level: item.level
+            value: item[this.optionVal],
+            label: item[this.optionLabel]
           }
           if (item.children && (!window._.isEmpty(item.children))) {
             tt.children = this.dataFilter(item.children)
@@ -168,14 +174,14 @@
         return labels.join(this.separator)
       },
       onChange(val, selectedDetail) {
-        let name = null
+        let label = null
         if (!window._.isEmpty(selectedDetail)) {
-          name = selectedDetail.map(item => {
+          label = selectedDetail.map(item => {
             return item.label
           })
             .join(this.separator)
         }
-        this.$emit('on-name-change', name)
+        this.$emit('on-label-change', label)
       }
     }
   }

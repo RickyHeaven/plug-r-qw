@@ -6,7 +6,7 @@
         <div class="wellInnerK">
           <span>机构： </span>
           <div class="boxC">
-            <orgCascader v-model="value" :url="url"/>
+            <asyncCascader v-model="value" :url="url"/>
           </div>
           <div class="outBoxS">
             <p>组件值(机构ID)： {{value}}</p>
@@ -19,7 +19,7 @@
         <div class="wellInnerK">
           <span>机构： </span>
           <div class="boxC">
-            <orgCascader v-model="value2" :only-last-label="false" :url="url"/>
+            <asyncCascader v-model="value2" :only-last-label="false" :url="url"/>
           </div>
           <div class="outBoxS">
             <p>组件值(机构ID)： {{value2}}</p>
@@ -32,7 +32,7 @@
         <div class="wellInnerK">
           <span>机构： </span>
           <div class="boxC">
-            <orgCascader v-model="value3" :only-last-val="false" @on-name-change="handleChange" :url="url"/>
+            <asyncCascader v-model="value3" :only-last-val="false" @on-name-change="handleChange" :url="url"/>
           </div>
           <div class="outBoxS">
             <p>组件值(机构ID)： {{value3}}</p>
@@ -46,7 +46,7 @@
           <p>说明：比如高级查询时统一清空查询条件</p>
           <span>机构： </span>
           <div class="boxC">
-            <orgCascader v-model="value4" :url="url"/>
+            <asyncCascader v-model="value4" :url="url"/>
           </div>
           <Button @click="value4=null">清空</Button>
 
@@ -61,10 +61,10 @@
 
 <script>
   export default {
-    name: "orgCascaderEX",
+    name: "asyncCascaderEX",
     data() {
       return {
-        url: location.pathname + 'testData/orgCascader.json',
+        url: location.pathname + 'testData/asyncCascader.json',
         value: null,
         value2: null,
         value3: [

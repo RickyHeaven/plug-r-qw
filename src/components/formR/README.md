@@ -89,13 +89,21 @@
 ### formData元素支持字段说明（按字母升序）
 * <a name='activeChange'>activeChange</a> 布尔对象，InputNumber（数字输入框）是否实时响应数据，设置为`false`时，只会在失焦时更改数据，默认:`true`
 
-* <a name='asyncOption'>asyncOption</a> 布尔对象，带选项的表单项数据来源于接口，需配合[optionUrl](#optionUrl)使用，默认:`false`
+* <a name='addTime'>addTime</a> 布尔对象，DatePicker不选择时间（只选日期）时，但提交时需要带上时间，给该字段赋值`true`,会自动加上`00:00:00`，
+如果是区间，开始时间加`00:00:00`，结束时间加`23:59:59`，默认:`false`
+
+* <a name='asyncOption'>asyncOption</a> 布尔对象，有选项的表单项的待选项数据来源于接口，需配合[optionUrl](#optionUrl)使用，默认:`false`
 
 * <a name='booleanVal'>booleanVal</a> 布尔对象，是否为布尔值，当需要表单项为布尔值时，给该字段赋值`true`，该表单项可接受布尔值，提交时提交布尔值，注意：需要表单项类型支持布尔值
 
 * <a name='borrowOption'>borrowOption</a> 布尔对象，有待选项的表单项，待选项数据来自另一表单项的待选项时（借用），需给该字段赋值另一表单项的key对应的值
 
 * <a name='buttonType'>buttonType</a> 布尔对象，RadioGroup是否为按钮样式，按钮样式即为一排连在一起的按钮，默认：`false`
+
+* <a name='changeOption'>changeOption</a> 布尔对象/对象/数组，有待选项的表单项，待选项数据从接口拉取时，拉取地址会改变，给该字段赋值
+`true`，需要改变时直接改变[optionUrl](#optionUrl)即可；如果地址有的查询条件是另一表单项的值，则给该字段赋值对象，如：`{valKey:'name',key:'user'}`
+表示其中一个查询条件是`&user=name表单项的值`，name表单项值改变，optionUrl就会自动改变，就会重新拉取待选项数据；如果有多个这种条件，用数
+组存放他们，如：`[{valKey...},{...}]`
  
 * <a name='clearable'>clearable</a> 布尔对象，表单项是否可单独清空，当类型支持时才有效，具体见后面的'type说明'，默认：`true`
 
@@ -122,9 +130,14 @@
 
 * <a name='disabled'>disabled</a> 布尔对象，禁用表单项，因为formData非响应式，自然该字段也非响应式，注意：这和组件props中disabled不是同一个
 
+* <a name='disableOptionByOthers'>disableOptionByOthers</a> 字符串/数组，根据其他表单项的值禁用待选项，例如：表单中有一个下拉框的
+key为fruit，目标表单项（如这里的fruit）待选项和当前表单项（设置disableOptionByOthers的表单项）待选项一样，`disableOptionByOthers:'fruit'`
+表示fruit下拉框已选的选项，当前表单项不可再选（选项被禁用），当然目标表单项type不是非得select，逻辑上只要当前表单项待选项的值和目标表单项
+的值相等，待选项就会被禁用；如果有多个条件，用数组存放他们，如：`disableOptionByOthers:['fruit','fruitB']`
+
 * <a name='editable'>editable</a> 布尔对象，InputNumber（数字输入框）是否可编辑，为`false`时,只能通过UI操作，不能通过光标修改
 
-* <a name='filterable'>filterable</a> 布尔对象，Select是否支持筛选待选项
+* <a name='filterable'>filterable</a> 布尔对象，是否支持筛选待选项，有的类型默认为真，有的为假，具体见后面的'type说明'
 
 * <a name='format'>format</a> 数组，uploadGroup支持的格式，不限制的话不用设置该字段，如：`['jpg','png']`
 
@@ -160,15 +173,16 @@
 
 * <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为number类型，需是类似number的字符串才能转，否则收集的值为字符串
 
-* <a name='onlyLastVal'>onlyLastVal</a> 布尔对象，只返回最后一级的值，表单项特殊配置，如机构级联，具体见后面的'type说明'，默认：`true`
+* <a name='onlyLastVal'>onlyLastVal</a> 布尔对象，只返回最后一级的值，表单项特殊配置，如远程数据级联，具体见后面的'type说明'，默认：`true`
 
-* <a name='onlyLastLabel'>onlyLastLabel</a> 布尔对象，只显示最后一级的label，表单项特殊配置，如机构级联，具体见后面的'type说明'，默认：`true`
+* <a name='onlyLastLabel'>onlyLastLabel</a> 布尔对象，只显示最后一级的label，表单项特殊配置，如远程数据级联，具体见后面的'type说明'，默认：`true`
 
 * <a name='options'>options</a> 对象，有待选项的表单项，待选项数据存放在该字段下，[详细说明](#optionsDetail)，如：`{type:'select',key:'sex',options:[{label:'男',val:1},{label:'女',val:0}]}`
 
-* <a name='optionLabel'>optionLabel</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，待选项label对应接口数据的字段名，如：`optionLabel:'name'`
+* <a name='optionLabel'>optionLabel</a> 字符串/数组，有待选项的表单项，待选项数据从接口拉取时，待选项label对应接口数据的字段名，如：
+`optionLabel:'name'`；如果选项标签需要展示多个字段，则用数组存放他们，第一字段直接展示，后面字段括号内展示，括号紧跟第一字段。
 
-* <a name='optionUrl'>optionUrl</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，接口地址放在该字段下，需配合[optionLabel](#optionLabel)、
+* <a name='optionUrl'>optionUrl</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，接口地址放在该字段下，需配合[asyncOption](#asyncOption)、[optionLabel](#optionLabel)、
 [optionVal](#optionVal)使用，注意：请求方式为get，且不可更改
 
 * <a name='optionVal'>optionVal</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，待选项val对应接口数据的字段名，如：`optionVal:'id'`
@@ -179,9 +193,11 @@
 
 * <a name='readonly'>readonly</a> 布尔对象，InputNumber（数字输入框）只读，和disabled效果类似，样式不一样，默认：`false`
 
+* <a name='separator'>separator</a> 字符串，label分隔符，默认：`'/'`
+
 * <a name='show'>show</a> 对象/数组，表单项显示设置，如：`{key:'name',val:['Ricky','Tom']}`，表示只在name为Ricky或Tom时显示该表
-单项；如果有多个条件，用数组装这些条件对象，如：`[{key,val...},{...}]`，它们的关系为且，即所有条件都满足才显示，如果需要条件关系为或，设
-置表单项showOr为true；条件的val字段支持一个特殊值`.`,表示该条件key对应字段只要有有效值既满足，有效值意思是 0 或 false 或转为Boolean结
+单项；如果有多个条件，用数组装这些条件对象，如：`[{key,val...},{...}]`，它们的关系为且，即所有条件都满足才显示，如果需要条件关系为或，给
+表单项[showOr](#showOr)赋值`true`；条件的val字段支持一个特殊值`'.'`,表示该条件key对应字段只要有有效值既满足，有效值意思是 0 或 false 或转为Boolean结
 果为 true
 
 * <a name='showImg'>showImg</a> 布尔对象，uploadGroup是否以图片方式显示已上传的图片文件，默认：`false`
@@ -192,18 +208,18 @@
 
 * <a name='slotName'>slotName</a> 字符串，type为custom的插槽名字，，具体见后面的'type说明'
 
-* <a name='step'>step</a> 数字，InputNumber（数字输入框）的步长，即每次点组件箭头增大或减小的值，可以是小数
+* <a name='step'>step</a> 数字，InputNumber（数字输入框）的步长，即每次点表单项箭头增大或减小的值，可以是小数
 
 * <a name='title'>title</a> 字符串，表单项的标题，位于表单项左上方，样式见示例
 
-* <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、orgCascader、radio、
+* <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、asyncCascader、radio、
 radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inputMap、custom
 
-* <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如机构级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
+* <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如远程数据级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
 
 * <a name='val'>val</a> 表单项值，只有type为txt时有效
 
-* <a name='valKey'>valKey</a> 字符串，表单项值为表单中另外一个组件（兄弟项）收集数据中的一个字段，只有type为txt时有效，具体用法见后面的'type说明'
+* <a name='valKey'>valKey</a> 字符串，表单项值为表单中另外一个表单项（兄弟项）收集数据中的一个字段，只有type为txt时有效，具体用法见后面的'type说明'
 
 * <a name='withCredentials'>withCredentials</a> 布尔对象，uploadGroup远程上传时是否携带cookie，默认：`true`
 
@@ -212,7 +228,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 #### <a name='optionsDetail'>options</a>
 * label 字符串，待选项标签，即用户看到的
 
-* val 字符串/数字/boolean，待选项的值，即需要收集的，注意：若为数字，如果有验证，需要加上`type:'number'`，view-design默认验证类型为string；
+* val 字符串/数字/boolean，待选项的值，即需要收集的，注意：若为数字，如果有验证，验证规则中需要加上`type:'number'`，view-design默认验证类型为string；
 若为boolean，需配合`booleanVal:true`使用
 
 * icon 字符串，待选项的图标，仅checkbox和checkboxGroup支持，view-design的内置图标
@@ -228,13 +244,15 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [val](#val) 值
 
-* [valKey](#valKey) 值为另一个兄弟组件收集的valKey对应的字段，响应式
+* [valKey](#valKey) 值为另一个兄弟表单项收集的valKey对应的字段，响应式
 
 * [likeInput](#likeInput) 值的样式模拟input样式
 
 * [show](#show) 显示条件
 
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
 
 * 注意：也可以不传label和val,单纯用来布局占位；没有key值，提交时不会被带上
 
@@ -258,6 +276,10 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [show](#show) 显示条件
 
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
 
 #### inputNumber 数字输入框
 * [label](#label) 标签
@@ -290,6 +312,10 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
 
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
 #### select 下拉选择框
 * [label](#label) 标签
 
@@ -297,13 +323,56 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal](#defaultVal) 默认值
 
-* [options](#options) 是否可筛选待选项
+* [numberVal](#numberVal) 值转换为number类型
+
+* [options](#options) 待选项
+
+* [borrowOption](#borrowOption) 借用待选项
+
+* [collectLabel](#collectLabel) 收集选项中其他字段（除val外）
 
 * [filterable](#filterable) 是否可筛选待选项
 
 * [multiple](#multiple) 是否可筛选待选项
 
+* [asyncOption](#asyncOption) 待选项数据来源于接口
+
+* [optionUrl](#optionUrl) 待选项数据来源接口地址
+
+* [optionLabel](#optionLabel) 待选项label对应接口数据的字段名
+
+* [optionVal](#optionVal) 待选项val对应接口数据的字段名
+
+* [disableOptionByOthers](#disableOptionByOthers) 根据其他表单项的值禁用待选项
+
+* [changeOption](#changeOption) 待选项数据来源于接口，接口地址是否改变
+
 * [placeholder](#placeholder) 占位符，默认：`'请选择'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+
+* [clearable](#clearable) 表单项是否可单独清空，为true且选择框有值时，光标移动到选择框尾部会有小叉，点击清空，默认：`true`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### selectInput 选择输入框
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段，如果有默认值，默认值会存放在该字段下，该表单项该字段是会随着选择框的值改变的，key改变时表单项值会自动清空
+
+* [defaultVal](#defaultVal) 默认值
+
+* [numberVal](#numberVal) 值转换为number类型
+
+* [options](#options) 待选项
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
 * [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
 
@@ -311,7 +380,67 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [show](#show) 显示条件
 
-* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默：`false`
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### alCascader 行政区域级联
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [level](#level) 行政区域级数，默认：`2`，表示到区县级；0-省级，1-市级，2-区县，3-街道
+
+* [filterable](#filterable) 是否支持筛选待选项，默认：`true`
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### asyncCascader 远程数据级联
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [url](#url) 节点数据接口地址
+
+* [optionVal](#optionVal) 节点val对应接口数据字段
+
+* [optionLabel](#optionLabel) 节点label对应接口数据字段，注意：不同于其他表单项，这里仅支持字符串
+
+* [onlyLastVal](#onlyLastVal) 该字段为`true`时，只返回选中的最后一级的值，否则返回数组，数组包含每一级的值，默认：`true`
+
+* [onlyLastLabel](#onlyLastLabel) 该字段为`true`时，只显示选中的最后一级label，否则显示每一级的label，用分隔符隔开，默认：`true`
+
+* [filterable](#filterable) 是否支持筛选待选项，默认：`false`
+
+* [separator](#separator) 选中的label分隔符，显示全部label时生效，默认：`'/'`
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
 
 
 
