@@ -108,6 +108,11 @@
         data5: [
           {
             type: 'txt',
+            label: '注意',
+            val: '因为该表单有需要请求接口的组件，所以需要在命令窗口运行：npm run node-serve 将该项目配置好的nodeJs服务器启动起来，那些需要请求nodeJs服务器的组件才有数据'
+          },
+          {
+            type: 'txt',
             label: '统计机构',
             val: '前卫表业'
           },
@@ -614,7 +619,7 @@
     }
 
     &.detailUA {
-      height: 2500px;
+      height: 2800px;
       width: 800px;
     }
   }

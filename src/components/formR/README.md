@@ -94,9 +94,10 @@
 
 * <a name='asyncOption'>asyncOption</a> 布尔对象，有选项的表单项的待选项数据来源于接口，需配合[optionUrl](#optionUrl)使用，默认:`false`
 
-* <a name='booleanVal'>booleanVal</a> 布尔对象，是否为布尔值，当需要表单项为布尔值时，给该字段赋值`true`，该表单项可接受布尔值，提交时提交布尔值，注意：需要表单项类型支持布尔值
+* <a name='booleanVal'>booleanVal</a> 布尔对象，是否为布尔值，当需要表单项为布尔值时，给该字段赋值`true`，该表单项可接受布尔值，提交
+时提交布尔值，注意：需要表单项类型支持（目前仅select单选和radioGroup支持），具体见后面的'type'说明，默认：`false`
 
-* <a name='borrowOption'>borrowOption</a> 布尔对象，有待选项的表单项，待选项数据来自另一表单项的待选项时（借用），需给该字段赋值另一表单项的key对应的值
+* <a name='borrowOption'>borrowOption</a> 字符串，有待选项的表单项，待选项数据来自另一表单项的待选项时（借用），需给该字段赋值另一表单项的key对应的值
 
 * <a name='buttonType'>buttonType</a> 布尔对象，RadioGroup是否为按钮样式，按钮样式即为一排连在一起的按钮，默认：`false`
 
@@ -128,14 +129,14 @@
 
 * <a name='defaultVal2'>defaultVal2</a> 另一个默认值，原理同[key2](#key2)，对应的也会有defaultVal3等
 
-* <a name='disabled'>disabled</a> 布尔对象，禁用表单项，因为formData非响应式，自然该字段也非响应式，注意：这和组件props中disabled不是同一个
+* <a name='disabled'>disabled</a> 布尔对象，禁用表单项，因为formData非响应式，自然该字段也非响应式，注意：这和组件props中disabled不是同一个，默认：`false`
 
 * <a name='disableOptionByOthers'>disableOptionByOthers</a> 字符串/数组，根据其他表单项的值禁用待选项，例如：表单中有一个下拉框的
 key为fruit，目标表单项（如这里的fruit）待选项和当前表单项（设置disableOptionByOthers的表单项）待选项一样，`disableOptionByOthers:'fruit'`
 表示fruit下拉框已选的选项，当前表单项不可再选（选项被禁用），当然目标表单项type不是非得select，逻辑上只要当前表单项待选项的值和目标表单项
 的值相等，待选项就会被禁用；如果有多个条件，用数组存放他们，如：`disableOptionByOthers:['fruit','fruitB']`
 
-* <a name='editable'>editable</a> 布尔对象，InputNumber（数字输入框）是否可编辑，为`false`时,只能通过UI操作，不能通过光标修改
+* <a name='editable'>editable</a> 布尔对象，InputNumber（数字输入框）是否可编辑，为`false`时,只能通过UI操作，不能通过光标修改，默认：`true`
 
 * <a name='filterable'>filterable</a> 布尔对象，是否支持筛选待选项，有的类型默认为真，有的为假，具体见后面的'type说明'
 
@@ -169,9 +170,9 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='min'>min</a> 数字，表单项允许最小值，需要类型支持时才生效
 
-* <a name='multiple'>multiple</a> 布尔对象，Select是否支持多选
+* <a name='multiple'>multiple</a> 布尔对象，Select是否支持多选，默认：`false`
 
-* <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为number类型，需是类似number的字符串才能转，否则收集的值为字符串
+* <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为number类型，需是类似number的字符串才能转，否则收集的值为字符串，默认：`false`
 
 * <a name='onlyLastVal'>onlyLastVal</a> 布尔对象，只返回最后一级的值，表单项特殊配置，如远程数据级联，具体见后面的'type说明'，默认：`true`
 
@@ -195,10 +196,9 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='separator'>separator</a> 字符串，label分隔符，默认：`'/'`
 
-* <a name='show'>show</a> 对象/数组，表单项显示设置，如：`{key:'name',val:['Ricky','Tom']}`，表示只在name为Ricky或Tom时显示该表
+* <a name='show'>show</a> 对象/数组，表单项显示设置，[详细说明](#showDetail)如：`{key:'name',val:['Ricky','Tom']}`，表示只在name为Ricky或Tom时显示该表
 单项；如果有多个条件，用数组装这些条件对象，如：`[{key,val...},{...}]`，它们的关系为且，即所有条件都满足才显示，如果需要条件关系为或，给
-表单项[showOr](#showOr)赋值`true`；条件的val字段支持一个特殊值`'.'`,表示该条件key对应字段只要有有效值既满足，有效值意思是 0 或 false 或转为Boolean结
-果为 true
+表单项[showOr](#showOr)赋值`true`
 
 * <a name='showImg'>showImg</a> 布尔对象，uploadGroup是否以图片方式显示已上传的图片文件，默认：`false`
 
@@ -228,12 +228,21 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 #### <a name='optionsDetail'>options</a>
 * label 字符串，待选项标签，即用户看到的
 
-* val 字符串/数字/boolean，待选项的值，即需要收集的，注意：若为数字，如果有验证，验证规则中需要加上`type:'number'`，view-design默认验证类型为string；
-若为boolean，需配合`booleanVal:true`使用
+* val 字符串/数字，待选项的值，即需要收集的，注意：若为数字，如果有验证，验证规则中需要加上`type:'number'`，view-design默认验
+证类型为string；若表单项值为boolean，需配合`booleanVal:true`使用，该字段还是数字（因为如radioGroup和select的选项不支持boolean），
+一般用`1`和`0`，提交表单项时组件会自动将其转为boolean
 
 * icon 字符串，待选项的图标，仅checkbox和checkboxGroup支持，view-design的内置图标
 
 * disabled 布尔对象，待选项是否禁用，默认：`false`
+
+#### <a name='showDetail'>show</a>
+* key 字符串，目标表单项（控制当前表单项是否展示的表单项）的key，当前表单项即设置show属性的表单项，如：`key:'age'`
+
+* val 数组，目标表单项为哪些值时，满足条件，如：`[1,2]`表示age为1或2时，满足条件；该字段接受一个特殊值`'.'`，表示该条件key对应字段只要有
+有效值既满足，有效值意思是 0 或 false 或转为Boolean结果为 true
+
+注意：如果条件有多个，show的类型变为多个条件对象组成的数组；多个条件间关系为且，如果想要为或，需设置[showOr](#showOr)为`true`
 
 ### type说明
 
@@ -246,7 +255,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [valKey](#valKey) 值为另一个兄弟表单项收集的valKey对应的字段，响应式
 
-* [likeInput](#likeInput) 值的样式模拟input样式
+* [likeInput](#likeInput) 值的样式模拟input样式，默认：`false`
 
 * [show](#show) 显示条件
 
@@ -269,7 +278,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
 
@@ -296,15 +305,15 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [step](#step) 步长
 
-* [readonly](#readonly) 只读
+* [readonly](#readonly) 只读，默认：`false`
 
-* [editable](#editable) 可编辑
+* [editable](#editable) 可编辑，默认：`true`
 
 * [activeChange](#activeChange) 是否实时响应数据
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
 
@@ -323,7 +332,9 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal](#defaultVal) 默认值
 
-* [numberVal](#numberVal) 值转换为number类型
+* [numberVal](#numberVal) 值转换为number类型，不可和booleanVal同时开启，默认：`false`
+
+* [booleanVal](#booleanVal) 表单项值为布尔类型，传入的会被自动转换成boolean，输出也是boolean，默认：`false`
 
 * [options](#options) 待选项
 
@@ -331,11 +342,11 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [collectLabel](#collectLabel) 收集选项中其他字段（除val外）
 
-* [filterable](#filterable) 是否可筛选待选项
+* [filterable](#filterable) 是否可筛选待选项，默认：`false`
 
-* [multiple](#multiple) 是否可筛选待选项
+* [multiple](#multiple) 是否可筛选待选项，默认：`false`
 
-* [asyncOption](#asyncOption) 待选项数据来源于接口
+* [asyncOption](#asyncOption) 待选项数据来源于接口，默认：`false`
 
 * [optionUrl](#optionUrl) 待选项数据来源接口地址
 
@@ -349,7 +360,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [placeholder](#placeholder) 占位符，默认：`'请选择'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [clearable](#clearable) 表单项是否可单独清空，为true且选择框有值时，光标移动到选择框尾部会有小叉，点击清空，默认：`true`
 
@@ -368,13 +379,13 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal](#defaultVal) 默认值
 
-* [numberVal](#numberVal) 值转换为number类型
+* [numberVal](#numberVal) 值转换为number类型，默认：`false`
 
 * [options](#options) 待选项
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
 
@@ -399,7 +410,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [show](#show) 显示条件
 
@@ -432,7 +443,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
-* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
 * [show](#show) 显示条件
 
@@ -441,6 +452,160 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+#### radio 单选框
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+注意：该类型表单项值为boolean
+
+#### radioGroup 单选框组
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [options](#options) 待选项
+
+* [booleanVal](#booleanVal) 表单项值为布尔类型，传入的会被自动转换成boolean，输出也是boolean，默认：`false`
+
+* [buttonType](#buttonType) 以按钮组的样式展示，默认：`false`
+
+* [itemBorder](#itemBorder) 选项带边框（不可和buttonType同时开启），默认：`false`
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### checkbox 复选框
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+注意：该类型表单项值为boolean
+
+#### checkboxGroup 复选框组
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [options](#options) 待选项
+
+* [buttonType](#buttonType) 以按钮组的样式展示，默认：`false`
+
+* [itemBorder](#itemBorder) 选项带边框（不可和buttonType同时开启），默认：`false`
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### textarea 文本框
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [maxLength](#maxLength) 最大长度限制，不限制则不设置
+
+* [numberVal](#numberVal) 值转换为number类型
+
+* [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+#### upload 上传组件
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [url](#url) 远程上传接口地址
+
+* [data](#data) 远程上传接口请求参数（不包含file对象）
+
+* [withCredentials](#withCredentials) 远程上传接口请求是否带上cookie，默认：`true`
+
+* [manualUpload](#manualUpload) 本地上传，采集file对象，默认：`false`
+
+* [format](#format) 上传文件格式限制，后缀名组成的数组，不限制则不设置
+
+* [maxSize](#maxSize) 上传文件大小限制，单位kb，配置时写数字，不要带单位
+
+* [length](#length) 上传文件个数限制
+
+* [showImg](#showImg) 以缩略图方式展示已上传文件，如果有文件不是图片，则自动切换成列表展示，默认：`false`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+注意：远程上传时，值为上传成功后接口返回的文件id，或id组成的数组；本地上传时，值为file对象，或file对象组成的数组；远程上传时有诸多限制，具
+体参考[uploadGroup](../uploadGroup/README.md)组件的README.md文档
+
 
 
 
