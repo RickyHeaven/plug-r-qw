@@ -472,7 +472,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
-注意：该类型表单项值为boolean
+* 注意：该类型表单项值为boolean
 
 #### radioGroup 单选框组
 * [label](#label) 标签
@@ -518,7 +518,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [info](#info) 表单项的提示文字，位于表单项下面
 
-注意：该类型表单项值为boolean
+* 注意：该类型表单项值为boolean
 
 #### checkboxGroup 复选框组
 * [label](#label) 标签
@@ -603,7 +603,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
-注意：远程上传时，值为上传成功后接口返回的文件id，或id组成的数组；本地上传时，值为file对象，或file对象组成的数组；远程上传时有诸多限制，具
+* 注意：远程上传时，值为上传成功后接口返回的文件id，或id组成的数组；本地上传时，值为file对象，或file对象组成的数组；远程上传时有诸多限制，具
 体参考[uploadGroup](../uploadGroup/README.md)组件的README.md文档
 
 
