@@ -259,9 +259,23 @@
   import _ from 'lodash'
   import {myTypeof} from "../../methods/functionGroup"
   import fetch from '../../methods/fetch'
-  
+  import selectInput from '../selectInput/selectInput.vue'
+  import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
+  import asyncCascader from '../asyncCascader/asyncCascader.vue'
+  import uploadGroup from '../uploadGroup/uploadGroup.vue'
+  import editor from '../editor/editor.vue'
+  import inputMap from '../inputMap/inputMap.vue'
+
   export default {
     name: "formR",
+    components:{
+      selectInput,
+      alCascaderMC,
+      asyncCascader,
+      uploadGroup,
+      editor,
+      inputMap
+    },
     props: {
       formData: {
         /*弹框结构数据*/
@@ -571,7 +585,7 @@
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
               if (this.tempKeys[root.tempKey] === null) {
-                if (root.type === 'input' || root.type === 'textarea' || root.type === 'select') {
+                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type === 'select') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {
@@ -629,6 +643,7 @@
               }
               break
             case 'input':
+            case 'inputNumber':
             case 'textarea':
               const tempKeyD = 'inputT' + Math.floor(Math.random() * 100000000)
               if (item.key) {
@@ -981,6 +996,7 @@
               }
               break
             case 'input':
+            case 'inputNumber':
             case 'textarea':
               if (after || after === 0) {
                 let reg = /^-?\d+(.\d+)?$/
@@ -1156,6 +1172,7 @@
                 }
                 break
               case 'input':
+              case 'inputNumber':
               case 'textarea':
                 if (data[item.key] && data[item.key] !== '--' || data[item.key] === 0) {
                   this.tempKeys[item.tempKey] = data[item.key]

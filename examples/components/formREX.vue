@@ -51,7 +51,7 @@
           <formR
               :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true" @on-submit="submitB"
           >
-            <template slot="switchLJ" slot-scope="{valGroup}">
+            <template #switchLJ="{valGroup}">
               <i-switch v-model="valGroup.switchStatus"/>
             </template>
 
@@ -109,7 +109,7 @@
           {
             type: 'txt',
             label: '注意',
-            val: '因为该表单有需要请求接口的组件，所以需要在命令窗口运行：npm run node-serve 将该项目配置好的nodeJs服务器启动起来，那些需要请求nodeJs服务器的组件才有数据'
+            val: '因为该表单有需要请求接口的组件，所以需要在项目目录下新开一个命令窗口运行：npm run node-serve 将该项目配置好的nodeJs服务器启动起来，那些需要请求nodeJs服务器的组件才有数据'
           },
           {
             type: 'txt',
