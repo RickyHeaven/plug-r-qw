@@ -203,6 +203,13 @@
         default() {
           return false
         }
+      },
+      debounce: {
+        /*查询防抖，如果为true，必须查询条件发生改变才能发起请求（不能重复请求）*/
+        type: Boolean,
+        default() {
+          return true
+        }
       }
     },
     data() {
@@ -305,15 +312,21 @@
     watch: {
       searchData: {
         handler(after) {
-          for (let key in after) {
-            if (after.hasOwnProperty(key)) {
-              if (this.searchDataT[key] === undefined || after[key] !== this.searchDataT[key]) {
-                this.searchDataT = _.cloneDeep(after)
-                this.current = 1
-                this.getDataAndClickRow()
-                break
+          if(this.debounce){
+            for (let key in after) {
+              if (after.hasOwnProperty(key)) {
+                if (this.searchDataT[key] === undefined || after[key] !== this.searchDataT[key]) {
+                  this.searchDataT = _.cloneDeep(after)
+                  this.current = 1
+                  this.getDataAndClickRow()
+                  break
+                }
               }
             }
+          }else {
+            this.searchDataT = _.cloneDeep(after)
+            this.current = 1
+            this.getDataAndClickRow()
           }
         },
         deep: true
@@ -481,10 +494,16 @@
           this.getDataAndClickRow()
         }
       },
-      onSortChange({column, key, order}) {
+      onSortChange({key, order}) {
         //表头排序
-        this.key = key
-        this.order = order
+        if(order==='normal'){
+          /*恢复到默认页面排序*/
+          this.key = this.orderKey
+          this.order = this.orderDefault
+        }else {
+          this.key = key
+          this.order = order
+        }
         this.current = 1
         this.getTableData();
       },

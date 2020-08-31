@@ -501,6 +501,8 @@
           if (this.valGroup.hasOwnProperty(key)) {
             if (myTypeof(this.valGroup[key]) === 'Array') {
               this.$set(this.valGroup, key, [])
+            }else if (myTypeof(this.valGroup[key]) === 'Boolean') {
+              this.$set(this.valGroup, key, false)
             }
             else {
               this.$set(this.valGroup, key, null)
