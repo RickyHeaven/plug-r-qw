@@ -1,10 +1,10 @@
 ## formModal 表单弹框组件
-表单和弹框的组合UI组件，表单相关用法参考[formR](../formR/READEME.md)，弹框支持调用方法开关，通过属性配置等。
+表单和弹框的组合UI组件，表单相关用法参考[formR](../formR/README.md)，弹框支持调用方法开关，通过属性配置等。
 
 ### 属性
 * title 字符串，弹框标题，位于弹框左上角，默认：`'标题'`
 
-* formData 数组，弹框内表单数据结构，参考[formR](../formR/READEME.md#属性)
+* formData 数组，弹框内表单数据结构，参考[formR](../formR/README.md#属性)
 
 * formRules 对象，弹框内表单验证规则，参考formR
 
@@ -36,6 +36,6 @@
 
 * setHeight 主动设置弹框内表单高度（为了间接影响弹框高度），需要传高度，一般用不上。
 
-* resetForm 重置表单，该方法会清空表单值并刷新dom，详见[formR](../formR/READEME.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm。
+* resetForm 重置表单，该方法会清空表单值并刷新dom，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm。
 
 * refreshFormDom 刷新dom，比如
