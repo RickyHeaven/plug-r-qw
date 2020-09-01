@@ -134,6 +134,11 @@ export default new Router({
       path: '/formR',
       name: 'formR',
       component: ()=>import('./components/formREX.vue')
+    },
+    {
+      path: '/formModal',
+      name: 'formModal',
+      component: ()=>import('./components/formModalEX.vue')
     }
   ]
 })

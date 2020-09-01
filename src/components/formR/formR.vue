@@ -74,7 +74,7 @@
             :disabled="!!optionItem.disabled"
         ></Option>
       </Select>
-      <!--选择输入框（可以选择输入的key，比如选择是想收集体重还是身高）todo-->
+      <!--选择输入框（可以选择输入的key，比如选择是想收集体重还是身高）-->
       <select-input
           v-else-if="item.type === 'selectInput'"
           v-model="tempKeys[item.tempKey]"
@@ -483,6 +483,7 @@
           this.initFormDataT()
           
           this.refreshFormDom().then(() => {
+            this.heightChange()
             resolve()
           })
         })
@@ -491,9 +492,9 @@
         return new Promise(resolve => {
           this.formReRenderKey = Math.floor(Math.random() * 100000000 + 1000)
           /*刷新表单*/
-          setTimeout(() => {
+          this.$nextTick(function () {
             resolve()
-          }, 10)
+          })
         })
       },
       clearForm() { /*清空表单值（不推荐直接调用，可以调用resetForm）*/
@@ -976,7 +977,7 @@
           }
         }
       },
-      tempKeysWatchHandle(after, root) { /*将缓存表单值给统计对象（私有）todo*/
+      tempKeysWatchHandle(after, root) { /*将缓存表单值给统计对象（私有）*/
         if (root.showing) {
           switch (root.type) {
             case 'selectInput':
@@ -1235,6 +1236,7 @@
             this.$set(this.formDataT[data.index], data.key, data.val)
           }
         }
+        this.heightChange()
       },
       reValidate(prop) { /*手动验证表单项（公开）*/
         setTimeout(() => {
@@ -1267,17 +1269,20 @@
       },
       reValidateAndChangeHandle(val, root) {
         this.itemChange(val, root)
-        setTimeout(() => {
+        this.$nextTick(function () {
           this.$refs.formGroupXRef.validateField(root.key)
-        }, 0)
+
+        })
       },
-      itemChange(e, root) { /*表单项值更新（私有）*/
-        setTimeout(() => {
+      heightChange(){/*私有*/
+        this.$nextTick(function () {
           if (this.clientHeightR !== this.$el.clientHeight) {
             this.clientHeightR = this.$el.clientHeight
             this.$emit('on-height-change', this.clientHeightR)
           }
-        }, 0)
+        })
+      },
+      itemChange(e, root) { /*表单项值更新（私有）*/
         setTimeout(() => {
           let data = {
             event: e
@@ -1298,6 +1303,7 @@
           }
           this.$emit('on-item-change', data)
         }, 500)
+        this.heightChange()
       },
       validate() {/*主动验证整个表单（公开）*/
         this.$refs.formGroupXRef.validate()
