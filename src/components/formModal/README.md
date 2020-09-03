@@ -32,10 +32,30 @@
 * on-item-change 弹框内表单项值改变事件
 
 ### 方法
-* getFormHeight 主动获取弹框内表单高度，并根据结果自动调整弹框高度，一般用不上。
+* open 打开弹框
 
-* setHeight 主动设置弹框内表单高度（为了间接影响弹框高度），需要传高度，一般用不上。
+* close 主动关闭弹框，一般用于提交事件后续逻辑处理完成后手动关闭弹框
 
-* resetForm 重置表单，该方法会清空表单值并刷新dom，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm。
+* submit 主动提交弹框内整个表单采集的值
 
-* refreshFormDom 刷新dom，比如
+* getFormHeight 主动获取弹框内表单高度，并根据结果自动调整弹框高度，一般用不上
+
+* setHeight 主动设置弹框内表单高度（为了间接影响弹框高度），需要传高度，一般用不上
+
+* resetForm 重置表单，该方法会清空表单值并刷新dom，异步方法，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm
+
+* refreshFormDom 刷新dom，异步方法，详见[formR](../formR/README.md#方法)
+
+* reRenderForm 重新渲染表单，异步方法，详见[formR](../formR/README.md#方法)
+
+* setItemToValGroup 设置弹框内表单项的值，可以添加新字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，详见[formR](../formR/README.md#方法)
+
+* updateValGroup 更新弹框内表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，详见[formR](../formR/README.md#方法)
+
+* updateFormDataT 更新弹框内表单结构，例如设置或取消禁用，formDataT为formR组件私有属性，不可直接操作，故有该方法，详见[formR](../formR/README.md#方法)
+
+* validate 主动验证弹框内整个表单，一般用不上
+
+### 注意
+* 该组件是基于formR组件封装的弹框和表单的组件组合，集弹框和表单各种功能于一身，所以涉及表单的用法参考formR的文档
+

@@ -210,50 +210,50 @@
             })
         })
       },
-      clearForm() {/*清空表单值，公开(不推荐直接调用，可以调用resetForm)*/
+      clearForm() {/*清空表单值(私有，不推荐直接调用，可以调用resetForm)*/
         this.$refs.formRRef.clearForm()
       },
-      setItemToValGroup(data, notClearOthers) { /*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示）*/
+      setItemToValGroup(data, notClearOthers) { /*设置表单项的值（公开，可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示）*/
         this.$refs.formRRef.setItemToValGroup(data, notClearOthers)
       },
-      updateValGroup(data, notClearOthers) { /*更新表单项的值（只能更新已有字段）*/
+      updateValGroup(data, notClearOthers) { /*更新表单项的值（公开，只能更新已有字段）*/
         this.$refs.formRRef.updateValGroup(data, notClearOthers)
       },
-      updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用*/
+      updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用，公开*/
         this.$refs.formRRef.updateFormDataT(data)
       },
-      onItemChange(data) { /*表单项值改变*/
+      onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
-      validate() {/*验证表单*/
+      validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
-      changeLoading(val) {
+      changeLoading(val) {/*改变弹框loading状态，私有*/
         if (val === undefined) {
           return
         }
         this.showLoading = Boolean(val)
         this.$refs.formRRef.changeLoading(this.showLoading)
       },
-      onSubmit(data) { /*响应提交事件提交数据*/
+      onSubmit(data) { /*响应提交事件提交数据，私有*/
         this.showLoading = true
 
         this.$emit('on-submit', data)
       },
-      submit() { /*触发提交事件*/
+      submit() { /*触发提交事件，公开*/
         this.$refs.formRRef.submit()
       },
-      open() { /*触发打开弹框事件*/
+      open() { /*触发打开弹框事件，公开*/
         this.openModal = true
       },
-      close() { /*触发关闭弹框事件*/
+      close() { /*触发关闭弹框事件，公开*/
         this.openModal = false
         setTimeout(() => {
           this.showLoading = false
           this.$refs.formRRef.changeLoading(false)
         }, 1000)
       },
-      handleVisibleChange(show) {
+      handleVisibleChange(show) {/*弹框开关状况改变处理，私有*/
         if (!show) {
           this.$emit('on-close')
         }

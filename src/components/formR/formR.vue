@@ -497,7 +497,7 @@
           })
         })
       },
-      clearForm() { /*清空表单值（不推荐直接调用，可以调用resetForm）*/
+      clearForm() { /*清空表单值（私有，不推荐直接调用，可以调用resetForm）*/
         for (let key in this.valGroup) {
           if (this.valGroup.hasOwnProperty(key)) {
             if (myTypeof(this.valGroup[key]) === 'Array') {
@@ -512,7 +512,7 @@
         }
         this.clearTempKeys()
       },
-      clearTempKeys() { /*清空缓存表单值（不推荐直接调用，可以调用resetForm）*/
+      clearTempKeys() { /*清空缓存表单值（私有，不推荐直接调用，可以调用resetForm）*/
         for (let key in this.tempKeys) {
           if (this.tempKeys.hasOwnProperty(key)) {
             if (myTypeof(this.tempKeys[key]) === 'Array') {

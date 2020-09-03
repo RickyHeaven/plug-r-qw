@@ -3,7 +3,7 @@
 
 ### 属性
 * formData 数组，表单结构数据，如：
-```angular2html
+```
   [
     {
       type: 'input',
@@ -13,7 +13,7 @@
   ]
 ```
 * formRules 对象，表单验证数据，如：
-```angular2html
+```
   {
     name: {
       required: true
@@ -58,11 +58,11 @@
 
 * refreshFormDom 刷新表单dom，异步方法
 
-* setItemToValGroup 设置表单项的值，可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示
+* setItemToValGroup 设置表单项的值，可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，valGroup为formR组件私有属性，不可直接操作，故有该方法
 
-* updateValGroup 更新表单项的值，只能更新已有字段
+* updateValGroup 更新表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法
 
-* updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值
+* updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值，formDataT为formR组件私有属性，不可直接操作，故有该方法
 
 * reValidate 手动验证表单项
 
