@@ -1,0 +1,33 @@
+@import "../common/color";
+@import "../common/size";
+
+.formGroupBoxVM {
+  padding: 30px 0;
+
+  .formFooterVM {
+    height: 50px;
+    margin-top: 30px;
+
+    button + button {
+      margin-left: 10px;
+    }
+
+    .ivu-btn {
+      &.form-save-btn {
+        background-color: @primary;
+        color: #fff;
+        width: @formGroupBtnW;
+
+        &:hover {
+          background-color: #fff;
+          color: @primary;
+          border-color: @primary;
+        }
+      }
+
+      &.form-cancel-btn {
+        width: calc(~'100% - @{formGroupBtnW} - 10px');
+      }
+    }
+  }
+}

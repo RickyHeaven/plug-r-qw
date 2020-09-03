@@ -17,7 +17,7 @@
         ref="formRRef"
         :form-data="formData"
         :form-rules="formRules"
-        :label-width="140"
+        :label-width="labelWidth"
         :content-width="contentWidth"
         :disabled="disabled"
         :btnLoading="btnLoading"
@@ -77,6 +77,12 @@
         ],
         default() {
           return 520
+        }
+      },
+      labelWidth: { /*表单项标签宽度*/
+        type: Number,
+        default() {
+          return 140
         }
       },
       contentWidth: {
@@ -196,7 +202,7 @@
             })
         })
       },
-      refreshFormDom() {/*刷新表单dom*/
+      refreshFormDom() {/*刷新表单dom，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.refreshFormDom()
             .then(() => {

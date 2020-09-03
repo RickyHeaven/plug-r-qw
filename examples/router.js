@@ -144,6 +144,11 @@ export default new Router({
       path: '/searchForm',
       name: 'searchForm',
       component: ()=>import('./components/searchFormEX.vue')
+    },
+    {
+      path: '/formGroup',
+      name: 'formGroup',
+      component: ()=>import('./components/formGroupEX.vue')
     }
   ]
 })
