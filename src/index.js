@@ -21,6 +21,7 @@ import formR from "./components/formR/formR.vue"
 import formModal from "./components/formModal/formModal.vue"
 import searchForm from "./components/searchForm/searchForm.vue"
 import formGroup from "./components/formGroup/formGroup.vue"
+import echart from "./components/echarts/echart.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -61,6 +62,7 @@ const components = {
   formModal,
   searchForm,
   formGroup,
+  echart
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
