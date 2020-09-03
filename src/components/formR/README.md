@@ -51,6 +51,10 @@
 * on-item-change 表单项的值改变，返回对象，包含事件对象和改变的数据
 
 * on-height-change 表单高度改变，返回表单高度，如果需要根据高度做UI调整可监听该事件
+
+* on-reset 表单被重置
+
+* on-re-render 表单被重新渲染
 ### 方法
 * resetForm 重置表单，会清空表单值并刷新表单dom，异步方法
 

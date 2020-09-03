@@ -139,6 +139,11 @@ export default new Router({
       path: '/formModal',
       name: 'formModal',
       component: ()=>import('./components/formModalEX.vue')
+    },
+    {
+      path: '/searchForm',
+      name: 'searchForm',
+      component: ()=>import('./components/searchFormEX.vue')
     }
   ]
 })

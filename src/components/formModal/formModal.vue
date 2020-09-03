@@ -22,6 +22,8 @@
         :disabled="disabled"
         :btnLoading="btnLoading"
         @on-height-change="setHeight"
+        @on-reset="onReset"
+        @on-re-render="onReRender"
         @on-item-change="onItemChange"
         @on-submit="onSubmit"
     >
@@ -224,6 +226,12 @@
       },
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
+      },
+      onReset(){/*表单被重置，私有*/
+        this.$emit('on-reset')
+      },
+      onReRender(){/*表单被重新渲染，私有*/
+        this.$emit('on-re-render')
       },
       validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()

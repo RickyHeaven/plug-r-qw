@@ -250,7 +250,7 @@
         :loading="btnLoading&&showLoading" :disabled="disabled"
     >{{inlineOkBtTxt}}</Button>
     <!--取消按钮（清除）-->
-    <Button v-if="showInlineClearBt" @click="clearForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt}}</Button>
+    <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt}}</Button>
   </Form>
 </template>
 
@@ -472,6 +472,7 @@
         return new Promise((resolve) => {
           this.clearForm()
           this.refreshFormDom().then(() => {
+            this.$emit('on-reset')
             resolve()
           })
         })
@@ -484,6 +485,7 @@
           
           this.refreshFormDom().then(() => {
             this.heightChange()
+            this.$emit('on-re-render')
             resolve()
           })
         })

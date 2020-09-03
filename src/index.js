@@ -19,6 +19,7 @@ import fullScreenPop from "./components/fullScreenPop/fullScreenPop.vue"
 import headerBt from "./components/headerBt/headerBt.vue"
 import formR from "./components/formR/formR.vue"
 import formModal from "./components/formModal/formModal.vue"
+import searchForm from "./components/searchForm/searchForm.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -57,6 +58,7 @@ const components = {
   headerBt,
   formR,
   formModal,
+  searchForm,
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
