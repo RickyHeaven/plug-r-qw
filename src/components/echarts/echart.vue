@@ -290,19 +290,19 @@
         if (window.echartResizeMJ === undefined) {
           window.echartResizeMJ = {}
         }
-        if (!window.echartResizeMJ[this.name]) {
+        if (!window.echartResizeMJ[me.name]) {
           let temp = window.onresize
           if (temp) {
             window.onresize = function () {
               temp()
               myChart.resize()
-              window.echartResizeMJ[this.name] = true
+              window.echartResizeMJ[me.name] = true
             }
           }
           else {
             window.onresize = function () {
               myChart.resize()
-              window.echartResizeMJ[this.name] = true
+              window.echartResizeMJ[me.name] = true
             }
           }
         }
