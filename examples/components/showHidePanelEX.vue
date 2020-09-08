@@ -18,8 +18,10 @@
   }
 </script>
 <style lang="scss" scoped>
+  @import "../global/variables";
+
   .headerKH{
     height: 40px;
-    background-color: #515a6e;
+    background-color: $vueColor;
   }
 </style>

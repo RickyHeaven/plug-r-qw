@@ -149,6 +149,11 @@ export default new Router({
       path: '/formGroup',
       name: 'formGroup',
       component: ()=>import('./components/formGroupEX.vue')
+    },
+    {
+      path: '/showHidePanelB',
+      name: 'showHidePanelB',
+      component: ()=>import('./components/showHidePanelBEX.vue')
     }
   ]
 })
