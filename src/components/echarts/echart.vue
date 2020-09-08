@@ -158,30 +158,31 @@
       //数据拉取
       getData() {
         return new Promise((resolve, reject) => {
-          this.$fetch.get(this.url || window.echartConfig && window.echartConfig.url,
-            this.params || window.echartConfig && window.echartConfig.params)
-            .then(r => {
-              if (r.data || r.data === null) {
-                if (r.data.charts || r.data.charts === null) {
-                  this.dataT = r.data.charts || []
+          if (this.url || window.echartConfig && window.echartConfig.url) {
+            this.$fetch.get(this.url || window.echartConfig && window.echartConfig.url,
+              this.params || window.echartConfig && window.echartConfig.params)
+              .then(r => {
+                if (r.data || r.data === null) {
+                  if (r.data.charts || r.data.charts === null) {
+                    this.dataT = r.data.charts || []
+                  }
+                  else {
+                    this.dataT = r.data || []
+                  }
+                  //执行回调
+                  resolve(r)
                 }
                 else {
-                  this.dataT = r.data || []
+                  console.warn('请求返回数据有误，无法使用')
                 }
-                //执行回调
-                resolve(r)
-              }
-              else {
-                console.warn('请求返回数据有误，无法使用')
-              }
-            })
-            .catch(e => {
-              console.warn(e)
-            })
-          //有静态数据也可以执行回调
-        else
-          if ((!this.url || this.url === '') &&
-            ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0))) {
+              })
+              .catch(e => {
+                console.warn(e)
+              })
+          }
+          else if ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0)) {
+            //没有url，且没有window.echartConfig.url，且有静态数据也可以执行回调
+
             resolve()
           }
           else {
