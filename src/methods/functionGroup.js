@@ -577,3 +577,15 @@ export function setValByOption({group, condition, key, val, childKey = 'children
   })
 }
 
+/**
+ * 是否有该权限，用于权限管理
+ * @param {String} value 权限代码
+ * @returns {boolean}
+ */
+export function hasPermission(value) {
+  let btnPermissions = sessionStorage.getItem("btnPermissions");
+  if (btnPermissions) {
+    return btnPermissions.indexOf(value) > -1
+  }
+  return false
+}

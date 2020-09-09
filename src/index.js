@@ -36,7 +36,7 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption
+  isEmptyValue, stringLength, setValByOption, hasPermission
 } from "./methods/functionGroup.js"
 
 /*直接使用的组件（注册为全局Vue组件）*/
@@ -105,7 +105,8 @@ const methodsR = {
   decimalDigitsLimit,
   downloadFileByFormSubmit,
   $swalConfirm,
-  setValByOption
+  setValByOption,
+  hasPermission
 }
 
 /*挂在window对象上的方法*/
