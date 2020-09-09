@@ -268,7 +268,7 @@
 
   export default {
     name: "formR",
-    components:{
+    components: {
       selectInput,
       alCascaderMC,
       asyncCascader,
@@ -393,7 +393,9 @@
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
         clientHeightR: 0,
-        uploadUrl: window.g.mgrURL && window.g.mgrURL + '/fsc/file' || '/file'/*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
+        uploadUrl: window.g.mgrURL && window.g.mgrURL + '/fsc/file' ||
+          '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
+        debounceCount: false
       }
     },
     computed: {
@@ -504,7 +506,8 @@
           if (this.valGroup.hasOwnProperty(key)) {
             if (myTypeof(this.valGroup[key]) === 'Array') {
               this.$set(this.valGroup, key, [])
-            }else if (myTypeof(this.valGroup[key]) === 'Boolean') {
+            }
+            else if (myTypeof(this.valGroup[key]) === 'Boolean') {
               this.$set(this.valGroup, key, false)
             }
             else {
@@ -590,7 +593,8 @@
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
               if (this.tempKeys[root.tempKey] === null) {
-                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type === 'select') {
+                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
+                  'select') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {
@@ -770,7 +774,7 @@
                   this.initOption(item.optionUrl, item)
                 }
               }
-              else if (myTypeof(item.borrowOption)==='String') {/*借用待选项*/
+              else if (myTypeof(item.borrowOption) === 'String') {/*借用待选项*/
                 item.options = _.find(temp, {key: item.borrowOption}).options
               }
               
@@ -1276,7 +1280,7 @@
 
         })
       },
-      heightChange(){/*私有*/
+      heightChange() {/*私有*/
         this.$nextTick(function () {
           if (this.clientHeightR !== this.$el.clientHeight) {
             this.clientHeightR = this.$el.clientHeight
@@ -1321,15 +1325,21 @@
           return
         }
         this.$refs.formGroupXRef.validate(valid => {
-          if (valid) {
-            this.showLoading = true
+          if (!this.debounceCount) {
+            this.debounceCount = true
+            if (valid) {
+              this.showLoading = true
 
-            /*需要提交的表单值*/
-            let temp = {}
-            for (let item of this.showingKeys) {
-              temp[item] = this.valGroup[item]
+              /*需要提交的表单值*/
+              let temp = {}
+              for (let item of this.showingKeys) {
+                temp[item] = this.valGroup[item]
+              }
+              this.$emit('on-submit', temp)
             }
-            this.$emit('on-submit', temp)
+            setTimeout(() => {
+              this.debounceCount = false
+            }, 2000)
           }
         })
       }

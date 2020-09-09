@@ -312,22 +312,9 @@
     watch: {
       searchData: {
         handler(after) {
-          if(this.debounce){
-            for (let key in after) {
-              if (after.hasOwnProperty(key)) {
-                if (this.searchDataT[key] === undefined || after[key] !== this.searchDataT[key]) {
-                  this.searchDataT = _.cloneDeep(after)
-                  this.current = 1
-                  this.getDataAndClickRow()
-                  break
-                }
-              }
-            }
-          }else {
-            this.searchDataT = _.cloneDeep(after)
-            this.current = 1
-            this.getDataAndClickRow()
-          }
+          this.searchDataT = _.cloneDeep(after)
+          this.current = 1
+          this.getDataAndClickRow()
         },
         deep: true
       }

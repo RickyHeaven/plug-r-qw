@@ -154,6 +154,11 @@ export default new Router({
       path: '/showHidePanelB',
       name: 'showHidePanelB',
       component: ()=>import('./components/showHidePanelBEX.vue')
+    },
+    {
+      path: '/tableSearch',
+      name: 'tableSearch',
+      component: ()=>import('./components/tableSearchEX.vue')
     }
   ]
 })

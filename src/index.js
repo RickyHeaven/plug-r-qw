@@ -23,6 +23,7 @@ import searchForm from "./components/searchForm/searchForm.vue"
 import formGroup from "./components/formGroup/formGroup.vue"
 import echart from "./components/echarts/echart.vue"
 import showHidePanelB from "./components/showHidePanelB/showHidePanelB.vue"
+import tableSearch from "./components/tableSearch/tableSearch.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './windowMethods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -64,7 +65,8 @@ const components = {
   searchForm,
   formGroup,
   echart,
-  showHidePanelB
+  showHidePanelB,
+  tableSearch
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
