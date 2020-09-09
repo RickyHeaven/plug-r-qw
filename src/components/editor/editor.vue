@@ -9,6 +9,7 @@
   import Editor from 'wangeditor'
   import 'wangeditor/release/wangEditor.min.css'
   import {oneOf} from "../../methods/functionGroup"
+  import xss from 'xss'
 
   export default {
     name: 'Editor',
@@ -76,14 +77,15 @@
       ]
       this.editor.customConfig.onchange = (html) => {
         let text = this.editor.txt.text()
-        this.$emit('input', this.valueType === 'html' ? html : text)
-        this.$emit('on-change', this.valueType === 'html' ? html : text)
+        let htmlT = xss(html)
+        this.$emit('input', this.valueType === 'html' ? htmlT : text)
+        this.$emit('on-change', this.valueType === 'html' ? htmlT : text)
       }
       this.editor.customConfig.onchangeTimeout = this.changeInterval
       // create这个方法一定要在所有配置项之后调用
       this.editor.create()
       if(this.value){
-        this.editor.txt.html(this.value)
+        this.editor.txt.html(xss(this.value))
       }
       setTimeout(() => {
         this.$watch(() => this.disabled, (after) => {

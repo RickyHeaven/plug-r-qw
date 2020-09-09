@@ -92,6 +92,12 @@ module.exports = {
             commonjs2: 'wangeditor',
             amd: 'wangeditor'
           },
+          'xss': {
+            root: 'xss',
+            commonjs: 'xss',
+            commonjs2: 'xss',
+            amd: 'xss'
+          },
           'js-cookie': {
             root: 'Cookies',
             commonjs: 'js-cookie',
