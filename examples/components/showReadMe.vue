@@ -64,12 +64,6 @@
   .wallK {
     padding: 30px 0;
     background-color: #fbfbfb;
-    overflow: auto;
-    position: absolute;
-    top: $headerH;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 
   .myCardB {
