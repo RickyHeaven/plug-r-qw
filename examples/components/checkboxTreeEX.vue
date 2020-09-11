@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <div class="boxKJ">
       <wellCard title="leaf模式(收集选中叶子节点)">

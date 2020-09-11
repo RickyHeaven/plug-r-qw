@@ -1,6 +1,26 @@
 # plug-r-qw
 plug-in lib developed when I was in qw
 
+### 用法
+1. npm i @zhangqingcq/plug-r-qw
+
+2. 在main.js中添加：
+```
+ import Vue from 'vue'
+ import store from './store'
+ import plugRQw from '@zhangqingcq/plug-r-qw'
+ import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
+ 
+ Vue.use(plugRQw)
+ 
+ plugRQw.init({
+  store:store,
+  changeFetchUrl:false/*是否开启请求地址代理，将特定缩写字母开头的地址代理到配置的完整地址*/
+ })
+```
+
+
+
 ### 注意：
 * 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，推荐使用*cnpm*或淘宝镜像，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
 

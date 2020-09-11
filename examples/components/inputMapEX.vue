@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <div class="mapBox">
       <inputMap v-model="value"/>

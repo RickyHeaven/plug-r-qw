@@ -1,5 +1,6 @@
 <template>
   <div class="fullPopEX">
+    <showReadMe color="#fff"/>
     <toHome color="#fff"/>
     <div class="headerLAS">
       Header

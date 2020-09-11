@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <selectInput v-model="value" :selectOption="selectOption" @on-change="handleChange"/>
     <p class="outJ">组件key： <span>{{value.key}}</span> </p>

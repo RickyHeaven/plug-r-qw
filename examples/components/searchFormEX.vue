@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL">
+    <showReadMe/>
     <toHome/>
     <search-form :data="data" :form-rules="formRules" @on-search="search" @on-item-change="onItemChange"></search-form>
     <div style="margin-top: 30px">

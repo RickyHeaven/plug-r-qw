@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <div class="boxTM middleE">
       <wellCard title="3级（level:2)常用">

@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <header class="headerKH">
       <span style="margin-right: 14px;color: #fff;">面 板：</span>

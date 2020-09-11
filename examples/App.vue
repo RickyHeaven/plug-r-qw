@@ -4,6 +4,9 @@
   </div>
 </template>
 
+<style>
+  @import "~github-markdown-css";
+</style>
 <style lang="scss">
   @import "./global/common.scss";
   #app {

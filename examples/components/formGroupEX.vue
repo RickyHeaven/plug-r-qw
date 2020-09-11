@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL">
+    <showReadMe/>
     <toHome/>
     <form-group :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit" @on-item-change="onItemChange"></form-group>
     <div style="margin-top: 30px">

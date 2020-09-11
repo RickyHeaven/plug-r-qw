@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <well-card class="upBox" height="350px" width="520px" title="本地上传">
       <div class="innerK">

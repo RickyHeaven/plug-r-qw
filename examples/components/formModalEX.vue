@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL tc">
+    <showReadMe/>
     <toHome/>
     <p>说明：formModal核心组件是formR,所以formData和formRules规则参考formR的例子和说明文档</p>
     <p>formModal在formR（表单）的基础上，添加了modal(弹框)相关的功能</p>

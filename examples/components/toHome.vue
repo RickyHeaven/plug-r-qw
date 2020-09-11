@@ -21,7 +21,7 @@
 <style lang="scss" scoped>
   .backLink {
     position: fixed;
-    z-index: 1000;
+    z-index: 10;
     top: 20px;
     right: 40px;
     &:hover {

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import toHome from '../components/toHome.vue'
+import showReadMe from '../components/showReadMe.vue'
 import store from '../store'
 import Cookies from "js-cookie"
 
@@ -20,3 +21,4 @@ import Cookies from "js-cookie"
 })()
 
 Vue.component('toHome', toHome)
+Vue.component('showReadMe', showReadMe)

@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL">
+    <showReadMe/>
     <toHome/>
     <div class="eBoxA baseUA">
       <wellCard title="基础用法">

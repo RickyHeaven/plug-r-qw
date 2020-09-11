@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <div class="wellsL">
       <wellCard title="最后一级模式">

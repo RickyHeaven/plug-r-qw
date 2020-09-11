@@ -1,5 +1,6 @@
 <template>
   <div class="exBox">
+    <showReadMe/>
     <toHome/>
     <div class="tableLK">
       <bt-table-page

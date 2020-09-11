@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <header class="headerKH">
       <tableSearch v-model="val" :open="open" placeholder="姓名" @on-search="search" @on-toggle="open=!open" top="5px" btn-color="#fff"/>

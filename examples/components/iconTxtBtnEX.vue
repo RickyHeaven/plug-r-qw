@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL vh100">
+    <showReadMe/>
     <toHome/>
     <div class="exBoxK">
       <wellCard title="表格图标按钮示例" :width="400" :height="200" style="margin: 0 20px">

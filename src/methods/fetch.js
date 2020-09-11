@@ -325,7 +325,7 @@ export default {
       service.store = data.store
     }
     if (data.hasOwnProperty('changeFetchUrl')) {
-      service.changeUrl = data.changeFetchUrl
+      service.changeUrl = data.changeFetchUrl /*请求地址代理，将特定缩写字母开头的请求地址代理到配置的完整地址*/
     }
   },
   
