@@ -70,6 +70,10 @@ echarts 提供了常规的折线图、柱状图、散点图、饼图、K线图�
 * heightT - 字符串，图表高度，默认：`384px`
 
 ### 事件
+* timelinechanged 时间轴中的时间点改变触发事件
+
+* click 普通点击事件
+
 * onresize 监听屏幕大小，图表进行相应缩放
 ```
 if (window.echartResizeMJ === undefined) {
@@ -94,14 +98,14 @@ if (!window.echartResizeMJ[me.name]) {
 ```
 
 ### 方法
-* time-line-change 时间轴中的时间点改变后的事件,回调为当前页的索引值
+* time-line-change 时间轴中的时间点改变后的方法,回调为当前页的索引值
 ```
 myChart.on('timelinechanged', function (res) {
   me.$emit('time-line-change', res.currentIndex)
 })
 ```
 
-* series-bar-click 回调当前点击的图表值
+* series-bar-click 点击方法，回调当前点击的图表值
 ```
 myChart.on('click', 'series.bar', function (res) {
   me.$emit('series-bar-click', res)

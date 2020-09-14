@@ -12,6 +12,7 @@ import '../src/style/index.less'
 // import plugRQw from '../lib/plugRQw.umd.min.js'
 // import '../lib/plugRQw.min.css'
 import './global/init.js'
+import './global/echartConfig'
 
 Vue.config.productionTip = false
 
@@ -30,9 +31,14 @@ Vue.prototype.pageSizes = [
 
 /**
  * @description 注入 echarts 图表,全局控制，只加载一次主题
+ * @param {object} registerTheme - 引入需要添加的主题和创建名称
  * @return {object} $echarts
  */
 import echarts from "echarts"
+/** 设计稿主题款式 westeros - 通心粉款式 */
+import westeros from './global/westeros.json'
+
+echarts.registerTheme('westeros', westeros)
 window.$echarts = echarts //图表
 
 VueAMap.initAMapApiLoader({

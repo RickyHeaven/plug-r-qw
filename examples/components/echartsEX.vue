@@ -34,7 +34,6 @@
 
         <!--这是各项单独配置方式，但还是推荐用data方式或者config方式更友好-->
         <echart
-            :data="{}"
             :title="DataFour.title"
             :legendShow="DataFour.legendShow"
             :legendX="DataFour.legendX"

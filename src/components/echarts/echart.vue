@@ -11,7 +11,7 @@
     name: 'echart',
     props: {
       config: Object,   //图表配置，可以覆盖整个图表,
-      theme: String,   //图表主题，不传默认为设计稿款式的dark风格
+      theme: String,   //图表主题，不传默认为设计稿款式
       params: Object, //图表参数
       url: String,   //拉取数据的接口地址
       data: Object,     //图表默认数据，没有url请求可以展示静态数据
