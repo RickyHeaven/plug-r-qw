@@ -1,51 +1,55 @@
 <template>
-  <div class="content">
-    <div class="o-hd" style="margin-bottom:20px">
-      <echart
-        :data="DataOne"
-        title = "柱状图"
-        name="DataOneTotal"
-        ref="DataOneTotal"
-        widthT="80%"
-        heightT="460px"
-        :initData="true"
-      ></echart>
-      <echart
-        :data="DataTwo"
-        title = "折线图"
-        name="DataTwoTotal"
-        ref="DataTwoTotal"
-        widthT="55%"
-        heightT="360px"
-        :initData="true"
-      ></echart>
-      <echart
-        :data="DataThree"
-        title = "饼状图"
-        name="DataThreeTotal"
-        ref="DataThreeTotal"
-        widthT="40%"
-        heightT="360px"
-        :initData="true"
-      ></echart>
+  <div class="examplePageL vh100">
+    <showReadMe/>
+    <toHome/>
+    <div class="content">
+      <div class="o-hd" style="margin-bottom:20px">
+        <echart
+            :data="DataOne"
+            title = "柱状图"
+            name="DataOneTotal"
+            ref="DataOneTotal"
+            widthT="80%"
+            heightT="460px"
+            :initData="true"
+        ></echart>
+        <echart
+            :data="DataTwo"
+            title = "折线图"
+            name="DataTwoTotal"
+            ref="DataTwoTotal"
+            widthT="55%"
+            heightT="360px"
+            :initData="true"
+        ></echart>
+        <echart
+            :data="DataThree"
+            title = "饼状图"
+            name="DataThreeTotal"
+            ref="DataThreeTotal"
+            widthT="40%"
+            heightT="360px"
+            :initData="true"
+        ></echart>
 
-      <!--这是各项单独配置方式，但还是推荐用data方式更友好-->
-      <echart
-        :data="{}"
-        :title="DataFour.title"
-        :legendShow="DataFour.legendShow"
-        :legendX="DataFour.legendX"
-        :legendY="DataFour.legendY"
-        :subTitle="DataFour.subTitle"
-        :yAxis="DataFour.yAxis"
-        :xAxis="DataFour.xAxis"
-        :series="DataFour.series"
-        name="DataFourTotal"
-        ref="DataFourTotal"
-        widthT="calc(100% - 20px)"
-        heightT="560px"
-        :initData="true"
-      ></echart>
+        <!--这是各项单独配置方式，但还是推荐用data方式或者config方式更友好-->
+        <echart
+            :data="{}"
+            :title="DataFour.title"
+            :legendShow="DataFour.legendShow"
+            :legendX="DataFour.legendX"
+            :legendY="DataFour.legendY"
+            :subTitle="DataFour.subTitle"
+            :yAxis="DataFour.yAxis"
+            :xAxis="DataFour.xAxis"
+            :series="DataFour.series"
+            name="DataFourTotal"
+            ref="DataFourTotal"
+            widthT="calc(100% - 20px)"
+            heightT="560px"
+            :initData="true"
+        ></echart>
+      </div>
     </div>
   </div>
 </template>
@@ -143,11 +147,13 @@
 </script>
 
 <style scoped lang="less">
+  .examplePageL{
+    background-color: #F9F9F9;
+  }
   .content{
     width: 100%;
     padding-top: 20px;
     padding-left: 20px;
-    background-color: #F9F9F9;
     overflow: hidden;
   }
   .echart-cont{
