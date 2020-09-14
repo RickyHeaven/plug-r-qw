@@ -36,7 +36,7 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput
 } from "./methods/functionGroup.js"
 
 /*直接使用的组件（注册为全局Vue组件）*/
@@ -83,7 +83,8 @@ const plugMethods = {
   downloadFileReaderFile,
   fakeALinkClick,
   findPath,
-  getStringWidth
+  getStringWidth,
+  emptyInput
 }
 
 /*挂在Vue原型对象上的方法*/

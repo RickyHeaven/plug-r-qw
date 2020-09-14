@@ -589,3 +589,18 @@ export function hasPermission(value) {
   }
   return false
 }
+
+/**
+ * 如果值为''则将其替换为null
+ * @param val 被替换的值
+ * @returns {*}
+ */
+
+export function emptyInput(val) {
+  if (val === '') {
+    return null
+  }
+  else {
+    return val
+  }
+}
