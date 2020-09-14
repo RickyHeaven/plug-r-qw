@@ -1,34 +1,4 @@
 <template>
-  <!--
-      @created 2019.10.16
-      @author - XP email:13638232495@139.com
-      @description echarts 图表演示，懒得写注释了，组件中有详细的注释，请移步至组件查看
-      @param  params - 接口参数
-      @param  url - 接口地址
-      @param  config - 用这个可以单独配置整个图表，直接无视下面的，包括初始化定义、图表款式等
-      @param  data - 静态数据，可代替接口
-      @param  yAxis
-      @param  xAxis
-      @param  series
-      @param  theme
-      @param  name
-      @param  title
-      @param  titleColor
-      @param  titleFontSize
-      @param  titleX
-      @param  titleY
-      @param  subTitle
-      @param  subTitleColor
-      @param  subTitleFontSize
-      @param  legendShow
-      @param  legendColor
-      @param  legendFontSize
-      @param  legendX
-      @param  legendY
-      @param  legendOrient
-      @param  widthT
-      @param  heightT
-  -->
   <div class="content">
     <div class="o-hd" style="margin-bottom:20px">
       <echart
@@ -61,6 +31,7 @@
 
       <!--这是各项单独配置方式，但还是推荐用data方式更友好-->
       <echart
+        :data="{}"
         :title="DataFour.title"
         :legendShow="DataFour.legendShow"
         :legendX="DataFour.legendX"
@@ -172,12 +143,12 @@
 </script>
 
 <style scoped lang="less">
-  @import "../../global/public";
   .content{
-    .wh(100%);
-    .pd(top,20px);
-    .pd(left,20px);
-    .bg-c(#F9F9F9)
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 20px;
+    background-color: #F9F9F9;
+    overflow: hidden;
   }
   .echart-cont{
     float: left;

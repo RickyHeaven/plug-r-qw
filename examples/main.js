@@ -28,6 +28,13 @@ Vue.prototype.pageSizes = [
   100
 ]
 
+/**
+ * @description 注入 echarts 图表,全局控制，只加载一次主题
+ * @return {object} $echarts
+ */
+import echarts from "echarts"
+window.$echarts = echarts //图表
+
 VueAMap.initAMapApiLoader({
   key: 'ff57a9e37db989fcd67dc02a4f136084',
   plugin: [

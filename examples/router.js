@@ -159,6 +159,11 @@ export default new Router({
       path: '/tableSearch',
       name: 'tableSearch',
       component: ()=>import('./components/tableSearchEX.vue')
+    },
+    {
+      path: '/echarts',
+      name: 'echarts',
+      component: ()=>import('./components/echartsEX.vue')
     }
   ]
 })
