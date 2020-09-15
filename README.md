@@ -17,9 +17,15 @@ plug-in lib developed when I was in qw
   store:store
  })
 ```
+3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
+也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
 
+4. 没有挂在在Vue实例下的方法（使用频率较低），在需要的地方单独引用即可
 
-
+5. 所有UI组件均被库注册为了全局组件，所以在需要的地方直接使用即可，如：
+```
+<iconTxtBtn icon="ios-trash" name="批量删除"/>
+```
 ### 注意：
 * 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，推荐使用*cnpm*或淘宝镜像，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
 
