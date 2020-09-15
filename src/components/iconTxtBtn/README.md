@@ -5,7 +5,7 @@
 * name: 字符串，按钮的文字内容
 
 * icon: 字符串，按钮的图标，view-design的icon，如：
-```angular2html
+```
 <iconTxtBtn name="购物车" icon="ios-cart"/>
 ```
 

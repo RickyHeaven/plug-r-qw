@@ -3,7 +3,7 @@
 
 ### 属性
 * valProp: 对象，组件的值，推荐用*v-model* 绑定，如：
-```angular2html
+```
 <inputMap v-model="value"/>
 
 value: {

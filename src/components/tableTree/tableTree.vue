@@ -302,7 +302,7 @@
        * 手动添加单个子节点
        * @param index [非负整数] 要添加子节点的节点的序列号，由上到下，从0开始，可用params.row._index
        * @param node [object] 新节点数据,格式相当于table的data的一个元素
-       * @returns {Promise<unknown>} 成功则返回添加的节点在组件中的数据，失败则返回失败原因
+       * @returns {Promise} 成功则返回添加的节点在组件中的数据，失败则返回失败原因
        */
       addLocalNode(index, node) {
         return new Promise((resolve, reject) => {
@@ -366,7 +366,7 @@
        * 手动编辑单个子节点
        * @param index [非负整数] 要编辑节点的节点的序列号，由上到下，从0开始，可用params.row._index
        * @param node [object] 节点的新数据,格式相当于table的data的一个元素
-       * @returns {Promise<unknown>} 成功则返回编辑后的节点在组件中的数据，失败则返回失败原因
+       * @returns {Promise} 成功则返回编辑后的节点在组件中的数据，失败则返回失败原因
        */
       editLocalNode(index, node) {
         return new Promise((resolve, reject) => {
@@ -409,7 +409,7 @@
       /**
        * 手动删除单个子节点
        * @param index [非负整数] 要删除节点的节点的序列号，由上到下，从0开始，可用params.row._index
-       * @returns {Promise<unknown>} 成功则返回删除后的整棵表格树数据，失败则返回失败原因
+       * @returns {Promise} 成功则返回删除后的整棵表格树数据，失败则返回失败原因
        */
       deleteLocalNode(index) {
         return new Promise((resolve, reject) => {

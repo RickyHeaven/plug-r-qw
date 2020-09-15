@@ -3,7 +3,7 @@
 
 ### 属性
 * columns: 数组，表格列结构，同iview的table的columns,组件接管了选择功能，不用在columns中加selection列，加了也没用。如：
-```angular2html
+```
 [
   {
     title: "接收人号码",
@@ -23,7 +23,7 @@
 ```
 
 * data: 数组，表格内容，同iview的table的data，有子节点需在当前行加children属性，并赋对应的值。如：
-```angular2html
+```
 [
   {
     np: 'ricky',
@@ -69,15 +69,15 @@
 * addLocalNode: 手动添加单个子节点，参数：
 >1. @param {非负整数} index 要添加子节点的节点的序列号，由上到下，从0开始，可用params.row._index
 >2. @param {Object} node 新节点数据,格式相当于table的data的一个元素
->3. @returns {Promise<unknown>} 成功则返回添加的节点在组件中的数据，失败则返回失败原因
+>3. @returns {Promise} 成功则返回添加的节点在组件中的数据，失败则返回失败原因
 
 * editLocalNode: 手动编辑单个子节点，参数：
 >1. @param {非负整数} index 要编辑节点的节点的序列号，由上到下，从0开始，可用params.row._index
 >2. @param {Object} node 新节点数据,格式相当于table的data的一个元素
->3. @returns {Promise<unknown>} 成功则返回编辑后的节点在组件中的数据，失败则返回失败原因
+>3. @returns {Promise} 成功则返回编辑后的节点在组件中的数据，失败则返回失败原因
 
 * deleteLocalNode: 手动删除单个子节点，参数：
 >1. @param {非负整数} index 要删除节点的节点的序列号，由上到下，从0开始，可用params.row._index
->2. @returns {Promise<unknown>} 成功则返回删除后的整棵表格树数据，失败则返回失败原因
+>2. @returns {Promise} 成功则返回删除后的整棵表格树数据，失败则返回失败原因
 ### 注意
 * 如果要默认展开指定节点，需要在该节点数据上设置`hideChild:false`即可

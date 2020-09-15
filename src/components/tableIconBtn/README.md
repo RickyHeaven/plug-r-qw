@@ -3,7 +3,7 @@
 
 ### 属性
 * icon: 字符串，组件的图标，view-design的icon，如：
-```angular2html
+```
 <tableIconBtn icon="ios-cart"/>
 ```
 

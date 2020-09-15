@@ -5,7 +5,7 @@
 * value: 数组，选中节点数据组成的数组（默认只收集叶子节点），推荐使用v-model绑定
 
 * data: 数组，复选框组结构数据，每节点需要有label和collectVal的值对应的属性（如：name,id），子节点为children属性，如：
-```angular2html
+```
   [
     {
       name: 'parent 1',
