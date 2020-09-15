@@ -219,6 +219,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
           'crm',
           'umc',
           'wmc',
+          'msc',
           'amc',
           'pmc',
           'oa',
