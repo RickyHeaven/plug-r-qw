@@ -149,8 +149,6 @@ const install = function (Vue, opts = {}) {
     })
   }
   
-  console.log()
-  
   if (Vue.directive('has') === undefined) {
     /**权限指令**/
     Vue.directive("has", {
