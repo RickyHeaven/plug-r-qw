@@ -51,8 +51,7 @@ VueAMap.initAMapApiLoader({
 })
 
 plugRQw.init({
-  store: store,
-  changeFetchUrl: true
+  store: store
 })
 
 new Vue({

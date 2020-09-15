@@ -185,8 +185,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 const init = function (data) {
   let fetchConfig = {}
   let fetchItem = [
-    'store',
-    'changeFetchUrl'
+    'store'
   ]
   fetchItem.forEach(e => {
     if (data.hasOwnProperty(e)) {
