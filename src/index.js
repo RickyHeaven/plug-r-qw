@@ -195,21 +195,25 @@ const init = function (data) {
   $fetch.init(fetchConfig)
 }
 
-function copyO (d){
+function copyO(d) {
   Object.keys(d).forEach(key => {
-    if (!plugRQw.prototype.hasOwnProperty(key)) {
-      Object.defineProperty(plugRQw.prototype, key, {
-        get() {
-          return d[key]
-        }
-      })
-    }
+    setO(key, d[key])
   })
 }
 
-plugRQw.version = process.env.VERSION
-plugRQw.install = install
-plugRQw.init = init
+function setO(key, val) {
+  if (!plugRQw.hasOwnProperty(key)) {
+    Object.defineProperty(plugRQw, key, {
+      get() {
+        return val
+      }
+    })
+  }
+}
+
+setO('version', process.env.VERSION)
+setO('install', install)
+setO('init', init)
 
 copyO(components)
 copyO(methodsR)
