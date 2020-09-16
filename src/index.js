@@ -197,7 +197,13 @@ const init = function (data) {
 
 function copyO (d){
   Object.keys(d).forEach(key => {
-    plugRQw[key] = d[key]
+    if (!plugRQw.prototype.hasOwnProperty(key)) {
+      Object.defineProperty(plugRQw.prototype, key, {
+        get() {
+          return d[key]
+        }
+      })
+    }
   })
 }
 
