@@ -39,6 +39,8 @@ import {
   isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput
 } from "./methods/functionGroup.js"
 
+const plugRQw = {}
+
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
   HelloR: Hello,
@@ -193,8 +195,19 @@ const init = function (data) {
   $fetch.init(fetchConfig)
 }
 
-export default {
-  version: process.env.VERSION,
-  install,
-  init, ...components, ...methodsR, ...windowMethods, ...plugMethods
+function copyO (d){
+  Object.keys(d).forEach(key => {
+    plugRQw[key] = d[key]
+  })
 }
+
+plugRQw.version = process.env.VERSION
+plugRQw.install = install
+plugRQw.init = init
+
+copyO(components)
+copyO(methodsR)
+copyO(windowMethods)
+copyO(plugMethods)
+
+export default plugRQw
