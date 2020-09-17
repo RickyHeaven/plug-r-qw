@@ -122,6 +122,11 @@ const install = function (Vue, opts = {}) {
     return
   }
   
+  if(!Vue){
+    console.error('库安装失败，未获取到Vue对象')
+    return
+  }
+  
   Vue.use(iviewArea)
   Vue.use(JsonView)
   
