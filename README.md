@@ -18,7 +18,12 @@ plug-in lib developed when I was in qw
  })
 ```
 3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
-也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
+也可以单独引用：
+```
+import plugRQw from '@zhangqingcq/plug-r-qw'`
+
+plugRQw.XXX()
+```
 
 4. 没有挂在在Vue实例下的方法（使用频率较低），在需要的地方单独引用即可
 
