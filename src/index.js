@@ -36,10 +36,10 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, dataFilterOrToUrl, stopBubbling
 } from "./methods/functionGroup.js"
 
-const plugRQw = {}
+let plugRQw = {}
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
@@ -86,7 +86,8 @@ const plugMethods = {
   fakeALinkClick,
   findPath,
   getStringWidth,
-  emptyInput
+  emptyInput,
+  stopBubbling
 }
 
 /*挂在Vue原型对象上的方法*/
@@ -109,7 +110,8 @@ const methodsR = {
   downloadFileByFormSubmit,
   $swalConfirm,
   setValByOption,
-  hasPermission
+  hasPermission,
+  dataFilterOrToUrl
 }
 
 /*挂在window对象上的方法*/
@@ -122,7 +124,7 @@ const install = function (Vue, opts = {}) {
     return
   }
   
-  if(!Vue){
+  if (!Vue) {
     console.error('库安装失败，未获取到Vue对象')
     return
   }

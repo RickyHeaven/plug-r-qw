@@ -9,14 +9,14 @@ export function myTypeof(v) {
 // 下划线转换驼峰
 export function toHump(name) {
   return name.replace(/\_(\w)/g, function (all, letter) {
-    return letter.toUpperCase();
-  });
+    return letter.toUpperCase()
+  })
 }
 
 // 驼峰转换下划线
 export function toLine(name) {
   return name.replace(/([A-Z])/g, "_$1")
-    .toLowerCase();
+    .toLowerCase()
 }
 
 /**
@@ -26,7 +26,7 @@ export function trimObj(obj) {
   if (myTypeof(obj) === 'Object') {
     for (let key in obj) {
       if (myTypeof(obj[key]) == "String") {
-        obj[key] = obj[key].replace(/^\s+|\s+$/m, '');
+        obj[key] = obj[key].replace(/^\s+|\s+$/m, '')
       }
       else if (myTypeof(obj[key]) == "Object") {
         trimObj(obj[key])
@@ -95,25 +95,25 @@ export function clearObj(val, ignoreList) {
 /*用浏览器内部转换器实现html转码*/
 export function htmlEncode(html) {
   //1.首先动态创建一个容器标签元素，如DIV
-  let temp = document.createElement("div");
+  let temp = document.createElement("div")
   //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
-  temp.textContent !== undefined ? (temp.textContent = html) : (temp.innerText = html);
+  temp.textContent !== undefined ? (temp.textContent = html) : (temp.innerText = html)
   //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
-  let output = temp.innerHTML;
-  temp = null;
-  return output;
+  let output = temp.innerHTML
+  temp = null
+  return output
 }
 
 /*用浏览器内部转换器实现html解码*/
 export function htmlDecode(text) {
   //1.首先动态创建一个容器标签元素，如DIV
-  let temp = document.createElement("div");
+  let temp = document.createElement("div")
   //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
-  temp.innerHTML = text;
+  temp.innerHTML = text
   //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
-  let output = temp.innerText || temp.textContent;
-  temp = null;
-  return output;
+  let output = temp.innerText || temp.textContent
+  temp = null
+  return output
 }
 
 /*根据file文件对象获取文件地址用来预览*/
@@ -152,7 +152,7 @@ export function getFileTypeIconByName(name) {
     'bmp',
     'webp'
   ].indexOf(format) > -1) {
-    type = 'ios-image';
+    type = 'ios-image'
   }
   if ([
     'mp4',
@@ -164,7 +164,7 @@ export function getFileTypeIconByName(name) {
     'mkv',
     'flv'
   ].indexOf(format) > -1) {
-    type = 'ios-film';
+    type = 'ios-film'
   }
   if ([
     'mp3',
@@ -174,7 +174,7 @@ export function getFileTypeIconByName(name) {
     'aac',
     'flac'
   ].indexOf(format) > -1) {
-    type = 'ios-musical-notes';
+    type = 'ios-musical-notes'
   }
   if ([
     'doc',
@@ -184,7 +184,7 @@ export function getFileTypeIconByName(name) {
     'epub',
     'pdf'
   ].indexOf(format) > -1) {
-    type = 'md-document';
+    type = 'md-document'
   }
   if ([
     'numbers',
@@ -192,32 +192,32 @@ export function getFileTypeIconByName(name) {
     'xls',
     'xlsx'
   ].indexOf(format) > -1) {
-    type = 'ios-stats';
+    type = 'ios-stats'
   }
   if ([
     'keynote',
     'ppt',
     'pptx'
   ].indexOf(format) > -1) {
-    type = 'ios-videocam';
+    type = 'ios-videocam'
   }
   
-  return type;
+  return type
 }
 
 /*下载一个文件（替换容易被浏览器屏蔽的window.open方法）*/
 export function downloadFileReaderFile(name, href) {
-  let saveLink = document.createElement("a");
-  saveLink.href = href;
-  saveLink.download = name;
-  fakeALinkClick(saveLink);
+  let saveLink = document.createElement("a")
+  saveLink.href = href
+  saveLink.download = name
+  fakeALinkClick(saveLink)
 }
 
 /*模拟被点击（比如模拟用户点击链接下载东西）*/
 export function fakeALinkClick(obj) {
-  let ev = document.createEvent("MouseEvents");
-  ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-  obj.dispatchEvent(ev);
+  let ev = document.createEvent("MouseEvents")
+  ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  obj.dispatchEvent(ev)
 }
 
 /*以form-data方式提交请求数据时，$fetch的config参数值*/
@@ -583,7 +583,7 @@ export function setValByOption({group, condition, key, val, childKey = 'children
  * @returns {boolean}
  */
 export function hasPermission(value) {
-  let btnPermissions = sessionStorage.getItem("btnPermissions");
+  let btnPermissions = sessionStorage.getItem("btnPermissions")
   if (btnPermissions) {
     return btnPermissions.indexOf(value) > -1
   }
@@ -602,5 +602,70 @@ export function emptyInput(val) {
   }
   else {
     return val
+  }
+}
+
+let a = {
+  a: [2],
+  b: {
+    d: ''
+  }
+}
+
+/**
+ *过滤对象属性或者将对象转换成url的query字符串
+ * @param {Object} data 需要处理的对象
+ * @param {Boolean} toUrl 是否需要转换成url，为false时可以不传
+ * @param {Boolean} keepEmptyVal 是否保留空值（用于接口置空某个字段），为false时可以不传
+ * @returns {*}
+ * 注意：当toUrl=false且keepEmptyVal=true时，两个参数都传比较好
+ */
+
+export function dataFilterOrToUrl(data, toUrl, keepEmptyVal) {
+  if (myTypeof(data) !== 'Object') {
+    return data
+  }
+  let _data = Object.assign(data, {})
+  let url = ""
+  for (let key in _data) {
+    if (_data.hasOwnProperty(key)) {
+      let val = _data[key]
+      if (val === undefined || val === "" || (myTypeof(val) === 'String' && val.trim() === '') || val === null ||
+        isNaN(val)) {
+        if (keepEmptyVal) {
+          if (toUrl) {
+            url += key + "=&"
+          }
+          else {
+            _data[key] = ""
+          }
+        }
+        else {
+          delete _data[key]
+        }
+      }
+      else if (toUrl) {
+        url += key + '=' + val + "&"
+      }
+    }
+  }
+  if (toUrl) {
+    if (url.length > 0) {
+      return url.substr(0, url.length - 1)
+    }
+    return ''
+  }
+  else {
+    return _data
+  }
+}
+
+//阻止冒泡
+export function stopBubbling(e) {
+  e = e || window.Event;
+  if (e.stopPropagation) { 	//W3C阻止冒泡方法
+    e.stopPropagation();
+  } else {
+    e.cancelBubble = true; 	//IE阻止冒泡方法
   }
 }
