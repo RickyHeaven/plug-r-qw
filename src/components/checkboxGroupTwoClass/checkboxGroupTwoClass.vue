@@ -218,7 +218,7 @@
         }
         else {
           this.$emit('subVal', temp)
-          this.$emit('on-change', _.cloneDepp(temp))
+          this.$emit('on-change', _.cloneDeep(temp))
         }
       }
     }

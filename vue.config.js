@@ -132,6 +132,20 @@ module.exports = {
         ]
       }
     }
+    else {
+      return {
+        output: {
+          libraryExport: 'default'
+        },
+        plugins: [
+          new compressionPlugin({
+            test: /\.js$|\.html$|\.css/, //匹配文件名
+            threshold: 10240, //对超过10kb的数据进行压缩
+            deleteOriginalAssets: false //是否删除原文件
+          })
+        ]
+      }
+    }
   },
   
   chainWebpack: config => {
@@ -144,6 +158,18 @@ module.exports = {
       .loader('babel-loader')
       .tap(options => {
         // 修改它的选项...
+        
+        // return {
+        //   presets: [
+        //     [
+        //       'env',
+        //       {modules: false}
+        //     ],
+        //     'stage-2'
+        //   ],
+        //   plugins: ['transform-runtime'],
+        //   comments: false
+        // }
         return options
       })
     
