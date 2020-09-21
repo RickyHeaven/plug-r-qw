@@ -158,18 +158,7 @@ module.exports = {
       .loader('babel-loader')
       .tap(options => {
         // 修改它的选项...
-        
-        // return {
-        //   presets: [
-        //     [
-        //       'env',
-        //       {modules: false}
-        //     ],
-        //     'stage-2'
-        //   ],
-        //   plugins: ['transform-runtime'],
-        //   comments: false
-        // }
+       
         return options
       })
     

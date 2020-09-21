@@ -39,8 +39,6 @@ import {
   isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, dataFilterOrToUrl, stopBubbling
 } from "./methods/functionGroup.js"
 
-// let plugRQw = {}
-
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
   HelloR: Hello,
@@ -202,32 +200,6 @@ const init = function (data) {
   $fetch.init(fetchConfig)
 }
 
-// function copyO(d) {
-//   Object.keys(d).forEach(key => {
-//     setO(key, d[key])
-//   })
-// }
-//
-// function setO(key, val) {
-//   if (!plugRQw.hasOwnProperty(key)) {
-//     Object.defineProperty(plugRQw, key, {
-//       get() {
-//         return val
-//       }
-//     })
-//   }
-// }
-//
-// setO('version', process.env.VERSION)
-// setO('install', install)
-// setO('init', init)
-//
-// copyO(components)
-// copyO(methodsR)
-// copyO(windowMethods)
-// copyO(plugMethods)
-
-// export default plugRQw
 export default {
   version:process.env.VERSION,
   install:install,
