@@ -1,4 +1,3 @@
-import '@babel/polyfill'
 import Hello from "./components/hello.vue"
 import btTablePage from "./components/btTablePage/btTablePage.vue"
 import wellCard from "./components/wellCard/wellCard.vue"
@@ -233,5 +232,8 @@ export default {
   version:process.env.VERSION,
   install:install,
   init:init,
-  ...components,...methodsR,...windowMethods,...plugMethods
+  ...components,
+  ...methodsR,
+  ...windowMethods,
+  ...plugMethods
 }
