@@ -36,7 +36,7 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, dataFilterOrToUrl, stopBubbling
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput,isNaN, dataFilterOrToUrl, stopBubbling
 } from "./methods/functionGroup.js"
 
 /*直接使用的组件（注册为全局Vue组件）*/
@@ -109,6 +109,7 @@ const methodsR = {
   $swalConfirm,
   setValByOption,
   hasPermission,
+  isNaN,
   dataFilterOrToUrl
 }
 
@@ -201,11 +202,7 @@ const init = function (data) {
 }
 
 export default {
-  version:process.env.VERSION,
-  install:install,
-  init:init,
-  ...components,
-  ...methodsR,
-  ...windowMethods,
-  ...plugMethods
+  version: process.env.VERSION,
+  install: install,
+  init: init, ...components, ...methodsR, ...windowMethods, ...plugMethods
 }

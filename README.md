@@ -18,12 +18,7 @@ plug-in lib developed when I was in qw
  })
 ```
 3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
-也可以单独引用：
-```
-import plugRQw from '@zhangqingcq/plug-r-qw'`
-
-plugRQw.XXX()
-```
+也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
 
 4. 没有挂在在Vue实例下的方法（使用频率较低），在需要的地方单独引用即可
 
@@ -44,3 +39,26 @@ plugRQw.XXX()
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
 * 本库运行依赖vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、iview-area、vue-amap、vue-json-viewer，但并未将他们的代码打包到库的生产版本中，所以需要在你的项目中安装他们才能使用该库，否则某些功能可能无法正常使用
+
+* 本库采用@vue/cli3 脚手架搭建，用@vue/cli3或者更高版本搭建的项目引用不会有兼容问题，低于@vue/cli3版本或其他脚手架搭建的项目引用可能会有兼容问题，表现就是会有不认识的语法，解决方法：
+```
+  在webpack中添加loader处理库的输出文件，如@vue/cli2搭建的项目中，找到webpack.base.conf.js,在module-->rules下添加
+  
+  {
+    test: /(index\.js|plugRQw\.umd\.min\.js)$/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          'env',
+          "stage-2"
+        ]
+      }
+    },
+    include: [path.resolve(__dirname,'../node_modules/@zhangqingcq/plug-r-qw')]
+  }
+  
+  注意：
+    1. 这个loader会用到'path'、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目没有这些npm依赖，请安装它们
+    2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
+```

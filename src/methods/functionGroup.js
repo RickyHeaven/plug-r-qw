@@ -613,6 +613,15 @@ let a = {
 }
 
 /**
+ * 判断一个变量是否是NaN
+ * @param v 变量
+ * @returns {boolean}
+ */
+export function isNaN(v) {
+  return myTypeof(v) === 'Number' && String(v) === 'NaN'
+}
+
+/**
  *过滤对象属性或者将对象转换成url的query字符串
  * @param {Object} data 需要处理的对象
  * @param {Boolean} toUrl 是否需要转换成url，为false时可以不传
@@ -665,7 +674,8 @@ export function stopBubbling(e) {
   e = e || window.Event;
   if (e.stopPropagation) { 	//W3C阻止冒泡方法
     e.stopPropagation();
-  } else {
+  }
+  else {
     e.cancelBubble = true; 	//IE阻止冒泡方法
   }
 }
