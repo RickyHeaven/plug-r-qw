@@ -45,7 +45,7 @@ plug-in lib developed when I was in qw
   在webpack中添加loader处理库的输出文件，如@vue/cli2搭建的项目中，找到webpack.base.conf.js,在module-->rules下添加
   
   {
-    test: /(index\.js|plugRQw\.umd\.min\.js)$/,
+    test: /(index\.js|plugRQw\.umd(\.min){0,1}\.js)$/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -61,4 +61,5 @@ plug-in lib developed when I was in qw
   注意：
     1. 这个loader会用到'path'、‘core-js’、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目没有这些npm依赖，请安装它们
     2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
+    3. 如果添加了该loader还是提示有不认识的语法，那么将main.js中 import plugRQw from '@zhangqingcq/plug-r-qw' 换成 import plugRQw from '@zhangqingcq/plug-r-qw/lib/plugRQw.umd.js'
 ```

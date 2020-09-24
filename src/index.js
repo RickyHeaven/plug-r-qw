@@ -158,7 +158,7 @@ const install = function (Vue, opts = {}) {
   }
   
   if (Vue.directive('has') === undefined) {
-    /**权限指令**/
+    /*权限指令*/
     Vue.directive("has", {
       bind: function (el, binding) {
         if (binding.value && (!Vue.prototype.$_has(binding.value))) {
