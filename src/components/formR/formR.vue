@@ -592,15 +592,27 @@
         if (val && root.key) {
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
-              if (this.tempKeys[root.tempKey] === null) {
-                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
-                  'select') {
+              if (this.tempKeys[root.tempKey] === null ||
+                ((_.isPlainObject(this.tempKeys[root.tempKey]) || _.isArray(this.tempKeys[root.tempKey])) &&
+                  _.isEmpty(this.tempKeys[root.tempKey]))) {
+                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type === 'select') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {
                   this.tempKeys[root.tempKey] = {
                     lng: root.defaultVal,
                     lat: root.defaultVal2
+                  }
+                }
+                else if (root.type === 'date') {
+                  if (root.dateType === 'date' || root.dateType === 'datetime') {
+                    this.tempKeys[root.tempKey] = root.defaultVal
+                  }
+                  else if (root.dateType === 'daterange' || root.dateType === 'datetimerange') {
+                    this.tempKeys[root.tempKey] = item.defaultVal && item.defaultVal2 && [
+                      root.defaultVal,
+                      root.defaultVal2
+                    ] || []
                   }
                 }
               }
@@ -805,10 +817,13 @@
               const tempKeyB = 'date' + Math.floor(Math.random() * 100000000)
               item.tempKey = tempKeyB
               if (item.dateType === 'date' || item.dateType === 'datetime') {
-                this.$set(this.tempKeys, tempKeyB, null)
+                this.$set(this.tempKeys, tempKeyB, item.defaultVal || null)
               }
               else if (item.dateType === 'daterange' || item.dateType === 'datetimerange') {
-                this.$set(this.tempKeys, tempKeyB, [])
+                this.$set(this.tempKeys, tempKeyB, item.defaultVal && item.defaultVal2 && [
+                  item.defaultVal,
+                  item.defaultVal2
+                ] || [])
               }
               this.$watch(() => this.tempKeys[tempKeyB], after => {
                 this.tempKeysWatchHandle(after, item)
