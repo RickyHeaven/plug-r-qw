@@ -54,10 +54,10 @@ export default function messageBox({height, width = 416, title, content, onOk, o
                 }
               }
             }, [
-              h('Icon', {
-                props: {
-                  type: 'ios-close',
-                  size: 30
+              h('i', {
+                class:'ivu-icon ivu-icon-ios-close',
+                style:{
+                  fontSize:'30px'
                 }
               })
             ])
@@ -68,13 +68,12 @@ export default function messageBox({height, width = 416, title, content, onOk, o
               textAlign: stringContent ? 'center' : 'left'
             }
           }, [
-            h('Icon', {
-              props: {
-                type: 'ios-alert-outline',
-                size: 60,
+            h('i', {
+              class: stringContent && (noWarnIcon !== true) ? 'ivu-icon ivu-icon-ios-alert-outline' : 'hide',
+              style:{
+                fontSize:'60px',
                 color: '#f8bb86'
-              },
-              class: stringContent && (noWarnIcon !== true) ? '' : 'hide'
+              }
             }),
             h('div', {class:'msgBoxConO'},content)
           ]),
