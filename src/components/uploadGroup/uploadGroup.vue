@@ -24,7 +24,7 @@
       <Button
           icon="ios-cloud-upload-outline"
           :class="{disabledR:length > 0 && fileList.length >= length||Boolean(disabled)}"
-      >选择文件</Button>
+      >{{t('r.selectFile')}}</Button>
     </Upload>
     <div class="previewBoxM" v-show="previewType === 'img' && fileIdList.length>0">
       <div class="previewImg" v-if="!manualUpload && item !== null" v-for="item of fileIdList" :key="item">
@@ -32,9 +32,12 @@
         <div class="deleteModal">
           <Icon
               type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(url+'/'+item+'/download')"
-              title="全屏预览"
+              :title="t('r.fView')"
           />
-          <Icon type="ios-trash-outline" size="40" class="previewDelete" @click="deleteById($event,item)" title="删除"/>
+          <Icon
+              type="ios-trash-outline" size="40" class="previewDelete" @click="deleteById($event,item)"
+              :title="t('r.delete')"
+          />
         </div>
       </div>
     </div>
@@ -45,8 +48,13 @@
       >
         <img :src="item" :alt="'manualImg'+index">
         <div class="deleteModal">
-          <Icon type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(item)" title="全屏预览"/>
-          <Icon type="ios-trash-outline" size="40" class="previewDelete" @click="clearManualItem(index)" title="删除"/>
+          <Icon
+              type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(item)" :title="t('r.fView')"
+          />
+          <Icon
+              type="ios-trash-outline" size="40" class="previewDelete" @click="clearManualItem(index)"
+              :title="t('r.delete')"
+          />
         </div>
       </div>
     </div>
@@ -59,10 +67,10 @@
           :key="'manualItem'+index"
       >
         <Icon :type="getFileTypeIconByName(item.name)"/>
-        <span class="upNameT" @click="downloadManualFile(item)" title="点击下载">{{item.name}}</span>
+        <span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{item.name}}</span>
         <span class="btBoxJ">
-          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" title="全屏预览"/>
-          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" title="删除"/>
+          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" :title="t('r.fView')"/>
+          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
         </span>
       </p>
     </div>
@@ -75,10 +83,10 @@
           :key="'defaultItem'+index"
       >
         <Icon :type="getFileTypeIconByName(item.name)"/>
-        <span class="upNameT" @click="downloadDefaultFile(item)" title="点击下载">{{item.name||'文件'+(index+1)}}</span>
+        <span class="upNameT" @click="downloadDefaultFile(item)" :title="t('r.download')">{{item.name||t('r.file')+(index+1)}}</span>
         <span class="btBoxJ">
-          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" title="全屏预览"/>
-          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" title="删除"/>
+          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" :title="t('r.fView')"/>
+          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
         </span>
       </p>
     </div>
@@ -91,10 +99,12 @@
   } from '../../methods/functionGroup.js'
   import $fetch from '../../methods/fetch.js'
   import fullScreenImgByDom from '../../methods/fullScreenImgByDom.js'
-  import $swal from '../../windowMethods/swal.js'
+  import $swal from '../../methods/swal.js'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "uploadGroup",
+    mixins: [Locale],
     model: {
       prop: 'fileIdListProp',
       event: 'on-file-id-change'
@@ -330,18 +340,18 @@
                       let itemT = _.cloneDeep(item)
                       itemT.name =
                         r && r.data && r.data.returnValue && r.data.returnValue[0] && r.data.returnValue[0].name ||
-                        '文件' + _.indexOf(after, item)
+                        this.t('r.file') + _.indexOf(after, item)
                       itemT.mimeType =
                         r && r.data && r.data.returnValue && r.data.returnValue[0] && r.data.returnValue[0].mimeType ||
                         'unknown'
                       temp.push(itemT)
                     })
                     .catch(() => {
-                      temp.push({name: '文件' + _.indexOf(after, item)})
+                      temp.push({name: this.t('r.file') + _.indexOf(after, item)})
                     })
                 }
                 else {
-                  temp.push({name: '未知文件'})
+                  temp.push({name: this.t('r.unknown')})
                 }
               }
               else {
@@ -391,7 +401,7 @@
                 fullScreenImgByDom(r)
               }
               else {
-                $swal('提示', '文件不是图片，不可预览', 'info')
+                $swal(this.t('r.info.title'), this.t('r.notImg'), 'info')
               }
             })
         }
@@ -400,7 +410,7 @@
             fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download')
           }
           else {
-            $swal('提示', '文件不是图片，不可预览', 'info')
+            $swal(this.t('r.info.title'), this.t('r.notImg'), 'info')
           }
         }
       },
@@ -415,11 +425,11 @@
           if (file) {
             let type = getFileTypeByName(file.name)
             if (this.format.length > 0 && this.format.indexOf(type) < 0) {
-              $swal("文件类型不被允许", "支持类型：" + (this.format.length > 0 && String(this.format) || '无'), "warning")
+              $swal(this.t('r.wrongFileType'), this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
               return false
             }
             if (this.maxSize && file.size > this.maxSize * 1024) {
-              $swal("文件过大", "支持最大：" + this.maxSize + "kb", "warning")
+              $swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + "kb", "warning")
               return false
             }
             let temp = this.fileList
@@ -434,7 +444,7 @@
       },
       uploadError(error, file, fileList) {
         console.warn(error)
-        $swal("上传出错", "", "error")
+        $swal(this.t('r.uploadError'), "", "error")
       },
       uploadSuccess(response, file, fileList) {
         if (response && response.code === 0) {
@@ -443,14 +453,14 @@
           this.fileList = temp
         }
         else {
-          $swal('上传失败', response && response.message || '', 'error')
+          $swal(this.t('r.uploadFail'), response && response.message || '', 'error')
         }
       },
       overSize(file, fileList) {
-        $swal("文件过大", "支持最大：" + this.maxSize + ' kb', "warning")
+        $swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + ' kb', "warning")
       },
       onFormatError(file, fileList) {
-        $swal("文件类型不被允许", "支持类型：" + (this.format.length > 0 && String(this.format) || '无'), "warning")
+        $swal(this.t('r.wrongFileType'), this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
       },
       onPreview(file) {
         let id = file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id

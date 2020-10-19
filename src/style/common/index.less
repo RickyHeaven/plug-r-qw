@@ -109,6 +109,7 @@ img {
 
 /*$swal弹框*/
 .swalBoxX {
+  will-change: unset !important;/*避免弹框在chrome变模糊*/
   .swal-footer {
     text-align: center;
 
@@ -194,6 +195,15 @@ img {
           color: @primary;
           background-color: #fff;
           border-color: @primary;
+        }
+        .ivu-load-loop.ivu-icon-ios-loading{
+          display: none;
+          margin-right: 6px;
+        }
+        &.ivu-btn-loading{
+          .ivu-load-loop.ivu-icon-ios-loading{
+            display: inline-block;
+          }
         }
       }
 

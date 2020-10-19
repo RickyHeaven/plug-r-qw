@@ -168,7 +168,7 @@
                     this.$router.push('index')
                   }
                   else {
-                    window.$swal(res.message);
+                    this.$swal(res.message);
                     this.loading = false;
                   }
                 });

@@ -1,9 +1,9 @@
 <template>
   <div class="boxLPB">
     <div class="headerF">
-      <div class="firstT borderBoxKa">{{firstTitle}}</div>
-      <div class="secondT borderBoxKa">{{secondTitle}}</div>
-      <div class="thirdT borderBoxKa">{{thirdTitle}}</div>
+      <div class="firstT borderBoxKa">{{firstTitle||t('r.level.1')}}</div>
+      <div class="secondT borderBoxKa">{{secondTitle||t('r.level.2')}}</div>
+      <div class="thirdT borderBoxKa">{{thirdTitle||t('r.level.3')}}</div>
     </div>
     <div class="bodyF" v-for="(item,index) in dataT" :key="'checkboxJ'+index">
       <div class="firstCol borderBoxKa">
@@ -37,9 +37,11 @@
 <script>
   import _ from 'lodash'
   import {myTypeof} from "../../methods/functionGroup"
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "checkboxGroupThreeClass",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -58,22 +60,13 @@
         }
       },
       firstTitle: {
-        type: String,
-        default() {
-          return '一级'
-        }
+        type: String
       },
       secondTitle: {
-        type: String,
-        default() {
-          return '二级'
-        }
+        type: String
       },
       thirdTitle: {
-        type: String,
-        default() {
-          return '三级'
-        }
+        type: String
       },
       label: {
         /*节点的标签*/

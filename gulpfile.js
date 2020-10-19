@@ -30,6 +30,15 @@ function fonts(cb) {
   cb()
 }
 
+//拷贝国际化文件
+function langs(cb) {
+  src([
+    './src/locale/lang/*.js'
+  ])
+    .pipe(dest('./lib/lang'))
+  cb()
+}
+
 function clean(cb) {
   del([
     'plugRQw.min.css',
@@ -39,4 +48,4 @@ function clean(cb) {
 }
 
 
-exports.default = series(clean, build, fonts)
+exports.default = series(clean, build, fonts, langs)

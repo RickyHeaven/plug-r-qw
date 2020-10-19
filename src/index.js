@@ -25,7 +25,7 @@ import echart from "./components/echarts/echart.vue"
 import showHidePanelB from "./components/showHidePanelB/showHidePanelB.vue"
 import tableSearch from "./components/tableSearch/tableSearch.vue"
 import messageBox from './methods/messageBox.js'
-import $swal from './windowMethods/swal.js'
+import $swal from './methods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
@@ -36,8 +36,9 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput,isNaN, dataFilterOrToUrl, stopBubbling
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling
 } from "./methods/functionGroup.js"
+import locale from './locale/index'
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
@@ -90,6 +91,7 @@ const plugMethods = {
 
 /*挂在Vue原型对象上的方法*/
 const methodsR = {
+  $swal,
   messageBox,
   myTypeof,
   $fetch,
@@ -113,15 +115,12 @@ const methodsR = {
   dataFilterOrToUrl
 }
 
-/*挂在window对象上的方法*/
-const windowMethods = {
-  $swal
-}
-
 const install = function (Vue, opts = {}) {
   if (install.installed) {
     return
   }
+  locale.i18n(opts.i18n)
+  $fetch.init(opts.store)
   
   if (!Vue) {
     console.error('库安装失败，未获取到Vue对象')
@@ -144,18 +143,6 @@ const install = function (Vue, opts = {}) {
       })
     }
   })
-  
-  if (typeof window !== 'undefined') {
-    Object.keys(windowMethods).forEach(key => {
-      if (!window.hasOwnProperty(key)) {
-        Object.defineProperty(window, key, {
-          get() {
-            return windowMethods[key]
-          }
-        })
-      }
-    })
-  }
   
   if (Vue.directive('has') === undefined) {
     /*权限指令*/
@@ -188,21 +175,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-const init = function (data) {
-  let fetchConfig = {}
-  let fetchItem = [
-    'store'
-  ]
-  fetchItem.forEach(e => {
-    if (data.hasOwnProperty(e)) {
-      fetchConfig[e] = data[e]
-    }
-  })
-  $fetch.init(fetchConfig)
-}
-
 export default {
   version: process.env.VERSION,
-  install: install,
-  init: init, ...components, ...methodsR, ...windowMethods, ...plugMethods
+  install: install, ...components, ...methodsR, ...plugMethods
 }

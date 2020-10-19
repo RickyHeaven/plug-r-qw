@@ -1,66 +1,65 @@
 /** created 2019.07.05
  *  @author ricky email:zhangqingcq@foxmail.com
+ *  @param src - img src
  *  注意：不能全局调整Modal弹框尺寸，否则预览图片可能不居中，推荐使用另一个插件fullScreenImgByDom
  */
 
 import {Modal} from 'view-design'
+import {t} from '../locale/index'
 
 export default function (src) {
-  let id = 'previewImg'+Math.floor(Math.random()*10000000)
+  const T = (...arg) => t.apply(this, arg)
+  const close = T('r.closePreview')
+  const fullImg = T('r.fullImg')
+  
+  let id = 'previewImg' + Math.floor(Math.random() * 10000000)
   Modal.info({
-    closable:false,
-    'transition-names':['linear', 'fade'],
+    closable: false,
+    'transition-names': [
+      'linear',
+      'fade'
+    ],
     render: (h) => {
-      return h(
-        'div',
-        {
-          class: 'previewModal',
-          attrs: {
-            id:id
-          }
-        },
-        [
-          h(
-            'div',
-            {
-              class:'previewModalInner'
+      return h('div', {
+        class: 'previewModal',
+        attrs: {
+          id: id
+        }
+      }, [
+        h('div', {
+          class: 'previewModalInner'
+        }, [
+          h('img', {
+            attrs: {
+              src: src,
+              alt: fullImg
+            }
+          }),
+          h('Icon', {
+            props: {
+              type: 'md-close',
+              size: 20
             },
-            [
-              h(
-                'img',
-                {
-                  attrs:{
-                    src: src
-                  }
-                }
-              ),
-              h(
-                'Icon',
-                {
-                  props:{
-                    type:'md-close',
-                    size:20
-                  },
-                  class:'previewModalDelete',
-                  on:{
-                    click(){
-                      Modal.remove()
-                    }
-                  }
-                }
-              )
-            ]
-          )
-        ]
-      )
+            domProps:{
+              title: close
+            },
+            class: 'previewModalDelete',
+            on: {
+              click() {
+                Modal.remove()
+              }
+            }
+          })
+        ])
+      ])
     }
   })
-
-  setTimeout(()=>{
+  
+  setTimeout(() => {
     const hideEl = document.getElementById(id).parentNode.parentNode.parentNode.parentNode
     const hideEl2 = document.getElementById(id).parentNode.nextSibling
     hideEl.style.height = '0'
     hideEl.style.padding = '0'
     hideEl2.style.display = 'none'
-  },10)
+  }, 10)
 }

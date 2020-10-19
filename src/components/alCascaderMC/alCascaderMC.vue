@@ -8,7 +8,7 @@
       v-model="valueT"
       :level="level"
       :disabled="disabled"
-      :placeholder="placeholder"
+      :placeholder="placeholder||t('r.pSelect')"
       :transfer="transfer"
       :searchable="filterable"
   />
@@ -17,9 +17,11 @@
 <script>
   import _ from 'lodash'
   import {oneOf} from "../../methods/functionGroup"
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "alCascaderMC",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -82,10 +84,7 @@
       },
       placeholder: {
         /*占位符*/
-        type: String,
-        default() {
-          return '请选择'
-        }
+        type: String
       }
     },
     computed: {
@@ -160,7 +159,7 @@
                 .join(this.separator)
             }
             if (code) {
-              if(code === this.value){
+              if (code === this.value) {
                 return
               }
               this.$emit('subVal', code)

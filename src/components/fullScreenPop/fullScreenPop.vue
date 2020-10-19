@@ -5,9 +5,9 @@
   <div v-show="showPop" class="fullScreenPopBoxAM">
     <div class="headerAM" :style="{color:headerColor,backgroundColor:headerBg,fontSize:hFontSize}">
       <!--这是标题-->
-      <span class="headerTxtAM">{{title}}</span>
+      <span class="headerTxtAM">{{title||t('r.title')}}</span>
       <!--这是返回按钮-->
-      <header-bt icon="md-return-left" @click="close">返回</header-bt>
+      <header-bt icon="md-return-left" @click="close">{{t('r.back')}}</header-bt>
     </div>
     <div class="contentAM">
       <slot></slot>
@@ -18,14 +18,15 @@
 <script>
   import headerBt from '../headerBt/headerBt.vue'
   import {myTypeof} from "../../methods/functionGroup"
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "fullScreenPop",
+    mixins: [Locale],
     components: {headerBt},
     props: {
       title: {
-        type: String,
-        default: '标题'
+        type: String
       },
       headerColor: {
         type: String

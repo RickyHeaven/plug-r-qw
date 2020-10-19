@@ -72,7 +72,7 @@
                         onOk: () => {
                           /*在这里调接口删除数据并给成功失败提示，然后主动拉取table数据*/
                           setTimeout(() => {
-                            window.$swal('成功', '假装删除成功', 'success')
+                            this.$swal('成功', '假装删除成功', 'success')
                           }, 500)
                         }
                       })

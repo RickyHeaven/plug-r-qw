@@ -7,7 +7,7 @@
         ref="mapInput"
         v-model="valueT.name"
         :class="{mapInputIKJ:showMap}"
-        :placeholder="placeholder"
+        :placeholder="placeholder||t('r.search')"
         :disabled="disabled"
         icon="ios-search"
     />
@@ -18,9 +18,11 @@
 <script>
   import {lazyAMapApiLoaderInstance} from 'vue-amap'
   import _ from 'lodash'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "inputMap",
+    mixins: [Locale],
     model: {
       prop: 'valProp',
       event: 'update-value'
@@ -51,10 +53,7 @@
         }
       },
       placeholder: {
-        type: String,
-        default() {
-          return '搜索'
-        }
+        type: String
       },
       disabled: {
         type: Boolean,
@@ -82,12 +81,14 @@
             temp = {
               name: null
             }
-          } else if (!this.valProp.name) {
+          }
+          else if (!this.valProp.name) {
             temp = {
               ...this.valProp,
               name: null
             }
-          } else {
+          }
+          else {
             temp = _.cloneDeep(this.valProp)
           }
           return temp
@@ -102,18 +103,22 @@
       widthT() {
         if (_.isNumber(this.width)) {
           return this.width + 'px'
-        } else {
+        }
+        else {
           return this.width
         }
       },
       heightT() {
         if (_.isNumber(this.height)) {
           return this.height + 'px'
-        } else if (this.height) {
+        }
+        else if (this.height) {
           return this.height
-        } else if (_.isNumber(this.width)) {
+        }
+        else if (_.isNumber(this.width)) {
           return this.width * 0.66 + 'px'
-        } else {
+        }
+        else {
           return '200px'
         }
       },
@@ -141,7 +146,8 @@
       checkHeight() {
         if (this.$refs[this.vidT] && this.$refs[this.vidT].clientHeight < 10 || (!this.$refs[this.vidT])) {
           setTimeout(this.checkHeight, 100)
-        } else {
+        }
+        else {
           /*高德地图实例初始化较慢，暂时延时1秒，后面寻找完美解决方案*/
           setTimeout(this.initMap, 1000)
         }
@@ -174,7 +180,8 @@
                       lng: val.poi.location.lng,
                       lat: val.poi.location.lat
                     }
-                  } else {
+                  }
+                  else {
                     this.mapX.setCity(val.poi.name, () => {
                       let center = this.mapX.getCenter()
                       this.createMarker({
@@ -233,7 +240,8 @@
               offset: new AMap.Pixel(16, -45),
               closeWhenClickMap: true
             })
-          } else {
+          }
+          else {
             this.infoWindow = null
             console.warn('地图获取位置信息失败', result)
           }

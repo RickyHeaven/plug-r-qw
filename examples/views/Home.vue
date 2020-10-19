@@ -1,6 +1,11 @@
 <template>
   <div class="home">
     <div class="login">
+      {{$t('r.testMsg')+' | '+$t('e.testTxt')}}
+      <i-switch size="large" v-model="localeT" style="margin-right: 10px">
+        <span slot="open">ENG</span>
+        <span slot="close">CN</span>
+      </i-switch>
       当前env：{{envK}}
       <span @click="loginH">{{isLogin?'登出':'登录'}}</span>
     </div>
@@ -25,14 +30,15 @@
 
 <script>
   // @ is an alias to /examples
-  import {mapState, mapActions} from 'vuex'
+  import {mapState, mapMutations, mapActions} from 'vuex'
 
   export default {
     name: 'home',
     computed: {
       ...mapState({
         isLogin: state => state.user.isLogin,
-        envK: state => state.user.envR
+        envK: state => state.user.envR,
+        locale: state => state.locale
       }),
       routeArr() {
         return this.$router.options.routes.filter(e => {
@@ -40,10 +46,20 @@
             return e
           }
         })
+      },
+      localeT: {
+        get() {
+          return this.locale === 'en'
+        },
+        set(val) {
+          this.SET_LOCALE(val ? 'en' : 'zh')
+        }
       }
     },
     methods: {
-      ...mapActions({
+      ...mapMutations([
+        'SET_LOCALE'
+      ]), ...mapActions({
         logoutA: 'logout'
       }),
       loginH() {
@@ -64,7 +80,7 @@
       position: absolute;
       top: 10px;
       right: 20px;
-      >span{
+      > span {
         margin-left: 10px;
         color: #46be87;
         cursor: pointer;

@@ -5,6 +5,7 @@
 import axios from 'axios'
 import messageBox from './messageBox.js'
 import _ from 'lodash'
+import {t} from '../locale/index'
 
 const host = window.location.origin
 
@@ -15,7 +16,7 @@ let service = axios.create({
 })
 
 function notInitYet() {
-  console.info('未初始化,store为空，请在引入plug-r-qw后进行初始化操作（init({store:XXX,...})）')
+  console.info('store为空，请在安装插件时传入store实例：Vue.use(plugRQw,{store:store})')
 }
 
 /**
@@ -42,13 +43,13 @@ function logoutHandle() {
 service.interceptors.response.use(res => {
   if (res && res.data && res.data.code === 403) {
     messageBox({
-      content: '登录状态失效,请重新登录！',
+      content: t('r.http.403'),
       onOk: logoutHandle
     })
   }
   else if (res && res.data && res.data.code === 409) {
     messageBox({
-      content: '该账号已在其他地方登录,点击确定退出。',
+      content: t('r.http.409'),
       onOk: logoutHandle
     })
   }
@@ -57,13 +58,13 @@ service.interceptors.response.use(res => {
   if (err.response) {
     if (err.response.status === 403) {
       messageBox({
-        content: '登录状态失效,请重新登录！',
+        content: t('r.http.403'),
         onOk: logoutHandle
       })
     }
     else if (err.response.status === 409) {
       messageBox({
-        content: '该账号已在其他地方登录,点击确定退出。',
+        content: t('r.http.409'),
         onOk: logoutHandle
       })
     }
@@ -198,6 +199,7 @@ function handleRequest(method, url, data, msg, rPath, config, isUrlData) {
  */
 function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
   return new Promise((resolve, reject) => {
+    
     if (url) {
       config = config || {}
       if (config && config.spin) {
@@ -290,6 +292,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
  *             }
  *        )
  * @param config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
+ * @param isUrlData delete方法传参模式 true:params,false:data
  * @returns {Promise<*>}
  * @returns all 并发请求 例如：
  * this.$fetch.all(
@@ -312,10 +315,8 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
  *   )
  */
 export default {
-  init(data) {
-    if (data.hasOwnProperty('store')) {
-      service.store = data.store
-    }
+  init(store) {
+    service.store = store
   },
   
   post(url, data = {}, msg, rPath, config) {

@@ -7,8 +7,11 @@
   <div class="echart-cont" :id="name" :style="{width:widthT,height:heightT}"></div>
 </template>
 <script>
+  import Locale from '../../mixins/locale'
+
   export default { //图表样式
     name: 'echart',
+    mixins: [Locale],
     props: {
       config: Object,   //图表配置，可以覆盖整个图表,
       theme: String,   //图表主题，不传默认为设计稿款式
@@ -52,8 +55,7 @@
         default: ''
       },
       title: {     //图表标题
-        type: String,
-        default: '未知'
+        type: String
       },
       titleColor: String,    //标题颜色
       titleFontSize: Number,  //标题字体大小
@@ -215,7 +217,7 @@
           option = {
             //标题
             title: {
-              text: this.dataT.title ? this.dataT.title : this.title,
+              text: this.dataT.title ? this.dataT.title : (this.title || t('r.unknown')),
               textStyle: {
                 color: this.dataT.titleColor || this.titleColor || settingT.titleColor,
                 fontSize: this.dataT.titleFontSize || this.titleFontSize || settingT.titleFontSize,

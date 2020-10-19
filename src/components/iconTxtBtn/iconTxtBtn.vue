@@ -4,19 +4,19 @@
 <template>
   <div class="tabTopBtnsT" @click="click" v-has="has" :class="{disabled:disabled}" :style="{'font-size': txtSize}">
     <Icon :type="icon" :size="size"></Icon>
-    {{name}}
+    {{name||t('r.button')}}
   </div>
 </template>
 
 <script>
+  import Locale from '../../mixins/locale'
+
   export default {
     name: "iconTxtBtn",
+    mixins: [Locale],
     props: {
       name: {
-        type: String,
-        default() {
-          return '按钮'
-        }
+        type: String
       },
       icon: {
         type: String,
@@ -40,14 +40,14 @@
         type: String
       }
     },
-    computed:{
-      txtSize(){
-        return Math.floor(this.size/17*12) + 'px'
+    computed: {
+      txtSize() {
+        return Math.floor(this.size / 17 * 12) + 'px'
       }
     },
     methods: {
       click(e) {
-        if(this.disabled){
+        if (this.disabled) {
           return
         }
         this.$emit('click', e)

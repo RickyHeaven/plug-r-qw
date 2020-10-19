@@ -2,19 +2,16 @@
  * created 2020.07.03
  * @author Ricky <zhangqingcq@foxmail.com>
  */
+import $swal from './swal.js'
+import {t} from '../locale/index'
 
-import $swal from '../windowMethods/swal.js'
-
-export default function (title, content, icon, onOk) {
-  $swal({
-    title: title || '提示',
-    content: content || '确定执行该操作？',
+export default function (title, text, icon, onOk) {
+  const T = (...arg) => t.apply(this, arg)
+  $swal.call(this, {
+    title: title || T('r.info.title'),
+    text: text || T('r.info.text'),
     icon: icon || 'warning',
-    buttons: ['取消']
+    onOk: onOk,
+    buttons: [T('r.cancel')]
   })
-    .then(r => {
-      if (r) {
-        onOk()
-      }
-    })
 }

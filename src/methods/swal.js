@@ -4,7 +4,8 @@
  */
 
 import swal from "sweetalert"
-import {myTypeof} from '../methods/functionGroup.js'
+import {myTypeof} from './functionGroup.js'
+import {t} from '../locale/index'
 
 /**
  * @param option object/string object:{title:'标题',content(or text):'内容，可以为空',type(or icon):'success(or error or
@@ -13,21 +14,28 @@ import {myTypeof} from '../methods/functionGroup.js'
  * @param icon string 当option为object时不传此变量，当option为string时该变量为弹出框类型'success'or'error'or'warning'
  */
 export default function (option, text, icon) {
+  const T = (...arg) => t.apply(this, arg)
+  
   return new Promise((r, j) => {
     switch (myTypeof(option)) {
       case 'Object':
-        let okTxt = "确定"
-        let cancelTxt = "取消"
+        let okTxt = T('r.confirm')
+        let cancelTxt = T('r.cancel')
         let cancelVisible = false
         let okClass = "swalConfirmBt"
         let cancelClass = "swalCancelBt"
+        const reg = /^HTML.*Element$/
         option.type && (option.icon = option.type) && (delete option.type)
-        option.content && (option.text = option.content) && (delete option.content)
         option.className = option.className || 'swalBoxX'
-        if (option.button === false) {
-          //不设置button相关参数
+        if (option.text && reg.test(myTypeof(option.text))) {
+          option.content = option.text
+          delete option.text
         }
-        else {
+        if (option.content && myTypeof(option.content) === 'String') {
+          option.text = option.content
+          delete option.content
+        }
+        if (option.button !== false) {
           if (option.buttons && myTypeof(option.buttons) === 'Object') {
             if (option.buttons.cancel) {
               option.buttons.cancel.text && (cancelTxt = option.buttons.cancel.text) && (cancelVisible = true)
@@ -64,6 +72,9 @@ export default function (option, text, icon) {
         }
         swal(option)
           .then(res => {
+            if (res && myTypeof(option.onOk) === 'Function') {
+              option.onOk()
+            }
             r(res)
           })
           .catch(err => {
@@ -75,7 +86,7 @@ export default function (option, text, icon) {
           title: option,
           buttons: {
             confirm: {
-              text: "确定",
+              text: T('r.confirm'),
               value: true,
               visible: true,
               className: "swalConfirmBt",
@@ -84,7 +95,16 @@ export default function (option, text, icon) {
           },
           className: 'swalBoxX'
         }
-        text && (tempOption.text = text)
+        if (text) {
+          switch (myTypeof(text)) {
+            case 'String':
+              tempOption.text = text
+              break
+            case 'HTMLElement':
+              tempOption.content = text
+              break
+          }
+        }
         icon && (tempOption.icon = icon)
         swal(tempOption)
           .then(res => {
@@ -99,6 +119,8 @@ export default function (option, text, icon) {
           swal.close()
         }
         break
+      default:
+        throw new TypeError('swal第一个参数类型有误，仅支持Object/String/false')
     }
   })
 }

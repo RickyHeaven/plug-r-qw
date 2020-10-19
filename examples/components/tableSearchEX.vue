@@ -27,7 +27,7 @@
     },
     methods: {
       search(val) {
-        window.$swal('搜索内容', val, 'info')
+        this.$swal('搜索内容', val, 'info')
       }
     }
   }

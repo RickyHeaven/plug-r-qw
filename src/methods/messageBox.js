@@ -4,6 +4,7 @@
 
 import {Modal} from 'view-design'
 import {myTypeof} from './functionGroup.js'
+import {t} from '../locale/index'
 
 
 /**
@@ -24,8 +25,11 @@ import {myTypeof} from './functionGroup.js'
  *                    })
  */
 export default function messageBox({height, width = 416, title, content, onOk, onOkPromise, okText, cancelText, noWarnIcon, footerAlign, cancelBt}) {
+  const T = (...arg) => t.apply(this, arg)
+  
   let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
   let heightT = heightTemp || '100px'
+  content = content || T('r.info.text')
   let stringContent = myTypeof(content) === 'String'
   Modal.warning({
     width: width,
@@ -42,7 +46,7 @@ export default function messageBox({height, width = 416, title, content, onOk, o
           h('div', {
             class: 'titleN'
           }, [
-            h('span', title || '提示'),
+            h('span', title || T('r.info.title')),
             h('Button', {
               class: 'fr closeN',
               props: {
@@ -55,9 +59,9 @@ export default function messageBox({height, width = 416, title, content, onOk, o
               }
             }, [
               h('i', {
-                class:'ivu-icon ivu-icon-ios-close',
-                style:{
-                  fontSize:'30px'
+                class: 'ivu-icon ivu-icon-ios-close',
+                style: {
+                  fontSize: '30px'
                 }
               })
             ])
@@ -70,12 +74,12 @@ export default function messageBox({height, width = 416, title, content, onOk, o
           }, [
             h('i', {
               class: stringContent && (noWarnIcon !== true) ? 'ivu-icon ivu-icon-ios-alert-outline' : 'hide',
-              style:{
-                fontSize:'60px',
+              style: {
+                fontSize: '60px',
                 color: '#f8bb86'
               }
             }),
-            h('div', {class:'msgBoxConO'},content)
+            h('div', {class: 'msgBoxConO'}, content)
           ]),
           h('div', {
             class: 'footerN',
@@ -85,11 +89,15 @@ export default function messageBox({height, width = 416, title, content, onOk, o
           }, [
             h('Button', {
               class: 'okBtN',
-              props: {},
               on: {
-                click() {
+                click(e) {
                   if (myTypeof(onOk) === 'Function') {
                     if (onOkPromise) {
+                      let el = e && (e.currentTarget || e.target)
+                      if (el) {
+                        el.setAttribute('class', el.className + ' ivu-btn-loading')
+                        el.nextSibling.setAttribute('disabled', ' disabled')
+                      }
                       onOk()
                         .then(() => {
                           Modal.remove()
@@ -108,19 +116,23 @@ export default function messageBox({height, width = 416, title, content, onOk, o
                   }
                 }
               }
-            }, okText || '确定'),
+            }, [
+              h('i', {
+                class: 'ivu-load-loop ivu-icon ivu-icon-ios-loading'
+              }),
+              h('span', okText || T('r.confirm'))
+            ]),
             h('Button', {
               class: [
                 'cancelBtN',
                 cancelBt === false && 'hide'
               ],
-              props: {},
               on: {
                 click() {
                   Modal.remove()
                 }
               }
-            }, cancelText || '取消')
+            }, cancelText || T('r.cancel'))
           ])
         ])
       ])

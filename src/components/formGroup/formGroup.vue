@@ -8,7 +8,7 @@
         :form-data="formData"
         :form-rules="formRules"
         :show-long-ok-bt="showLongOkBt"
-        :long-ok-bt-txt="longOkBtTxt"
+        :long-ok-bt-txt="longOkBtTxt||t('r.confirm')"
         :disabled="disabled"
         :inline="inline"
         :label-width="labelWidth"
@@ -28,8 +28,8 @@
       <div :style="{width:contentWidth}">
         <Button
             @click="submit" class="form-save-btn" v-if="showOkBt" :loading="btnLoading&&showLoading"
-        >{{okBtTxt}}</Button>
-        <Button @click="close" class="form-cancel-btn" v-if="showCancelBt">{{cancelBtTxt}}</Button>
+        >{{okBtTxt||t('r.confirm')}}</Button>
+        <Button @click="close" class="form-cancel-btn" v-if="showCancelBt">{{cancelBtTxt||t(r.cancel)}}</Button>
       </div>
     </div>
   </div>
@@ -37,98 +37,106 @@
 
 <script>
   import formR from '../formR/formR.vue'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "formGroup",
-    components:{
+    mixins: [Locale],
+    components: {
       formR
     },
     props: {
-      formData: { /*弹框结构数据*/
+      formData: {
+        /*弹框结构数据*/
         type: Array,
         default() {
           return []
         }
       },
-      formRules: { /*弹框结构规则*/
+      formRules: {
+        /*弹框结构规则*/
         type: Object,
         default() {
           return {}
         }
       },
-      width: { /*表单组宽度*/
+      width: {
+        /*表单组宽度*/
         type: String,
         default() {
           return '100%'
         }
       },
-      labelWidth: { /*表单项标签宽度*/
+      labelWidth: {
+        /*表单项标签宽度*/
         type: Number,
         default() {
           return 160
         }
       },
-      contentWidth: { /*表单项内容宽度，默认70%*/
+      contentWidth: {
+        /*表单项内容宽度，默认70%*/
         type: String,
         default() {
           return '70%'
         }
       },
-      itemWidth: {/*表单项内容宽度,用于行内表单*/
+      itemWidth: {
+        /*表单项内容宽度,用于行内表单*/
         type: Number,
         default() {
           return 200
         }
       },
-      showOkBt: { /*是否展示确定按钮*/
+      showOkBt: {
+        /*是否展示确定按钮*/
         type: Boolean,
         default() {
           return true
         }
       },
-      showCancelBt: { /*是否展示取消按钮*/
+      showCancelBt: {
+        /*是否展示取消按钮*/
         type: Boolean,
         default() {
           return true
         }
       },
-      showLongOkBt: { /*是否展示长确定按钮*/
+      showLongOkBt: {
+        /*是否展示长确定按钮*/
         type: Boolean,
         default() {
           return false
         }
       },
-      longOkBtTxt: { /*长确定按钮内容*/
-        type: String,
-        default() {
-          return '确定'
-        }
+      longOkBtTxt: {
+        /*长确定按钮内容*/
+        type: String
       },
-      okBtTxt: { /*确定按钮内容*/
-        type: String,
-        default() {
-          return '确定'
-        }
+      okBtTxt: {
+        /*确定按钮内容*/
+        type: String
       },
-      cancelBtTxt: { /*取消按钮内容*/
-        type: String,
-        default() {
-          return '取消'
-        }
+      cancelBtTxt: {
+        /*取消按钮内容*/
+        type: String
       },
-      disabled: { /*整表禁用，仅展示*/
+      disabled: {
+        /*整表禁用，仅展示*/
         type: Boolean,
         default() {
           return false
         }
       },
-      inline: {/*行内表单，表单项横向排列（不单独成行）*/
+      inline: {
+        /*行内表单，表单项横向排列（不单独成行）*/
         type: Boolean,
         default() {
           return false
         }
       },
-      btnLoading: { /*提交按钮显示loading*/
+      btnLoading: {
+        /*提交按钮显示loading*/
         type: Boolean,
         default() {
           return false
@@ -183,10 +191,10 @@
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
-      onReset(){/*表单被重置，私有*/
+      onReset() {/*表单被重置，私有*/
         this.$emit('on-reset')
       },
-      onReRender(){/*表单被重新渲染，私有*/
+      onReRender() {/*表单被重新渲染，私有*/
         this.$emit('on-re-render')
       },
       validate() {/*验证表单，公开*/

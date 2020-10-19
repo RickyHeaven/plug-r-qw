@@ -33,7 +33,7 @@
           :min="item.min||-Infinity"
           :precision="item.precision"
           :step="item.step||1"
-          :placeholder="item.placeholder||'请输入'"
+          :placeholder="item.placeholder||t('r.pInput')"
           :disabled="Boolean(item.disabled) || disabled"
           :readonly="Boolean(item.readonly)"
           :editable="item.editable !== false"
@@ -47,7 +47,7 @@
           v-else-if="item.type === 'input'"
           v-model="tempKeys[item.tempKey]"
           :maxlength="item.maxLength||null"
-          :placeholder="item.placeholder||'请输入'"
+          :placeholder="item.placeholder||t('r.pInput')"
           :disabled="Boolean(item.disabled) || disabled"
           @on-blur="reValidateAndChangeHandle($event,item)"
           :clearable="item.clearable!==false"
@@ -60,7 +60,7 @@
           :filterable="(item.filterable === true || item.filterable === false)?item.filterable : false"
           :disabled="Boolean(item.disabled) || disabled"
           :multiple="Boolean(item.multiple)"
-          :placeholder="item.placeholder||'请选择'"
+          :placeholder="item.placeholder||t('r.pSelect')"
           @on-clear="clearTempKeyItem($event,item.tempKey)"
           @on-change="reValidateAndChangeHandle($event,item)"
           transfer
@@ -81,7 +81,7 @@
           :label-width="labelWidth"
           :item-width="itemWidth"
           :select-option="item.options||[]"
-          :placeholder="item.placeholder||'请输入'"
+          :placeholder="item.placeholder||t('r.pInput')"
           :clearable="item.clearable!==false"
           :disabled="Boolean(item.disabled) || disabled"
           @on-change="onSelectInputChange"
@@ -95,7 +95,7 @@
           :level="(item.level||item.level ===0)?item.level:2"
           :disabled="Boolean(item.disabled) || disabled"
           :filterable="item.filterable!==false"
-          :placeholder="item.placeholder||'请选择'"
+          :placeholder="item.placeholder||t('r.pSelect')"
           @on-name-change="alNameChange($event,item)"
       />
       <!--远程数据级联-->
@@ -109,7 +109,7 @@
           :only-last-val="item.onlyLastVal !== false"
           :only-last-label="item.onlyLastLabel !== false"
           :separator="item.separator || '/'"
-          :placeholder="item.placeholder || '请选择'"
+          :placeholder="item.placeholder || t('r.pSelect')"
           :filterable="Boolean(item.filterable)"
           :disabled="Boolean(item.disabled) || disabled"
           @on-label-change="asyncLabelChange($event,item)"
@@ -172,7 +172,7 @@
           :autosize="{minRows: 2}"
           :style="itemStyle"
           :maxlength="item.maxLength||null"
-          :placeholder="item.placeholder || '请输入'"
+          :placeholder="item.placeholder || t('r.pInput')"
           :disabled="Boolean(item.disabled) || disabled"
           @on-blur="reValidateAndChangeHandle($event,item)"
           :clearable="item.clearable!==false"
@@ -202,7 +202,7 @@
           :type="item.dateType"
           :disabled="Boolean(item.disabled) || disabled"
           placement="bottom-end"
-          :placeholder="item.placeholder||'选择日期'"
+          :placeholder="item.placeholder||t('r.selectDate')"
           :options="item.dateOptions||null"
           :clearable="item.clearable!==false"
           :editable="false"
@@ -222,7 +222,7 @@
           v-else-if="item.type === 'inputMap'"
           v-model="tempKeys[item.tempKey]"
           :style="itemStyle"
-          :placeholder="item.placeholder || '搜索'"
+          :placeholder="item.placeholder || t('r.search')"
           :disabled="Boolean(item.disabled) || disabled"
           :show-map="item.showMap!==false"
           :height="item.mapHeight||'250px'"
@@ -242,15 +242,15 @@
     </FormItem>
     <!--长提交按钮-->
     <FormItem v-if="showLongOkBt">
-      <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{longOkBtTxt}}</Button>
+      <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{longOkBtTxt||t('r.confirm')}}</Button>
     </FormItem>
     <!--短提交按钮（查询）-->
     <Button
         v-if="showInlineOkBt" type="primary" :class="{inlineFormBtXN:inline,okBtnXN:true}" @click="submit"
         :loading="btnLoading&&showLoading" :disabled="disabled"
-    >{{inlineOkBtTxt}}</Button>
+    >{{inlineOkBtTxt||t('r.confirm')}}</Button>
     <!--取消按钮（清除）-->
-    <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt}}</Button>
+    <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt||t('r.clear')}}</Button>
   </Form>
 </template>
 
@@ -265,9 +265,11 @@
   import uploadGroup from '../uploadGroup/uploadGroup.vue'
   import editor from '../editor/editor.vue'
   import inputMap from '../inputMap/inputMap.vue'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "formR",
+    mixins: [Locale],
     components: {
       selectInput,
       alCascaderMC,
@@ -335,10 +337,7 @@
       },
       longOkBtTxt: {
         /*长确定按钮内容*/
-        type: String,
-        default() {
-          return '确定'
-        }
+        type: String
       },
       showInlineOkBt: {
         /*是否展示行内短确定按钮*/
@@ -349,10 +348,7 @@
       },
       inlineOkBtTxt: {
         /*短确定按钮内容*/
-        type: String,
-        default() {
-          return '确定'
-        }
+        type: String
       },
       showInlineClearBt: {
         /*是否展示行内短清空按钮*/
@@ -363,10 +359,7 @@
       },
       inlineClearBtTxt: {
         /*短清空按钮内容*/
-        type: String,
-        default() {
-          return '清空'
-        }
+        type: String
       },
       disabled: {
         /*整表禁用，仅展示*/
@@ -426,13 +419,13 @@
             if (myTypeof(temp[key]) === 'Array') {
               for (let item of temp[key]) {
                 if (!(item.message || item.validator)) {
-                  item.message = '该项为必填'
+                  item.message = this.t('r.required')
                 }
               }
             }
             else if (myTypeof(temp[key]) === 'Object') {
               if ((!temp[key].message || temp[key].validator)) {
-                temp[key].message = '该项为必填'
+                temp[key].message = this.t('r.required')
               }
             }
           }
@@ -595,7 +588,8 @@
               if (this.tempKeys[root.tempKey] === null ||
                 ((_.isPlainObject(this.tempKeys[root.tempKey]) || _.isArray(this.tempKeys[root.tempKey])) &&
                   _.isEmpty(this.tempKeys[root.tempKey]))) {
-                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type === 'select') {
+                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
+                  'select') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {

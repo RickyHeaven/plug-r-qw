@@ -591,7 +591,7 @@
     },
     methods: {
       submit(val) {
-        window.$swal('表单提交内容', JSON.stringify(val))
+        this.$swal('表单提交内容', JSON.stringify(val))
       },
       submitB(val) {
         this.valGroup5 = val

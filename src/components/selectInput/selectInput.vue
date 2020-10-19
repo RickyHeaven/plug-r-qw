@@ -13,7 +13,7 @@
         item.label }}</Option>
     </Select>
     <Input
-        v-model="inputVal" :placeholder="placeholder" :style="inputStyle" :clearable="clearable"
+        v-model="inputVal" :placeholder="placeholder||t('r.pInput')" :style="inputStyle" :clearable="clearable"
         :disabled="Boolean(disabled)" @on-change="inputChange"
     />
   </div>
@@ -21,9 +21,11 @@
 
 <script>
   import _ from 'lodash'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "selectInput",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -68,10 +70,7 @@
         }
       },
       placeholder: {
-        type: String,
-        default() {
-          return '请输入'
-        }
+        type: String
       },
       clearable: {
         type: Boolean,

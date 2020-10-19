@@ -88,3 +88,4 @@ yarn-error.log*
 *.sw*
 /package-lock.json
 /lib/demo.html
+/debug.log

@@ -4,7 +4,7 @@
 <template>
   <Modal
       class="formModal"
-      :title="title"
+      :title="title||t('r.title')"
       v-model="openModal"
       :mask-closable="false"
       :styles="{height:height+'px'}"
@@ -32,8 +32,10 @@
       </template>
     </form-r>
     <div slot="footer">
-      <Button @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading">{{okBtTxt}}</Button>
-      <Button @click="close" class="modal-cancel-btn">{{cancelBtTxt}}</Button>
+      <Button
+          @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading"
+      >{{okBtTxt||t('r.confirm')}}</Button>
+      <Button @click="close" class="modal-cancel-btn">{{cancelBtTxt||r('r.cancel')}}</Button>
     </div>
   </Modal>
 </template>
@@ -41,19 +43,18 @@
 <script>
   import _ from 'lodash'
   import formR from '../formR/formR.vue'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "formModal",
+    mixins: [Locale],
     components: {
       formR
     },
     props: {
       title: {
         /*弹框标题*/
-        type: String,
-        default() {
-          return '标题'
-        }
+        type: String
       },
       formData: {
         /*弹框结构数据*/
@@ -79,7 +80,8 @@
           return 520
         }
       },
-      labelWidth: { /*表单项标签宽度*/
+      labelWidth: {
+        /*表单项标签宽度*/
         type: Number,
         default() {
           return 140
@@ -94,17 +96,11 @@
       },
       okBtTxt: {
         /*确定按钮内容*/
-        type: String,
-        default() {
-          return '确定'
-        }
+        type: String
       },
       cancelBtTxt: {
         /*取消按钮内容*/
-        type: String,
-        default() {
-          return '取消'
-        }
+        type: String
       },
       disabled: {
         /*整表禁用，仅展示*/
@@ -233,10 +229,10 @@
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
-      onReset(){/*表单被重置，私有*/
+      onReset() {/*表单被重置，私有*/
         this.$emit('on-reset')
       },
-      onReRender(){/*表单被重新渲染，私有*/
+      onReRender() {/*表单被重新渲染，私有*/
         this.$emit('on-re-render')
       },
       validate() {/*验证表单，公开*/

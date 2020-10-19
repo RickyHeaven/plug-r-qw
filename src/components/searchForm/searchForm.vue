@@ -12,7 +12,7 @@
         :inline="true"
         :show-long-ok-bt="false"
         :show-inline-ok-bt="true"
-        inline-ok-bt-txt="查询"
+        :inline-ok-bt-txt="t('r.check')"
         :show-inline-clear-bt="showInlineClearBt"
         :show-message="false"
         :btnLoading="btnLoading"
@@ -30,9 +30,11 @@
 
 <script>
   import formR from '../formR/formR.vue'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "searchForm",
+    mixins: [Locale],
     components:{
       formR
     },

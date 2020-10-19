@@ -5,7 +5,7 @@
   <div class="tabSetF">
     <div class="tabSetBt" @click="labelClick">
       <Icon type="md-settings" size="17"/>
-      <span>列表显示设置</span>
+      <span>{{t('r.tabSetting')}}</span>
     </div>
     <div class="tabSetCard" v-show="show" :style="{top:top,right:right,width:width,backgroundColor:bg}">
       <div class="topCheck">
@@ -13,8 +13,8 @@
             :indeterminate="indeterminate"
             :value="checkAll"
             @click.prevent.native="handleCheckAll"
-        >全选</Checkbox>
-        <span style="cursor: pointer;float: right" @click="save">确定</span>
+        >{{t('r.all')}}</Checkbox>
+        <span style="cursor: pointer;float: right" @click="save">{{t('r.confirm')}}</span>
       </div>
       <CheckboxGroup v-model="checkAllGroup">
         <Checkbox
@@ -42,9 +42,11 @@
    * @example 调用示例 <table-search v-model="areaName" :open="openSearch" placeholder="片区名称" @on-search="search" @on-toggle="openSearch=!openSearch"/>
    */
   import _ from 'lodash'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "tableSetting",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -101,11 +103,12 @@
     },
     computed: {
       groupX() {
+        let unknown = this.t('r.unknown')
         if (this.value.length > this.groupT.length) {
           this.groupT = _.cloneDeep(this.value)
         }
         return this.groupT.map(e => {
-          let temp = {'label': e && e.title || '未知列'}
+          let temp = {'label': e && e.title || unknown}
           if (e && e.disableShowSetting) {
             temp.disabled = true
           }
@@ -117,7 +120,8 @@
       },
       checkAllGroup: {
         get() {
-          return this.value.map(e => e && e.title || '未知列')
+          let unknown = this.t('r.unknown')
+          return this.value.map(e => e && e.title || unknown)
         },
         set(val) {
           let subV = this.groupT.filter(e => {
@@ -133,13 +137,15 @@
       }
     },
     mounted() {
+      let unknown = this.t('r.unknown')
       let localStr = localStorage.getItem(this.sKey)
       if (localStr) {
         this.checkAllGroup = JSON.parse(decodeURI(localStr))
-      } else {
+      }
+      else {
         if (this.defaultCheck) {
           this.checkAllGroup = this.value.filter(e => e.showSettingCheck)
-            .map(e => e && e.title || '未知列')
+            .map(e => e && e.title || unknown)
         }
       }
     },
@@ -165,14 +171,16 @@
       handleCheckAll() {
         if (this.indeterminate) {
           this.checkAll = false;
-        } else {
+        }
+        else {
           this.checkAll = !this.checkAll;
         }
         this.indeterminate = false;
 
         if (this.checkAll) {
           this.checkAllGroup = this.groupX.map(e => e.label);
-        } else {
+        }
+        else {
           this.checkAllGroup = this.disabledGroup.map(e => e.label);
         }
       },
@@ -180,10 +188,12 @@
         if (data.length === this.groupX.length) {
           this.indeterminate = false;
           this.checkAll = true;
-        } else if (data.length > this.disabledGroup.length) {
+        }
+        else if (data.length > this.disabledGroup.length) {
           this.indeterminate = true;
           this.checkAll = false;
-        } else {
+        }
+        else {
           this.indeterminate = false;
           this.checkAll = false;
         }

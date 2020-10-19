@@ -1,9 +1,9 @@
 <template>
   <div class="tableSearchV" :style="{width:width,right:right,top:top}">
-    <Input v-model="valueX" search @on-search="onSearch" class="searchInputC" :placeholder="placeholder"/>
+    <Input v-model="valueX" search @on-search="onSearch" class="searchInputC" :placeholder="placeholder||t('r.pInput')"/>
     <span class="sbt" @click="openX=!openX" v-show="showBtn" :style="{color:btnColor}"><icon
         :type="iconL" :color="btnColor"
-    ></icon>高级查询</span>
+    ></icon>{{t('r.adSearch')}}</span>
   </div>
 </template>
 
@@ -21,9 +21,11 @@
    * @param {string} [top] - 整个插件定位-上（最近relative）
    * @example 调用示例 <table-search v-model="areaName" :open="openSearch" placeholder="片区名称" @on-search="search" @on-toggle="openSearch=!openSearch"/>
    */
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "tableSearch",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -37,9 +39,7 @@
         default: false
       },
       placeholder: {
-        default() {
-          return '请输入'
-        }
+        type: String
       },
       showBtn: {
         /*是否显示高级查询按钮*/

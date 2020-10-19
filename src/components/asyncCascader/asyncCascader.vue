@@ -4,15 +4,17 @@
 <template>
   <Cascader
       ref="cascaderRT" :data="data" v-model="val" @on-change="onChange" change-on-select transfer
-      :disabled="disabled" :render-format="format" :placeholder="placeholder" :filterable="filterable"
+      :disabled="disabled" :render-format="format" :placeholder="placeholder||t('r.pSelect')" :filterable="filterable"
   ></Cascader>
 </template>
 
 <script>
   import {findPath} from '../../methods/functionGroup'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "asyncCascader",
+    mixins: [Locale],
     model: {
       prop: 'valProp',
       event: 'subVal'
@@ -68,8 +70,7 @@
         default: false
       },
       placeholder: {
-        type: String,
-        default: '请选择'
+        type: String
       },
       disabled: {
         type: Boolean,

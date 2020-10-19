@@ -4,7 +4,7 @@
 <template>
   <div class="flexColumnBox wellCardR" :style="wellStyle">
     <div class="panelHeader notGrow">
-      <div class="fl" style="font-weight: bold">{{title}}</div>
+      <div class="fl" style="font-weight: bold">{{title||t('r.title')}}</div>
       <div class="btsF">
         <slot name="bts"/>
       </div>
@@ -19,15 +19,14 @@
 
 <script>
   import {myTypeof} from '../../methods/functionGroup.js'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "wellCard",
+    mixins: [Locale],
     props: {
       title: {
-        type: String,
-        default() {
-          return '标题'
-        }
+        type: String
       },
       width: {
         type: [
@@ -55,7 +54,7 @@
           'width',
           'height'
         ]
-        for(let e of attrArr){
+        for (let e of attrArr) {
           if (myTypeof(this[e]) === 'String') {
             temp[e] = this[e]
           }

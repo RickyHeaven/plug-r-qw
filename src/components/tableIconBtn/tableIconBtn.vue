@@ -2,14 +2,17 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="tableBtnsG" :class="{disabled:disabled}" v-has="has" @click="onClick" :title="title">
+  <div class="tableBtnsG" :class="{disabled:disabled}" v-has="has" @click="onClick" :title="title||t('r.button')">
     <Icon :type="icon" :size="size"></Icon>
   </div>
 </template>
 
 <script>
+  import Locale from '../../mixins/locale'
+
   export default {
     name: "tableIconBtn",
+    mixins: [Locale],
     props: {
       icon: {
         type: String,
@@ -18,10 +21,7 @@
         }
       },
       title: {
-        type: String,
-        default() {
-          return '按钮'
-        }
+        type: String
       },
       has: {
         type: String

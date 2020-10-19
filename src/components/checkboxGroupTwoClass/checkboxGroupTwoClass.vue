@@ -1,8 +1,8 @@
 <template>
   <div class="boxLPA">
     <div class="headerJ">
-      <div class="firstT borderBoxAS">{{firstTitle}}</div>
-      <div class="secondT borderBoxAS">{{secondTitle}}</div>
+      <div class="firstT borderBoxAS">{{firstTitle||t('r.level.1')}}</div>
+      <div class="secondT borderBoxAS">{{secondTitle||t('r.level.2')}}</div>
     </div>
     <div class="bodyJ" v-for="(item,index) in dataT" :key="'checkboxJ'+index">
       <div class="firstCol borderBoxAS">
@@ -27,9 +27,11 @@
 <script>
   import _ from 'lodash'
   import {myTypeof} from "../../methods/functionGroup"
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "checkboxGroupTwoClass",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'subVal'
@@ -48,16 +50,10 @@
         }
       },
       firstTitle: {
-        type: String,
-        default() {
-          return '一级'
-        }
+        type: String
       },
       secondTitle: {
-        type: String,
-        default() {
-          return '二级'
-        }
+        type: String
       },
       label: {
         /*节点的标签*/
