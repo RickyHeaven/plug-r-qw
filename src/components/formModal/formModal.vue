@@ -35,7 +35,7 @@
       <Button
           @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading"
       >{{okBtTxt||t('r.confirm')}}</Button>
-      <Button @click="close" class="modal-cancel-btn">{{cancelBtTxt||r('r.cancel')}}</Button>
+      <Button @click="close" class="modal-cancel-btn">{{cancelBtTxt||t('r.cancel')}}</Button>
     </div>
   </Modal>
 </template>
