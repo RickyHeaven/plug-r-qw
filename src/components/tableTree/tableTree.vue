@@ -102,22 +102,21 @@
                     }
                   },
                   click: e => {
-                    console.log(e)
                     e.stopPort
                   }
                 }
               }),
               h("Icon", {
                 props: {
-                  type: params.row.hideChild ? 'ios-arrow-forward' :
-                    (params.row.hideChild === false ? 'ios-arrow-down' : '')
+                  type: params.row._hideChild ? 'ios-arrow-forward' :
+                    (params.row._hideChild === false ? 'ios-arrow-down' : '')
                 },
                 style: {
                   cursor: 'pointer'
                 },
                 on: {
                   click: () => {
-                    this.showHideClick(params)
+                    this.showHideClick(params.index)
                   }
                 }
               }),
@@ -127,7 +126,7 @@
                 },
                 on: {
                   click: () => {
-                    this.showHideClick(params)
+                    this.showHideClick(params.index)
                   }
                 }
               }, ' ' + params.row[key])
@@ -196,47 +195,28 @@
       updateTab() {
         let temp = _.cloneDeep(this.data)
         this.addHideChildAttr(temp)
-        this.showDefault(temp, _.cloneDeep(temp))
         this.dataX = _.cloneDeep(temp)
+        this.showDefault()
       },
-      showDefault(root, data) {
-        data.forEach((e, i) => {
-          if (e.hideChild === false) {
-            let child_ = _.cloneDeep(e.childrenXK)
-            root.splice(i + 1, 0, ...child_)//向当前行下面插入直接子节点
-            this.showDefaultB(root, _.cloneDeep(child_))
+      showDefault() {
+        for (let i = 0, l = this.dataX.length; i < l; i++) {
+          let e = this.dataX[i]
+          if (e.hideChild === false && e._hideChild === true) {
+            this.showHideClick(i)
+            break
           }
-        })
-      },
-      showDefaultB(root, data) {
-        data.forEach((e, i) => {
-          if (e.hideChild === false) {
-            let child_ = _.cloneDeep(e.childrenXK)
-            root.splice(i + 1, 0, ...child_)//向当前行下面插入直接子节点
-            this.showDefault(root, _.cloneDeep(child_))
-          }
-        })
-      },
-      showHideClick(params) {
-        if (params.row.hideChild) {//收起状态下，打开
-          this.dataX[params.index].hideChild = false
-          let child_ = _.cloneDeep(params.row.childrenXK)
-          this.dataX.splice(params.index + 1, 0, ...child_)//向当前行下面插入直接子节点
-          //如果子节点中有默认打开的，则插入孙子节点
-          this.openChild(params.row.childrenXK, params.index + 1)
-        }
-        else if (params.row.hideChild === false) {//打开状态，收起
-          this.hideChildNode(params)
         }
       },
-      openChild(data, index) {
-        data.forEach((e, i) => {
-          if (e.hideChild === false) {
-            let childB = _.cloneDeep(e.childrenXK)
-            this.dataX.splice(index + i + 1, 0, ...childB)
-            this.openChild(e.childrenXK, index + i + 1)
-          }
-        })
+      showHideClick(i) {
+        if (this.dataX[i]._hideChild) {//收起状态下，打开
+          this.dataX[i]._hideChild = false
+          let child_ = _.cloneDeep(this.dataX[i].childrenXK)
+          this.dataX.splice(i + 1, 0, ...child_)//向当前行下面插入直接子节点
+          this.showDefault()
+        }
+        else if (this.dataX[i]._hideChild === false) {//打开状态，收起
+          this.hideChildNode(i)
+        }
       },
       addHideChildAttr(data, parentNoKey) {
         for (let item of data) {
@@ -251,8 +231,8 @@
             delete item.children
           }
           if (this.myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-            if (item.hideChild !== false) {
-              item.hideChild = true
+            if (item._hideChild !== false) {
+              item._hideChild = true
             }
             this.addHideChildAttrB(item.childrenXK, [
               item.ownKey,
@@ -274,8 +254,8 @@
             delete item.children
           }
           if (this.myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-            if (item.hideChild !== false) {
-              item.hideChild = true
+            if (item._hideChild !== false) {
+              item._hideChild = true
             }
             this.addHideChildAttr(item.childrenXK, [
               item.ownKey,
@@ -284,18 +264,18 @@
           }
         }
       },
-      hideChildNode(params) {//收起（从table移除）点击行在table中显示的所有子节点
-        let count = this.getChildCount(params.row.ownKey)
+      hideChildNode(i) {//收起（从table移除）点击行在table中显示的所有子节点
+        let count = this.getChildCount(this.dataX[i].ownKey)
         if (count) {
-          this.dataX.splice(params.index + 1, count)//收起（从table中移除）点击行下所有显示在table中的子节点（子节点一定是跟在父节点后面的）
+          this.dataX.splice(i + 1, count)//收起（从table中移除）点击行下所有显示在table中的子节点（子节点一定是跟在父节点后面的）
         }
         //更改收展状态
         setValByOption({
-          group: [this.dataX[params.index]],
-          condition: e => e.hideChild === false,
-          key: 'hideChild',
+          group: [this.dataX[i]],
+          condition: e => e._hideChild === false,
+          key: '_hideChild',
           val: true,
-          childKey:'childrenXK'
+          childKey: 'childrenXK'
         })
       },
       /**
@@ -316,8 +296,8 @@
             reject('节点数据异常，无法添加节点！')
           }
           let parent = this.dataX[index]
-          if (parent.hideChild !== false) {
-            parent.hideChild = false
+          if (parent._hideChild !== false) {
+            parent._hideChild = false
           }
           let parenNoKeyT = [//新节点的parentNoKey
             parent.ownKey,
@@ -339,15 +319,15 @@
               for (let i = 0; i < level + 1; i++) {//找到正确的位置(层级)添加新节点数据
                 if (i === level) {
                   childrenXK.push(_.cloneDeep(nodeT))
-                  if (item.hideChild === undefined) {
-                    item.hideChild = true
+                  if (item._hideChild === undefined) {
+                    item._hideChild = true
                   }
                   break
                 }
                 else {
                   temp = _.find(temp.childrenXK, e => parenNoKeyT.indexOf(e.ownKey) !== -1)//找到下一层级（children）中的父辈数据节点，进行下一循环
-                  if (temp.hideChild === undefined) {
-                    temp.hideChild = true
+                  if (temp._hideChild === undefined) {
+                    temp._hideChild = true
                   }
                   if (temp.childrenXK === undefined) {
                     temp.childrenXK = []
@@ -433,7 +413,7 @@
                   if (tIndex > -1) {
                     childrenXK.splice(tIndex, 1)
                     if (childrenXK.length === 0) {
-                      temp.hideChild = null
+                      temp._hideChild = null
                     }
                   }
                   break
@@ -465,5 +445,5 @@
         return count
       }
     }
-  };
+  }
 </script>

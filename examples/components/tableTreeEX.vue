@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
   export default {
     name: "tableTreeEX",
     data() {
@@ -106,7 +107,6 @@
                   {
                     np: 'jim',
                     sd: 5,
-                    hideChild: false,
                     children: [
                       {
                         np: 'mike',
@@ -150,7 +150,8 @@
       title() {
         if (this.action === 'new') {
           return '新增'
-        } else {
+        }
+        else {
           return '编辑'
         }
       }
@@ -169,7 +170,8 @@
               this.$refs.formModal.changeLoading(false)
               console.log(e)
             })
-        } else {
+        }
+        else {
           this.$refs.tableTree.editLocalNode(this.editIndex, data)
             .then(r => {
               setTimeout(() => {//模拟请求，展示loading功能
