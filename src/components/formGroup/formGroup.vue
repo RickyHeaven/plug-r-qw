@@ -29,7 +29,7 @@
         <Button
             @click="submit" class="form-save-btn" v-if="showOkBt" :loading="btnLoading&&showLoading"
         >{{okBtTxt||t('r.confirm')}}</Button>
-        <Button @click="close" class="form-cancel-btn" v-if="showCancelBt">{{cancelBtTxt||t(r.cancel)}}</Button>
+        <Button @click="close" class="form-cancel-btn" v-if="showCancelBt">{{cancelBtTxt||t('r.cancel')}}</Button>
       </div>
     </div>
   </div>
