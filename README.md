@@ -11,6 +11,31 @@ plug-in lib developed when I was in qw
  import plugRQw from '@zhangqingcq/plug-r-qw'
  import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
  
+ Vue.use(plugRQw,{store})
+```
+国际化版本：
+```
+ import Vue from 'vue'
+ import store from './store'
+ import VueI18n from "vue-i18n"
+ import plugRQw from '@zhangqingcq/plug-r-qw'
+ import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
+ import enR from '@zhangqingcq/plug-r-qw/lib/lang/en-US'
+ import zhR from '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
+ 
+ Vue.use(VueI18n)
+
+ Vue.locale = () => {}
+ const messages = {
+   en: {hello:'Hello', ...enR},
+   zh: {hello:'你好', ...zhR}
+ }
+  
+ const i18n = new VueI18n(({
+   locale: 'zh',
+   messages
+ }))
+ 
  Vue.use(plugRQw,{
   store,
   i18n(path, options) {
@@ -18,7 +43,7 @@ plug-in lib developed when I was in qw
   }
  })
  
- 注意：i18n为项目使用Vue-i18n开启国际化时实例化对象，没有国际化时use不传该字段
+ new Vue({ i18n,store }).$mount('#app')
 ```
 3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
 也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
