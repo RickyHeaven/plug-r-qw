@@ -25,23 +25,21 @@ export function toLine(name) {
 export function trimObj(obj) {
   if (myTypeof(obj) === 'Object') {
     for (let key in obj) {
-      if (myTypeof(obj[key]) == "String") {
-        obj[key] = obj[key].replace(/^\s+|\s+$/m, '')
-      }
-      else if (myTypeof(obj[key]) == "Object") {
-        trimObj(obj[key])
+      if (obj.hasOwnProperty(key)) {
+        if (myTypeof(obj[key]) === "String") {
+          obj[key] = obj[key].replace(/^\s+|\s+$/mg, '')
+        }
+        else if (myTypeof(obj[key]) === "Object") {
+          trimObj(obj[key])
+        }
       }
     }
-    return obj
   }
-  else {
-    return obj
-  }
+  return obj
 }
 
 // 清空集合
-export function clearObj(val, ignoreList) {
-  ignoreList = ignoreList || []
+export function clearObj(val, ignoreList = []) {
   if (myTypeof(val) === 'Array') {
     val.forEach((item, index) => {
       switch (myTypeof(item)) {
@@ -154,7 +152,7 @@ export function getFileTypeIconByName(name) {
   ].indexOf(format) > -1) {
     type = 'ios-image'
   }
-  if ([
+  else if ([
     'mp4',
     'm3u8',
     'rmvb',
@@ -166,7 +164,7 @@ export function getFileTypeIconByName(name) {
   ].indexOf(format) > -1) {
     type = 'ios-film'
   }
-  if ([
+  else if ([
     'mp3',
     'wav',
     'wma',
@@ -176,7 +174,7 @@ export function getFileTypeIconByName(name) {
   ].indexOf(format) > -1) {
     type = 'ios-musical-notes'
   }
-  if ([
+  else if ([
     'doc',
     'txt',
     'docx',
@@ -186,7 +184,7 @@ export function getFileTypeIconByName(name) {
   ].indexOf(format) > -1) {
     type = 'md-document'
   }
-  if ([
+  else if ([
     'numbers',
     'csv',
     'xls',
@@ -194,7 +192,7 @@ export function getFileTypeIconByName(name) {
   ].indexOf(format) > -1) {
     type = 'ios-stats'
   }
-  if ([
+  else if ([
     'keynote',
     'ppt',
     'pptx'
@@ -239,12 +237,12 @@ export function toFormData(data) {
 }
 
 /**
- *按条件查找一个元素在集合中的位置（路径）
- * @param {Array/Object} group - 集合，被查找的集合
- * @param {Function} condition - 查找条件
- * @param {String} pathKey - 返回路径元素对应集合元素的key
+ *按条件查找一个元素在集合中的位置（路径），返回找到的第一个符合条件的位置
+ * @param {Array/Object} group - 集合，被查找的集合，必填
+ * @param {Function/String/Number/Boolean} condition - 查找条件，为常量时，将常量和集合元素直接对比，必填
+ * @param {String} pathKey - 查找结果（路径）元素在集合中的key，在集合为数组时，可以不填，返回index（索引）
  * @param {String} childKey - 集合子元素的key，默认值'children'
- * @param {Array} path - 递归用参数，不用传
+ * @param {Array} path - 递归用参数，逻辑内部参数，不用传
  * @return {Array} 返回带有路径（层级）信息的数组
  * @example group: {id:1,name:'爸爸',children:[{id:2,name:'大儿子'},{id:3,name:'二儿子'}]}
  *          condition: e=>e.id === 3
@@ -257,37 +255,27 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
   if (group && _.isObject(group)) {
     if (_.isFunction(condition)) {
       if (_.isPlainObject(group)) {
-        for (let key in group) {
-          if (group.hasOwnProperty(key)) {
-            let item = group[key]
-            let temp = _.cloneDeep(path)
-            if (condition(item)) {
-              if (pathKey && item[pathKey]) {
-                temp.push(item[pathKey])
-              }
-              else {
-                temp.push(key)
-              }
-              return temp
-            }
-            else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
-              if (pathKey && item[pathKey]) {
-                temp.push(item[pathKey])
-              }
-              else {
-                temp.push(key)
-              }
-              let rr = findPath({
-                group: item[childKey],
-                condition: condition,
-                pathKey: pathKey,
-                childKey: childKey,
-                path: temp
-              })
-              if (!_.isEmpty(rr)) {
-                return rr
-              }
-            }
+        let item = group
+        let temp = _.cloneDeep(path)
+        if (condition(item)) {
+          if (pathKey && item[pathKey]) {
+            temp.push(item[pathKey])
+          }
+          return temp
+        }
+        else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
+          if (pathKey && item[pathKey]) {
+            temp.push(item[pathKey])
+          }
+          let rr = findPath({
+            group: item[childKey],
+            condition: condition,
+            pathKey: pathKey,
+            childKey: childKey,
+            path: temp
+          })
+          if (!_.isEmpty(rr)) {
+            return rr
           }
         }
       }
@@ -324,52 +312,13 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
         }
       }
     }
-    else {
-      if (_.isPlainObject(group)) {
-        for (let key in group) {
-          if (group.hasOwnProperty(key)) {
-            let item = group[key]
-            let temp = _.cloneDeep(path)
-            if (item === condition) {
-              temp.push(key)
-              return temp
-            }
-            else if (item[childKey] && (!_.isEmpty(item[childKey]))) {
-              temp.push(key)
-              let rr = findPath({
-                group: item[childKey],
-                condition: condition,
-                pathKey: pathKey,
-                childKey: childKey,
-                path: temp
-              })
-              if (!_.isEmpty(rr)) {
-                return rr
-              }
-            }
-          }
-        }
-      }
-      else if (_.isArray(group)) {
-        for (let item of group) {
-          let temp = _.cloneDeep(path)
-          if (item === condition) {
-            temp.push(group.indexOf(item))
-            return temp
-          }
-          else if (item[childKey] && item[childKey].length > 0) {
-            temp.push(group.indexOf(item))
-            let rr = findPath({
-              group: item[childKey],
-              condition: condition,
-              pathKey: pathKey,
-              childKey: childKey,
-              path: temp
-            })
-            if (!_.isEmpty(rr)) {
-              return rr
-            }
-          }
+    else if (_.isArray(group)) {
+      //条件为常量，集合为数组，这种情况只会有一种业务场景：在一维数组中查找某个常量在数组中第一次出现的index
+      for (let item of group) {
+        let temp = _.cloneDeep(path)
+        if (item === condition) {
+          temp.push(group.indexOf(item))
+          return temp
         }
       }
     }
@@ -395,9 +344,7 @@ export function decimalDigitsLimit(val, num = 2) {
     return Number(valStr
       .replace(expStr, '$1'))
   }
-  else {
-    return val
-  }
+  return val
 }
 
 /*文件导出，调用后端接口以form表单提交数据下载文件*/
@@ -506,9 +453,7 @@ export function getStringWidth(str, fontSize = 12) {
     document.body.removeChild(nodesH)
     return width
   }
-  else {
-    return 0
-  }
+  return 0
 }
 
 /*判断数组或对象每个元素或单个变量是否是有效值*/
@@ -529,9 +474,7 @@ export function isEmptyValue(data) {
     }
     return true
   }
-  else {
-    return !isValidValue(data)
-  }
+  return !isValidValue(data)
 }
 
 /*获取字符串长度，中文2，其他1（一般用于用户输入长度限制）*/
@@ -543,9 +486,7 @@ export function stringLength(str) {
     str += ''
     return str.replace(/[^\x00-\xff]/g, "01").length
   }
-  else {
-    return 0
-  }
+  return 0
 }
 
 /**
@@ -605,13 +546,6 @@ export function emptyInput(val) {
   }
 }
 
-let a = {
-  a: [2],
-  b: {
-    d: ''
-  }
-}
-
 /**
  * 判断一个变量是否是NaN
  * @param v 变量
@@ -664,9 +598,7 @@ export function dataFilterOrToUrl(data, toUrl, keepEmptyVal) {
     }
     return ''
   }
-  else {
-    return _data
-  }
+  return _data
 }
 
 //阻止冒泡

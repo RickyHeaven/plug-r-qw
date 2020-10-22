@@ -203,13 +203,6 @@
         default() {
           return false
         }
-      },
-      debounce: {
-        /*查询防抖，如果为true，必须查询条件发生改变才能发起请求（不能重复请求）*/
-        type: Boolean,
-        default() {
-          return true
-        }
       }
     },
     data() {
