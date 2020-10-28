@@ -45,6 +45,7 @@ export default {
     uploadError: 'Upload error',
     uploadFail: 'Upload fail',
     closePreview: 'Close the preview',
-    fullImg: 'Full screen img'
+    fullImg: 'Full screen img',
+    preview: 'Preview'
   }
 }
