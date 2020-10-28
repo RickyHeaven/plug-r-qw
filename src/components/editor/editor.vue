@@ -214,7 +214,7 @@
     },
     methods: {
       setHtml(val) {
-        this.editor.txt.html(val)
+        this.editor.txt.html(xss(val))
       },
       previewHandler() {
         const id = this.editorId + 'preview'
