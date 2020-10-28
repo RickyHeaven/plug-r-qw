@@ -35,6 +35,10 @@
         ]),
         default: 'html'
       },
+      focus: {
+        type: Boolean,
+        default: false
+      },
       changeInterval: {
         /*设置change事件触发时间间隔*/
         type: Number,
@@ -101,8 +105,8 @@
       }
     },
     data() {
-      return{
-        editor:null
+      return {
+        editor: null
       }
     },
     computed: {
@@ -163,6 +167,7 @@
         'viewMenuKey'//自定义预览菜单
       ]
 
+      this.editor.config.focus = this.focus
       this.editor.config.colors = this.colors
       this.editor.config.fontNames = this.fontNames
       this.editor.config.uploadImgMaxSize = this.uploadImgMaxSize
@@ -320,71 +325,3 @@
     }
   }
 </script>
-<style lang="scss">
-  $headH: 40px;
-  $wallW: 300px;
-  $wallH: 500px;
-
-  .editor-preview-mask {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(55, 55, 55, .6);
-    z-index: 105;
-    text-align: center;
-    padding-top: 20px;
-    overflow: auto;
-
-    .editor-preview-body {
-      text-align: left;
-      padding-top: calc(#{$headH} + 1px);
-      position: relative;
-      display: inline-block;
-      .editor-preview-head {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: $headH;
-        width: 100%;
-        background-color: #fff;
-        padding: 0 10px 0 5px;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        > div {
-          display: inline-block;
-          > span {
-            padding: 0 5px 0 12px;
-          }
-          > input {
-            width: 50px;
-            border-radius: 0;
-            border: none;
-            background-color: #eee;
-            outline: none;
-            padding-left: 6px;
-          }
-        }
-        > i {
-          font-size: 18px;
-          cursor: pointer;
-          &:hover {
-            opacity: .85;
-          }
-        }
-      }
-      .editor-preview-out-wall {
-        height: $wallH;
-        background-color: #fff;
-        overflow: auto;
-        .editor-preview-wall {
-          width: $wallW;
-          overflow: hidden;
-        }
-      }
-    }
-  }
-</style>
