@@ -504,7 +504,17 @@
               this.$set(this.valGroup, key, false)
             }
             else {
-              this.$set(this.valGroup, key, null)
+              const formItem = _.find(this.formData, [
+                'key',
+                key
+              ])
+              if (formItem && formItem.type === 'editor') {
+                this.$set(this.valGroup, key, '')
+              }
+              else {
+                this.$set(this.valGroup, key, null)
+              }
+
             }
           }
         }
@@ -980,6 +990,10 @@
             if (item.type === 'checkboxGroup' || (item.type === 'select' && item.multiple)) {
               this.$set(this.valGroup, item.key,
                 item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : [])
+            }
+            else if (item.type === 'editor') {
+              this.$set(this.valGroup, item.key,
+                item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : '')
             }
             else {
               this.$set(this.valGroup, item.key,

@@ -2,7 +2,9 @@
   <div class="examplePageL">
     <showReadMe/>
     <toHome/>
-    <form-group :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit" @on-item-change="onItemChange"></form-group>
+    <form-group
+        ref="formGroup" :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit" @on-item-change="onItemChange" cancel-bt-txt="清空" @on-cancel="clear"
+    ></form-group>
     <div style="margin-top: 30px">
       组件提交的值：
       <json-viewer :value="valGroup" theme="my-awesome-json-theme" copyable></json-viewer>
@@ -92,10 +94,18 @@
             label: '地址',
             key: 'lng',
             key2: 'lat'
+          },
+          {
+            type: 'editor',
+            key: 'signature',
+            label: '个性签名'
           }
         ],
         formRules: {
           age: {
+            required: true
+          },
+          signature: {
             required: true
           }
         }
@@ -107,6 +117,9 @@
       },
       onItemChange(data) {
         console.log('item change:', data)
+      },
+      clear(){
+        this.$refs.formGroup.resetForm()
       }
     }
   }

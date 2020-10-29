@@ -1,15 +1,23 @@
 @headH: 40px;
 @wallW: 300px;
 @wallH: 500px;
+@import "../common/color";
+
+.ivu-form-item-error {
+  .w-e-toolbar,
+  .w-e-text-container {
+    border-color: @errorColor !important;
+  }
+}
 
 .editor-preview-mask {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: rgba(55, 55, 55, .6);
-  z-index: 1150;/*view-design组件z-index层级较高，为避免被遮挡，故设的比较大*/
+  z-index: 1150; /*view-design组件z-index层级较高，为避免被遮挡，故设的比较大*/
   text-align: center;
   padding-top: 20px;
   overflow: auto;
