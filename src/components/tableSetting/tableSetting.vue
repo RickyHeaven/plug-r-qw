@@ -98,7 +98,8 @@
         indeterminate: true,
         checkAll: false,
         show: false,
-        groupT: []
+        groupT: [],
+        locale: null
       }
     },
     computed: {
@@ -136,9 +137,23 @@
         }
       }
     },
+    created() {
+      if (this.$root && this.$root.$i18n && this.$root.$i18n.locale) {
+        this.locale = this.$root.$i18n.locale
+      }
+      else if (this.$root && this.$root.$lang) {
+        this.locale = this.$root.$lang
+      }
+    },
     mounted() {
       let unknown = this.t('r.unknown')
-      let localStr = localStorage.getItem(this.sKey)
+      let localStr
+      if (this.locale) {
+        localStr = localStorage.getItem(this.sKey + '_' + this.locale)
+      }
+      else {
+        localStr = localStorage.getItem(this.sKey)
+      }
       if (localStr) {
         this.checkAllGroup = JSON.parse(decodeURI(localStr))
       }
@@ -164,7 +179,12 @@
         }
       },
       save() {
-        localStorage.setItem(this.sKey, encodeURI(JSON.stringify(this.checkAllGroup)))
+        if (this.locale) {
+          localStorage.setItem(this.sKey + '_' + this.locale, encodeURI(JSON.stringify(this.checkAllGroup)))
+        }
+        else {
+          localStorage.setItem(this.sKey, encodeURI(JSON.stringify(this.checkAllGroup)))
+        }
         this.show = false
         // this.$Message.success('显示设置已保存！')
       },

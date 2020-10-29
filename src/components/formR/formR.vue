@@ -514,7 +514,6 @@
               else {
                 this.$set(this.valGroup, key, null)
               }
-
             }
           }
         }
