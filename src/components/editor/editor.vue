@@ -42,7 +42,7 @@
       changeInterval: {
         /*设置change事件触发时间间隔*/
         type: Number,
-        default: 200
+        default: 800
       },
       colors: {
         /*文字和背景色*/
@@ -106,7 +106,8 @@
     },
     data() {
       return {
-        editor: null
+        editor: null,
+        valueT: ''
       }
     },
     computed: {
@@ -185,6 +186,8 @@
       this.editor.config.onchange = (html) => {
         let text = this.editor.txt.text()
         let htmlT = xss(html)
+        this.valueT = this.valueType === 'html' ? htmlT : text
+
         this.$emit('input', this.valueType === 'html' ? htmlT : text)
         this.$emit('on-change', this.valueType === 'html' ? htmlT : text)
       }
@@ -205,6 +208,11 @@
             this.editor.$textElem.attr('contenteditable', true)
           }
         }, {immediate: true})
+        this.$watch(() => this.value, s => {
+          if (s !== this.valueT) {
+            this.setHtml(s)
+          }
+        })
       }, 10)
     },
     beforeDestroy() {
@@ -313,12 +321,12 @@
             preEl.style.display = 'none'
           })
 
-          wallE.innerHTML = this.editor.txt.html()
+          wallE.innerHTML = this.value
           body[0].append(preEl)
         }
         else {
           let wallE = preEl.children[0].children[1].children[0]
-          wallE.innerHTML = this.editor.txt.html()
+          wallE.innerHTML = this.value
           preEl.style.display = 'block'
         }
       }
