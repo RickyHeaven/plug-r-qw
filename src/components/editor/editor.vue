@@ -187,6 +187,9 @@
         let text = this.editor.txt.text()
         let htmlT = xss(html)
         this.valueT = this.valueType === 'html' ? htmlT : text
+        if (this.value === this.valueT) {
+          return
+        }
 
         this.$emit('input', this.valueType === 'html' ? htmlT : text)
         this.$emit('on-change', this.valueType === 'html' ? htmlT : text)
