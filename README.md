@@ -8,6 +8,7 @@ plug-in lib developed when I was in qw
 ```
  import Vue from 'vue'
  import store from './store'
+ import router from './router'
  import plugRQw from '@zhangqingcq/plug-r-qw'
  import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
  
@@ -17,6 +18,7 @@ plug-in lib developed when I was in qw
 ```
  import Vue from 'vue'
  import store from './store'
+ import router from './router'
  import VueI18n from "vue-i18n"
  import plugRQw from '@zhangqingcq/plug-r-qw'
  import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
