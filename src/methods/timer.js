@@ -10,6 +10,8 @@ export const init = function (r) {
       intervalBox.map(e => {
         window.clearInterval(e)
       })
+      timeoutBox.length = 0
+      intervalBox.length = 0
       next()
     })
   }
