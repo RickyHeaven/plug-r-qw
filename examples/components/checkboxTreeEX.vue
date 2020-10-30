@@ -99,6 +99,7 @@
               {
                 name: 'child 1-2',
                 id: 12,
+                expand: true,
                 children: [
                   {
                     name: 'leaf 1-2-1',
@@ -115,9 +116,14 @@
         ]
       }
     },
+    mounted(){
+      this.setTimeout(()=>{
+        this.value.push(121)
+      },5000)
+    },
     methods: {
       handleChange(val) {
-        console.log(val)
+
       }
     }
   }

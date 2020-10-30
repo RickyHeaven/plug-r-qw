@@ -11,7 +11,7 @@ plug-in lib developed when I was in qw
  import plugRQw from '@zhangqingcq/plug-r-qw'
  import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
  
- Vue.use(plugRQw,{store})
+ Vue.use(plugRQw,{store,router})
 ```
 国际化版本：
 ```
@@ -38,6 +38,7 @@ plug-in lib developed when I was in qw
  
  Vue.use(plugRQw,{
   store,
+  router,
   i18n(path, options) {
     return i18n.t(path, options) || ''
   }

@@ -48,6 +48,7 @@ Vue.use(ViewUI, {
 Vue.use(VueAMap)
 Vue.use(plugRQw, {
   store,
+  router,
   i18n(path, options) {
     return i18n.t(path, options) || ''
   }

@@ -69,7 +69,8 @@
     data() {
       return {
         dataT: [],
-        id: 'CKT' + Math.floor(Math.random() * 10000000 + 10000000)
+        id: 'CKT' + Math.floor(Math.random() * 10000000 + 10000000),
+        valueE: []
       }
     },
     computed: {
@@ -101,6 +102,47 @@
         },
         immediate: true,
         deep: true
+      },
+      valueT(after) {
+        let key
+        let type = 's'
+        if (myTypeof(this.collectVal) === 'Array' && this.collectVal[0]) {
+          key = this.collectVal[0]
+          type = 'a'
+        }
+        else {
+          key = this.collectVal
+        }
+        if (!key || JSON.stringify(after) === JSON.stringify(this.valueE)) {
+          return
+        }
+        /*清空dataT已选*/
+        setValByOption({
+          group: this.dataT,
+          condition: e => e.checked === true,
+          key: 'checked',
+          val: false
+        })
+        /*根据value设置dataT的已选*/
+        if (type === 'a') {
+          setValByOption({
+            group: this.dataT,
+            condition: e => _.findIndex(after, [
+              key,
+              e[key]
+            ]) !== -1,
+            key: 'checked',
+            val: true
+          })
+        }
+        else {
+          setValByOption({
+            group: this.dataT,
+            condition: e => after.indexOf(e[key]) !== -1,
+            key: 'checked',
+            val: true
+          })
+        }
       },
       disabled: {
         handler(after) {
@@ -218,13 +260,13 @@
               let br = document.createElement('br')
               grandParent.insertBefore(br, tt)
               tt = br.nextElementSibling
-              if (tt.className.indexOf('inlineTreeNodeF') == -1) {
+              if (tt.className.indexOf('inlineTreeNodeF') === -1) {
                 tt.setAttribute('class', tt.className + ' inlineTreeNodeF')
               }
             }
             while (tt.nextElementSibling) {
               tt = tt.nextElementSibling
-              if (tt.className.indexOf('inlineTreeNodeF') == -1) {
+              if (tt.className.indexOf('inlineTreeNodeF') === -1) {
                 tt.setAttribute('class', tt.className + ' inlineTreeNodeF')
               }
             }
@@ -263,6 +305,7 @@
             }
           }
         }
+        this.valueE = temp
         this.$emit('subVal', temp)
         this.$emit('on-change', _.cloneDeep(temp))
       }

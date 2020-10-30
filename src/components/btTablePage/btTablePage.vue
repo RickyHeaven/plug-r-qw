@@ -18,6 +18,8 @@
         <div ref="tableContainerLOI" class="fullFlowContent">
           <Table
               ref="TableXXX"
+              v-bind="$attrs"
+              v-on="$listeners"
               :height="fixedTable&&tableContainerHeight||null"
               :class="{noBorderTable:noBorderTable,fullHeightTable:!fixedTable}"
               :columns="columnsT"

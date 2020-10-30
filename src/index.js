@@ -36,9 +36,10 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling, $_has
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
+import timer, {setTimeout, setInterval} from './methods/timer'
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
@@ -112,7 +113,10 @@ const methodsR = {
   setValByOption,
   hasPermission,
   isNaN,
-  dataFilterOrToUrl
+  dataFilterOrToUrl,
+  $_has,
+  setTimeout,
+  setInterval
 }
 
 const install = function (Vue, opts = {}) {
@@ -121,6 +125,7 @@ const install = function (Vue, opts = {}) {
   }
   locale.i18n(opts.i18n)
   $fetch.init(opts.store)
+  timer.init(opts.router)
   
   if (!Vue) {
     console.error('库安装失败，未获取到Vue对象')
@@ -145,28 +150,14 @@ const install = function (Vue, opts = {}) {
   })
   
   if (Vue.directive('has') === undefined) {
-    /*权限指令*/
     Vue.directive("has", {
+      /*权限指令*/
       bind: function (el, binding) {
-        if (binding.value && (!Vue.prototype.$_has(binding.value))) {
+        if (binding.value && (!Vue.prototype.hasPermission(binding.value))) {
           el.style.display = 'none'
         }
       }
     })
-    
-    /*权限检查方法*/
-    Vue.prototype.$_has = function (value) {
-      let isExist = false
-      let btnPermissions = sessionStorage.getItem("btnPermissions")
-      if (btnPermissions === undefined || btnPermissions === null) {
-        return false
-      }
-      let buttonPerms = btnPermissions.split(',')
-      if (buttonPerms.indexOf(value) > -1) {
-        isExist = true
-      }
-      return isExist
-    }
   }
 }
 
