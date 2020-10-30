@@ -370,8 +370,10 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
     
     form.submit()
     
-    setTimeout(() => {
+    let ta = setTimeout(() => {
       body.removeChild(form)
+      clearTimeout(ta)
+      ta = null
     }, 8000)
   }
   else {

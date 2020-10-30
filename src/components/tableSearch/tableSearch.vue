@@ -91,7 +91,7 @@
         if (!this.debounceCount) {
           this.debounceCount = true
           this.$emit('on-search', this.valueX)
-          setTimeout(() => {
+          this.setTimeout(() => {
             this.debounceCount = false
           }, 2000)
         }

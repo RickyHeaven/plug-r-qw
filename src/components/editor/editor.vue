@@ -200,7 +200,7 @@
       if (this.value) {
         this.editor.txt.html(xss(this.value))
       }
-      setTimeout(() => {
+      this.setTimeout(() => {
         this.$watch(() => this.disabled, (after) => {
           if (after) {
             // 禁用编辑功能

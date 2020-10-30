@@ -177,12 +177,12 @@
       },
       getFormHeight() { /*获取表单高度，公开*/
         if (this.$refs.formRRef.$el.clientHeight < 30) {
-          setTimeout(() => {
+          this.setTimeout(() => {
             this.getFormHeight()
           }, 100)
         }
         else {
-          setTimeout(this.setHeight, 100)
+          this.setTimeout(this.setHeight, 100)
         }
       },
       setHeight(height) {/*设置弹框内容区高度，公开*/
@@ -258,7 +258,7 @@
       },
       close() { /*触发关闭弹框事件，公开*/
         this.openModal = false
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.showLoading = false
           this.$refs.formRRef.changeLoading(false)
         }, 1000)

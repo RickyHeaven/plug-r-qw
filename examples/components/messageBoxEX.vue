@@ -25,7 +25,7 @@
           onOk: () => {
             return new Promise(r => {
               console.log('确定按钮被点击')
-              setTimeout(() => {
+              this.setTimeout(() => {
                 console.log('模拟网络请求完成')
                 r()
               }, 4000)

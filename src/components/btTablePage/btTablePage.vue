@@ -317,10 +317,10 @@
     methods: {
       firstGetHeight() {
         if (this.tableContainerHeight < 50) {
-          setTimeout(this.firstGetHeight, 100)
+          this.setTimeout(this.firstGetHeight, 100)
         }
         else {
-          setTimeout(this.getTableContainerHeight, 10)
+          this.setTimeout(this.getTableContainerHeight, 10)
         }
       },
       getTableContainerHeight() {
@@ -339,7 +339,7 @@
       },
       addRow(row) {
         this.dataT.unshift(_.cloneDeep(row))
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
@@ -359,7 +359,7 @@
             }
           }
           if (clickCurrentRow) {
-            setTimeout(() => {
+            this.setTimeout(() => {
               this.$refs.TableXXX.clickCurrentRow(index)
             }, 10)
           }
@@ -367,7 +367,7 @@
       },
       deleteRow(index) { /*根据索引数字删除行（公开）*/
         this.dataT.splice(index, 1)
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
@@ -391,7 +391,7 @@
             .then(r => {
               //点击对应行
               if (this.dataT.length > 0) {
-                setTimeout(() => {
+                this.setTimeout(() => {
                   if (clickCurrentRow) {
                     this.$refs.TableXXX.clickCurrentRow(this.currentRowIndex)
                   }

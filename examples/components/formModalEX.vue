@@ -103,7 +103,7 @@
       handleSub(val, d) {
         console.log(val)
         if (d === 'b') {
-          setTimeout(this.$refs.formModalB.close, 2000)
+          this.setTimeout(this.$refs.formModalB.close, 2000)
         }
         else {
           this.$refs.formModal.close()

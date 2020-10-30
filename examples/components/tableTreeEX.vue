@@ -174,7 +174,7 @@
         else {
           this.$refs.tableTree.editLocalNode(this.editIndex, data)
             .then(r => {
-              setTimeout(() => {//模拟请求，展示loading功能
+              this.setTimeout(() => {//模拟请求，展示loading功能
                 this.$refs.formModal.close()
               }, 1000)
             })

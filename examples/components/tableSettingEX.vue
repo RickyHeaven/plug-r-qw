@@ -71,7 +71,7 @@
                         content: '确定模拟执行删除操作？',
                         onOk: () => {
                           /*在这里调接口删除数据并给成功失败提示，然后主动拉取table数据*/
-                          setTimeout(() => {
+                          this.setTimeout(() => {
                             this.$swal('成功', '假装删除成功', 'success')
                           }, 500)
                         }

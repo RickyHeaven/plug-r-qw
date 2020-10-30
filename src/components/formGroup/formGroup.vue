@@ -217,7 +217,7 @@
       },
       close() { /*触发取消按钮点击事件，公开*/
         this.$emit('on-cancel')
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.showLoading = false
           this.$refs.formRRef.changeLoading(false)
         }, 1000)

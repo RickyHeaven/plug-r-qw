@@ -55,11 +55,13 @@ export default function (src) {
     }
   })
   
-  setTimeout(() => {
+  let ta = setTimeout(() => {
     const hideEl = document.getElementById(id).parentNode.parentNode.parentNode.parentNode
     const hideEl2 = document.getElementById(id).parentNode.nextSibling
     hideEl.style.height = '0'
     hideEl.style.padding = '0'
     hideEl2.style.display = 'none'
+    clearTimeout(ta)
+    ta = null
   }, 10)
 }

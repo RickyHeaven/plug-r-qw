@@ -1267,7 +1267,7 @@
         this.heightChange()
       },
       reValidate(prop) { /*手动验证表单项（公开）*/
-        setTimeout(() => {
+        this.setTimeout(() => {
           this.$refs.formGroupXRef.validateField(prop, () => {
           })
         }, 1)
@@ -1311,7 +1311,7 @@
         })
       },
       itemChange(e, root) { /*表单项值更新（私有）*/
-        setTimeout(() => {
+        this.setTimeout(() => {
           let data = {
             event: e
           }
@@ -1359,7 +1359,7 @@
               }
               this.$emit('on-submit', temp)
             }
-            setTimeout(() => {
+            this.setTimeout(() => {
               this.debounceCount = false
             }, 2000)
           }
