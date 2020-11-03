@@ -1,5 +1,5 @@
 ## timer
-可自动销毁的定时器，setTimeout和setInterval,需要再安装库时传入router
+可自动销毁的定时器，setTimeout和setInterval，需要在安装库时传入router
 
 ### 说明
 * 配置 在引入库时传入router：`Vue.use(plugRQw,{router,...})`

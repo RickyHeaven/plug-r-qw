@@ -1,6 +1,8 @@
 <template>
-  <div class="tableSearchV" :style="{width:width,right:right,top:top}">
-    <Input v-model="valueX" search @on-search="onSearch" class="searchInputC" :placeholder="placeholder||t('r.pInput')"/>
+  <div class="tableSearchV" :style="{right:right,top:top}">
+    <slot>
+      <Input v-model="valueX" :style="{width:width}" search @on-search="onSearch" class="searchInputC" :placeholder="placeholder||t('r.pInput')"/>
+    </slot>
     <span class="sbt" @click="openX=!openX" v-show="showBtn" :style="{color:btnColor}"><icon
         :type="iconL" :color="btnColor"
     ></icon>{{t('r.adSearch')}}</span>
@@ -47,7 +49,8 @@
         default: true
       },
       width: {
-        default: '300px'
+        /*输入框宽度*/
+        default: '210px'
       },
       right: {
         default: '0'
