@@ -381,6 +381,24 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
   }
 }
 
+/**
+ * 文件导出功能（调用文件下载方法downloadFileByFormSubmit）
+ * @param url 导出路径
+ * @param data 参数
+ * @param method 请求方式
+ */
+export function fileExport(url, data = {}, method = 'get') {
+  if (data.hasOwnProperty("columns") &&
+    (data["columns"] === '' || data["columns"] === null || data["columns"] === undefined)) {
+    $swal({
+      title: "需要导出的列不能为空",
+      type: "warning"
+    });
+    return
+  }
+  downloadFileByFormSubmit(url, data, method)
+}
+
 export function isValidValue(val) {
   return val !== undefined && val !== null && val !== ''
 }
