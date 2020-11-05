@@ -36,8 +36,8 @@ import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling, $_has,
-  fileExport
+  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling,
+  fileExport,getColumnsKeys
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
@@ -115,10 +115,10 @@ const methodsR = {
   hasPermission,
   isNaN,
   dataFilterOrToUrl,
-  $_has,
   setTimeout,
   setInterval,
-  fileExport
+  fileExport,
+  getColumnsKeys
 }
 
 const install = function (Vue, opts = {}) {

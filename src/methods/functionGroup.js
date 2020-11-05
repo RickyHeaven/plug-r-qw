@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import $swal from './swal'
 
 //判断变量类型
 export function myTypeof(v) {
@@ -390,13 +391,40 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
 export function fileExport(url, data = {}, method = 'get') {
   if (data.hasOwnProperty("columns") &&
     (data["columns"] === '' || data["columns"] === null || data["columns"] === undefined)) {
-    $swal({
+    $swal.call(this, {
       title: "需要导出的列不能为空",
       type: "warning"
-    });
+    })
     return
   }
   downloadFileByFormSubmit(url, data, method)
+}
+
+/**
+ * 依据列显示设置缓存获取columns的key的集合
+ * @param {String} sKey - 列显示设置插件的sKey
+ * @param {Array} columns - 表格table的columns
+ * @param {Boolean} returnArray - 是否返回数组，默认值false,返回String
+ * */
+export function getColumnsKeys(sKey, columns, returnArray = false) {
+  let temp
+  if (sKey && myTypeof(columns) === 'Array') {
+    let names = localStorage.getItem(sKey)
+    if (names) {
+      names = JSON.parse(decodeURI(names))
+      temp = columns.filter(e => e.key && names.indexOf(e.title) !== -1).map(e => e.key)
+    }
+    else {
+      temp = columns.map(e => e.key)
+    }
+  }
+  else {
+    temp = []
+  }
+  if (!returnArray) {
+    temp = String(temp)
+  }
+  return temp
 }
 
 export function isValidValue(val) {
