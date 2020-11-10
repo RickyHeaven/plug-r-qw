@@ -24,6 +24,7 @@ import formGroup from "./components/formGroup/formGroup.vue"
 import echart from "./components/echarts/echart.vue"
 import showHidePanelB from "./components/showHidePanelB/showHidePanelB.vue"
 import tableSearch from "./components/tableSearch/tableSearch.vue"
+import selectScrollMore from "./components/selectScrollMore/selectScrollMore.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './methods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -37,7 +38,7 @@ import {
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
   isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling,
-  fileExport,getColumnsKeys,removeEmptyValue
+  fileExport, getColumnsKeys, removeEmptyValue
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
@@ -69,7 +70,8 @@ const components = {
   formGroup,
   echart,
   showHidePanelB,
-  tableSearch
+  tableSearch,
+  selectScrollMore
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -155,10 +157,31 @@ const install = function (Vue, opts = {}) {
   if (Vue.directive('has') === undefined) {
     Vue.directive("has", {
       /*权限指令*/
-      bind: function (el, binding) {
+      bind(el, binding) {
         if (binding.value && (!Vue.prototype.hasPermission(binding.value))) {
           el.style.display = 'none'
         }
+      }
+    })
+  }
+  if (Vue.directive('loadmore') === undefined) {
+    //select下拉滚动监听事件
+    Vue.directive("loadmore", {
+      bind(el, binding) {
+        // 获取定义好的scroll盒子
+        const SELECT_DOM = el.querySelector(".ivu-select-dropdown")
+        SELECT_DOM.addEventListener("scroll", function () {
+          /*
+           * scrollHeight 获取元素内容高度(只读)
+           * scrollTop 获取或者设置元素的偏移值,常用于, 计算滚动条的位置, 当一个元素的容器没有产生垂直方向的滚动条, 那它的scrollTop的值默认为0.
+           * clientHeight 读取元素的可见高度(只读)
+           * 如果元素滚动到底, 下面等式返回true, 没有则返回false:
+           * ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+           */
+          if (this.scrollTop > 0 && this.scrollHeight - this.scrollTop <= this.clientHeight) {
+            binding.value()
+          }
+        })
       }
     })
   }
