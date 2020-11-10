@@ -659,3 +659,33 @@ export function stopBubbling(e) {
     e.cancelBubble = true; 	//IE阻止冒泡方法
   }
 }
+
+/*过滤对象或数组中无效值*/
+export function removeEmptyValue(data) {
+  let temp
+  if (_.isArray(data)) {
+    temp = []
+    for (let item of data) {
+      if (_.isArray(item) || _.isPlainObject(item)) {
+        temp.push(removeEmptyValue(item))
+      }
+      else if (isValidValue(item)) {
+        temp.push(item)
+      }
+    }
+  }
+  else if (_.isPlainObject(data)) {
+    temp = {}
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        if (_.isArray(data[key] || _.isPlainObject(data[key]))) {
+          temp[key] = removeEmptyValue(data[key])
+        }
+        else if (isValidValue(data[key])) {
+          temp[key] = data[key]
+        }
+      }
+    }
+  }
+  return temp
+}

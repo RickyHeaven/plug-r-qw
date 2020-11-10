@@ -71,6 +71,8 @@ plug-in lib developed when I was in qw
 
 * 本库运行依赖vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、iview-area、vue-amap、vue-json-viewer，但并未将他们的代码打包到库的生产版本中，所以需要在你的项目中安装他们才能使用该库中涉及这些依赖的组件或方法（不用可以不安装），如果想省事，全安装就行，不会安装可以参考对应的官网或npm网站页面或本项目examples目录里的用法
 
+* 有地图的功能是用的高德地图，要在项目初始化才能使用库中地图功能，初始化方法参考该项目的examples中main.js或高德官方文档
+
 * 本库采用@vue/cli3 脚手架搭建，用@vue/cli3或者更高版本搭建的项目引用不会有兼容问题，低于@vue/cli3版本或其他脚手架搭建的项目引用可能会有兼容问题，表现就是报错有不认识的语法或功能异常（目前已知$fetch可能会因为兼容问题无响应），解决方法：
 ```
   在webpack中添加loader处理库的输出文件，如@vue/cli2搭建的项目中，找到webpack.base.conf.js,在module-->rules下添加
