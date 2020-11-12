@@ -55,6 +55,7 @@
   import {toLine, oneOf, tooltipManual} from '../../methods/functionGroup.js'
   import $fetch from '../../methods/fetch.js'
   import _ from 'lodash'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "btTablePage",
@@ -62,9 +63,7 @@
       url: {
         /*表格拉取数据的接口地址*/
         type: String,
-        default() {
-          return ''
-        }
+        default: ''
       },
       searchData: {
         /*表格条件查询数据*/
@@ -83,9 +82,7 @@
       selection: {
         /*是否展示每列开头选择框*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       selectionFixed: {
         /*每列开头选择框固定*/
@@ -94,16 +91,12 @@
           'right',
           false
         ]),
-        default() {
-          return false
-        }
+        default: false
       },
       rowClickSelect: {
         /*是否点击行操作开头选择框*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       data: {
         /*表格默认数据，没有url的本地静态表格使用*/
@@ -115,9 +108,7 @@
       pageSize: {
         /*每页条数*/
         type: Number,
-        default() {
-          return 10
-        }
+        default: 10
       },
       sortable: {
         /*排序模式*/
@@ -125,86 +116,62 @@
           'custom',
           ''
         ]),
-        default() {
-          return ''
-        }
+        default: ''
       },
       initData: {
         /*初始化数据，即组件创建后自动拉取第一次数据*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       highlightRow: {
         /*高亮当前行*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       rowClickNum: {
         /*自动拉取第一次数据时点击第几行，默认-1，不点击*/
         type: Number,
-        default() {
-          return -1
-        }
+        default: -1
       },
       radio: {
         /*表格是否是单选表格，每次只能选中一行*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       tableEmptyTdHandle: {
         /*表格内容为空是否显示为‘--’*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       noBorderTable: {
         /*表格无边框*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       noPage: {
         /*表格页签*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       orderDefault: {
         /*排序是升是降*/
         type: String,
-        default() {
-          return "desc"
-        }
+        default: "desc"
       },
       orderKey: {
         /*排序的key*/
         type: String,
-        default() {
-          return "id"
-        }
+        default: "id"
       },
       getDataLoading: {
         /*拉取表格数据时显示遮罩层*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       showTopRow: {
         /*展示顶行（列表设置、批量操作按钮、导出等按钮、统计信息等）,各项子内容通过slot接入*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -241,7 +208,7 @@
           current: this.current,
           size: this.pageSizeT
         }
-        temp[this.order] = toLine(this.key);
+        temp[this.order] = toLine(this.key)
         return temp
       },
       columnsT() {
@@ -317,10 +284,10 @@
     methods: {
       firstGetHeight() {
         if (this.tableContainerHeight < 50) {
-          this.setTimeout(this.firstGetHeight, 100)
+          setTimeout(this.firstGetHeight, 100)
         }
         else {
-          this.setTimeout(this.getTableContainerHeight, 10)
+          setTimeout(this.getTableContainerHeight, 10)
         }
       },
       getTableContainerHeight() {
@@ -339,7 +306,7 @@
       },
       addRow(row) {
         this.dataT.unshift(_.cloneDeep(row))
-        this.setTimeout(() => {
+        setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
@@ -359,7 +326,7 @@
             }
           }
           if (clickCurrentRow) {
-            this.setTimeout(() => {
+            setTimeout(() => {
               this.$refs.TableXXX.clickCurrentRow(index)
             }, 10)
           }
@@ -367,7 +334,7 @@
       },
       deleteRow(index) { /*根据索引数字删除行（公开）*/
         this.dataT.splice(index, 1)
-        this.setTimeout(() => {
+        setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
@@ -391,7 +358,7 @@
             .then(r => {
               //点击对应行
               if (this.dataT.length > 0) {
-                this.setTimeout(() => {
+                setTimeout(() => {
                   if (clickCurrentRow) {
                     this.$refs.TableXXX.clickCurrentRow(this.currentRowIndex)
                   }
@@ -478,16 +445,17 @@
       },
       onSortChange({key, order}) {
         //表头排序
-        if(order==='normal'){
+        if (order === 'normal') {
           /*恢复到默认页面排序*/
           this.key = this.orderKey
           this.order = this.orderDefault
-        }else {
+        }
+        else {
           this.key = key
           this.order = order
         }
         this.current = 1
-        this.getTableData();
+        this.getTableData()
       },
       clearPage() {
         this.selected = []

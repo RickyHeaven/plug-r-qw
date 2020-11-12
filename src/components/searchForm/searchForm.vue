@@ -35,33 +35,33 @@
   export default {
     name: "searchForm",
     mixins: [Locale],
-    components:{
+    components: {
       formR
     },
     props: {
-      data: { /*搜索表单结构数据*/
+      data: {
+        /*搜索表单结构数据*/
         type: Array,
         default() {
           return []
         }
       },
-      formRules: { /*弹框结构规则*/
+      formRules: {
+        /*弹框结构规则*/
         type: Object,
         default() {
           return {}
         }
       },
-      showInlineClearBt: { /*显示清空按钮*/
+      showInlineClearBt: {
+        /*显示清空按钮*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
-      btnLoading: { /*提交按钮显示loading*/
+      btnLoading: {
+        /*提交按钮显示loading*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     methods: {
@@ -73,7 +73,7 @@
             })
         })
       },
-      refreshFormDom(){/*刷新表单dom，公开*/
+      refreshFormDom() {/*刷新表单dom，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.refreshFormDom()
             .then(() => {
@@ -95,13 +95,13 @@
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
-      onReset(){/*表单被重置，私有*/
+      onReset() {/*表单被重置，私有*/
         this.$emit('on-reset')
       },
-      onReRender(){/*表单被重新渲染，私有*/
+      onReRender() {/*表单被重新渲染，私有*/
         this.$emit('on-re-render')
       },
-      validate(){/*验证表单，公开*/
+      validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
       changeLoading(val) {/*改变弹框loading状态，私有*/

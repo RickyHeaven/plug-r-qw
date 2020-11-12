@@ -11,6 +11,7 @@
 <script>
   import {findPath} from '../../methods/functionGroup'
   import Locale from '../../mixins/locale'
+  import _ from 'lodash'
 
   export default {
     name: "asyncCascader",
@@ -86,17 +87,17 @@
       val: {
         get() {
           let valProp = this.valProp
-          if (window._.isArray(valProp)) {
+          if (_.isArray(valProp)) {
             return [].concat(valProp)
           }
-          else if (window._.isNumber(valProp)) {
+          else if (_.isNumber(valProp)) {
             return findPath({
               group: this.data,
               condition: item => item.value === valProp,
               pathKey: 'value'
             })
           }
-          else if (window._.isString(valProp)) {
+          else if (_.isString(valProp)) {
             return valProp.split(this.separator)
           }
           else if (valProp === null) {
@@ -105,12 +106,12 @@
         },
         set(val) {
           if (this.onlyLastVal) {
-            if (window._.isEmpty(val)) {
+            if (_.isEmpty(val)) {
               this.$emit('subVal', null)
               this.$emit('on-label-change', null)
             }
             else {
-              this.$emit('subVal', window._.last(val))
+              this.$emit('subVal', _.last(val))
             }
           }
           else {
@@ -161,7 +162,7 @@
             value: item[this.optionVal],
             label: item[this.optionLabel]
           }
-          if (item.children && (!window._.isEmpty(item.children))) {
+          if (item.children && (!_.isEmpty(item.children))) {
             tt.children = this.dataFilter(item.children)
           }
           temp.push(tt)
@@ -170,13 +171,13 @@
       },
       format(labels, selectedData) {
         if (this.onlyLastLabel) {
-          return window._.last(labels)
+          return _.last(labels)
         }
         return labels.join(this.separator)
       },
       onChange(val, selectedDetail) {
         let label = null
-        if (!window._.isEmpty(selectedDetail)) {
+        if (!_.isEmpty(selectedDetail)) {
           label = selectedDetail.map(item => {
             return item.label
           })

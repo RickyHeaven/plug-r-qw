@@ -165,10 +165,10 @@
           let checked = false
           if (this.collectValT.length > 1) {
             /*valueT的元素为Object*/
-            checked = _.find(this.valueT, e => e[this.collectValT[0]] === item[this.collectValT[0]]) !== undefined
+            checked = _.find(this.valueT, e => e[_.head(this.collectValT)] === item[_.head(this.collectValT)]) !== undefined
           }
           else {
-            checked = this.valueT.indexOf(item[this.collectValT[0]]) !== -1
+            checked = this.valueT.indexOf(item[_.head(this.collectValT)]) !== -1
           }
           let temp = {
             name: item[this.label],
@@ -191,10 +191,10 @@
           let checked = false
           if (this.collectValT.length > 1) {
             /*valueT的元素为Object*/
-            checked = _.find(this.valueT, e => e[this.collectValT[0]] === item[this.collectValT[0]]) !== undefined
+            checked = _.find(this.valueT, e => e[_.head(this.collectValT)] === item[_.head(this.collectValT)]) !== undefined
           }
           else {
-            checked = this.valueT.indexOf(item[this.collectValT[0]]) !== -1
+            checked = this.valueT.indexOf(item[_.head(this.collectValT)]) !== -1
           }
           let temp = {
             name: item[this.label],
@@ -238,7 +238,7 @@
               fontWeight: data.children ? 'bold' : 'normal'
             }
           }, data.name)
-        ]);
+        ])
       },
       changeStyle(data) {
         if (data) {

@@ -44,6 +44,7 @@
   import _ from 'lodash'
   import formR from '../formR/formR.vue'
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "formModal",
@@ -76,23 +77,17 @@
           Number,
           String
         ],
-        default() {
-          return 520
-        }
+        default: 520
       },
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default() {
-          return 140
-        }
+        default: 140
       },
       contentWidth: {
         /*表单项内容宽度，默认70%*/
         type: String,
-        default() {
-          return '70%'
-        }
+        default: '70%'
       },
       okBtTxt: {
         /*确定按钮内容*/
@@ -105,23 +100,17 @@
       disabled: {
         /*整表禁用，仅展示*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       hideFooter: {
         /*隐藏底栏*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       btnLoading: {
         /*提交按钮显示loading*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -177,12 +166,12 @@
       },
       getFormHeight() { /*获取表单高度，公开*/
         if (this.$refs.formRRef.$el.clientHeight < 30) {
-          this.setTimeout(() => {
+          setTimeout(() => {
             this.getFormHeight()
           }, 100)
         }
         else {
-          this.setTimeout(this.setHeight, 100)
+          setTimeout(this.setHeight, 100)
         }
       },
       setHeight(height) {/*设置弹框内容区高度，公开*/
@@ -258,7 +247,7 @@
       },
       close() { /*触发关闭弹框事件，公开*/
         this.openModal = false
-        this.setTimeout(() => {
+        setTimeout(() => {
           this.showLoading = false
           this.$refs.formRRef.changeLoading(false)
         }, 1000)

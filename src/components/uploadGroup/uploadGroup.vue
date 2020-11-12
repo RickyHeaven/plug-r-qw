@@ -144,39 +144,27 @@
       },
       manualUpload: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       maxSize: {
         type: Number,
-        default() {
-          return 0
-        }
+        default: 0
       },
       length: {
         type: Number,
-        default() {
-          return 0
-        }
+        default: 0
       },
       showUploadList: {
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       withCredentials: {
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       multiple: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       format: {
         type: Array,
@@ -186,16 +174,12 @@
       },
       showImg: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       disabled: {
         /*禁用，仅展示*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -425,7 +409,9 @@
           if (file) {
             let type = getFileTypeByName(file.name)
             if (this.format.length > 0 && this.format.indexOf(type) < 0) {
-              $swal(this.t('r.wrongFileType'), this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
+              $swal(this.t('r.wrongFileType'),
+                this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')),
+                "warning")
               return false
             }
             if (this.maxSize && file.size > this.maxSize * 1024) {
@@ -460,7 +446,8 @@
         $swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + ' kb', "warning")
       },
       onFormatError(file, fileList) {
-        $swal(this.t('r.wrongFileType'), this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
+        $swal(this.t('r.wrongFileType'),
+          this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
       },
       onPreview(file) {
         let id = file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id

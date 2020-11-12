@@ -36,16 +36,12 @@
       highlightRow: {
         /*高亮当前行*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       radio: {
         /*表格是否是单选表格，每次只能选中一行*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -102,7 +98,7 @@
                     }
                   },
                   click: e => {
-                    e.stopPort
+                    e.preventDefault()
                   }
                 }
               }),

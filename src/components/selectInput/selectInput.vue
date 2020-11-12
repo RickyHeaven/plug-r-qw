@@ -44,23 +44,17 @@
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default() {
-          return 160
-        }
+        default: 160
       },
       labelTextAlign: {
         /*select内容对齐方式*/
         type: String,
-        default() {
-          return 'right'
-        }
+        default: 'right'
       },
       itemWidth: {
         /*表单项内容宽度,用于行内表单*/
         type: Number,
-        default() {
-          return 200
-        }
+        default: 200
       },
       selectOption: {
         /*选择框待选项*/
@@ -74,16 +68,12 @@
       },
       clearable: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       disabled: {
         /*禁用，仅展示*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     computed: {

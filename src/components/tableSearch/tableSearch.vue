@@ -24,6 +24,7 @@
    * @example 调用示例 <table-search v-model="areaName" :open="openSearch" placeholder="片区名称" @on-search="search" @on-toggle="openSearch=!openSearch"/>
    */
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "tableSearch",
@@ -94,7 +95,7 @@
         if (!this.debounceCount) {
           this.debounceCount = true
           this.$emit('on-search', this.valueX)
-          this.setTimeout(() => {
+          setTimeout(() => {
             this.debounceCount = false
           }, 2000)
         }

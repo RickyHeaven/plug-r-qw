@@ -8,6 +8,7 @@
 </template>
 <script>
   import Locale from '../../mixins/locale'
+  import $fetch from '../../methods/fetch'
 
   export default { //图表样式
     name: 'echart',
@@ -161,7 +162,7 @@
       getData() {
         return new Promise((resolve, reject) => {
           if (this.url || window.echartConfig && window.echartConfig.url) {
-            this.$fetch.get(this.url || window.echartConfig && window.echartConfig.url,
+            $fetch.get(this.url || window.echartConfig && window.echartConfig.url,
               this.params || window.echartConfig && window.echartConfig.params)
               .then(r => {
                 if (r.data || r.data === null) {
@@ -184,7 +185,6 @@
           }
           else if ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0)) {
             //没有url，且没有window.echartConfig.url，且有静态数据也可以执行回调
-
             resolve()
           }
           else {
@@ -192,9 +192,9 @@
           }
         })
       }, //视图渲染
-      init(data) {
+      init() {
         //实例化DOM元素
-        let myChart = $echarts.init(document.getElementById(this.name),
+        let myChart = window.$echarts.init(document.getElementById(this.name),
           this.theme || window.echartConfig && window.echartConfig.theme)
 
         //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题

@@ -1,7 +1,7 @@
 <template>
   <Select
-    v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" v-on="$listeners" transfer filterable
-    v-loadmore="loadMore" :placeholder="placeholderT"
+      v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" v-on="$listeners" transfer filterable
+      v-loadmore="loadMore" :placeholder="placeholderT"
   >
     <Option v-for="(item,index) in options" :key="'op'+index" :value="item.value" :disabled="item.disabled">{{item.label}}</Option>
   </Select>
@@ -9,11 +9,13 @@
 
 <script>
   import _ from 'lodash'
-  import {isValidValue,myTypeof} from "../../methods/functionGroup"
+  import {isValidValue, myTypeof} from "../../methods/functionGroup"
   import $fetch from '../../methods/fetch'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "selectScrollMore",
+    mixins: [Locale],
     model: {
       prop: 'value',
       event: 'sub-val'
@@ -26,9 +28,7 @@
           Number,
           Array
         ],
-        default() {
-          return null
-        }
+        default: null
       },
       url: {
         /*待选项接口地址，不带条件*/
@@ -45,9 +45,7 @@
       getOptions: {
         /*是否拉取待选项,false:不拉取，并清空待选项和值*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       optionsLabelKey: {
         /*待选项label取接口数据中哪个字段*/
@@ -55,36 +53,24 @@
           String,
           Array
         ],
-        default() {
-          return 'name'
-        }
+        default: 'name'
       },
       optionsValKey: {
         /*待选项value取接口数据中哪个字段*/
         type: String,
-        default() {
-          return 'id'
-        }
+        default: 'id'
       },
       searchKey: {
         /*搜索框的值在拉取待选项数据的条件中对应的key*/
-        type: String,
-        default() {
-          return null
-        }
+        type: String
       },
       collectLabel: {
         /*需要在选中时返回出value以外其他字段*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       placeholder: {
-        type: String,
-        default() {
-          return '请输入'
-        }
+        type: String
       }
     },
     data() {
@@ -100,7 +86,7 @@
     },
     computed: {
       placeholderT() {
-        return this.searchStr ? '当前搜索：' + this.searchStr : this.placeholder
+        return this.searchStr ? this.t('r.searchFor') + this.searchStr : (this.placeholder || this.t('r.pInput'))
       },
       valueT: {
         get() {
@@ -121,10 +107,13 @@
         }
       },
       searchDataT() {
-        return {
+        return this.searchKey ? {
           ...this.searchData,
           current: this.current,
           [this.searchKey]: this.searchStr
+        } : {
+          ...this.searchData,
+          current: this.current
         }
       }
     },
@@ -244,7 +233,7 @@
         else {
           this.$Message.warning({
             background: true,
-            content: '没有更多数据了'
+            content: this.t('r.noMore')
           })
         }
       },
@@ -269,7 +258,7 @@
                 }
                 if (!_.isEmpty(temp)) {
                   temp = temp.map((e, i) => {
-                    let label = '选项' + i
+                    let label = this.t('r.optionLabel') + i
                     if (_.isArray(this.optionsLabelKey)) {
                       let labelT = []
                       for (let j = 1, len = this.optionsLabelKey.length; j < len; j++) {
@@ -286,8 +275,7 @@
                       delete eT.label
                       return {
                         value: e[this.optionsValKey],
-                        label: label,
-                        ...eT
+                        label: label, ...eT
                       }
                     }
                     return {
@@ -310,8 +298,8 @@
                 })
                 resolve(true)
               }).catch(() => {
-              this.$Message.error('拉取数据出错')
-              reject('拉取数据出错')
+              this.$Message.error(this.t('r.getDataError'))
+              reject(this.t('r.getDataError'))
             })
           }
           else {

@@ -257,8 +257,8 @@
 <script>
   import moment from 'moment'
   import _ from 'lodash'
-  import {myTypeof} from "../../methods/functionGroup"
-  import fetch from '../../methods/fetch'
+  import {myTypeof,isValidValue} from "../../methods/functionGroup"
+  import $fetch from '../../methods/fetch'
   import selectInput from '../selectInput/selectInput.vue'
   import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
   import asyncCascader from '../asyncCascader/asyncCascader.vue'
@@ -266,6 +266,7 @@
   import editor from '../editor/editor.vue'
   import inputMap from '../inputMap/inputMap.vue'
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "formR",
@@ -296,44 +297,32 @@
       showMessage: {
         /*显示校验信息*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default() {
-          return 160
-        }
+        default: 160
       },
       contentWidth: {
         /*表单项内容宽度，默认70%*/
         type: String,
-        default() {
-          return '70%'
-        }
+        default: '70%'
       },
       itemWidth: {
         /*表单项内容宽度,用于行内表单*/
         type: Number,
-        default() {
-          return 200
-        }
+        default: 200
       },
       inline: {
         /*行内表单*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       showLongOkBt: {
         /*是否展示长确定按钮*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       longOkBtTxt: {
         /*长确定按钮内容*/
@@ -342,9 +331,7 @@
       showInlineOkBt: {
         /*是否展示行内短确定按钮*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       inlineOkBtTxt: {
         /*短确定按钮内容*/
@@ -353,9 +340,7 @@
       showInlineClearBt: {
         /*是否展示行内短清空按钮*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       inlineClearBtTxt: {
         /*短清空按钮内容*/
@@ -364,16 +349,12 @@
       disabled: {
         /*整表禁用，仅展示*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       btnLoading: {
         /*提交按钮显示loading*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -381,12 +362,12 @@
         valGroup: {}, /*表单项值，对外公开，提交时传递到外层*/
         formDataT: [], /*表单结构数据*/
         tempKeys: {}, /*不对外暴露表单项值*/
-        mgrUrl: window.g.mgrURL,
+        mgrUrl: window.g && window.g.mgrURL || null,
         selectInputKeys: [], /*selectInput的key没有写死在formData中（因为是动态的）,为了在showingKeys中能捕捉到这类组件的key,特声明此变量*/
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
         clientHeightR: 0,
-        uploadUrl: window.g.mgrURL && window.g.mgrURL + '/fsc/file' ||
+        uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/fsc/file' ||
           '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
         debounceCount: false
       }
@@ -398,18 +379,14 @@
             width: (this.itemWidth + this.labelWidth) + 'px'
           }
         }
-        else {
-          return {}
-        }
+        return {}
       },
       itemStyle() {
         if (this.inline) {
           return {width: '100%'}
         }
-        else {
-          return {
-            width: this.contentWidth
-          }
+        return {
+          width: this.contentWidth
         }
       },
       formRulesT() { /*计算规则*/
@@ -702,7 +679,7 @@
                           if (item.localOption) {
                             item.options = [...item.localOption]
                           }
-                          if (this.isValidValue(tempVal)) {
+                          if (isValidValue(tempVal)) {
                             this.recoverVal(tempVal, item)
                           }
                         }
@@ -746,7 +723,7 @@
                             item.options = [...item.localOption]
                           }
                           
-                          if (this.isValidValue(tempVal)) {
+                          if (isValidValue(tempVal)) {
                             this.recoverVal(tempVal, item)
                           }
                         }
@@ -776,7 +753,7 @@
                           item.options = [...item.localOption]
                         }
                         
-                        if (this.isValidValue(tempVal)) {
+                        if (isValidValue(tempVal)) {
                           this.recoverVal(tempVal, item)
                         }
                       }
@@ -837,7 +814,7 @@
         this.formDataT = temp
       },
       initOption(url, item, val) { /*初始化表单项的选项，如下拉选项，多选、单选组选项（私有）*/
-        fetch.get(url)
+        $fetch.get(url)
           .then(r => {
             let tempOption
             if (r && r.data && r.data.records) {
@@ -914,7 +891,7 @@
             if (item.localOption) {
               item.options.unshift(...item.localOption)
             }
-            if (this.isValidValue(val)) {
+            if (isValidValue(val)) {
               this.recoverVal(val, item)
             }
 
@@ -1267,7 +1244,7 @@
         this.heightChange()
       },
       reValidate(prop) { /*手动验证表单项（公开）*/
-        this.setTimeout(() => {
+        setTimeout(() => {
           this.$refs.formGroupXRef.validateField(prop, () => {
           })
         }, 1)
@@ -1311,7 +1288,7 @@
         })
       },
       itemChange(e, root) { /*表单项值更新（私有）*/
-        this.setTimeout(() => {
+        setTimeout(() => {
           let data = {
             event: e
           }
@@ -1359,7 +1336,7 @@
               }
               this.$emit('on-submit', temp)
             }
-            this.setTimeout(() => {
+            setTimeout(() => {
               this.debounceCount = false
             }, 2000)
           }

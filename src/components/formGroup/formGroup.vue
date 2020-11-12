@@ -38,6 +38,7 @@
 <script>
   import formR from '../formR/formR.vue'
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "formGroup",
@@ -63,51 +64,37 @@
       width: {
         /*表单组宽度*/
         type: String,
-        default() {
-          return '100%'
-        }
+        default: '100%'
       },
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default() {
-          return 160
-        }
+        default: 160
       },
       contentWidth: {
         /*表单项内容宽度，默认70%*/
         type: String,
-        default() {
-          return '70%'
-        }
+        default: '70%'
       },
       itemWidth: {
         /*表单项内容宽度,用于行内表单*/
         type: Number,
-        default() {
-          return 200
-        }
+        default: 200
       },
       showOkBt: {
         /*是否展示确定按钮*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       showCancelBt: {
         /*是否展示取消按钮*/
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       },
       showLongOkBt: {
         /*是否展示长确定按钮*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       longOkBtTxt: {
         /*长确定按钮内容*/
@@ -124,23 +111,17 @@
       disabled: {
         /*整表禁用，仅展示*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       inline: {
         /*行内表单，表单项横向排列（不单独成行）*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       btnLoading: {
         /*提交按钮显示loading*/
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -217,7 +198,7 @@
       },
       close() { /*触发取消按钮点击事件，公开*/
         this.$emit('on-cancel')
-        this.setTimeout(() => {
+        setTimeout(() => {
           this.showLoading = false
           this.$refs.formRRef.changeLoading(false)
         }, 1000)

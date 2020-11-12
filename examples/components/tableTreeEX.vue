@@ -79,11 +79,11 @@
                         onOk: () => {
                           this.$refs.tableTree.deleteLocalNode(params.row._index)
                             .then(() => {
-                              $swal('删除成功！', '', 'success')
+                              this.$swal('删除成功！', '', 'success')
                             })
                             .catch(e => {
                               console.warn(e)
-                              $swal('删除出错！', '', 'error')
+                              this.$swal('删除出错！', '', 'error')
                             })
                         }
                       })

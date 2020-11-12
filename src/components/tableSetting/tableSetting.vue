@@ -64,33 +64,23 @@
       },
       top: {
         type: String,
-        default() {
-          return '30px'
-        }
+        default: '30px'
       },
       right: {
         type: String,
-        default() {
-          return '0'
-        }
+        default: '0'
       },
       width: {
         type: String,
-        default() {
-          return '150px'
-        }
+        default: '150px'
       },
       bg: {
         type: String,
-        default() {
-          return '#ccc'
-        }
+        default: '#ccc'
       },
       defaultCheck: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       }
     },
     data() {
@@ -190,32 +180,32 @@
       },
       handleCheckAll() {
         if (this.indeterminate) {
-          this.checkAll = false;
+          this.checkAll = false
         }
         else {
-          this.checkAll = !this.checkAll;
+          this.checkAll = !this.checkAll
         }
-        this.indeterminate = false;
+        this.indeterminate = false
 
         if (this.checkAll) {
-          this.checkAllGroup = this.groupX.map(e => e.label);
+          this.checkAllGroup = this.groupX.map(e => e.label)
         }
         else {
-          this.checkAllGroup = this.disabledGroup.map(e => e.label);
+          this.checkAllGroup = this.disabledGroup.map(e => e.label)
         }
       },
       checkAllGroupChange(data) {
         if (data.length === this.groupX.length) {
-          this.indeterminate = false;
-          this.checkAll = true;
+          this.indeterminate = false
+          this.checkAll = true
         }
         else if (data.length > this.disabledGroup.length) {
-          this.indeterminate = true;
-          this.checkAll = false;
+          this.indeterminate = true
+          this.checkAll = false
         }
         else {
-          this.indeterminate = false;
-          this.checkAll = false;
+          this.indeterminate = false
+          this.checkAll = false
         }
       }
     }

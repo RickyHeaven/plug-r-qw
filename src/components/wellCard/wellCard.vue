@@ -33,18 +33,14 @@
           Number,
           String
         ],
-        default() {
-          return '100%'
-        }
+        default: '100%'
       },
       height: {
         type: [
           Number,
           String
         ],
-        default() {
-          return '100%'
-        }
+        default: '100%'
       }
     },
     computed: {

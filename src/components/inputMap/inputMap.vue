@@ -19,6 +19,7 @@
   import {lazyAMapApiLoaderInstance} from 'vue-amap'
   import _ from 'lodash'
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   export default {
     name: "inputMap",
@@ -30,42 +31,32 @@
     props: {
       valProp: {
         type: Object,
-        default() {
-          return null
-        }
+        default: null
       },
       width: {
         type: [
           String,
           Number
         ],
-        default() {
-          return '100%'
-        }
+        default: '100%'
       },
       height: {
         type: [
           String,
           Number
         ],
-        default() {
-          return null
-        }
+        default: null
       },
       placeholder: {
         type: String
       },
       disabled: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       showMap: {
         type: Boolean,
-        default() {
-          return true
-        }
+        default: true
       }
     },
     data() {
@@ -145,11 +136,11 @@
     methods: {
       checkHeight() {
         if (this.$refs[this.vidT] && this.$refs[this.vidT].clientHeight < 10 || (!this.$refs[this.vidT])) {
-          this.setTimeout(this.checkHeight, 100)
+          setTimeout(this.checkHeight, 100)
         }
         else {
           /*高德地图实例初始化较慢，暂时延时1秒，后面寻找完美解决方案*/
-          this.setTimeout(this.initMap, 1000)
+          setTimeout(this.initMap, 1000)
         }
       },
       initMap() {

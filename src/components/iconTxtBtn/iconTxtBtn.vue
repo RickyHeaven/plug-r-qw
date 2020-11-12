@@ -20,21 +20,15 @@
       },
       icon: {
         type: String,
-        default() {
-          return 'md-download'
-        }
+        default: 'md-download'
       },
       size: {
         type: Number,
-        default() {
-          return 17
-        }
+        default: 17
       },
       disabled: {
         type: Boolean,
-        default() {
-          return false
-        }
+        default: false
       },
       has: {
         type: String

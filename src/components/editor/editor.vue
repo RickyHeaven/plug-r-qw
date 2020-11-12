@@ -11,6 +11,7 @@
   import xss from 'xss'
   import $swal from '../../methods/swal'
   import Locale from '../../mixins/locale'
+  import {setTimeout} from '../../methods/timer'
 
   const {$, BtnMenu} = E
 
@@ -200,7 +201,7 @@
       if (this.value) {
         this.editor.txt.html(xss(this.value))
       }
-      this.setTimeout(() => {
+      setTimeout(() => {
         this.$watch(() => this.disabled, (after) => {
           if (after) {
             // 禁用编辑功能
@@ -267,7 +268,6 @@
             }
 
             const bodyW = body[0].clientWidth
-
 
             if (val < 200) {
               val = 200
