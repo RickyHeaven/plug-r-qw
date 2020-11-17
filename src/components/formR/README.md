@@ -56,9 +56,9 @@
 
 * on-re-render 表单被重新渲染
 ### 方法
-* resetForm 重置表单，会清空表单值并刷新表单dom，异步方法
+* resetForm 重置表单，会清空表单值并刷新表单dom，异步方法，表单项默认值会被清除
 
-* reRenderForm 重新渲染表单，异步方法
+* reRenderForm 重新渲染表单，异步方法，可以显示表单项默认值
 
 * refreshFormDom 刷新表单dom，异步方法
 
@@ -290,8 +290,6 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [maxLength](#maxLength) 最大长度限制，不限制则不设置
 
-* [numberVal](#numberVal) 值转换为number类型
-
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
 * [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
@@ -348,8 +346,6 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal](#defaultVal) 默认值
 
-* [numberVal](#numberVal) 值转换为number类型，不可和booleanVal同时开启，默认：`false`
-
 * [booleanVal](#booleanVal) 表单项值为布尔类型，传入的会被自动转换成boolean，输出也是boolean，默认：`false`
 
 * [options](#options) 待选项
@@ -395,8 +391,6 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 单项值会自动清空
 
 * [defaultVal](#defaultVal) 默认值
-
-* [numberVal](#numberVal) 值转换为number类型，默认：`false`
 
 * [options](#options) 待选项
 

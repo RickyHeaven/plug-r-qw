@@ -1,7 +1,7 @@
 <template>
   <Select
       v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" v-on="$listeners" transfer filterable
-      v-loadmore="loadMore" :placeholder="placeholderT"
+      v-loadmore="loadMore" :placeholder="placeholderT" :disabled="disabled"
   >
     <Option v-for="(item,index) in options" :key="'op'+index" :value="item.value" :disabled="item.disabled">{{item.label}}</Option>
   </Select>
@@ -39,7 +39,9 @@
         /*待选项接口条件*/
         type: Object,
         default() {
-          return {}
+          return {
+            size: 10
+          }
         }
       },
       getOptions: {
@@ -62,7 +64,8 @@
       },
       searchKey: {
         /*搜索框的值在拉取待选项数据的条件中对应的key*/
-        type: String
+        type: String,
+        default: 'name'
       },
       collectLabel: {
         /*需要在选中时返回出value以外其他字段*/
@@ -71,6 +74,11 @@
       },
       placeholder: {
         type: String
+      },
+      disabled: {
+        /*禁用*/
+        type: Boolean,
+        default: false
       }
     },
     data() {

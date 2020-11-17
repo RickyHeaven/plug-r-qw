@@ -164,6 +164,11 @@ export default new Router({
       path: '/echarts',
       name: 'echarts',
       component: ()=>import('./components/echartsEX.vue')
+    },
+    {
+      path: '/selectScrollMore',
+      name: 'selectScrollMore',
+      component: ()=>import('./components/selectScrollMoreEX.vue')
     }
   ]
 })

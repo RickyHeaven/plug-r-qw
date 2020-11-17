@@ -6,6 +6,7 @@ let fs = require('fs')
 let fTypes = require('./fileTypes').types
 let path = require('path')
 let formRData = require('./data/formR')
+let selectScrollMoreData = require('./data/selectScrollMore')
 
 let server = new http.Server
 
@@ -53,9 +54,10 @@ server.on('request', function (req, res) {
     }
   }
   else {
+    let temp
     switch (pathname) {
       case '/people':
-        let temp = formRData.people.data.filter(e => {
+        temp = formRData.people.data.filter(e => {
           let temp = true
           for (let key in queryObj) {
             if (e[key] != queryObj[key]) {
@@ -65,6 +67,27 @@ server.on('request', function (req, res) {
           }
           return temp
         })
+        res.writeHead(200, {
+          'content-type': 'application/json'
+        })
+        res.write(JSON.stringify(temp))
+        res.end()
+        break
+      case '/select-scroll-more':
+        let current = queryObj.current && Number(queryObj.current) || 1
+        let size = queryObj.size && Number(queryObj.size) || 10
+        temp = {}
+        if (queryObj.name) {
+          const name = decodeURI(queryObj.name)
+          temp.data = JSON.parse(JSON.stringify(selectScrollMoreData.data.filter(e => e.name.indexOf(name) > -1)))
+            .splice((current - 1) * size, size)
+        }
+        else {
+          temp.data = JSON.parse(JSON.stringify(selectScrollMoreData.data)).splice((current - 1) * size, size)
+          temp.total = selectScrollMoreData.data.length
+        }
+        temp.size = size
+        temp.pages = temp.total && Math.floor(temp.total / size) + 1 || 0
         res.writeHead(200, {
           'content-type': 'application/json'
         })
