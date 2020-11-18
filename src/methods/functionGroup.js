@@ -356,7 +356,24 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
   form.setAttribute('style', 'display:none')
   form.setAttribute('target', '')
   form.setAttribute('method', method)
-  form.setAttribute('action', url)
+  let _url = url
+  if (window && window.g) {
+    /*所有特定缩写字母开头的地址，都会被改变加上config.js（public里的全局配置文件，在index.html引入，在打包后通过更改该文件用于不
+     同环境的部署）里配置的地址变成绝对地址，如:
+     config.js里配置了 window.g={mgrURL:'http://mgr.myweb.com'}
+     请求地址 ‘/mgr/file’ 会被改变为 'http://mgr.myweb.com/file'
+     */
+    let httpEnv = Object.keys(window.g).filter(e => e.indexOf('URL') > -1).map(e => e.replace('URL', ''))
+    
+    for (let item of httpEnv) {
+      let regExp = new RegExp('^\/' + item + '(?=\/.*$)', 'i')
+      if (regExp.test(url) && window.g[item + 'URL']) {
+        _url = window.g[item + 'URL'] + url.replace(regExp, '')
+        break
+      }
+    }
+  }
+  form.setAttribute('action', _url)
   
   if (_.isPlainObject(data)) {
     for (let key in data) {
