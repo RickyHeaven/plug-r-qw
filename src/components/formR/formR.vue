@@ -257,7 +257,7 @@
 <script>
   import moment from 'moment'
   import _ from 'lodash'
-  import {myTypeof,isValidValue} from "../../methods/functionGroup"
+  import {myTypeof, isValidValue} from "../../methods/functionGroup"
   import $fetch from '../../methods/fetch'
   import selectInput from '../selectInput/selectInput.vue'
   import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
@@ -362,6 +362,7 @@
         valGroup: {}, /*表单项值，对外公开，提交时传递到外层*/
         formDataT: [], /*表单结构数据*/
         tempKeys: {}, /*不对外暴露表单项值*/
+        unwatchGroup: [],
         mgrUrl: window.g && window.g.mgrURL || null,
         selectInputKeys: [], /*selectInput的key没有写死在formData中（因为是动态的）,为了在showingKeys中能捕捉到这类组件的key,特声明此变量*/
         showLoading: false,
@@ -451,6 +452,9 @@
       },
       reRenderForm() { /*重新渲染表单，异步方法（公开）*/
         return new Promise(resolve => {
+          for (let item of this.unwatchGroup) {
+            item()
+          }
           this.tempKeys = {}
           this.initValGroup()
           this.initFormDataT()
@@ -623,9 +627,9 @@
                 key: item.key || null,
                 val: item.defaultVal || null
               })
-              this.$watch(() => this.tempKeys[tempKeyF], after => {
+              this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyF], after => {
                 this.tempKeysWatchHandle(after, item)
-              }, {immediate: true})
+              }, {immediate: true}))
               break
             case 'inputMap':
               const tempKeyE = 'inputMap' + Math.floor(Math.random() * 100000000)
@@ -638,9 +642,9 @@
                   lng: null,
                   lat: null
                 })
-                this.$watch(() => this.tempKeys[tempKeyE], after => {
+                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyE], after => {
                   this.tempKeysWatchHandle(after, item)
-                }, {immediate: true})
+                }, {immediate: true}))
               }
               break
             case 'input':
@@ -650,9 +654,9 @@
               if (item.key) {
                 item.tempKey = tempKeyD
                 this.$set(this.tempKeys, tempKeyD, item.defaultVal !== undefined ? item.defaultVal : null)
-                this.$watch(() => this.tempKeys[tempKeyD], after => {
+                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyD], after => {
                   this.tempKeysWatchHandle(after, item)
-                }, {immediate: true})
+                }, {immediate: true}))
               }
               break
             case 'select':
@@ -665,7 +669,7 @@
                 if (item.changeOption) { /*待选项会根据条件改变*/
                   if (_.isPlainObject(item.changeOption)) {
                     if (item.changeOption.valKey && item.changeOption.key) {
-                      this.$watch(() => this.valGroup[item.changeOption.valKey], after => {
+                      this.unwatchGroup.push(this.$watch(() => this.valGroup[item.changeOption.valKey], after => {
                         let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
                         this.tempKeys[item.tempKey] = null
                         
@@ -683,7 +687,7 @@
                             this.recoverVal(tempVal, item)
                           }
                         }
-                      }, {immediate: true})
+                      }, {immediate: true}))
                     }
                   }
                   else if (_.isArray(item.changeOption)) {
@@ -695,7 +699,7 @@
                       }
                     }
                     if (continueInitOp) {
-                      this.$watch(() => {
+                      this.unwatchGroup.push(this.$watch(() => {
                         let tempParamUrl = ''
                         for (let itemCOT of item.changeOption) {
                           let valKeyTT = this.valGroup[itemCOT.valKey]
@@ -729,7 +733,7 @@
                         }
                       }, {
                         immediate: true
-                      })
+                      }))
                     }
                     else {
                       item.options = []
@@ -740,7 +744,7 @@
                   }
                   else if (_.isBoolean(
                     item.changeOption)) {  /*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
-                    this.$watch(() => this.formData[_.indexOf(temp, item)].optionUrl, after => {
+                    this.unwatchGroup.push(this.$watch(() => this.formData[_.indexOf(temp, item)].optionUrl, after => {
                       let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
                       this.tempKeys[item.tempKey] = null
                       
@@ -759,7 +763,7 @@
                       }
                     }, {
                       immediate: true
-                    })
+                    }))
                   }
                 }
                 else {
@@ -785,11 +789,11 @@
                     this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : null)
                   }
                   
-                  this.$watch(() => this.tempKeys[tempKeyC], after => {
+                  this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyC], after => {
                     this.tempKeysWatchHandle(after, item)
                   }, {
                     immediate: true
-                  })
+                  }))
                 }
               }
               break
@@ -805,9 +809,9 @@
                   item.defaultVal2
                 ] || [])
               }
-              this.$watch(() => this.tempKeys[tempKeyB], after => {
+              this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
                 this.tempKeysWatchHandle(after, item)
-              })
+              }))
               break
           }
         }
@@ -898,7 +902,7 @@
             /*待选项禁用*/
             if (item.disableOptionByOthers) {
               if (_.isString(item.disableOptionByOthers)) {
-                this.$watch(() => {
+                this.unwatchGroup.push(this.$watch(() => {
                   return this.valGroup[item.disableOptionByOthers]
                 }, (after) => {
                   this.clearTempKeyItem(item.tempKey)
@@ -916,10 +920,10 @@
                   }
                 }, {
                   immediate: true
-                })
+                }))
               }
               else if (_.isArray(item.disableOptionByOthers)) {
-                this.$watch(() => {
+                this.unwatchGroup.push(this.$watch(() => {
                   let teKI = []
                   for (let ikL of item.disableOptionByOthers) {
                     if (ikL) {
@@ -947,7 +951,7 @@
                   }
                 }, {
                   immediate: true
-                })
+                }))
               }
             }
           })
@@ -1276,7 +1280,6 @@
         this.itemChange(val, root)
         this.$nextTick(function () {
           this.$refs.formGroupXRef.validateField(root.key)
-
         })
       },
       heightChange() {/*私有*/
