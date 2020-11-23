@@ -493,6 +493,7 @@
                 }
                 else {
                   console.warn('请求返回数据有误，无法使用')
+                  this.clearPage()
                 }
               })
               .catch(e => {
