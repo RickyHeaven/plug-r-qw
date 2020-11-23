@@ -92,6 +92,15 @@
       clear() {/*私有，可使用resetForm代替*/
         this.$refs.formRRef.clearForm()
       },
+      setItemToValGroup(data, notClearOthers) { /*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示），公开*/
+        this.$refs.formRRef.setItemToValGroup(data, notClearOthers)
+      },
+      updateValGroup(data, notClearOthers) { /*更新表单项的值（只能更新已有字段），公开*/
+        this.$refs.formRRef.updateValGroup(data, notClearOthers)
+      },
+      updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用，公开*/
+        this.$refs.formRRef.updateFormDataT(data)
+      },
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
