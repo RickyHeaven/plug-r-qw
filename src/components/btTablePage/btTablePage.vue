@@ -463,6 +463,11 @@
         this.currentRowId = null
         this.currentRowIndex = null
       },
+      clearTable(){
+        this.dataT = []
+        this.total = 0
+        this.current = 1
+      },
       getTableData(order, orderKey) { /*拉取表格数据（公开）*/
         return new Promise((resolve, reject) => {
           if (order) {
@@ -493,13 +498,14 @@
                 }
                 else {
                   console.warn('请求返回数据有误，无法使用')
-                  this.clearPage()
+                  this.clearTable()
                   this.$emit('on-data-change', r)
                 }
               })
               .catch(e => {
                 console.warn(e)
                 this.clearPage()
+                this.clearTable()
                 this.$emit('on-data-change', e)
               })
           }
