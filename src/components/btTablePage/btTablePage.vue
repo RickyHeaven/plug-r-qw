@@ -475,7 +475,7 @@
             $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
               .then(r => {
                 this.clearPage()
-                if (r.data || r.data === null) {
+                if (r.data) {
                   if (r.data.records || r.data.records === null) {
                     this.dataT = r.data.records || []
                   }
@@ -485,20 +485,22 @@
                     }
                   }
                   else {
-                    this.dataT = r.data || []
+                    this.dataT = r.data
                   }
                   this.total = r.data.page && r.data.page.total || r.data.total || r.total || 0
-                  this.$emit('on-data-change')
+                  this.$emit('on-data-change', r)
                   resolve(r)
                 }
                 else {
                   console.warn('请求返回数据有误，无法使用')
                   this.clearPage()
+                  this.$emit('on-data-change', r)
                 }
               })
               .catch(e => {
                 console.warn(e)
                 this.clearPage()
+                this.$emit('on-data-change', e)
               })
           }
           else {
