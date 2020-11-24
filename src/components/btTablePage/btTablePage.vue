@@ -429,7 +429,6 @@
         if (this.selection && this.rowClickSelect) {
           this.$refs.TableXXX.toggleSelect(index)
         }
-        this.$emit('on-row-click', row)
         this.currentRowId = row.id
         this.currentRowIndex = index
       },
