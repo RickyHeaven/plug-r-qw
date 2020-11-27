@@ -78,7 +78,6 @@ const components = {
 const plugMethods = {
   fullScreenImgPreview,
   toHump,
-  toLine,
   htmlEncode,
   htmlDecode,
   getFileSrc,
@@ -119,6 +118,7 @@ const methodsR = {
   dataFilterOrToUrl,
   setTimeout,
   setInterval,
+  toLine,
   fileExport,
   getColumnsKeys,
   removeEmptyValue
