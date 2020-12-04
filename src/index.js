@@ -38,7 +38,7 @@ import {
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
   isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling,
-  fileExport, getColumnsKeys, removeEmptyValue
+  fileExport, getColumnsKeys, removeEmptyValue, findCollection
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
@@ -121,7 +121,8 @@ const methodsR = {
   toLine,
   fileExport,
   getColumnsKeys,
-  removeEmptyValue
+  removeEmptyValue,
+  findCollection
 }
 
 const install = function (Vue, opts = {}) {

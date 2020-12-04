@@ -58,7 +58,7 @@
     "view-design": "^4.3.2",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10",
-    "vue-json-viewer": "^2.2.14",
+    "vue-json-viewer": "^2.2.16",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
     "wangeditor": "^4.0.6",

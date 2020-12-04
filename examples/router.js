@@ -169,6 +169,11 @@ export default new Router({
       path: '/selectScrollMore',
       name: 'selectScrollMore',
       component: ()=>import('./components/selectScrollMoreEX.vue')
+    },
+    {
+      path: '/findCollection',
+      name: 'findCollection',
+      component: ()=>import('./components/findCollectionEX.vue')
     }
   ]
 })

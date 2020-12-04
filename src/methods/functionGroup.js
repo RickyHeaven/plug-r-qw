@@ -238,7 +238,8 @@ export function toFormData(data) {
 }
 
 /**
- *按条件查找一个元素在集合中的位置（路径），返回找到的第一个符合条件的位置
+ * 按条件查找一个元素在集合中的位置（路径），返回找到的第一个符合条件的位置
+ * 仅适用于[{children:[{...},...],...},...]类似树结构集合（最外层也可以是一个对象）或一维数组
  * @param {Array/Object} group - 集合，被查找的集合，必填
  * @param {Function/String/Number/Boolean} condition - 查找条件，为常量时，将常量和集合元素直接对比，必填
  * @param {String} pathKey - 查找结果（路径）元素在集合中的key，在集合为数组时，可以不填，返回index（索引）
@@ -325,6 +326,79 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
     }
   }
   return []
+}
+
+/**
+ * 在目标集合中按条件查找或直接查找，返回第一个满足条件的元素或路径
+ * 与findPath不同，这里的路径是完整路径（findPath省略了一些标准结构中间路径），找不到返回：false
+ * @param {Array/Object} group 被查找的集合
+ * @param {Function/String/Number/Boolean} condition 查找的条件或值
+ * @param {Boolean} getPath 是否返回路径，默认为：false，返回找到的元素
+ * @returns {*}
+ */
+export function findCollection(group, condition, getPath) {
+  if (!group || !condition) {
+    return false
+  }
+  let PATH
+  let target = 'notFoundC'
+  let deepSearch = function (group, condition) {
+    if (myTypeof(group) === 'Array') {
+      if (myTypeof(condition) === 'Function' && condition(group)) {
+        target = group
+        return []
+      }
+      for (let e of group) {
+        if (target !== 'notFoundC') {
+          break
+        }
+        if (myTypeof(condition) === 'Function' && condition(e) || e === condition) {
+          target = e
+          return [group.indexOf(e)]
+        }
+        else if (myTypeof(e) === 'Array' || myTypeof(e) === 'Object') {
+          let r = deepSearch(e, condition)
+          if (r !== undefined) {
+            return [
+              group.indexOf(e),
+              ...r
+            ]
+          }
+        }
+      }
+    }
+    else if (myTypeof(group) === 'Object') {
+      if (myTypeof(condition) === 'Function' && condition(group)) {
+        target = group
+        return []
+      }
+      for (let key in group) {
+        if (target !== 'notFoundC') {
+          break
+        }
+        if (group.hasOwnProperty(key)) {
+          if (myTypeof(condition) === 'Function' && condition(key) || group[key] === condition) {
+            target = group[key]
+            return [key]
+          }
+          else if (myTypeof(group[key]) === 'Object' || myTypeof(group[key]) === 'Array') {
+            let r = deepSearch(group[key], condition)
+            if (r !== undefined) {
+              return [
+                key,
+                ...r
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+  PATH = deepSearch(group, condition)
+  if (getPath) {
+    return PATH || false
+  }
+  return target === 'notFoundC' ? false : target
 }
 
 /*判断某个值是否在集合中*/

@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <test-house/>
     <div class="login">
       {{$t('r.testMsg')+' | '+$t('e.testTxt')}}
       <i-switch size="large" v-model="localeT" style="margin-right: 10px">
@@ -31,9 +32,11 @@
 <script>
   // @ is an alias to /examples
   import {mapState, mapMutations, mapActions} from 'vuex'
+  import TestHouse from "../components/testHouse"
 
   export default {
     name: 'home',
+    components: {TestHouse},
     computed: {
       ...mapState({
         isLogin: state => state.user.isLogin,
