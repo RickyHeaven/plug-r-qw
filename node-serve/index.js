@@ -58,14 +58,14 @@ server.on('request', function (req, res) {
     switch (pathname) {
       case '/people':
         temp = formRData.people.data.filter(e => {
-          let temp = true
+          let tt = true
           for (let key in queryObj) {
             if (e[key] != queryObj[key]) {
-              temp = false
+              tt = false
               break
             }
           }
-          return temp
+          return tt
         })
         res.writeHead(200, {
           'content-type': 'application/json'

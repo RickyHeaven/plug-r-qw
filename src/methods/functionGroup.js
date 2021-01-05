@@ -540,7 +540,9 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
     if (myTypeof(contentKey) === 'Array') {
       let temp = []
       for (let item of contentKey) {
-        temp.push(params.row[item])
+        if(isValidValue(params.row[item])){
+          temp.push(params.row[item])
+        }
       }
       content = temp.join(jointMark)
     }
