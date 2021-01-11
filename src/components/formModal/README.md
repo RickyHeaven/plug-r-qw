@@ -50,11 +50,11 @@
 
 * setHeight 主动设置弹框内表单高度（为了间接影响弹框高度），需要传高度，一般用不上
 
-* resetForm 重置表单，该方法会清空表单值并刷新dom，异步方法，表单项默认值会被清除，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm
+* resetForm 重置表单，该方法会清空表单值并刷新dom，异步方法，表单项默认值不会被清除，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm
 
 * refreshFormDom 刷新dom，异步方法，详见[formR](../formR/README.md#方法)
 
-* reRenderForm 重新渲染表单，异步方法，可以显示表单项默认值，详见[formR](../formR/README.md#方法)
+* reRenderForm 重新渲染表单，异步方法，详见[formR](../formR/README.md#方法)
 
 * setItemToValGroup 设置弹框内表单项的值，可以添加新字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，详见[formR](../formR/README.md#方法)
 

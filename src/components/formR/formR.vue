@@ -476,54 +476,87 @@
         })
       },
       clearForm() { /*清空表单值（私有，不推荐直接调用，可以调用resetForm）*/
+        let defaultV = this.getDefaultValues()
+
         for (let key in this.valGroup) {
           if (this.valGroup.hasOwnProperty(key)) {
-            if (myTypeof(this.valGroup[key]) === 'Array') {
-              this.$set(this.valGroup, key, [])
-            }
-            else if (myTypeof(this.valGroup[key]) === 'Boolean') {
-              this.$set(this.valGroup, key, false)
+            if (isValidValue(defaultV[key])) {
+              this.$set(this.valGroup, key, defaultV[key])
             }
             else {
-              const formItem = _.find(this.formData, [
-                'key',
-                key
-              ])
-              if (formItem && formItem.type === 'editor') {
-                this.$set(this.valGroup, key, '')
+              if (myTypeof(this.valGroup[key]) === 'Array') {
+                this.$set(this.valGroup, key, [])
+              }
+              else if (myTypeof(this.valGroup[key]) === 'Boolean') {
+                this.$set(this.valGroup, key, false)
               }
               else {
-                this.$set(this.valGroup, key, null)
+                const formItem = _.find(this.formData, [
+                  'key',
+                  key
+                ])
+                if (formItem && formItem.type === 'editor') {
+                  this.$set(this.valGroup, key, '')
+                }
+                else {
+                  this.$set(this.valGroup, key, null)
+                }
               }
             }
           }
         }
-        this.clearTempKeys()
+        this.clearTempKeys(defaultV)
       },
-      clearTempKeys() { /*清空缓存表单值（私有，不推荐直接调用，可以调用resetForm）*/
+      clearTempKeys(defaultV) { /*清空缓存表单值（私有，不推荐直接调用，可以调用resetForm）*/
         for (let key in this.tempKeys) {
           if (this.tempKeys.hasOwnProperty(key)) {
-            if (myTypeof(this.tempKeys[key]) === 'Array') {
-              this.$set(this.tempKeys, key, [])
-            }
-            else if (myTypeof(this.tempKeys[key]) === 'Object' && this.tempKeys[key].hasOwnProperty('key') &&
-              this.tempKeys[key].hasOwnProperty('val')) {
-              /*selectInput*/
-              this.$set(this.tempKeys[key], 'val', null)
+            if (isValidValue(defaultV[key])) {
+              this.$set(this.tempKeys, key, defaultV[key])
             }
             else {
-              this.$set(this.tempKeys, key, null)
+              if (myTypeof(this.tempKeys[key]) === 'Array') {
+                this.$set(this.tempKeys, key, [])
+              }
+              else if (myTypeof(this.tempKeys[key]) === 'Object' && this.tempKeys[key].hasOwnProperty('key') &&
+                this.tempKeys[key].hasOwnProperty('val')) {
+                /*selectInput*/
+                this.$set(this.tempKeys[key], 'val', null)
+              }
+              else {
+                this.$set(this.tempKeys, key, null)
+              }
             }
           }
         }
       },
       clearTempKeyItem(key) { /*清空缓存表单项值（私有）*/
-        if (myTypeof(this.tempKeys) === 'Array') {
-          this.tempKeys[key] = []
+        let defaultV = this.getDefaultValues()
+        if (isValidValue(defaultV[key])) {
+          this.$set(this.tempKeys, key, defaultV[key])
         }
         else {
-          this.tempKeys[key] = null
+          if (myTypeof(this.tempKeys) === 'Array') {
+            this.tempKeys[key] = []
+          }
+          else {
+            this.tempKeys[key] = null
+          }
         }
+      },
+      getDefaultValues() {
+        let temp = {}
+        for (let e of this.formDataT) {
+          if (e.tempKey && isValidValue(e.defaultVal)) {
+            temp[e.tempKey] = e.defaultVal
+          }
+          if (e.key && isValidValue(e.defaultVal)) {
+            temp[e.key] = e.defaultVal
+          }
+          if (e.key2 && isValidValue(e.defaultVal2)) {
+            temp[e.key2] = e.defaultVal2
+          }
+        }
+        return temp
       },
       getFormItemIfVal(item) { /*判断是否展示表单项（私有）*/
         if (item.show) {

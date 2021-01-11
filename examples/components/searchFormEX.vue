@@ -20,8 +20,14 @@
           {
             type: 'input',
             label: '姓名',
-            disabled:true,
             key: 'name'
+          },
+          {
+            type: 'input',
+            label: '收件人',
+            disabled:true,
+            key: 'receiver',
+            defaultVal:'本人'
           },
           {
             type: 'input',

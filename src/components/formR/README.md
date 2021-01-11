@@ -56,9 +56,9 @@
 
 * on-re-render 表单被重新渲染
 ### 方法
-* resetForm 重置表单，会清空表单值并刷新表单dom，异步方法，表单项默认值会被清除
+* resetForm 重置表单，会清空表单值并刷新表单dom，异步方法，表单项默认值不会被清除
 
-* reRenderForm 重新渲染表单，异步方法，可以显示表单项默认值
+* reRenderForm 重新渲染表单，异步方法
 
 * refreshFormDom 刷新表单dom，异步方法
 
