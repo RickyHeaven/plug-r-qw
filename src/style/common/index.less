@@ -3,12 +3,16 @@
 @import "vueJsonViewerTheme";
 
 /*覆写view-design样式*/
-body{
-  button.ivu-btn{
+body {
+  button.ivu-btn {
     padding-top: 0;
     padding-bottom: 0;
     line-height: 1;
   }
+}
+
+button.disabled {
+  cursor: not-allowed !important;
 }
 
 .fl {
@@ -44,7 +48,7 @@ body{
 }
 
 img {
-  display: block;/*解决图片下边3px空白问题*/
+  display: block; /*解决图片下边3px空白问题*/
 }
 
 .vh100 {
@@ -109,12 +113,12 @@ img {
 
 /*$swal弹框*/
 .swalBoxX {
-  will-change: unset !important;/*避免弹框在chrome变模糊*/
+  will-change: unset !important; /*避免弹框在chrome变模糊*/
   .swal-footer {
     text-align: center;
 
     .swalCancelBt,
-    .swalConfirmBt{
+    .swalConfirmBt {
       box-shadow: none;
       height: 36px;
       display: flex;
@@ -170,7 +174,7 @@ img {
       padding: 5px 16px;
       overflow: auto;
       height: calc(~"100% - 80px");
-      .msgBoxConO{
+      .msgBoxConO {
         margin-top: 6px;
         font-size: 14px;
       }
@@ -196,12 +200,12 @@ img {
           background-color: #fff;
           border-color: @primary;
         }
-        .ivu-load-loop.ivu-icon-ios-loading{
+        .ivu-load-loop.ivu-icon-ios-loading {
           display: none;
           margin-right: 6px;
         }
-        &.ivu-btn-loading{
-          .ivu-load-loop.ivu-icon-ios-loading{
+        &.ivu-btn-loading {
+          .ivu-load-loop.ivu-icon-ios-loading {
             display: inline-block;
           }
         }
