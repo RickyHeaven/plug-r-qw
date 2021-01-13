@@ -7,6 +7,7 @@
 <template>
   <Table
       ref="tabXY"
+      :class="{tableTreeKM:true,lightHeadO:lightHead}"
       :columns="columnsX"
       :data="dataX"
       :key="updateDomKey"
@@ -40,6 +41,11 @@
       },
       radio: {
         /*表格是否是单选表格，每次只能选中一行*/
+        type: Boolean,
+        default: false
+      },
+      lightHead: {
+        /*浅色背景表头，避免和headerBar菜单紧邻时页面局部颜色不平衡*/
         type: Boolean,
         default: false
       }
