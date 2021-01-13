@@ -21,7 +21,7 @@
               v-bind="$attrs"
               v-on="$listeners"
               :height="fixedTable&&tableContainerHeight||null"
-              :class="{noBorderTable:noBorderTable,fullHeightTable:!fixedTable}"
+              :class="{noBorderTable:noBorderTable,fullHeightTable:!fixedTable,lightHeadO:lightHead}"
               :columns="columnsT"
               :data="dataT"
               :highlight-row="radio||highlightRow"
@@ -170,6 +170,11 @@
       },
       showTopRow: {
         /*展示顶行（列表设置、批量操作按钮、导出等按钮、统计信息等）,各项子内容通过slot接入*/
+        type: Boolean,
+        default: false
+      },
+      lightHead: {
+        /*浅色背景表头，避免和headerBar菜单紧邻时页面局部颜色不平衡*/
         type: Boolean,
         default: false
       }
@@ -462,7 +467,7 @@
         this.currentRowId = null
         this.currentRowIndex = null
       },
-      clearTable(){
+      clearTable() {
         this.dataT = []
         this.total = 0
         this.current = 1
