@@ -99,6 +99,10 @@
         type: Boolean,
         default: true
       },
+      placeholder:{
+        type:String,
+        default:'请输入正文'
+      },
       disabled: {
         /*是否禁用编辑功能*/
         type: Boolean,
@@ -142,6 +146,7 @@
       //注册自定菜单
       this.editor.menus.extend('viewMenuKey', ViewMenu)
 
+      this.editor.config.placeholder = this.placeholder
       this.editor.config.zIndex = 100
       this.editor.config.menus = [
         'head',// 标题

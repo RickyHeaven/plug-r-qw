@@ -215,6 +215,7 @@
           :style="itemStyle"
           v-else-if="item.type === 'editor'"
           v-model="valGroup[item.key]"
+          :placeholder="item.placeholder || t('r.pInput')"
           :disabled="Boolean(item.disabled) || disabled"
           @on-change="reValidateAndChangeHandle($event,item)"
       />
