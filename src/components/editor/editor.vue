@@ -7,11 +7,12 @@
 
 <script>
   import E from 'wangeditor'
-  import {oneOf} from "../../methods/functionGroup"
+  import {myTypeof, oneOf} from "../../methods/functionGroup"
   import xss from 'xss'
   import $swal from '../../methods/swal'
   import Locale from '../../mixins/locale'
   import {setTimeout} from '../../methods/timer'
+  import _ from 'lodash'
 
   const {$, BtnMenu} = E
 
@@ -99,9 +100,9 @@
         type: Boolean,
         default: true
       },
-      placeholder:{
-        type:String,
-        default:'请输入正文'
+      placeholder: {
+        type: String,
+        default: '请输入正文'
       },
       disabled: {
         /*是否禁用编辑功能*/
@@ -189,9 +190,19 @@
         ])
       }
 
+      let ops = _.cloneDeep(xss.whiteList)
+
+      for (let key in ops) {
+        if (ops.hasOwnProperty(key) && myTypeof(ops[key]) === 'Array') {
+          ops[key].unshift('style')
+        }
+      }
+
+      this.xssP = new xss.FilterXSS({whiteList: ops})
+
       this.editor.config.onchange = (html) => {
         let text = this.editor.txt.text()
-        let htmlT = xss(html)
+        let htmlT = this.xssP.process(html)
         this.valueT = this.valueType === 'html' ? htmlT : text
         if (this.value === this.valueT) {
           return
@@ -204,7 +215,7 @@
       // create这个方法一定要在所有配置项之后调用
       this.editor.create()
       if (this.value) {
-        this.editor.txt.html(xss(this.value))
+        this.editor.txt.html(this.xssP(this.value))
       }
       setTimeout(() => {
         this.$watch(() => this.disabled, (after) => {
@@ -231,7 +242,7 @@
     },
     methods: {
       setHtml(val) {
-        this.editor.txt.html(xss(val))
+        this.editor.txt.html(this.xssP(val))
       },
       previewHandler() {
         const id = this.editorId + 'preview'
