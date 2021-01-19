@@ -216,7 +216,7 @@
       // create这个方法一定要在所有配置项之后调用
       this.editor.create()
       if (this.value) {
-        this.editor.txt.html(this.xssP(this.value))
+        this.editor.txt.html(this.xssP.process(this.value))
       }
       setTimeout(() => {
         this.$watch(() => this.disabled, (after) => {
@@ -243,7 +243,7 @@
     },
     methods: {
       setHtml(val) {
-        this.editor.txt.html(this.xssP(val))
+        this.editor.txt.html(this.xssP.process(val))
       },
       previewHandler() {
         const id = this.editorId + 'preview'
