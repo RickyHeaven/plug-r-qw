@@ -121,6 +121,17 @@
         return `editor${this._uid}`
       }
     },
+    created(){
+      let ops = _.cloneDeep(xss.whiteList)
+
+      for (let key in ops) {
+        if (ops.hasOwnProperty(key) && myTypeof(ops[key]) === 'Array') {
+          ops[key].unshift('style')
+        }
+      }
+
+      this.xssP = new xss.FilterXSS({whiteList: ops})
+    },
     mounted() {
       this.editor = new E(`#${this.editorId}`)
 
@@ -189,16 +200,6 @@
           'warning'
         ])
       }
-
-      let ops = _.cloneDeep(xss.whiteList)
-
-      for (let key in ops) {
-        if (ops.hasOwnProperty(key) && myTypeof(ops[key]) === 'Array') {
-          ops[key].unshift('style')
-        }
-      }
-
-      this.xssP = new xss.FilterXSS({whiteList: ops})
 
       this.editor.config.onchange = (html) => {
         let text = this.editor.txt.text()
