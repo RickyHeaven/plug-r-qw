@@ -100,6 +100,10 @@
         type: Boolean,
         default: true
       },
+      uploadImgServe: {
+        /*图片上传服务器配置，注意不可和base64上传同时开启*/
+        type: Object
+      },
       placeholder: {
         type: String,
         default: '请输入正文'
@@ -121,7 +125,7 @@
         return `editor${this._uid}`
       }
     },
-    created(){
+    created() {
       let ops = _.cloneDeep(xss.whiteList)
 
       for (let key in ops) {
@@ -191,7 +195,15 @@
       this.editor.config.fontNames = this.fontNames
       this.editor.config.uploadImgMaxSize = this.uploadImgMaxSize
       this.editor.config.uploadImgMaxLength = this.uploadImgMaxLength
-      this.editor.config.uploadImgShowBase64 = this.uploadImgShowBase64
+      if (myTypeof(this.uploadImgServe) === 'Object' && this.uploadImgServe.url && this.uploadImgServe.params) {
+        this.editor.config.uploadImgShowBase64 = false
+
+        this.editor.config.uploadImgParams = this.uploadImgServe.params
+        // 配置 server 接口地址
+        this.editor.config.uploadImgServer = this.uploadImgServe.url
+      }else {
+        this.editor.config.uploadImgShowBase64 = this.uploadImgShowBase64
+      }
 
       this.editor.config.customAlert = s => {
         $swal.apply(this, [

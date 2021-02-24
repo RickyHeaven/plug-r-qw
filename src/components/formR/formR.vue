@@ -217,6 +217,10 @@
           v-model="valGroup[item.key]"
           :placeholder="item.placeholder || t('r.pInput')"
           :disabled="Boolean(item.disabled) || disabled"
+          :uploadImgMaxSize="item.uploadImgMaxSize||100 * 1024"
+          :uploadImgMaxLength="item.uploadImgMaxLength||10"
+          :uploadImgShowBase64="item.uploadImgShowBase64!==false"
+          :uploadImgServe="item.uploadImgServe||{}"
           @on-change="reValidateAndChangeHandle($event,item)"
       />
       <input-map

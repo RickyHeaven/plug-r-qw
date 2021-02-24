@@ -239,6 +239,14 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * <a name='withCredentials'>withCredentials</a> 布尔对象，uploadGroup远程上传时是否携带cookie，默认：`true`
 
+* <a name='uploadImgMaxSize'>uploadImgMaxSize</a> 数字，限制上传图片大小，editor组件独有属性，默认：102400(100k)
+
+* <a name='uploadImgMaxLength'>uploadImgMaxLength</a> 数字，限制一次最多能传几张图片，editor组件独有属性，默认：10
+
+* <a name='uploadImgShowBase64'>uploadImgShowBase64</a> 布尔对象，是否使用base64作为本地图片上传保存方式，editor组件独有属性，默认：true
+
+* <a name='uploadImgServe'>uploadImgServe</a> 对象，具体参考[editor](../editor/README.md)组件的README.md文档，editor组件独有属性
+
 ### formData元素字段详细说明
 
 #### <a name='optionsDetail'>options</a>
@@ -660,6 +668,14 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
 
 * [info](#info) 表单项的提示文字，位于表单项下面
+
+* [uploadImgMaxSize](#uploadImgMaxSize) 数字，限制上传图片大小，默认：102400(100k)
+
+* [uploadImgMaxLength](#uploadImgMaxLength) 数字，限制一次最多能传几张图片，默认：10
+
+* [uploadImgShowBase64](#uploadImgShowBase64) 布尔对象，是否使用base64作为本地图片上传保存方式，默认：true
+
+* [uploadImgServe](#uploadImgServe) 对象，具体参考[editor](../editor/README.md)组件的README.md文档
 
 * [title](#title) 表单项的标题，位于表单项左上方
 

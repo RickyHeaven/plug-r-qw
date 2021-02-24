@@ -20,6 +20,16 @@
 
 * uploadImgShowBase64 布尔对象，是否使用base64作为本地图片上传保存方式，默认：`true`
 
+* uploadImgServe 对象，图片上传服务器配置，注意不可和base64上传同时开启，配置了该属性时，uploadImgShowBase64会直接赋值false，传入的值无效，格式示例：
+```
+  {
+    url:'http://xxx/xx',/*图片上传接口地址*/
+    params:{
+      baseUrl:'http://xxx'/*上传接口参数，比如这里这个baseUrl可用于后端逻辑拼接返回的图片绝对地址*/
+    }
+  }
+```
+
 * disabled 布尔对象，禁用编辑功能，默认：`false`
 ### 事件
 * on-change 编辑器内容发生变化，返回编辑器内容
