@@ -201,6 +201,7 @@
         this.editor.config.uploadImgParams = this.uploadImgServe.params
         // 配置 server 接口地址
         this.editor.config.uploadImgServer = this.uploadImgServe.url
+        this.editor.config.withCredentials = true
       }else {
         this.editor.config.uploadImgShowBase64 = this.uploadImgShowBase64
       }
