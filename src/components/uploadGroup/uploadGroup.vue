@@ -467,9 +467,9 @@
         this.deleteById(null, id)
       },
       deleteById(e, id) {
-        if (!this.disabled) {
+        if (!this.disabled && this.fileIdList.indexOf(id) !== -1) {
           const fileIdList = this.fileIdList
-          let temp = fileIdList
+          let temp = this.fileList
           temp.splice(fileIdList.indexOf(id), 1)
           this.fileList = temp
         }

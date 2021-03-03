@@ -7,11 +7,12 @@
 
 <script>
   import E from 'wangeditor'
-  import {myTypeof, oneOf} from "../../methods/functionGroup"
+  import {isValidValue, myTypeof, oneOf} from "../../methods/functionGroup"
   import xss from 'xss'
   import $swal from '../../methods/swal'
   import Locale from '../../mixins/locale'
   import {setTimeout} from '../../methods/timer'
+  import $fetch from '../../methods/fetch.js'
   import _ from 'lodash'
 
   const {$, BtnMenu} = E
@@ -145,8 +146,7 @@
       //定义自定义菜单‘预览’
       class ViewMenu extends BtnMenu {
         constructor(editor) {
-          const $elem = $(
-            `<div class="w-e-menu" title="${titleT}"><i class="ivu-icon ivu-icon-ios-eye" style="font-size: 22px;"></i></div>`)
+          const $elem = $(`<div class="w-e-menu" title="${titleT}"><i class="ivu-icon ivu-icon-ios-eye" style="font-size: 22px;"></i></div>`)
 
           super($elem, editor)
         }
@@ -195,20 +195,75 @@
       this.editor.config.fontNames = this.fontNames
       this.editor.config.uploadImgMaxSize = this.uploadImgMaxSize
       this.editor.config.uploadImgMaxLength = this.uploadImgMaxLength
-      if (myTypeof(this.uploadImgServe) === 'Object' && this.uploadImgServe.url && this.uploadImgServe.params) {
+      if (myTypeof(this.uploadImgServe) === 'Object' || this.uploadImgShowBase64 === false) {
         this.editor.config.uploadImgShowBase64 = false
+        let configS
+        if(myTypeof(this.uploadImgServe) === 'Object'){
+          configS = _.cloneDeep(this.uploadImgServe)
+        }else {
+          configS = {}
+        }
 
-        this.editor.config.uploadImgParams = this.uploadImgServe.params
         // 配置 server 接口地址
-        this.editor.config.uploadImgServer = this.uploadImgServe.url
+        if (myTypeof(configS.customUploadImg) === 'Function') {
+          //自定义上传逻辑
+          this.editor.config.customUploadImg = configS.customUploadImg
+        }
+        else {
+          this.editor.config.customUploadImg = (resultFiles, insertImgFn) => {
+            configS = Object.assign({
+              params: {},
+              url: window && window.g && window.g.mgrURL + '/fsc/file' || ''
+            }, configS)
+            // resultFiles 是 input 中选中的文件列表
+            // insertImgFn 是获取图片 url 后，插入到编辑器的方法
+
+            let paramsF = Object.assign({
+              appId: 0,
+              moduleId: 0,
+              typeId: 0
+            }, configS.params)
+
+            let temp = new FormData()
+            for (let key in paramsF) {
+              if (paramsF.hasOwnProperty(key) && paramsF[key] !== null) {
+                temp.append(key, paramsF[key])
+              }
+            }
+            for (let item of resultFiles) {
+              temp.append('files', item)
+            }
+            $fetch.post(configS.url, temp, null, [], {
+              spain: true,
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            }).then(r => {
+              if (r && r.data && myTypeof(r.data) === 'Array') {
+                for (let item of r.data) {
+                  if (isValidValue(item.id)) {
+                    // 上传图片，返回结果，将图片插入到编辑器中
+                    insertImgFn(`${configS.url}/${item.id}/download`)
+                  }
+                }
+              }
+              else {
+                this.$swal(this.t('r.uploadFail'), r && r.message || '', 'error')
+              }
+            }).catch(()=>{
+              this.$swal(this.t('r.uploadError'), '', 'error')
+            })
+          }
+        }
         this.editor.config.withCredentials = true
-      }else {
+      }
+      else {
         this.editor.config.uploadImgShowBase64 = this.uploadImgShowBase64
       }
 
       this.editor.config.customAlert = s => {
         $swal.apply(this, [
-          '上传失败',
+          this.t('r.uploadFail'),
           s || '',
           'warning'
         ])

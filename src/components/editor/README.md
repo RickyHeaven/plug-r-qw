@@ -18,14 +18,32 @@
 
 * uploadImgMaxLength 数字，限制一次最多能传几张图片，默认：`10`
 
-* uploadImgShowBase64 布尔对象，是否使用base64作为本地图片上传保存方式，默认：`true`
+* uploadImgShowBase64 布尔对象，是否使用base64作为本地图片上传保存方式，在使用上传到服务器且不需要配置上传服务器（使用默认配置）时，给该字段赋值`false`即可，默认：`true`
 
 * uploadImgServe 对象，图片上传服务器配置，注意不可和base64上传同时开启，配置了该属性时，uploadImgShowBase64会直接赋值false，传入的值无效，格式示例：
 ```
   {
-    url:'http://xxx/xx',/*图片上传接口地址*/
-    params:{
-      baseUrl:'http://xxx'/*上传接口参数，比如这里这个baseUrl可用于后端逻辑拼接返回的图片绝对地址*/
+    url:'http://xxx/xx',/*图片上传接口地址,当接口返回数据格式和默认接口数据格式一致时，配置该地址即可上传图片到服务器，否则直接配置customUploadImg自己实现上传逻辑*/
+  }
+```
+  默认接口返回数据格式：
+```
+  {
+    data:[{id:xx,...},...],/*id将用于图片地址拼接*/
+    message:'xxx'/*出错时的错误信息*/
+  }
+ ```
+  图片地址拼接：`url+'/'+id+'/download'`，即图片上传后的访问地址和下载地址需遵循该格式才能正常使用，否则自己实现上传逻辑
+ 
+  自定义上传到服务器的逻辑
+```
+  {
+    customUploadImg:(resultFiles,insertImgFn)=>{
+       // resultFiles 是 input 中选中的文件列表
+       // insertImgFn 是获取图片 url 后，插入到编辑器的方法
+       
+       // 上传图片，返回结果，将图片插入到编辑器中
+       insertImgFn(imgUrl)
     }
   }
 ```
