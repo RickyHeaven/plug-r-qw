@@ -501,7 +501,7 @@
                     /*如果没有数据，将当前页置为1*/
                     this.current = 1
                   }
-                  else if (this.current > 1 && this.total < (this.current - 1) * this.pageSizeT) {
+                  else if (this.current > 1 && this.total <= (this.current - 1) * this.pageSizeT) {
                     /*当前页并没有数据，自动拉取前一页数据*/
                     this.current--
                     this.getTableData(order, orderKey)
