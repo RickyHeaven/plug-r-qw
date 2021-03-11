@@ -497,7 +497,11 @@
                     this.dataT = r.data
                   }
                   this.total = r.data.page && r.data.page.total || r.data.total || r.total || 0
-                  if (this.current > 1 && this.total < (this.current - 1) * this.pageSizeT) {
+                  if (this.total === 0 && this.current > 1 && this.dataT && this.dataT.length === 0) {
+                    /*如果没有数据，将当前页置为1*/
+                    this.current = 1
+                  }
+                  else if (this.current > 1 && this.total < (this.current - 1) * this.pageSizeT) {
                     /*当前页并没有数据，自动拉取前一页数据*/
                     this.current--
                     this.getTableData(order, orderKey)
