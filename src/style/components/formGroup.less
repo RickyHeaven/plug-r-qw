@@ -8,26 +8,30 @@
     height: 50px;
     margin-top: 30px;
 
-    button + button {
-      margin-left: 10px;
-    }
+    .btnBoxKAL {
+      display: flex;
+      button + button {
+        margin-left: 10px;
+      }
 
-    .ivu-btn {
-      &.form-save-btn {
-        background-color: @primary;
-        color: #fff;
-        width: @formGroupBtnW;
+      .ivu-btn {
+        &.form-save-btn {
+          background-color: @primary;
+          color: #fff;
+          width: @formGroupBtnW;
 
-        &:hover {
-          background-color: #fff;
-          color: @primary;
-          border-color: @primary;
+          &:hover {
+            background-color: #fff;
+            color: @primary;
+            border-color: @primary;
+          }
+        }
+
+        &.form-cancel-btn {
+          width: calc(~'100% - @{formGroupBtnW} - 10px');
         }
       }
 
-      &.form-cancel-btn {
-        width: calc(~'100% - @{formGroupBtnW} - 10px');
-      }
     }
   }
 }

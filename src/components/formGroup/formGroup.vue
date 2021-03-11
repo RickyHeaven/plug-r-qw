@@ -25,7 +25,7 @@
       </template>
     </form-r>
     <div class="formFooterVM" v-show="showOkBt||showCancelBt" :style="{marginLeft:labelWidth+'px' }">
-      <div :style="{width:contentWidth}">
+      <div :style="{width:contentWidth}" class="btnBoxKAL">
         <Button
             @click="submit" class="form-save-btn" v-if="showOkBt" :loading="btnLoading&&showLoading"
         >{{okBtTxt||t('r.confirm')}}</Button>
