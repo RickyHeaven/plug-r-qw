@@ -497,6 +497,11 @@
                     this.dataT = r.data
                   }
                   this.total = r.data.page && r.data.page.total || r.data.total || r.total || 0
+                  if (this.current > 1 && this.total < (this.current - 1) * this.pageSizeT) {
+                    /*当前页并没有数据，自动拉取前一页数据*/
+                    this.current--
+                    this.getTableData(order, orderKey)
+                  }
                   this.$emit('on-data-change', r)
                   resolve(r)
                 }
