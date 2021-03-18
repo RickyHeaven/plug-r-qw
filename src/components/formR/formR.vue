@@ -220,6 +220,7 @@
           :uploadImgMaxSize="item.uploadImgMaxSize||(100 * 1024)"
           :uploadImgMaxLength="item.uploadImgMaxLength||10"
           :uploadImgShowBase64="item.uploadImgShowBase64!==false"
+          :showLinkImg="item.showLinkImg!==false"
           :uploadImgServe="item.uploadImgServe"
           @on-change="reValidateAndChangeHandle($event,item)"
       />

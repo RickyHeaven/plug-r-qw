@@ -20,6 +20,8 @@
 
 * uploadImgShowBase64 布尔对象，是否使用base64作为本地图片上传保存方式，在使用上传到服务器且不需要配置上传服务器（使用默认配置）时，给该字段赋值`false`即可，默认：`true`
 
+* showLinkImg 布尔对象，是否使用插入网络图片功能，默认：`true`
+
 * uploadImgServe 对象，图片上传服务器配置，注意不可和base64上传同时开启，配置了该属性时，uploadImgShowBase64会直接赋值false，传入的值无效，格式示例：
 ```
   {

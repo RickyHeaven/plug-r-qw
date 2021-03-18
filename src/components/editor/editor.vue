@@ -105,6 +105,11 @@
         /*图片上传服务器配置，注意不可和base64上传同时开启*/
         type: Object
       },
+      showLinkImg: {
+        /*是否使用插入网络图片功能*/
+        type: Boolean,
+        default: true
+      },
       placeholder: {
         type: String,
         default: '请输入正文'
@@ -195,6 +200,7 @@
       this.editor.config.fontNames = this.fontNames
       this.editor.config.uploadImgMaxSize = this.uploadImgMaxSize
       this.editor.config.uploadImgMaxLength = this.uploadImgMaxLength
+      this.editor.config.showLinkImg = this.showLinkImg
       if (myTypeof(this.uploadImgServe) === 'Object' || this.uploadImgShowBase64 === false) {
         this.editor.config.uploadImgShowBase64 = false
         let configS
