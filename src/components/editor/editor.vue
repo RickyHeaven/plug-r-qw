@@ -87,9 +87,9 @@
         }
       },
       uploadImgMaxSize: {
-        /*限制上传图片大小,默认100k*/
+        /*限制上传图片大小,默认0.1MB*/
         type: Number,
-        default: 100 * 1024
+        default: 102.4 * 1024
       },
       uploadImgMaxLength: {
         /*限制一次最多能传几张图片，默认10张*/
@@ -171,7 +171,7 @@
         'fontName',//字体
         'italic',// 斜体
         'underline', // 下划线
-        'strikeThrough',//删除线
+        // 'strikeThrough',//删除线 暂时禁用
         'indent',//缩进
         'lineHeight',//行高
         'foreColor',// 文字颜色
@@ -182,7 +182,7 @@
         'quote',//引用
         'emoticon',//表情符
         'image',// 插入图片
-        'video',//视频
+        // 'video',//视频 暂时禁用
         'table',  // 表格
         'splitLine',//分割线
         'undo',  // 撤销

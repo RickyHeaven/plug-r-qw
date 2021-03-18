@@ -14,7 +14,7 @@
 
 * fontNames 数组，编辑器可选字体，默认：`['黑体','仿宋','楷体','标楷体','华文仿宋','华文楷体','宋体','微软雅黑','Arial','Tahoma','Verdana','Times New Roman','Courier New']`
 
-* uploadImgMaxSize 数字，限制上传图片大小，默认：`102400`(100k)
+* uploadImgMaxSize 数字，限制上传图片大小，默认：`1024*102.4`(0.1MB)
 
 * uploadImgMaxLength 数字，限制一次最多能传几张图片，默认：`10`
 
