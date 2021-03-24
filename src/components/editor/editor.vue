@@ -114,6 +114,11 @@
         type: String,
         default: '请输入正文'
       },
+      previewClass: {
+        /*预览容器类名，用于自定义预览界面table、code、blockquote等标签样式，将你的全局样式class传给该属性，你自定义的全局样式将在编辑预览界面生效*/
+        type: String,
+        default: 'r-editor-view'
+      },
       disabled: {
         /*是否禁用编辑功能*/
         type: Boolean,
@@ -205,9 +210,10 @@
       if (myTypeof(this.uploadImgServe) === 'Object' || this.uploadImgShowBase64 === false) {
         this.editor.config.uploadImgShowBase64 = false
         let configS
-        if(myTypeof(this.uploadImgServe) === 'Object'){
+        if (myTypeof(this.uploadImgServe) === 'Object') {
           configS = _.cloneDeep(this.uploadImgServe)
-        }else {
+        }
+        else {
           configS = {}
         }
 
@@ -257,7 +263,7 @@
               else {
                 this.$swal(this.t('r.uploadFail'), r && r.message || '', 'error')
               }
-            }).catch(()=>{
+            }).catch(() => {
               this.$swal(this.t('r.uploadError'), '', 'error')
             })
           }
@@ -330,7 +336,7 @@
           preEl.setAttribute('id', id)
           preEl.setAttribute('class', 'editor-preview-mask')
           preEl.innerHTML =
-            `<div class="editor-preview-body"><div class="editor-preview-head"><div><span>宽</span><input type="number" value="300" min="200"><span>高</span><input type="number" value="500" min="300"></div><i class="ivu-icon ivu-icon-md-close"></i></div><div class="editor-preview-out-wall"><div class="editor-preview-wall"></div></div></div>`
+            `<div class="editor-preview-body"><div class="editor-preview-head"><div><span>宽</span><input type="number" value="300" min="200"><span>高</span><input type="number" value="500" min="300"></div><i class="ivu-icon ivu-icon-md-close"></i></div><div class="editor-preview-out-wall"><div class="editor-preview-wall ${this.previewClass}"></div></div></div>`
 
           let outWallE = preEl.children[0].children[1]
           let wallE = preEl.children[0].children[1].children[0]

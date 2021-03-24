@@ -50,9 +50,13 @@
   }
 ```
 
+* previewClass 字符串，预览容器类名，用于自定义预览界面table、code、blockquote等标签样式，将你的全局样式class传给该属性，你自定义的全局样式将在编辑预览界面生效，默认：`r-editor-view`
+
 * disabled 布尔对象，禁用编辑功能，默认：`false`
 ### 事件
 * on-change 编辑器内容发生变化，返回编辑器内容
 ### 方法
 * setHtml 将指定内容设为编辑器内容，直接给v-model赋值效果也一样
+### 注意：
+* 从编辑器中获取的 html 代码是不包含任何样式的纯 html，如果显示的时候需要对其中的table、code、blockquote等标签进行自定义样式（这样既可实现多皮肤功能），如果要使用编辑器默认样式，请在富文本容器上加上class:`r-editor-view`。
 
