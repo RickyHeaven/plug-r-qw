@@ -61,7 +61,7 @@
     "vue-json-viewer": "^2.2.16",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "wangeditor": "^4.0.6",
+    "wangeditor": "^4.6.10",
     "xss": "^1.0.8"
   }
 }

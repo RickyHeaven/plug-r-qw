@@ -201,6 +201,7 @@
       this.editor.config.uploadImgMaxSize = this.uploadImgMaxSize
       this.editor.config.uploadImgMaxLength = this.uploadImgMaxLength
       this.editor.config.showLinkImg = this.showLinkImg
+      this.editor.config.menuTooltipPosition = 'down'
       if (myTypeof(this.uploadImgServe) === 'Object' || this.uploadImgShowBase64 === false) {
         this.editor.config.uploadImgShowBase64 = false
         let configS
