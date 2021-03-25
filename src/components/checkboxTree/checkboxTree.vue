@@ -114,6 +114,7 @@
           key = this.collectVal
         }
         if (!key || JSON.stringify(after) === JSON.stringify(this.valueE)) {
+          this.valueE = []
           return
         }
         /*清空dataT已选*/
