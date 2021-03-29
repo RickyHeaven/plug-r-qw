@@ -3,7 +3,7 @@
 
 <template>
   <Tree
-      :id="id" class="checkboxTreeGA" :data="dataT" :render="renderContent"
+      :id="id" class="checkboxTreeGA" v-if="initTree" :data="dataT" :render="renderContent"
       @on-check-change="updateVal" @on-toggle-expand="changeStyle" show-checkbox
   ></Tree>
 </template>
@@ -68,6 +68,7 @@
     },
     data() {
       return {
+        initTree:true,
         dataT: [],
         id: 'CKT' + Math.floor(Math.random() * 10000000 + 10000000),
         valueE: []
@@ -93,12 +94,17 @@
     watch: {
       data: {
         handler(after) {
+          this.initTree = false
           let temp = []
           this.initData(after, temp)
           this.dataT = temp
-          if (this.inlineLeaf) {
-            this.$nextTick(this.changeStyle)
-          }
+          this.$nextTick(function () {
+            this.initTree = true
+
+            if (this.inlineLeaf) {
+              this.$nextTick(this.changeStyle)
+            }
+          })
         },
         immediate: true,
         deep: true
