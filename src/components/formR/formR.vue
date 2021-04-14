@@ -553,7 +553,12 @@
         let temp = {}
         for (let e of this.formDataT) {
           if (e.tempKey && isValidValue(e.defaultVal)) {
-            temp[e.tempKey] = e.defaultVal
+            if (e.booleanVal) {
+              temp[e.tempKey] = e.defaultVal ? 1 : 0
+            }
+            else {
+              temp[e.tempKey] = e.defaultVal
+            }
           }
           if (e.key && isValidValue(e.defaultVal)) {
             temp[e.key] = e.defaultVal
