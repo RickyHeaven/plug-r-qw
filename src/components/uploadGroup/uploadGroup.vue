@@ -28,10 +28,10 @@
     </Upload>
     <div class="previewBoxM" v-show="previewType === 'img' && fileIdList.length>0">
       <div class="previewImg" v-if="!manualUpload && item !== null" v-for="item of fileIdList" :key="item">
-        <img :src="url+'/'+item+'/download'" :alt="item">
+        <img :src="url+'/'+item+'/download?preview=true'" :alt="item">
         <div class="deleteModal">
           <Icon
-              type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(url+'/'+item+'/download')"
+              type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(url+'/'+item+'/download?preview=true')"
               :title="t('r.fView')"
           />
           <Icon
@@ -391,7 +391,7 @@
         }
         else if (file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id) {
           if (isImgByFile(file.mimeType)) {
-            fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download')
+            fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download?preview=true')
           }
           else {
             $swal(this.t('r.info.title'), this.t('r.notImg'), 'info')
@@ -455,10 +455,10 @@
           file.response.data[0].mimeType
         if (id) {
           if (myTypeof(type) === 'String' && type.indexOf('image') > -1) {
-            fullScreenImgByDom(this.url + '/' + id + '/download')
+            fullScreenImgByDom(this.url + '/' + id + '/download?preview=true')
           }
           else {
-            window.open(this.url + '/' + id + '/download')
+            window.open(this.url + '/' + id + '/download?preview=true')
           }
         }
       },
