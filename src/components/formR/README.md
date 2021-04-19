@@ -114,6 +114,8 @@
 组存放他们，如：`[{valKey...},{...}]`，多个条件必须都有值才会发起请求，如果某条件可有可无（有值就带上，没有就不要该条件），则设置该条件
 `notRequired`属性为`true`
  
+* <a name='class'>class</a> 字符串，表单项自定义样式类名，可用于自定义单个formItem独有样式，如果想传多个class，class之间用空格隔开，所有type类型皆支持该属性
+
 * <a name='clearable'>clearable</a> 布尔对象，表单项是否可单独清空，当类型支持时才有效，具体见后面的'type说明'，默认：`true`
 
 * <a name='collectLabel'>collectLabel</a> 对象/数组，选项中除val外的其他字段（如label）连同值一并返回，如：
@@ -287,6 +289,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [info](#info) 表单项的提示文字，位于表单项下面
 
+* [class](#class) 单个表单项的自定义样式类名
+
 * 注意：也可以不传label和val,单纯用来布局占位；没有key值，提交时不会被带上
 
 #### input 输入框
@@ -311,6 +315,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 #### inputNumber 数字输入框
 * [label](#label) 标签
@@ -346,6 +352,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 #### select 下拉选择框
 * [label](#label) 标签
@@ -392,6 +400,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### selectInput 选择输入框
 * [label](#label) 标签
 
@@ -416,6 +426,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### alCascader 行政区域级联
 * [label](#label) 标签
 
@@ -438,6 +450,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 #### asyncCascader 远程数据级联
 * [label](#label) 标签
@@ -472,6 +486,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### radio 单选框
 * [label](#label) 标签
 
@@ -490,6 +506,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 * 注意：该类型表单项值为boolean
 
@@ -520,6 +538,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### checkbox 复选框
 * [label](#label) 标签
 
@@ -536,6 +556,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
 
 * [info](#info) 表单项的提示文字，位于表单项下面
+
+* [class](#class) 单个表单项的自定义样式类名
 
 * 注意：该类型表单项值为boolean
 
@@ -564,6 +586,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 * 注意：该类型表单项值为数组
 
 #### textarea 文本框
@@ -590,6 +614,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [info](#info) 表单项的提示文字，位于表单项下面
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 #### upload 上传组件
 * [label](#label) 标签
@@ -624,6 +650,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 * 注意：远程上传时，值为上传成功后接口返回的文件id，或id组成的数组；本地上传时，值为file对象，或file对象组成的数组；远程上传时有诸多限制，
 具体参考[uploadGroup](../uploadGroup/README.md)组件的README.md文档
 
@@ -654,6 +682,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### editor 富文本框
 * [label](#label) 标签
 
@@ -678,6 +708,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [uploadImgServe](#uploadImgServe) 对象，具体参考[editor](../editor/README.md)组件的README.md文档
 
 * [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
 
 #### inputMap 地图组件
 * [label](#label) 标签
@@ -706,6 +738,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [title](#title) 表单项的标题，位于表单项左上方
 
+* [class](#class) 单个表单项的自定义样式类名
+
 #### custom 自定义组件
 * [label](#label) 标签
 
@@ -720,6 +754,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
 
 * [info](#info) 表单项的提示文字，位于表单项下面
+
+* [class](#class) 单个表单项的自定义样式类名
 
 * 注意：自定义组件限制非常少，理论上想放什么进来都行，需遵循几点，具名插槽模板放在formR组件标签内，将valGroup（表单组件收集值的对象）传进模板，如：
 ```

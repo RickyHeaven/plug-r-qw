@@ -19,7 +19,7 @@
         :label="item.type !== 'radio'&&item.type !== 'checkbox'?item.label:' '"
         :prop="item.key||''"
         class="relativeBox"
-        :class="{withInfo:Boolean(item.info),withTitle:Boolean(item.title),inlineFormItemXN: inline,noLabel: item.type === 'selectInput'}"
+        :class="{withInfo:Boolean(item.info),withTitle:Boolean(item.title),inlineFormItemXN: inline,noLabel: item.type === 'selectInput',[item.class]:item.class}"
         :style="formStyle"
     >
       <!--纯文本,也可以不传label和val,单纯用来布局占位-->

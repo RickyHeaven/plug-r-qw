@@ -79,7 +79,8 @@
             type: 'input',
             key: 'name',
             label: '姓名',
-            placeholder: '请输入姓名'
+            placeholder: '请输入姓名',
+            class:'myInputHG bigKZ'/*该formItem自定义样式类名*/
           },
           {
             type: 'radioGroup',
