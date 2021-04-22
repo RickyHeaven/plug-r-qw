@@ -250,13 +250,15 @@
     <FormItem v-if="showLongOkBt">
       <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{longOkBtTxt||t('r.confirm')}}</Button>
     </FormItem>
-    <!--短提交按钮（查询）-->
-    <Button
-        v-if="showInlineOkBt" type="primary" :class="{inlineFormBtXN:inline,okBtnXN:true}" @click="submit"
-        :loading="btnLoading&&showLoading" :disabled="disabled"
-    >{{inlineOkBtTxt||t('r.confirm')}}</Button>
-    <!--取消按钮（清除）-->
-    <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt||t('r.clear')}}</Button>
+    <div class="inlineBlock">
+      <!--短提交按钮（查询）-->
+      <Button
+          v-if="showInlineOkBt" type="primary" :class="{inlineFormBtXN:inline,okBtnXN:true}" @click="submit"
+          :loading="btnLoading&&showLoading" :disabled="disabled"
+      >{{inlineOkBtTxt||t('r.confirm')}}</Button>
+      <!--取消按钮（清除）-->
+      <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt||t('r.clear')}}</Button>
+    </div>
   </Form>
 </template>
 
