@@ -62,6 +62,8 @@
 
 * updateFormDataT 更新组件内表单结构，例如设置或取消禁用，formDataT为formR组件私有属性，不可直接操作，故有该方法，详见[formR](../formR/README.md#方法)
 
+* reValidate 手动验证表单项
+
 * validate 主动验证组件内整个表单，一般用不上
 
 ### 注意

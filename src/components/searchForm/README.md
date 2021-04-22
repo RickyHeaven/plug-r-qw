@@ -29,6 +29,8 @@
 
 * reRenderForm 重新渲染表单，异步方法，详见[formR](../formR/README.md#方法)
 
+* reValidate 手动验证表单项
+
 * validate 主动验证组件内整个表单，一般用不上
 
 ### 注意

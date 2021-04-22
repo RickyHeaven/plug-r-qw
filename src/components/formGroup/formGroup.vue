@@ -181,6 +181,9 @@
       validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
+      reValidate(prop){/*手动验证表单项（公开）*/
+        this.$refs.formRRef.reValidate(prop)
+      },
       changeLoading(val) {/*改变确定按钮loading状态，私有*/
         if (val === undefined) {
           return

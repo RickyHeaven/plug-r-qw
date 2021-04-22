@@ -113,6 +113,9 @@
       validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
+      reValidate(prop){/*手动验证表单项（公开）*/
+        this.$refs.formRRef.reValidate(prop)
+      },
       changeLoading(val) {/*改变弹框loading状态，私有*/
         this.$refs.formRRef.changeLoading(val === undefined ? false : val)
       },
