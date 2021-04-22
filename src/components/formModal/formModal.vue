@@ -218,7 +218,7 @@
       onItemChange(data) { /*表单项值改变，私有*/
         this.$emit('on-item-change', data)
       },
-      onReset() {/*表单被重置，私有*/
+      onReset() {/*表单被重置(清空按钮被点击等)，私有*/
         this.$emit('on-reset')
       },
       onReRender() {/*表单被重新渲染，私有*/
