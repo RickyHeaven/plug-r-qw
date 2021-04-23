@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import {toLine, oneOf, tooltipManual} from '../../methods/functionGroup.js'
+  import {toLine, toHump, oneOf, tooltipManual} from '../../methods/functionGroup.js'
   import $fetch from '../../methods/fetch.js'
   import _ from 'lodash'
   import {setTimeout} from '../../methods/timer'
@@ -163,6 +163,13 @@
         type: String,
         default: "id"
       },
+      orderKeyFormat: {
+        validator: val => oneOf(val, [
+          'underline',
+          'camelcase'
+        ]),
+        default: 'underline'
+      },
       getDataLoading: {
         /*拉取表格数据时显示遮罩层*/
         type: Boolean,
@@ -213,7 +220,12 @@
           current: this.current,
           size: this.pageSizeT
         }
-        temp[this.order] = toLine(this.key)
+        if (this.orderKeyFormat === 'underline') {
+          temp[this.order] = toLine(this.key)
+        }
+        else if (this.orderKeyFormat === 'camelcase') {
+          temp[this.order] = toHump(this.key)
+        }
         return temp
       },
       columnsT() {
