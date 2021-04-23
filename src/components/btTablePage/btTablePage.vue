@@ -505,10 +505,16 @@
                       this.dataT = r.data.page.records || []
                     }
                   }
+                  else if (r.data.data) {
+                    if (r.data.data.records || r.data.data.records === null) {
+                      this.dataT = r.data.data.records || []
+                    }
+                  }
                   else {
                     this.dataT = r.data
                   }
-                  this.total = r.data.page && r.data.page.total || r.data.total || r.total || 0
+                  this.total =
+                    r.data.page && r.data.page.total || r.data.data && r.data.data.total || r.data.total || r.total || 0
                   if (this.total === 0 && this.current > 1 && this.dataT && this.dataT.length === 0) {
                     /*如果没有数据，将当前页置为1*/
                     this.current = 1
