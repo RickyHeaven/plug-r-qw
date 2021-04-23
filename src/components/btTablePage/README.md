@@ -10,39 +10,41 @@
 
 * columns: 数组，格式同iView的columns,但需要表格前多选时，直接设置selection属性，不用在这里添加列。
 
-* selection: 布尔类型，需要表格多选时设置。
+* selection: 布尔类型，需要表格多选时设置，默认：`false`。
 
-* selectionFixed: 每列开头选择框固定（`left`: 左固定，`right`: 右固定， `''`: 不固定，和iview table 固定列一样）
+* selectionFixed: `'left'/'right'/false`三选一或不传，每列开头选择框固定（`left`: 左固定，`right`: 右固定， `false`: 不固定，和iview table 固定列一样），默认：`false`
 
-* rowClickSelect: 是否点击行操作开头选择框(需要`selection: true`时才有效)
+* rowClickSelect: 布尔类型，是否点击行操作开头选择框(需要`selection: true`时才有效)，默认：`true`
 
 * data: 数组，在展示静态表格（没有请求地址url,不用更新，只展示一组静态数据）时用，格式同iView的data。
 
-* page-size: 正整数，在需要定义初始化表格页面条数时使用，默认值10。
+* page-size: 正整数，在需要定义初始化表格页面条数时使用，默认：`10`
 
 * sortable: 字符串（'custom'/''），`custom`: 所有带key的列后端排序，`''`: 特定列排序，直接在columns里设置。
 
 * init-data: 布尔对象，默认为`true`: 组件创建后自动拉取第一次数据，`false`: 不自动拉取第一次，后面改变search-data的值或者调用手动拉取方法。
 
-* highlightRow: 当前（选中，无论是否带选择框）行高亮，`radio: true`时会无视该属性值开启高亮
+* highlightRow: 布尔类型，当前（选中，无论是否带选择框）行高亮，`radio: true`时会无视该属性值开启高亮，默认：`false`
 
-* rowClickNum: 自动拉取第一次数据（`init-data: true`）时点击第几行，默认`-1`，不点击
+* rowClickNum: 整数，自动拉取第一次数据（`init-data: true`）时点击第几行，默认：`-1`，不点击
 
-* radio: 表格是否是单选表格，每次只能选中一行（没有选择框，高亮选中行表示选中）
+* radio: 布尔类型，表格是否是单选表格，每次只能选中一行（没有选择框，高亮选中行表示选中），默认：`false`
 
-* tableEmptyTdHandle: 表格内容为空是否显示为`--`
+* tableEmptyTdHandle: 布尔类型，表格内容为空是否显示为`--`，默认：`false`
 
-* noBorderTable: 表格无边框
+* noBorderTable: 布尔类型，表格无边框，默认：`false`
 
-* noPage: 不带页签
+* noPage: 布尔对象，不带页签，默认：`false`
 
-* orderDefault: 默认排序方式，默认值`'desc'`,('asc'/'desc')
+* orderDefault: `'asc'/'desc'`二选一或不传，默认排序方式，默认：`'desc'`
 
-* orderKey: 排序字段的key
+* orderKey: 字符串，排序字段的key，默认：`'id'`
 
-* getDataLoading: 拉取表格数据时显示遮罩层，默认值`false`
+* orderKeyFormat: 下划线`‘underline’`和驼峰`‘camelcase’`二选一或不传，排序字段key的格式，默认：`‘underline’`
 
-* showTopRow: 展示顶行（列表设置、批量操作按钮、导出等按钮、统计信息等）,各项子内容通过slot接入，默认值`false`
+* getDataLoading: 布尔对象，拉取表格数据时显示遮罩层，默认：`false`
+
+* showTopRow: 布尔对象，展示顶行（列表设置、批量操作按钮、导出等按钮、统计信:息等）,各项子内容通过slot接入，默认：`false`
 
 ### 事件：
 注意：view-design 的 Table 组件的所有事件都可监听
