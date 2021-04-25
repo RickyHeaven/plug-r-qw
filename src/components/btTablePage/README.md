@@ -10,6 +10,8 @@
 
 * columns: 数组，格式同iView的columns,但需要表格前多选时，直接设置selection属性，不用在这里添加列。
 
+* dataHandler: Function，接口数据处理方法，入参为接口返回数据，返回处理后的数据，格式须为`{data:[...],total:xx}`
+
 * selection: 布尔类型，需要表格多选时设置，默认：`false`。
 
 * selectionFixed: `'left'/'right'/false`三选一或不传，每列开头选择框固定（`left`: 左固定，`right`: 右固定， `false`: 不固定，和iview table 固定列一样），默认：`false`

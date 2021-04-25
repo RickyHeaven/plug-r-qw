@@ -56,6 +56,7 @@
   import $fetch from '../../methods/fetch.js'
   import _ from 'lodash'
   import {setTimeout} from '../../methods/timer'
+  import {myTypeof} from "../../methods/functionGroup"
 
   export default {
     name: "btTablePage",
@@ -78,6 +79,10 @@
         default() {
           return []
         }
+      },
+      dataHandler: {
+        /*接口数据处理方法，处理后格式须为{data:[...],total:xx}*/
+        type: Function
       },
       selection: {
         /*是否展示每列开头选择框*/
@@ -496,8 +501,14 @@
           }
           if (this.url && this.url !== '') {
             $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
-              .then(r => {
+              .then(d => {
+                let r
                 this.clearPage()
+                if (myTypeof(this.dataHandler) === 'Function') {
+                  r = this.dataHandler(d)
+                }else {
+                  r = d
+                }
                 if (r.data) {
                   if (r.data.records || r.data.records === null) {
                     this.dataT = r.data.records || []
