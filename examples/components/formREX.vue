@@ -80,7 +80,7 @@
             key: 'name',
             label: '姓名',
             placeholder: '请输入姓名',
-            class:'myInputHG bigKZ'/*该formItem自定义样式类名*/
+            class: 'myInputHG bigKZ'/*该formItem自定义样式类名*/
           },
           {
             type: 'radioGroup',
@@ -161,7 +161,7 @@
             type: 'radioGroup',
             label: '总部所在地',
             key: 'base',
-            buttonType:true,
+            buttonType: true,
             options: [
               {
                 label: '北京',
@@ -194,7 +194,16 @@
             ]
           },
           {
-            type: 'inputNumber',/*数字输入框，输出值是数字*/
+            type: 'radioGroup',
+            label: '推荐人',
+            key: 'referrer',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel'
+          },
+          {
+            type: 'inputNumber', /*数字输入框，输出值是数字*/
             label: '年龄',
             key: 'age',
             min: 1,
@@ -331,8 +340,20 @@
           },
           {
             type: 'select',
-            label: '联系人B（待选项禁用）',
+            label: '联系人B(带选项筛选)',
             key: 'friendB',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel',
+            optionFilter(d) {
+              return d.filter(e => e.birth !== '1991')
+            }
+          },
+          {
+            type: 'select',
+            label: '联系人C（待选项禁用）',
+            key: 'friendC',
             asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
@@ -432,6 +453,15 @@
                 icon: 'md-car'
               }
             ]
+          },
+          {
+            type: 'checkboxGroup',
+            label: '联系人F',
+            key: 'friendF',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel'
           },
           {
             type: 'radio',

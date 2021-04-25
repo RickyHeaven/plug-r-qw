@@ -880,6 +880,9 @@
               tempOption = []
             }
             if (myTypeof(tempOption) === 'Array') {
+              if (myTypeof(item.optionFilter) === 'Function') {
+                tempOption = item.optionFilter(tempOption)
+              }
               if (item.optionLabel && item.optionVal) {
                 let opLabelType = myTypeof(item.optionLabel)
                 item.options.length = 0

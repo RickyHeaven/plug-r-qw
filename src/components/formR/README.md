@@ -197,6 +197,16 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 * <a name='options'>options</a> 对象，有待选项的表单项，待选项数据存放在该字段下，[详细说明](#optionsDetail)，如：
 `{type:'select',key:'sex',options:[{label:'男',val:1},{label:'女',val:0}]}`
 
+* <a name='optionFilter'>optionFilter</a> Function，筛选待选项的方法，入参是接口请求回来的待选项数据（不包含本地选项），返回处理后的
+待选项（仅进行筛选操作，不要做其它处理），如：
+```
+{
+  ...,
+  optionFilter(d){return d.filter(e => e.id !== 3)},
+  ...
+}
+```
+
 * <a name='optionLabel'>optionLabel</a> 字符串/数组，有待选项的表单项，待选项数据从接口拉取时，待选项label对应接口数据的字段名，如：
 `optionLabel:'name'`；如果选项标签需要展示多个字段，则用数组存放他们，第一字段直接展示，后面字段括号内展示，括号紧跟第一字段。
 
@@ -382,6 +392,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [optionVal](#optionVal) 待选项val对应接口数据的字段名
 
+* [optionFilter](#optionFilter) 待选项筛选方法
+
 * [disableOptionByOthers](#disableOptionByOthers) 根据其他表单项的值禁用待选项
 
 * [changeOption](#changeOption) 待选项数据来源于接口，接口地址是否改变
@@ -520,6 +532,24 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [options](#options) 待选项
 
+* [borrowOption](#borrowOption) 借用待选项
+
+* [collectLabel](#collectLabel) 收集选项中其他字段（除val外）
+
+* [asyncOption](#asyncOption) 待选项数据来源于接口，默认：`false`
+
+* [optionUrl](#optionUrl) 待选项数据来源接口地址
+
+* [optionLabel](#optionLabel) 待选项label对应接口数据的字段名
+
+* [optionVal](#optionVal) 待选项val对应接口数据的字段名
+
+* [optionFilter](#optionFilter) 待选项筛选方法
+
+* [disableOptionByOthers](#disableOptionByOthers) 根据其他表单项的值禁用待选项
+
+* [changeOption](#changeOption) 待选项数据来源于接口，接口地址是否改变
+
 * [booleanVal](#booleanVal) 表单项值为布尔类型，传入的会被自动转换成boolean，输出也是boolean，默认：`false`
 
 * [buttonType](#buttonType) 以按钮组的样式展示，默认：`false`
@@ -569,6 +599,24 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [defaultVal](#defaultVal) 默认值
 
 * [options](#options) 待选项
+
+* [borrowOption](#borrowOption) 借用待选项
+
+* [collectLabel](#collectLabel) 收集选项中其他字段（除val外）
+
+* [asyncOption](#asyncOption) 待选项数据来源于接口，默认：`false`
+
+* [optionUrl](#optionUrl) 待选项数据来源接口地址
+
+* [optionLabel](#optionLabel) 待选项label对应接口数据的字段名
+
+* [optionVal](#optionVal) 待选项val对应接口数据的字段名
+
+* [optionFilter](#optionFilter) 待选项筛选方法
+
+* [disableOptionByOthers](#disableOptionByOthers) 根据其他表单项的值禁用待选项
+
+* [changeOption](#changeOption) 待选项数据来源于接口，接口地址是否改变
 
 * [buttonType](#buttonType) 以按钮组的样式展示，默认：`false`
 
