@@ -220,11 +220,13 @@
           current: this.current,
           size: this.pageSizeT
         }
-        if (this.orderKeyFormat === 'underline') {
-          temp[this.order] = toLine(this.key)
-        }
-        else if (this.orderKeyFormat === 'camelcase') {
-          temp[this.order] = toHump(this.key)
+        if (this.sortable === 'custom') {
+          if (this.orderKeyFormat === 'underline') {
+            temp[this.order] = toLine(this.key)
+          }
+          else if (this.orderKeyFormat === 'camelcase') {
+            temp[this.order] = toHump(this.key)
+          }
         }
         return temp
       },

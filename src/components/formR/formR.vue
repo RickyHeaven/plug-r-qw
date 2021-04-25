@@ -644,6 +644,9 @@
                       root.defaultVal2
                     ] || []
                   }
+                  else if (item.dateType === 'year' || item.dateType === 'month') {
+                    this.$set(this.tempKeys, tempKeyB, item.defaultVal)
+                  }
                 }
               }
             }
@@ -854,6 +857,9 @@
                   item.defaultVal,
                   item.defaultVal2
                 ] || [])
+              }
+              else if (item.dateType === 'year' || item.dateType === 'month') {
+                this.$set(this.tempKeys, tempKeyB, item.defaultVal || null)
               }
               this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
                 this.tempKeysWatchHandle(after, item)
@@ -1123,6 +1129,8 @@
             case 'date':
               const format = root.format || 'YYYY-MM-DD'
               const formatB = root.format || 'YYYY-MM-DD HH:mm:ss'
+              const formatC = root.format || 'YYYY'
+              const formatD = root.format || 'MM'
               if (root.dateType === 'date') {
                 if (after) {
                   this.valGroup[root.key] = moment(after)
@@ -1170,6 +1178,24 @@
                 else {
                   this.valGroup[root.key] = null
                   this.valGroup[root.key2] = null
+                }
+              }
+              else if (root.dateType === 'year') {
+                if (after) {
+                  this.valGroup[root.key] = moment(after)
+                    .format(formatC)
+                }
+                else {
+                  this.valGroup[root.key] = null
+                }
+              }
+              else if (root.dateType === 'month') {
+                if (after) {
+                  this.valGroup[root.key] = moment(after)
+                    .format(formatD)
+                }
+                else {
+                  this.valGroup[root.key] = null
                 }
               }
               break
@@ -1275,6 +1301,9 @@
                       data[item.key],
                       data[item.key2]
                     ] || []
+                }
+                else if (item.dateType === 'year' || item.dateType === 'month') {
+                  this.tempKeys[item.tempKey] = data[item.key] && data[item.key] !== '--' ? data[item.key] : null
                 }
                 break
             }

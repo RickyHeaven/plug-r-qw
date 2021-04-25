@@ -154,6 +154,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='format'>format</a> 数组，uploadGroup支持的格式，不限制的话不用设置该字段，如：`['jpg','png']`
 
+* <a name='formatB'>format（date组件）</a> 字符串，指定date组件返回日期格式，无特殊需求时可不传，组件有对应的默认格式，常用值：`'YYYY'、'MM'、'YYYY-MM-DD'、'YYYY-MM-DD HH:mm:ss'`，具体参考Moment.js官网
+
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
 
 * <a name='itemBorder'>itemBorder</a> 布尔对象，RadioGroup选项是否带边框，默认：`false`
@@ -712,7 +714,9 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal2](#defaultVal2) 默认值2，为区间时间时，结束时间默认值
 
-* [dateType](#dateType) 日期类型，可选值：date、daterange、datetime、datetimerange、year、month
+* [dateType](#dateType) 日期类型，可选值：`'date'、'daterange'、'datetime'、'datetimerange'、'year'、'month'`
+
+* [format](#formatB) 日期格式，不传时使用默认格式，常用值：`'YYYY'、'MM'、'YYYY-MM-DD'、'YYYY-MM-DD HH:mm:ss'`，具体参考Moment.js官网
 
 * [dateOptions](#dateOptions) DatePicker选择器额外配置，比如不可选日期与快捷选项
 

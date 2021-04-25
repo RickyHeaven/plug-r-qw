@@ -399,6 +399,13 @@
             }
           },
           {
+            type: 'date',
+            dateType: 'year',
+            label: '年份A',
+            key: 'yearA',
+            defaultVal:'2022'
+          },
+          {
             type: 'txt',
             label: '原语代码',
             valKey: 'protocolAtomicActionCode'
