@@ -14,6 +14,21 @@
     "url": "git+https://github.com/RickyHeaven/plug-r-qw.git"
   },
   "keywords": [
+    "vue",
+    "view-design",
+    "vue-router",
+    "vuex",
+    "sweetalert",
+    "lodash",
+    "axios",
+    "echarts",
+    "moment",
+    "wangeditor",
+    "xss",
+    "js-cookie",
+    "iview-area",
+    "vue-amap",
+    "vue-json-viewer",
     "qw",
     "ricky",
     "zhangqingcq"
