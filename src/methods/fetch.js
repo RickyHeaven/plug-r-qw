@@ -241,7 +241,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
         if (data && (!_.isEmpty(data))) {
           if (_.isArray(data)) {
             for (let item of data) {
-              if (item || item === 0 || item === false || item === '') {
+              if (item || item === 0 || item === false || (item === '' && !config.noEmptyStr)) {
                 data_.push(item)
               }
             }
@@ -249,7 +249,7 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
           else {
             for (let key in data) {
               if (data.hasOwnProperty(key) &&
-                (data[key] || data[key] === 0 || data[key] === false || data[key] === '')) {
+                (data[key] || data[key] === 0 || data[key] === false || (data[key] === '' && !config.noEmptyStr))) {
                 data_[key] = data[key]
               }
             }
