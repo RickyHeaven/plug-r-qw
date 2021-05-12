@@ -110,9 +110,9 @@ export default function messageBox({height, width = 416, title, content, onOk, o
               ],
               on: {
                 click() {
-                  onCancel()
+                  Modal.remove()
                   if (myTypeof(onCancel) === 'Function') {
-                    Modal.remove()
+                    onCancel()
                   }
                 }
               }
