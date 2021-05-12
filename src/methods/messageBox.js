@@ -14,7 +14,7 @@ import {t} from '../locale/index'
  * @param {number} width:弹框宽度，默认值416,最小值416
  * @param {string/html} title:弹框标题内容，默认值“提示”
  * @param {callback} onOk:确定按钮回调函数
- * @param {boolean} onOkPromise:确定按钮回调函数是否为promise
+ * @param {callback} onCancel:取消按钮回调函数
  * @param {string/html} okText:确定按钮文字，默认值“确定”
  * @param {string/html} cancelText:取消按钮文字，默认值“取消”
  * @param {boolean} noWarnIcon:不展示内容开头的警告图标(非字符串内容默认不展示)，默认值“false”
@@ -24,7 +24,7 @@ import {t} from '../locale/index'
  *                      content:'校验中，返回结果前，请勿关闭或刷新页面'
  *                    })
  */
-export default function messageBox({height, width = 416, title, content, onOk, onOkPromise, okText, cancelText, noWarnIcon, footerAlign, cancelBt}) {
+export default function messageBox({height, width = 416, title, content, onOk, onCancel, okText, cancelText, noWarnIcon, footerAlign, cancelBt}) {
   const T = (...arg) => t.apply(this, arg)
   
   let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
@@ -90,29 +90,10 @@ export default function messageBox({height, width = 416, title, content, onOk, o
             h('Button', {
               class: 'okBtN',
               on: {
-                click(e) {
+                click() {
+                  Modal.remove()
                   if (myTypeof(onOk) === 'Function') {
-                    if (onOkPromise) {
-                      let el = e && (e.currentTarget || e.target)
-                      if (el) {
-                        el.setAttribute('class', el.className + ' ivu-btn-loading')
-                        el.nextSibling.setAttribute('disabled', ' disabled')
-                      }
-                      onOk()
-                        .then(() => {
-                          Modal.remove()
-                        })
-                        .catch(() => {
-                          Modal.remove()
-                        })
-                    }
-                    else {
-                      onOk()
-                      Modal.remove()
-                    }
-                  }
-                  else {
-                    Modal.remove()
+                    onOk()
                   }
                 }
               }
@@ -129,7 +110,10 @@ export default function messageBox({height, width = 416, title, content, onOk, o
               ],
               on: {
                 click() {
-                  Modal.remove()
+                  onCancel()
+                  if (myTypeof(onCancel) === 'Function') {
+                    Modal.remove()
+                  }
                 }
               }
             }, cancelText || T('r.cancel'))
