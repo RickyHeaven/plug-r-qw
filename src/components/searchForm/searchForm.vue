@@ -11,7 +11,7 @@
         :item-width="202"
         :inline="true"
         :show-long-ok-bt="false"
-        :show-inline-ok-bt="true"
+        :show-inline-ok-bt="showInlineOkBt"
         :inline-ok-bt-txt="t('r.check')"
         :show-inline-clear-bt="showInlineClearBt"
         :show-message="false"
@@ -52,6 +52,11 @@
         default() {
           return {}
         }
+      },
+      showInlineOkBt: {
+        /*显示搜索按钮*/
+        type: Boolean,
+        default: true
       },
       showInlineClearBt: {
         /*显示清空按钮*/
