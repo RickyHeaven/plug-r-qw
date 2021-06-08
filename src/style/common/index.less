@@ -9,6 +9,38 @@ body {
     padding-bottom: 0;
     line-height: 1;
   }
+
+  .customTabs {
+    height: 100% !important;
+
+    .ivu-tabs-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      margin-bottom: 0;
+    }
+
+    .ivu-tabs-content {
+      height: 100% !important;
+      padding-top: @tabsHeadBarH;
+
+      > .ivu-tabs-tabpane {
+        height: 100% !important;
+
+        &:before {
+          content: '';
+          display: table;
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          clear: both;
+        }
+      }
+    }
+  }
 }
 
 button.disabled {
