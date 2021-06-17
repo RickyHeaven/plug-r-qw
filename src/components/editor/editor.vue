@@ -226,7 +226,7 @@
           this.editor.config.customUploadImg = (resultFiles, insertImgFn) => {
             configS = Object.assign({
               params: {},
-              url: window && window.g && window.g.mgrURL + '/fsc/file' || ''
+              url: window && window.g && window.g.mgrURL + '/web/v1/fsc/file' || ''
             }, configS)
             // resultFiles 是 input 中选中的文件列表
             // insertImgFn 是获取图片 url 后，插入到编辑器的方法

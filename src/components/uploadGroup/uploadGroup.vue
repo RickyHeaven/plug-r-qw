@@ -126,7 +126,7 @@
         type: String,
         default() {
           if (window.g && window.g.mgrURL) {
-            return window.g.mgrURL + '/fsc/file'
+            return window.g.mgrURL + '/web/v1/fsc/file'
           }
           return ''
         }

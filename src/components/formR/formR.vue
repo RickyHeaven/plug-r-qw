@@ -376,7 +376,7 @@
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
         clientHeightR: 0,
-        uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/fsc/file' ||
+        uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/web/v1/fsc/file' ||
           '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
         debounceCount: false
       }
