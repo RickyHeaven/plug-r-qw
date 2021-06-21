@@ -9,7 +9,7 @@
 value: 2
 ```
 
-* url: 字符串，拉取数据的接口地址，默认值：`window.g.mgrURL + '/umc/orgs'`，如果需要使用自己的url，那么该接口返回值需满足以下格式：
+* url: 字符串，拉取数据的接口地址，默认值：`window.g.mgrURL + '/web/v1/umc/orgs'`，如果需要使用自己的url，那么该接口返回值需满足以下格式：
 ```
   [
     {

@@ -26,7 +26,7 @@
         type: String,
         default() {
           if (window.g && window.g.mgrURL) {
-            return window.g.mgrURL + '/umc/orgs'
+            return window.g.mgrURL + '/web/v1/umc/orgs'
           }
           return ''
         }

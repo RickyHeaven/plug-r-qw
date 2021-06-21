@@ -103,7 +103,7 @@
           :style="itemStyle"
           v-else-if="item.type === 'asyncCascader'"
           v-model="valGroup[item.key]"
-          :url="item.url||mgrUrl + '/umc/orgs'"
+          :url="item.url||mgrUrl + '/web/v1/umc/orgs'"
           :option-val="item.optionVal||'id'"
           :option-label="item.optionLabel||'name'"
           :only-last-val="item.onlyLastVal !== false"
