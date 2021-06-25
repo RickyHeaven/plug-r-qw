@@ -106,6 +106,7 @@
           :url="item.url||mgrUrl + '/web/v1/umc/orgs'"
           :option-val="item.optionVal||'id'"
           :option-label="item.optionLabel||'name'"
+          :option-filter="item.optionFilter||null"
           :only-last-val="item.onlyLastVal !== false"
           :only-last-label="item.onlyLastLabel !== false"
           :separator="item.separator || '/'"

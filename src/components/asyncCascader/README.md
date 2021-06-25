@@ -35,7 +35,7 @@ value: 2
 
 * optionLabel 字符串，节点label对应节点字段
 
-* optionFilter Function，自定义带选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理），如：
+* optionFilter Function，自定义待选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理），如：
 ```
 <asyncCascader
   ...

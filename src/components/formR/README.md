@@ -480,6 +480,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [optionLabel](#optionLabel) 节点label对应接口数据字段，注意：不同于其他表单项，这里仅支持字符串
 
+* [optionFilter](#optionFilter) 自定义待选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理）
+
 * [onlyLastVal](#onlyLastVal) 该字段为`true`时，只返回选中的最后一级的值，否则返回数组，数组包含每一级的值，默认：`true`
 
 * [onlyLastLabel](#onlyLastLabel) 该字段为`true`时，只显示选中的最后一级label，否则显示每一级的label，用分隔符隔开，默认：`true`
