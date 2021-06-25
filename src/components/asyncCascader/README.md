@@ -31,9 +31,19 @@ value: 2
   该数组需以r或r.data或r.data.records的值返回，r为请求返回最外层数据
 ```
 
-* optionVal 节点val对应接口字段
+* optionVal 字符串，节点val对应接口字段
 
-* optionLabel 节点label对应节点字段
+* optionLabel 字符串，节点label对应节点字段
+
+* optionFilter Function，自定义带选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理），如：
+```
+<asyncCascader
+  ...
+  :optionFilter="d=> d.filter(e => e.id !== 3)"
+  ...
+/>
+```
+
 
 * onlyLastVal: 布尔对象，组件值只取选中的最后一级，默认：`true`,如共3级`[1,2,3]`，选中为第二级`2`,则v-model的值为`2`,否则为`[1,2]`
 

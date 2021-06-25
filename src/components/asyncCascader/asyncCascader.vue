@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import {findPath} from '../../methods/functionGroup'
+  import {findPath, myTypeof} from '../../methods/functionGroup'
   import Locale from '../../mixins/locale'
   import _ from 'lodash'
 
@@ -42,12 +42,16 @@
       optionVal: {
         /*v-model收集节点的哪些字段*/
         type: String,
-        default:'id'
+        default: 'id'
       },
       optionLabel: {
         /*选项的标签对应接口字段*/
         type: String,
         default: 'name'
+      },
+      optionFilter: {
+        /*筛选待选项的方法，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理）*/
+        type: Function
       },
       separator: {
         /*选中的label分隔符（多级展示时）,valProp为String（多级）时分隔符*/
@@ -145,6 +149,9 @@
               data = r
             }
             if (data) {
+              if (myTypeof(this.optionFilter) === 'Function') {
+                data = this.optionFilter(data)
+              }
               this.data = this.dataFilter(data)
             }
             else {
