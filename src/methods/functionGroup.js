@@ -540,7 +540,7 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
     if (myTypeof(contentKey) === 'Array') {
       let temp = []
       for (let item of contentKey) {
-        if(isValidValue(params.row[item])){
+        if (isValidValue(params.row[item])) {
           temp.push(params.row[item])
         }
       }
@@ -635,7 +635,7 @@ export function stringLength(str) {
  * @param {Array} group 目标集合
  * @param {Function} condition 匹配条件
  * @param {String} key 要设置的字段键名
- * @param val 要设置的字段的值
+ * @param val 要设置的字段的值，或处理逻辑
  * @param {String} childKey 子集键名
  */
 export function setValByOption({group, condition, key, val, childKey = 'children'}) {
@@ -645,7 +645,12 @@ export function setValByOption({group, condition, key, val, childKey = 'children
   }
   group.forEach(item => {
     if (condition(item)) {
-      item[key] = val
+      if (myTypeof(val) === 'Function') {
+        item[key] = val(item[key])
+      }
+      else {
+        item[key] = val
+      }
     }
     if (myTypeof(item[childKey]) === 'Array' && item[childKey].length > 0) {
       setValByOption({

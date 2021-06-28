@@ -200,7 +200,7 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 `{type:'select',key:'sex',options:[{label:'男',val:1},{label:'女',val:0}]}`
 
 * <a name='optionFilter'>optionFilter</a> Function，筛选待选项的方法，入参是接口请求回来的待选项数据（不包含本地选项），返回处理后的
-待选项（仅进行筛选操作，不要做其它处理），如：
+待选项，如：
 ```
 {
   ...,

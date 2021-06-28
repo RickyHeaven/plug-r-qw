@@ -31,11 +31,11 @@ value: 2
   该数组需以r或r.data或r.data.records的值返回，r为请求返回最外层数据
 ```
 
-* optionVal 字符串，节点val对应接口字段
+* optionVal 字符串，节点val对应接口字段，默认：`'id'`
 
-* optionLabel 字符串，节点label对应节点字段
+* optionLabel 字符串，节点label对应节点字段，默认：`'name'`
 
-* optionFilter Function，自定义待选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项（仅进行筛选操作，不要做其它处理），如：
+* optionFilter Function，自定义待选项筛选逻辑，入参是接口请求回来的待选项数据，返回处理后的待选项，如：
 ```
 <asyncCascader
   ...
