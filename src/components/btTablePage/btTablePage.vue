@@ -23,12 +23,10 @@
               :height="fixedTable&&tableContainerHeight||null"
               :class="{noBorderTable:noBorderTable,fullHeightTable:!fixedTable,lightHeadO:lightHead}"
               :columns="columnsT"
-              :data="dataT"
+              :data="dataS"
               :highlight-row="radio||highlightRow"
               @on-select="onSelect"
-              @on-select-all="onSelectAll"
-              @on-select-cancel="onSelectCancel"
-              @on-select-all-cancel="onSelectAllCancel"
+              @on-selection-change="selectionHandle"
               @on-sort-change="onSortChange"
               @on-row-click="onRowClick"
           />
@@ -89,6 +87,11 @@
         type: Boolean,
         default: false
       },
+      radio: {
+        /*表格是否是单选表格，每次只能选中一行*/
+        type: Boolean,
+        default: false
+      },
       selectionFixed: {
         /*每列开头选择框固定*/
         validator: val => oneOf(val, [
@@ -137,11 +140,6 @@
         /*自动拉取第一次数据时点击第几行，默认-1，不点击*/
         type: Number,
         default: -1
-      },
-      radio: {
-        /*表格是否是单选表格，每次只能选中一行*/
-        type: Boolean,
-        default: false
       },
       tableEmptyTdHandle: {
         /*表格内容为空是否显示为‘--’*/
@@ -199,9 +197,8 @@
         current: 1,
         total: 0,
         selected: [],
-        selectedIds: [],
-        currentRowId: null,
-        currentRowIndex: null,
+        currentKey: null,
+        currentIndex: null,
         key: this.orderKey,
         order: this.orderDefault,
         tableContainerHeight: 300
@@ -239,12 +236,28 @@
         let temp = this.columns.filter(item => {
           return item.type !== 'selection'
         })
-        if (this.selection && !this.radio) {
-          let TTK = {
-            type: "selection",
-            align: "center",
-            width: 60
+        if (this.selection || this.radio) {
+          let TTK
+          if (this.radio) {
+            TTK = {
+              title: ' ',
+              render: (h, params) => {
+                return h('Radio', {
+                  props: {
+                    value: params.row.btChecked
+                  }
+                })
+              }
+            }
           }
+          else {
+            TTK = {
+              type: "selection",
+              align: "center",
+              width: 60
+            }
+          }
+
           if (this.selectionFixed) {
             TTK.fixed = this.selectionFixed
           }
@@ -274,15 +287,30 @@
         }
         return temp
       },
+      dataS: {
+        get() {
+          return this.dataT.map((e, i) => {
+            return {
+              btKey: 'bt-' + i,
+              btChecked: false, ...e
+            }
+          })
+        },
+        set(v) {
+          this.dataT = v
+        }
+      },
+      selectedIds() {
+        return this.selected.map(e => e.id)
+      },
+      selectedKeys() {
+        return this.selected.map(e => e.btKey)
+      }
     },
     created() {
       this.initTable()
     },
     mounted() {
-      // if (this.radio) {
-      //屏蔽全选框
-      // this.$refs.TableXXX.$refs.header.querySelector('thead .ivu-table-cell-with-selection').classList.add('modalHide')
-      // }
       this.firstGetHeight()
       if (window.onresize) {
         let temp = window.onresize
@@ -337,7 +365,7 @@
       setRowData(row, setCurrentRow, clickCurrentRow) { /*更新行数据（公开）*/
         let index = null
         if (_.isBoolean(setCurrentRow) && setCurrentRow) {
-          index = this.currentRowIndex
+          index = this.currentIndex
         }
         else if (_.isNumber(setCurrentRow)) {
           index = setCurrentRow
@@ -379,12 +407,12 @@
       getDataAndClickRow(clickCurrentRow, order, orderKey) { /*拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行（公开）*/
         if (clickCurrentRow || this.rowClickNum !== -1) {
           this.getTableData(order, orderKey)
-            .then(r => {
+            .then(() => {
               //点击对应行
               if (this.dataT.length > 0) {
                 setTimeout(() => {
                   if (clickCurrentRow) {
-                    this.$refs.TableXXX.clickCurrentRow(this.currentRowIndex)
+                    this.$refs.TableXXX.clickCurrentRow(this.currentIndex)
                   }
                   else {
                     this.$refs.TableXXX.clickCurrentRow(this.rowClickNum)
@@ -397,71 +425,40 @@
           this.getTableData()
         }
       },
-      onSelect(selection, row) {
-        let tempCurrentRowId = row.id
-        this.selectedIds.push(tempCurrentRowId)
-        this.selected.push(row)
-        for (let i = 0; i < this.dataT.length; i++) {
-          let tempRow = this.dataT[i]
-          if (this.radio && tempRow.id !== tempCurrentRowId && this.selectedIds.some(val => val === tempRow.id)) {
-            for (let key in this.selectedIds) {
-              if (this.selectedIds[key] === tempRow.id) {
-                this.selectedIds.splice(key, 1)
-                this.selected.splice(key, 1)
-                break
-              }
-            }
-            this.$refs.TableXXX.toggleSelect(i)
-          }
+      onRowClick(row, i) {
+        if (row.btKey === this.currentKey && this.radio) {
+          return
+        }
+        if ((this.selection || this.radio) && this.rowClickSelect) {
+          this.$refs.TableXXX.toggleSelect(i)
         }
       },
-      onSelectAll(selection) {
-        if (!this.radio) {
-          this.selectedIds = []
-          this.selected = _.cloneDeep(selection)
-          for (let item of selection) {
-            this.selectedIds.push(item.id)
-          }
+      onSelect(s, row) {
+        this.currentKey = row.btKey
+        this.currentIndex = Number(row.btKey.split('-')[1])
+        if(this.radio){
+          this.$set(this.dataT[this.currentIndex], 'btChecked', true)
         }
       },
-      onSelectCancel(selection, row) {
+      selectionHandle(selection) {
         if (this.radio) {
-          this.$refs.TableXXX.toggleSelect(row)
-        }
-        else {
-          for (let keyB in this.selectedIds) {
-            if (this.selectedIds[keyB] === row.id) {
-              this.selectedIds.splice(keyB, 1)
-              this.selected.splice(keyB, 1)
+          for (let e of this.dataS) {
+            if (e.btKey !== this.currentKey) {
+              this.$set(this.dataT[Number(e.btKey.split('-')[1])], 'btChecked', false)
             }
           }
         }
-      },
-      onSelectAllCancel(selection) {
-        if (!this.radio) {
-          this.selectedIds = []
-          this.selected = []
-        }
+        this.selected = selection
       },
       getSelected() {/*获取已选行数据*/
         return _.cloneDeep(this.selected)
       },
-      onRowClick(row, index) {
-        if (row.id === this.currentRowId) {
-          return
-        }
-        if (this.selection && this.rowClickSelect) {
-          this.$refs.TableXXX.toggleSelect(index)
-        }
-        this.currentRowId = row.id
-        this.currentRowIndex = index
-      },
-      changePage(val) {
-        this.current = val
+      changePage(v) {
+        this.current = v
         this.getDataAndClickRow()
       },
-      pageSizeChange(val) {
-        this.pageSizeT = val
+      pageSizeChange(v) {
+        this.pageSizeT = v
         if (this.current === 1) {
           this.getDataAndClickRow()
         }
@@ -482,9 +479,8 @@
       },
       clearPage() {
         this.selected = []
-        this.selectedIds = []
-        this.currentRowId = null
-        this.currentRowIndex = null
+        this.currentKey = null
+        this.currentIndex = null
       },
       clearTable() {
         this.dataT = []
@@ -492,7 +488,7 @@
         this.current = 1
       },
       getTableData(order, orderKey) { /*拉取表格数据（公开）*/
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
           if (order) {
             this.order = order
           }
@@ -506,7 +502,8 @@
                 this.clearPage()
                 if (myTypeof(this.dataHandler) === 'Function') {
                   r = this.dataHandler(d)
-                }else {
+                }
+                else {
                   r = d
                 }
                 if (r.data) {

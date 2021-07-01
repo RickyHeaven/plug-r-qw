@@ -8,14 +8,16 @@
           :columns="columns"
           :url='url'
           :search-data="searchData"
-          :show-top-row="true"
           @on-row-click="onRowClick"
           @on-data-change="setTotal"
           sortable="custom"
+          show-top-row
+          radio
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
           <div style="display: inline-block;float: right">
+            <Button class="bbA" @click="getS">get select</Button>
             <Button class="bbA">导出</Button>
             <Button class="bbA">新增</Button>
           </div>
@@ -108,11 +110,14 @@
       }
     },
     methods: {
+      getS(){
+        console.log(this.$refs.btTab.getSelected())
+      },
       search(data) {
         this.searchData = _.cloneDeep(data)
       },
       onRowClick(row, index) {
-        console.log(row, index)
+        console.log('row click-->',row, index)
       },
       setTotal(){
         this.total = this.$refs.btTab.total

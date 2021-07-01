@@ -12,7 +12,9 @@
 
 * dataHandler: Function，接口数据处理方法，入参为接口返回数据，返回处理后的数据，格式须为`{data:[...],total:xx}`
 
-* selection: 布尔类型，需要表格多选时设置，默认：`false`。
+* selection: 布尔类型，需要表格多选时设置，默认：`false`
+
+* radio: 布尔类型，表格是否是单选表格，每次只能选中一行，默认：`false`
 
 * selectionFixed: `'left'/'right'/false`三选一或不传，每列开头选择框固定（`left`: 左固定，`right`: 右固定， `false`: 不固定，和iview table 固定列一样），默认：`false`
 
@@ -29,8 +31,6 @@
 * highlightRow: 布尔类型，当前（选中，无论是否带选择框）行高亮，`radio: true`时会无视该属性值开启高亮，默认：`false`
 
 * rowClickNum: 整数，自动拉取第一次数据（`init-data: true`）时点击第几行，默认：`-1`，不点击
-
-* radio: 布尔类型，表格是否是单选表格，每次只能选中一行（没有选择框，高亮选中行表示选中），默认：`false`
 
 * tableEmptyTdHandle: 布尔类型，表格内容为空是否显示为`--`，默认：`false`
 
