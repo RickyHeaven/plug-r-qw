@@ -7,43 +7,30 @@
         "name": "head_back.png",
         "size": 450,
         "mimeType": "image/png",
-        "storageName": "09fdf1b6987d40539fe5b2f560524a21",
-        "storagePath": "/2021/03/15",
-        "storageGroup": "qwgas",
-        "extension": ".png"
+        "extension": ".png",
+        "remark": "附件是两块"
       },
       {
         "id": 45279,
         "name": "foot_nav3.png",
         "size": 1058,
         "mimeType": "image/png",
-        "storageName": "2331afada6ef4ed9911de33d9f1a95bc",
-        "storagePath": "/2021/03/15",
-        "storageGroup": "qwgas",
-        "extension": ".png"
+        "extension": ".png",
+        "remark": "jslfd"
       },
       {
         "id": 45278,
         "name": "foot_nav3.png",
         "size": 1058,
         "mimeType": "image/png",
-        "storageName": "e6e965887f344cecbc5bfcb0914dd2c3",
-        "storagePath": "/2021/03/15",
-        "storageGroup": "qwgas",
-        "extension": ".png"
+        "extension": ".png",
+        "remark": "897986"
       }
     ],
     "total": 2,
     "current": 1,
     "size": 3,
-    "ascs": null,
-    "descs": [
-      "id"
-    ],
-    "searchCount": true,
-    "orderProperty": null,
-    "pages": 1,
-    "hitCount": false
+    "pages": 1
   },
   "code": 0
 }

@@ -16,7 +16,9 @@ exports._save = function (table, data) {
       id: l + i, ...e
     }
   })
-  _data[table].push(...b)
+  b.reverse()
+  _data[table].unshift(...b)
+  return true
 }
 
 /**

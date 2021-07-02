@@ -10,21 +10,21 @@
           :search-data="searchData"
           @on-row-click="onRowClick"
           @on-data-change="setTotal"
-          sortable="custom"
           show-top-row
           radio
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
           <div style="display: inline-block;float: right">
-            <Checkbox v-model="nodeServer" @on-change="getData">切换为node-server数据(需开启项目nodeJs服务器)</Checkbox>
+            <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
             <Button class="bbA" @click="getS">get select</Button>
             <Button class="bbA">导出</Button>
-            <Button class="bbA">新增</Button>
+            <Button class="bbA" @click="handleNew">新增</Button>
           </div>
         </template>
       </bt-table-page>
     </div>
+    <form-modal :title="title" ref="formModalRef" :form-data="formData" :form-rules="formRules" @on-submit="handleSub"/>
   </div>
 </template>
 
@@ -36,11 +36,18 @@
     name: "btTablePageEX",
     data() {
       return {
+        action: 'new',
         nodeServer: false,
         total: 0,
         searchData: {},
         data: [],
         columns: [
+          {
+            title: 'ID',
+            key: 'id',
+            align: 'center',
+            width: 80
+          },
           {
             title: "文件名称",
             key: "name",
@@ -68,13 +75,8 @@
             align: "center"
           },
           {
-            title: "存储路径",
-            key: "storagePath",
-            align: "center"
-          },
-          {
-            title: "存储组",
-            key: "storageGroup",
+            title: "备注",
+            key: "remark",
             align: "center"
           },
           {
@@ -90,10 +92,22 @@
                       this.messageBox({
                         content: '确定模拟执行删除操作？',
                         onOk: () => {
-                          /*在这里调接口删除数据并给成功失败提示，然后主动拉取table数据*/
-                          this.setTimeout(() => {
-                            this.$swal('成功', '假装删除成功', 'success')
-                          }, 500)
+                          if (this.nodeServer) {
+                            this.$fetch.delete('/node-serve/bt-table-page', {id: params.row.id}).then(r => {
+                              if (r && r.code === 0) {
+                                this.$swal('删除成功', '', 'success')
+                                this.getData()
+                              }
+                              else {
+                                this.$swal('删除失败', '', 'error')
+                              }
+                            })
+                          }
+                          else {
+                            this.setTimeout(() => {
+                              this.$swal('成功', '假装删除成功', 'success')
+                            }, 500)
+                          }
                         }
                       })
                     }
@@ -102,16 +116,83 @@
               ]);
             }
           }
-        ]
+        ],
+        formData: [
+          {
+            type: 'txt',
+            val: '正常的文件系统应该是上传文件，我们这里只是演示btTablePage使用方法，手动填写这些字段就行',
+            label: '说明'
+          },
+          {
+            type: 'input',
+            key: 'name',
+            label: '文件名称'
+          },
+          {
+            type: 'inputNumber',
+            key: 'size',
+            label: '文件大小',
+            min: 0
+          },
+          {
+            type: 'input',
+            key: 'mimeType',
+            label: '文件类型'
+          },
+          {
+            type: 'textarea',
+            key: 'remark',
+            label: '备注'
+          }
+        ],
+        formRules: {
+          name: {
+            required: true
+          },
+          size: {
+            required: true
+          },
+          mimeType: {
+            required: true
+          }
+        }
       }
     },
     computed: {
       url() {
         return this.nodeServer ? '/node-serve/bt-table-page' : location.pathname + "testData/btTablePage.json"
+      },
+      title() {
+        return this.action === 'new' ? '新增' : '编辑'
+      },
+      method() {
+        return this.action === 'new' ? 'post' : 'put'
       }
     },
     methods: {
-      getData(){
+      handleNew() {
+        if (this.nodeServer) {
+          this.$refs.formModalRef.open()
+        }
+        else {
+          this.$swal('提示', '仅在node-serve模式下可执行新增', 'info')
+        }
+      },
+      handleSub(d) {
+        if (d) {
+          this.$fetch[this.method]('/node-serve/bt-table-page', d).then(r => {
+            if (r && r.code === 0) {
+              this.$swal(this.title + '成功', '', 'success')
+              this.search()
+              this.$refs.formModalRef.close()
+            }
+            else {
+              this.$swal(this.title + '失败', '', 'error')
+            }
+          })
+        }
+      },
+      getData() {
         this.$nextTick(function () {
           this.$refs.btTab.getTableData()
         })
@@ -120,6 +201,9 @@
         console.log(this.$refs.btTab.getSelected())
       },
       search(data) {
+        if (!data) {
+          data = {}
+        }
         this.searchData = _.cloneDeep(data)
       },
       onRowClick(row, index) {
