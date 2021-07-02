@@ -11,7 +11,6 @@
           @on-row-click="onRowClick"
           @on-data-change="setTotal"
           sortable="custom"
-          :pageSize="3"
           show-top-row
           radio
       >
@@ -76,11 +75,6 @@
           {
             title: "存储组",
             key: "storageGroup",
-            align: "center"
-          },
-          {
-            title: "创建时间",
-            key: "createdAt",
             align: "center"
           },
           {

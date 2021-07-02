@@ -5,9 +5,13 @@ let url = require('url')
 let fs = require('fs')
 let fTypes = require('./fileTypes').types
 let path = require('path')
+let {_save, _delete, _get, _edit} = require('./database')
 let formRData = require('./data/formR')
 let selectScrollMoreData = require('./data/selectScrollMore')
 let btTablePageData = require('./data/btTablePage')
+
+_save('select-scroll-more', selectScrollMoreData.data)
+_save('bt-table-page', btTablePageData.data)
 
 let server = new http.Server
 
@@ -61,7 +65,7 @@ server.on('request', function (req, res) {
         temp = formRData.people.data.filter(e => {
           let tt = true
           for (let key in queryObj) {
-            if (e[key] != queryObj[key]) {
+            if (queryObj.hasOwnProperty(key) && e[key] !== queryObj[key]) {
               tt = false
               break
             }
@@ -75,29 +79,30 @@ server.on('request', function (req, res) {
         res.end()
         break
       case '/select-scroll-more':
-        pageSelect(selectScrollMoreData)
+        pageSelect('select-scroll-more')
         break
       case '/bt-table-page':
-        pageSelect(btTablePageData)
+        pageSelect('bt-table-page')
         break
       case '/':
       default:
         res.end('hello')
     }
     
-    function pageSelect(d) {
+    function pageSelect(action) {
       let current = queryObj.current && Number(queryObj.current) || 1
       let size = queryObj.size && Number(queryObj.size) || 10
       temp = {}
+      let r
       if (queryObj.name) {
         const name = decodeURI(queryObj.name)
-        temp.data = JSON.parse(JSON.stringify(d.data.filter(e => e.name.indexOf(name) > -1)))
-          .splice((current - 1) * size, size)
+        r = _get(action, current, size, e => e.name.indexOf(name) > -1)
       }
       else {
-        temp.data = JSON.parse(JSON.stringify(d.data)).splice((current - 1) * size, size)
-        temp.total = d.data.length
+        r = _get(action, current, size)
       }
+      temp.data = r.data
+      temp.total = r.total
       temp.size = size
       temp.pages = temp.total && Math.ceil(temp.total / size) || 0
       res.writeHead(200, {
