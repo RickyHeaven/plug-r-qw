@@ -11,12 +11,14 @@
           @on-row-click="onRowClick"
           @on-data-change="setTotal"
           sortable="custom"
+          :pageSize="3"
           show-top-row
           radio
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
           <div style="display: inline-block;float: right">
+            <Checkbox v-model="nodeServer" @on-change="getData">切换为node-server数据(需开启项目nodeJs服务器)</Checkbox>
             <Button class="bbA" @click="getS">get select</Button>
             <Button class="bbA">导出</Button>
             <Button class="bbA">新增</Button>
@@ -35,8 +37,8 @@
     name: "btTablePageEX",
     data() {
       return {
-        url:location.pathname + "testData/btTablePage.json",
-        total:0,
+        nodeServer: false,
+        total: 0,
         searchData: {},
         data: [],
         columns: [
@@ -50,7 +52,7 @@
                 class: 'linkM',
                 on: {
                   click: () => {
-                    downloadFileReaderFile('模拟文件下载',imgK)
+                    downloadFileReaderFile('模拟文件下载', imgK)
                   }
                 },
               }, params.row.name)
@@ -109,17 +111,27 @@
         ]
       }
     },
+    computed: {
+      url() {
+        return this.nodeServer ? '/node-serve/bt-table-page' : location.pathname + "testData/btTablePage.json"
+      }
+    },
     methods: {
-      getS(){
+      getData(){
+        this.$nextTick(function () {
+          this.$refs.btTab.getTableData()
+        })
+      },
+      getS() {
         console.log(this.$refs.btTab.getSelected())
       },
       search(data) {
         this.searchData = _.cloneDeep(data)
       },
       onRowClick(row, index) {
-        console.log('row click-->',row, index)
+        console.log('row click-->', row, index)
       },
-      setTotal(){
+      setTotal() {
         this.total = this.$refs.btTab.total
       }
     }
@@ -132,12 +144,12 @@
     padding: 50px 20px 20px 20px;
   }
 
-  .tableLK{
+  .tableLK {
     height: calc(100vh - 50px);
     position: relative;
   }
 
-  .bbA{
+  .bbA {
     margin-left: 8px;
   }
 </style>

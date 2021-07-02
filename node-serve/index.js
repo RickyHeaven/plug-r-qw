@@ -7,6 +7,7 @@ let fTypes = require('./fileTypes').types
 let path = require('path')
 let formRData = require('./data/formR')
 let selectScrollMoreData = require('./data/selectScrollMore')
+let btTablePageData = require('./data/btTablePage')
 
 let server = new http.Server
 
@@ -74,29 +75,36 @@ server.on('request', function (req, res) {
         res.end()
         break
       case '/select-scroll-more':
-        let current = queryObj.current && Number(queryObj.current) || 1
-        let size = queryObj.size && Number(queryObj.size) || 10
-        temp = {}
-        if (queryObj.name) {
-          const name = decodeURI(queryObj.name)
-          temp.data = JSON.parse(JSON.stringify(selectScrollMoreData.data.filter(e => e.name.indexOf(name) > -1)))
-            .splice((current - 1) * size, size)
-        }
-        else {
-          temp.data = JSON.parse(JSON.stringify(selectScrollMoreData.data)).splice((current - 1) * size, size)
-          temp.total = selectScrollMoreData.data.length
-        }
-        temp.size = size
-        temp.pages = temp.total && Math.floor(temp.total / size) + 1 || 0
-        res.writeHead(200, {
-          'content-type': 'application/json'
-        })
-        res.write(JSON.stringify(temp))
-        res.end()
+        pageSelect(selectScrollMoreData)
+        break
+      case '/bt-table-page':
+        pageSelect(btTablePageData)
         break
       case '/':
       default:
         res.end('hello')
+    }
+    
+    function pageSelect(d) {
+      let current = queryObj.current && Number(queryObj.current) || 1
+      let size = queryObj.size && Number(queryObj.size) || 10
+      temp = {}
+      if (queryObj.name) {
+        const name = decodeURI(queryObj.name)
+        temp.data = JSON.parse(JSON.stringify(d.data.filter(e => e.name.indexOf(name) > -1)))
+          .splice((current - 1) * size, size)
+      }
+      else {
+        temp.data = JSON.parse(JSON.stringify(d.data)).splice((current - 1) * size, size)
+        temp.total = d.data.length
+      }
+      temp.size = size
+      temp.pages = temp.total && Math.ceil(temp.total / size) || 0
+      res.writeHead(200, {
+        'content-type': 'application/json'
+      })
+      res.write(JSON.stringify(temp))
+      res.end()
     }
   }
 })

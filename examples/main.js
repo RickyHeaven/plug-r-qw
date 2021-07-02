@@ -57,6 +57,7 @@ Vue.use(plugRQw, {
 window._ = _
 
 Vue.prototype.pageSizes = [
+  3,/*测试用，一般不用这么少的*/
   10,
   20,
   50,
