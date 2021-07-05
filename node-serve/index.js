@@ -72,38 +72,34 @@ server.on('request', function (req, res) {
         })
         _send(temp)
         break
-      case '/select-scroll-more':
-        pageSelect('select-scroll-more')
-        break
-      case '/bt-table-page':
-        if (method === 'GET') {
-          pageSelect('bt-table-page')
-        }
-        else if (method === 'POST') {
-          postHandle(r => {
-            let a = _save('bt-table-page', [r])
-            let b = {}
-            if (a) {
-              b.code = 0
-              b.message = 'success'
-            }
-            else {
-              b.code = -1
-              b.message = 'error'
-            }
-            _send(b)
-          })
-        }
-        else if (method === 'DELETE') {
-          deleteHandle('bt-table-page', e => e.id === Number(queryObj.id))
-        }
-        else {
-        
-        }
-        break
       case '/':
       default:
-        res.end('hello')
+        let action = pathname.substr(1)
+        if(action){
+          if (method === 'GET') {
+            pageSelect(action)
+          }
+          else if (method === 'POST' || method === 'PUT') {
+            paramsRequest(r => {
+              let a = method === 'POST' ? _save(action, [r]) : _edit(action, r)
+              let b = {}
+              if (a) {
+                b.code = 0
+                b.message = 'success'
+              }
+              else {
+                b.code = -1
+                b.message = 'error'
+              }
+              _send(b)
+            })
+          }
+          else if (method === 'DELETE') {
+            deleteHandle(action, e => e.id === Number(queryObj.id))
+          }
+        }else {
+          res.end('hello')
+        }
     }
     
     function _send(d) {
@@ -134,15 +130,15 @@ server.on('request', function (req, res) {
       _send(temp)
     }
     
-    /*post请求*/
-    function postHandle(callback) {
+    /*post\put请求*/
+    function paramsRequest(callback) {
       let r = ''
       req.on('data', d => {
         r += d
       })
       req.on('end', () => {
         r = decodeURI(r)
-        console.log('post params:', r)
+        console.log('request params:', r)
         if (callback) {
           callback(JSON.parse(r))
         }

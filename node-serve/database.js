@@ -50,7 +50,10 @@ exports._delete = function (table, condition) {
  */
 exports._get = function (table, current, size, condition) {
   if (!_data[table]) {
-    return []
+    return {
+      data: [],
+      total: 0
+    }
   }
   let b = _data[table].filter(e => !e._r_delete)
   if (condition) {
@@ -72,9 +75,9 @@ exports._edit = function (table, data) {
   if (!_data[table]) {
     return false
   }
-  for (let e of _data[table]) {
-    if (e.id === data.id) {
-      e = data
+  for (let i = 0, len = _data[table].length; i < len; i++) {
+    if (_data[table][i].id === data.id) {
+      _data[table][i] = data
       return true
     }
   }

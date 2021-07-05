@@ -15,11 +15,11 @@
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
-          <div style="display: inline-block;float: right">
+          <div class="topBoxKAQ">
             <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
-            <Button class="bbA" @click="getS">get select</Button>
-            <Button class="bbA">导出</Button>
-            <Button class="bbA" @click="handleNew">新增</Button>
+            <Button @click="getS">get select</Button>
+            <Button>导出</Button>
+            <Button @click="handleNew">新增</Button>
           </div>
         </template>
       </bt-table-page>
@@ -86,7 +86,21 @@
             render: (h, params) => {
               return h("div", [
                 h("Button", {
-                  style: {},
+                  on: {
+                    click: () => {
+                      if (this.nodeServer) {
+                        this.action = 'edit'
+                        this.$refs.formModalRef.updateValGroup(params.row)
+                        this.$refs.formModalRef.setItemToValGroup({id: params.row.id},true)
+                        this.$refs.formModalRef.open()
+                      }
+                      else {
+                        this.$swal('提示', '仅在node-serve模式下可执行编辑', 'info')
+                      }
+                    }
+                  }
+                }, '编辑'),
+                h("Button", {
                   on: {
                     click: () => {
                       this.messageBox({
@@ -172,6 +186,7 @@
     methods: {
       handleNew() {
         if (this.nodeServer) {
+          this.action = 'new'
           this.$refs.formModalRef.open()
         }
         else {
@@ -183,7 +198,11 @@
           this.$fetch[this.method]('/node-serve/bt-table-page', d).then(r => {
             if (r && r.code === 0) {
               this.$swal(this.title + '成功', '', 'success')
-              this.search()
+              if(this.action === 'new'){
+                this.search()
+              }else {
+                this.getData()
+              }
               this.$refs.formModalRef.close()
             }
             else {
@@ -216,7 +235,15 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss">
+  .exBox {
+    button + button {
+      margin-left: 8px;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
   .exBox {
     height: 100vh;
     padding: 50px 20px 20px 20px;
@@ -227,7 +254,8 @@
     position: relative;
   }
 
-  .bbA {
-    margin-left: 8px;
+  .topBoxKAQ {
+    display: inline-block;
+    float: right;
   }
 </style>

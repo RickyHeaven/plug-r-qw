@@ -374,6 +374,7 @@
         unwatchGroup: [],
         mgrUrl: window.g && window.g.mgrURL || null,
         selectInputKeys: [], /*selectInput的key没有写死在formData中（因为是动态的）,为了在showingKeys中能捕捉到这类组件的key,特声明此变量*/
+        hiddenKeys: [], /*通过 setItemToValGroup 直接存入valGroup的字段*/
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
         clientHeightR: 0,
@@ -441,7 +442,10 @@
             }
           }
         }
-        temp.push(...this.selectInputKeys)
+        temp.push(...[
+          ...this.selectInputKeys,
+          ...this.hiddenKeys
+        ])
         return temp
       }
     },
@@ -1214,6 +1218,9 @@
         this.updateValGroup(temp, notClearOthers)
         for (let kk in data) {  /*用Object.assign出错，只有第一次能正常合并*/
           if (data.hasOwnProperty(kk)) {
+            if (this.hiddenKeys.indexOf(kk) < 0) {
+              this.hiddenKeys.push(kk)
+            }
             this.$set(this.valGroup, kk, data[kk])
           }
         }
