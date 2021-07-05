@@ -18,9 +18,7 @@ exports._save = function (table, data) {
   }
   let l = _data[table].length
   let b = data.map((e, i) => {
-    return {
-      id: l + i, ...e
-    }
+    return Object.assign(e, {id: l + i})
   })
   b.reverse()
   _data[table].unshift(...b)
@@ -78,7 +76,7 @@ exports._get = function (table, current, size, condition) {
  * @private
  */
 exports._edit = function (table, data) {
-  if (!_data[table]) {
+  if (!_data[table] || !data.hasOwnProperty('id')) {
     return false
   }
   for (let i = 0, len = _data[table].length; i < len; i++) {
@@ -87,4 +85,5 @@ exports._edit = function (table, data) {
       return true
     }
   }
+  return false
 }
