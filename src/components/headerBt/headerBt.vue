@@ -1,3 +1,6 @@
+<!--created 2020.08.10-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <div
       :class="{headerBtCTM:true,withIconCTM:icon||withIcon,disabled: disabled}"

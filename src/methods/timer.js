@@ -1,3 +1,9 @@
+/**
+ * @description 可自动销毁的定时器和计时器
+ * @author ricky zhangqingcq@foxmail.com
+ * @created 2020.10.30
+ */
+
 let timeoutBox = []
 let intervalBox = []
 

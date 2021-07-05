@@ -1,3 +1,9 @@
+/**
+ * @description 国际化
+ * @author ricky zhangqingcq@foxmail.com
+ * @created 2020.10.14
+ */
+
 import defaultLang from './lang/zh-CN'
 import Vue from 'vue'
 import deepmerge from 'deepmerge'

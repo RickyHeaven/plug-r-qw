@@ -1,3 +1,9 @@
+/**
+ * @description 虚拟数据库
+ * @author ricky zhangqingcq@foxmail.com
+ * @created 2020.08.12
+ */
+
 const PORT = 7890
 
 let http = require('http')

@@ -1,3 +1,9 @@
+/**
+ * @description 公共方法集合
+ * @author ricky zhangqingcq@foxmail.com
+ * @created 2020.06.16
+ */
+
 import _ from 'lodash'
 import $swal from './swal'
 

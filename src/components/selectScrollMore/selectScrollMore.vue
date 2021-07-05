@@ -1,3 +1,6 @@
+<!--created 2020.11.10-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <Select
       v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" v-on="$listeners" transfer filterable

@@ -1,3 +1,6 @@
+<!--created 2020.07.24-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <div class="boxLPA">
     <div class="headerJ">

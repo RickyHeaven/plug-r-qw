@@ -1,3 +1,9 @@
+/**
+ * @description 虚拟数据库
+ * @author ricky zhangqingcq@foxmail.com
+ * @created 2021.07.02
+ */
+
 let _data = {}
 
 /**
