@@ -479,6 +479,7 @@
       },
       clearPage() {
         this.selected = []
+        this.$emit('on-selection-change', [])
         this.currentKey = null
         this.currentIndex = null
       },
