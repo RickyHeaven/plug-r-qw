@@ -24,7 +24,7 @@
               :url="leftTableUrl"
               :search-data="leftTableSearchData"
               @on-selection-change="lSelectionChange"
-              :init-data="isEmpty(constSearchDataLeft)&&leftTableUrl"
+              :init-data="Boolean(isEmpty(constSearchDataLeft)&&leftTableUrl)"
               get-data-loading
               selection
           ></bt-table-page>
@@ -69,7 +69,7 @@
               :url="rightTableUrl"
               :search-data="rightTableSearchData"
               @on-selection-change="rSelectionChange"
-              :init-data="isEmpty(constSearchDataRight)&&rightTableUrl"
+              :init-data="Boolean(isEmpty(constSearchDataRight)&&rightTableUrl)"
               get-data-loading
               selection
           ></bt-table-page>
