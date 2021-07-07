@@ -234,8 +234,12 @@
       reset() {
         this.$refs.leftFormRef.resetForm()
         this.$refs.rightFormRef.resetForm()
-        this.searchDataLeft = {}
-        this.searchDataRight = {}
+        if (!_.isEmpty(this.searchDataLeft)) {
+          this.searchDataLeft = {}
+        }
+        if (!_.isEmpty(this.searchDataRight)) {
+          this.searchDataRight = {}
+        }
         this.$refs.lTabRef.clearPage()
         this.$refs.rTabRef.clearPage()
       },
