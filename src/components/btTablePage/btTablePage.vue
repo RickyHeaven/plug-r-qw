@@ -325,7 +325,9 @@
     },
     watch: {
       searchData: {
-        handler: this.search,
+        handler(after) {
+          this.search(after)
+        },
         deep: true
       }
     },
