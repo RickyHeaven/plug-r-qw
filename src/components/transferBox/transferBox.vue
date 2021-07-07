@@ -313,6 +313,7 @@
                 if (this.$refs.rTabRef) {
                   this.$refs.rTabRef.getTableData()
                 }
+                this.$emit('transferred')
               }
               else {
                 this.$swal(msg + '失败', r && r.message || '', 'error')
