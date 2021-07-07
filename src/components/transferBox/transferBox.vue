@@ -9,7 +9,7 @@
           <div class="titleLLL">{{titleLeft}}</div>
           <show-hide-panel>
             <search-form
-                ref="leftForm"
+                ref="leftFormRef"
                 :data="formDataLeft"
                 :form-rules="formRulesLeft"
                 @on-search="searchLeft"
@@ -54,7 +54,7 @@
 
           <show-hide-panel>
             <search-form
-                ref="rightForm"
+                ref="rightFormRef"
                 :data="formDataRight"
                 :form-rules="formRulesRight"
                 @on-search="searchRight"
@@ -81,6 +81,8 @@
 </template>
 
 <script>
+  import _ from 'lodash'
+
   export default {
     name: "transferBox",
     props: {
@@ -229,6 +231,16 @@
     },
     methods: {
       isEmpty: _.isEmpty,
+      reset() {
+        this.$refs.leftFormRef.resetForm()
+        this.$refs.rightFormRef.resetForm()
+        this.$refs.lTabRef.clearPage()
+        this.$refs.rTabRef.clearPage()
+      },
+      search() {
+        this.$refs.lTabRef.search()
+        this.$refs.rTabRef.search()
+      },
       lSelectionChange(s) {
         this.lSelection = s
       },

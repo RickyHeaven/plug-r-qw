@@ -325,11 +325,7 @@
     },
     watch: {
       searchData: {
-        handler(after) {
-          this.searchDataT = _.cloneDeep(after)
-          this.current = 1
-          this.getDataAndClickRow()
-        },
+        handler: this.search,
         deep: true
       }
     },
@@ -404,6 +400,11 @@
        但外面的form进行过一次清空),这样就需要手动清空备份，否则外面再次给searchData附与上一次同样的值，不会触发表格数据拉取*/
         this.searchDataT = {}
       },
+      search(d) {
+        this.searchDataT = _.cloneDeep(d || this.searchData)
+        this.current = 1
+        this.getDataAndClickRow()
+      },
       getDataAndClickRow(clickCurrentRow, order, orderKey) { /*拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行（公开）*/
         if (clickCurrentRow || this.rowClickNum !== -1) {
           this.getTableData(order, orderKey)
@@ -436,7 +437,7 @@
       onSelect(s, row) {
         this.currentKey = row.btKey
         this.currentIndex = Number(row.btKey.split('-')[1])
-        if(this.radio){
+        if (this.radio) {
           this.$set(this.dataT[this.currentIndex], 'btChecked', true)
         }
       },
