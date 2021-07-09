@@ -78,8 +78,8 @@
           {
             type: 'input',
             key: 'name',
-            label: '姓名',
-            placeholder: '请输入姓名',
+            label: '名称',
+            placeholder: '请输入名称',
             class: 'myInputHG bigKZ'/*该formItem自定义样式类名*/
           },
           {
@@ -132,7 +132,7 @@
           },
           {
             type: 'input',
-            label: '姓名',
+            label: '名称',
             key: 'name',
             title: '个人信息'
           },

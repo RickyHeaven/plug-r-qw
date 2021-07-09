@@ -19,7 +19,7 @@
         data:[
           {
             type: 'input',
-            label: '姓名',
+            label: '名称',
             key: 'name'
           },
           {

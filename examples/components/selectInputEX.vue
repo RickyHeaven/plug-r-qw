@@ -20,7 +20,7 @@
         },
         selectOption: [
           {
-            label: '姓名',
+            label: '名称',
             val: 'name'
           },
           {

@@ -3,7 +3,7 @@
     <showReadMe/>
     <toHome/>
     <header class="headerKH">
-      <tableSearch v-model="val" :open="open" placeholder="姓名" @on-search="search" @on-toggle="open=!open" top="5px" btn-color="#fff"/>
+      <tableSearch v-model="val" :open="open" placeholder="名称" @on-search="search" @on-toggle="open=!open" top="5px" btn-color="#fff"/>
       <!--<tableSearch top="5px" :show-btn="false">-->
         <!--<DatePicker type="date" placeholder="Select date" style="width: 210px"></DatePicker>-->
       <!--</tableSearch>-->

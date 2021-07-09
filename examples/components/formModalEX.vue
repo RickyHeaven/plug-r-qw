@@ -25,7 +25,7 @@
           {
             type: 'input',
             key: 'name',
-            label: '姓名'
+            label: '名称'
           },
           {
             type: 'radioGroup',
