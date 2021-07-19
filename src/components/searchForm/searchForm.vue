@@ -125,7 +125,7 @@
         this.$refs.formRRef.changeLoading(val === undefined ? false : val)
       },
       onSubmit(data) { /*响应提交事件提交数据，私有*/
-        this.$emit('on-search', data)
+        this.$emit('on-submit', data)
       },
       submit() {/*触发提交事件，公开*/
         this.$refs.formRRef.submit()

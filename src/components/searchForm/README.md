@@ -11,7 +11,7 @@
 * btnLoading 布尔对象，查询按钮显示loading，默认：`false`
 
 ### 事件
-* on-search 表单提交事件（查询按钮被点击），会返回表单收集的值
+* on-submit 表单提交事件（查询按钮被点击），会返回表单收集的值
 
 * on-item-change 组件内表单项值改变事件
 
