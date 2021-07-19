@@ -22,6 +22,8 @@
         :class="{withInfo:Boolean(item.info),withTitle:Boolean(item.title),inlineFormItemXN: inline,noLabel: item.type === 'selectInput',[item.class]:item.class}"
         :style="formStyle"
     >
+      <!--解决form只有一个input时enter触发页面刷新的问题-->
+      <input type="text" style="display: none">
       <!--纯文本,也可以不传label和val,单纯用来布局占位-->
       <span v-if="item.type === 'txt'" :class="{likeInputX:item.likeInput}">{{item.valKey?valGroup[item.valKey]||'无':item.val}}</span>
       <!--数字输入框-->
