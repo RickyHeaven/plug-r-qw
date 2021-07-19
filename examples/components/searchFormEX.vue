@@ -22,7 +22,7 @@
             label: '名称',
             key: 'name'
           },
-          /*{
+          {
             type: 'input',
             label: '收件人',
             disabled:true,
@@ -34,8 +34,8 @@
             inputType:'number',
             label: '年龄',
             key: 'age'
-          },*/
-          /*{
+          },
+          {
             type: 'selectInput',
             key:'height',
             options:[
@@ -48,7 +48,7 @@
                 val:'weight'
               }
             ]
-          },*/
+          },
           {
             type: 'select',
             label: '学历',
@@ -77,7 +77,7 @@
               }
             ]
           },
-          /*{
+          {
             type: 'input',
             label: '专业',
             key: 'major',
@@ -85,8 +85,8 @@
               key:'education',
               val:[2,3,4,5]
             }
-          },*/
-          /*{
+          },
+          {
             type: 'date',
             dateType: 'datetimerange',
             label: '学历攻读时间',
@@ -97,18 +97,18 @@
             type: 'select',
             label: '联系人',
             key: 'friend',
-            asyncOption: true, /!*远程待选项*!/
+            asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel'
-          }*//*,
+          },
           {
             type: 'inputMap',
             label: '地址',
             key: 'lng',
             key2: 'lat',
             showMap: false
-          }*/
+          }
         ],
         formRules:{
           age: {
