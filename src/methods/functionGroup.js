@@ -583,9 +583,7 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
         }, content)
       ])
     }
-    else {
-      return h('span', dash && (!isValidValue(content)) ? '--' : content)
-    }
+    return h('span', dash && (!isValidValue(content)) ? '--' : content)
   }
 }
 
@@ -697,9 +695,7 @@ export function emptyInput(val) {
   if (val === '') {
     return null
   }
-  else {
-    return val
-  }
+  return val
 }
 
 /**
@@ -759,12 +755,12 @@ export function dataFilterOrToUrl(data, toUrl, keepEmptyVal) {
 
 //阻止冒泡
 export function stopBubbling(e) {
-  e = e || window.Event;
+  e = e || window.Event
   if (e.stopPropagation) { 	//W3C阻止冒泡方法
-    e.stopPropagation();
+    e.stopPropagation()
   }
   else {
-    e.cancelBubble = true; 	//IE阻止冒泡方法
+    e.cancelBubble = true 	//IE阻止冒泡方法
   }
 }
 
