@@ -5,26 +5,20 @@
   <div :style="formGroupStyle" class="formGroupBoxVM">
     <form-r
         ref="formRRef"
+        v-bind="$attrs"
+        v-on="$listeners"
         :form-data="formData"
-        :form-rules="formRules"
-        :show-long-ok-bt="showLongOkBt"
-        :long-ok-bt-txt="longOkBtTxt||t('r.confirm')"
-        :disabled="disabled"
-        :inline="inline"
         :label-width="labelWidth"
         :content-width="contentWidth"
         :item-width="itemWidth"
         :btnLoading="btnLoading"
-        @on-reset="onReset"
-        @on-re-render="onReRender"
-        @on-item-change="onItemChange"
         @on-submit="onSubmit"
     >
-      <template :slot="item.slotName" v-if="item.type === 'custom'" v-for="item in formData" slot-scope="{valGroup}">
+      <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
         <slot :name="item.slotName" :val-group="valGroup"></slot>
       </template>
     </form-r>
-    <div class="formFooterVM" v-show="showOkBt||showCancelBt" :style="{marginLeft:labelWidth+'px' }">
+    <div class="formFooterVM" v-show="showOkBt||showCancelBt" :style="{marginLeft:labelWidth+'px'}">
       <div :style="{width:contentWidth}" class="btnBoxKAL">
         <Button
             @click="submit" class="form-save-btn" v-if="showOkBt" :loading="btnLoading&&showLoading"
@@ -52,13 +46,6 @@
         type: Array,
         default() {
           return []
-        }
-      },
-      formRules: {
-        /*弹框结构规则*/
-        type: Object,
-        default() {
-          return {}
         }
       },
       width: {
@@ -91,15 +78,6 @@
         type: Boolean,
         default: true
       },
-      showLongOkBt: {
-        /*是否展示长确定按钮*/
-        type: Boolean,
-        default: false
-      },
-      longOkBtTxt: {
-        /*长确定按钮内容*/
-        type: String
-      },
       okBtTxt: {
         /*确定按钮内容*/
         type: String
@@ -107,16 +85,6 @@
       cancelBtTxt: {
         /*取消按钮内容*/
         type: String
-      },
-      disabled: {
-        /*整表禁用，仅展示*/
-        type: Boolean,
-        default: false
-      },
-      inline: {
-        /*行内表单，表单项横向排列（不单独成行）*/
-        type: Boolean,
-        default: false
       },
       btnLoading: {
         /*提交按钮显示loading*/
@@ -130,6 +98,11 @@
           width: this.width
         },
         showLoading: false
+      }
+    },
+    computed: {
+      formDataC() {
+        return this.formData.filter(e => e.type === 'custom')
       }
     },
     methods: {
@@ -169,19 +142,10 @@
       updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用，公开*/
         this.$refs.formRRef.updateFormDataT(data)
       },
-      onItemChange(data) { /*表单项值改变，私有*/
-        this.$emit('on-item-change', data)
-      },
-      onReset() {/*表单被重置(清空按钮被点击等)，私有*/
-        this.$emit('on-reset')
-      },
-      onReRender() {/*表单被重新渲染，私有*/
-        this.$emit('on-re-render')
-      },
       validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
-      reValidate(prop){/*手动验证表单项（公开）*/
+      reValidate(prop) {/*手动验证表单项（公开）*/
         this.$refs.formRRef.reValidate(prop)
       },
       changeLoading(val) {/*改变确定按钮loading状态，私有*/
@@ -191,10 +155,8 @@
         this.showLoading = Boolean(val)
         this.$refs.formRRef.changeLoading(this.showLoading)
       },
-      onSubmit(data) { /*响应提交事件提交数据，私有*/
+      onSubmit() { /*响应提交事件提交数据，私有*/
         this.showLoading = true
-
-        this.$emit('on-submit', data)
       },
       submit() { /*触发提交事件，公开*/
         this.$refs.formRRef.submit()

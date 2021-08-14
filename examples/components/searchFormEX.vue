@@ -2,7 +2,7 @@
   <div class="examplePageL">
     <showReadMe/>
     <toHome/>
-    <search-form :data="data" :form-rules="formRules" @on-search="search" @on-item-change="onItemChange"></search-form>
+    <search-form :form-data="formData" :form-rules="formRules" @on-search="search" @on-item-change="onItemChange"/>
     <div style="margin-top: 30px">
       组件提交的值：
       <json-viewer :value="valGroup" theme="my-awesome-json-theme" copyable></json-viewer>
@@ -16,7 +16,7 @@
     data(){
       return{
         valGroup:{},
-        data:[
+        formData:[
           {
             type: 'input',
             label: '名称',
@@ -126,6 +126,5 @@
         console.log(data)
       }
     }
-
   }
 </script>

@@ -36,7 +36,7 @@ export function trimObj(obj) {
       if (obj.hasOwnProperty(key)) {
         let o = myTypeof(obj[key])
         if (o === 'String') {
-          obj[key] = trim(obj[key])
+          obj[key] = obj[key].trim()
         }
         else if (o === 'Object' || o === 'Array') {
           trimObj(obj[key])
@@ -48,7 +48,7 @@ export function trimObj(obj) {
     for (let i = 0, l = obj.length; i < l; i++) {
       let t = myTypeof(obj[i])
       if (t === 'String') {
-        obj[i] = trim(obj[i])
+        obj[i] = obj[i].trim()
       }
       else if (t === 'Array' || t === 'Object') {
         trimObj(obj[i])

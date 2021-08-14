@@ -268,7 +268,7 @@
 <script>
   import moment from 'moment'
   import _ from 'lodash'
-  import {myTypeof, isValidValue} from "../../methods/functionGroup"
+  import {myTypeof, isValidValue, trimObj} from "../../methods/functionGroup"
   import $fetch from '../../methods/fetch'
   import selectInput from '../selectInput/selectInput.vue'
   import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
@@ -366,6 +366,11 @@
         /*提交按钮显示loading*/
         type: Boolean,
         default: false
+      },
+      trim: {
+        /*是否去除提交数据中的字符串首尾空格*/
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -1424,6 +1429,9 @@
               let temp = {}
               for (let item of this.showingKeys) {
                 temp[item] = this.valGroup[item]
+              }
+              if (this.trim) {
+                temp = trimObj(temp)
               }
               this.$emit('on-submit', temp)
             }

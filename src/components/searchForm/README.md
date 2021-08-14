@@ -2,7 +2,7 @@
 页面条件查询表单（行内）组件，一般配合btTablePage组件使用，自带查询按钮和清空按钮，用户只需要监听on-search事件取得表单采集的数据进行处理即可，全局UI组件，直接用
 
 ### 属性
-* data 数组，组件内表单数据结构，参考[formR](../formR/README.md#属性)
+* formData 数组，组件内表单数据结构，参考[formR](../formR/README.md#属性)(1.1.0以前版本叫data，以后更名为formData)
 
 * formRules 对象，组件内表单验证规则，参考formR
 
@@ -35,7 +35,7 @@
 * validate 主动验证组件内整个表单，一般用不上
 
 ### 注意
-* 该组件是基于formR组件封装的用于条件查询的行内表单组件，所以涉及表单的用法参考formR的文档
+* 该组件是基于formR组件封装的用于条件查询的行内表单组件，所以涉及表单的用法参考formR的文档，formR支持的属性和事件，该组件同样支持
 
 * formData属性不是响应式，如果改变后，需要调用reRenderFrom方法重新渲染表单
 

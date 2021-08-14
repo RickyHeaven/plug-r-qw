@@ -44,6 +44,8 @@
 
 * btnLoading 布尔对象，提交按钮显示loading，默认：`false`
 
+* trim 布尔对象，提交数据时是否去掉数据中字符串的首尾空格，默认：`true`
+
 * disabled 布尔对象，禁用整个表单，比如仅需要展示时，默认：`false`
 ### 事件
 * on-submit 表单被提交，返回表单收集的数据

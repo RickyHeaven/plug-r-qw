@@ -15,19 +15,15 @@
   >
     <form-r
         ref="formRRef"
+        v-bind="$attrs"
+        v-on="$listeners"
         :form-data="formData"
-        :form-rules="formRules"
         :label-width="labelWidth"
-        :content-width="contentWidth"
-        :disabled="disabled"
         :btnLoading="btnLoading"
         @on-height-change="setHeight"
-        @on-reset="onReset"
-        @on-re-render="onReRender"
-        @on-item-change="onItemChange"
         @on-submit="onSubmit"
     >
-      <template :slot="item.slotName" v-if="item.type === 'custom'" v-for="item in formData" slot-scope="{valGroup}">
+      <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
         <slot :name="item.slotName" :val-group="valGroup"></slot>
       </template>
     </form-r>
@@ -64,13 +60,6 @@
           return []
         }
       },
-      formRules: {
-        /*弹框结构规则*/
-        type: Object,
-        default() {
-          return {}
-        }
-      },
       width: {
         /*弹框宽度*/
         type: [
@@ -84,11 +73,6 @@
         type: Number,
         default: 140
       },
-      contentWidth: {
-        /*表单项内容宽度，默认70%*/
-        type: String,
-        default: '70%'
-      },
       okBtTxt: {
         /*确定按钮内容*/
         type: String
@@ -96,11 +80,6 @@
       cancelBtTxt: {
         /*取消按钮内容*/
         type: String
-      },
-      disabled: {
-        /*整表禁用，仅展示*/
-        type: Boolean,
-        default: false
       },
       hideFooter: {
         /*隐藏底栏*/
@@ -134,6 +113,9 @@
           temp = this.windowInnerH - 200
         }
         return temp
+      },
+      formDataC() {
+        return this.formData.filter(e => e.type === 'custom')
       }
     },
     created() {
@@ -215,19 +197,10 @@
       updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用，公开*/
         this.$refs.formRRef.updateFormDataT(data)
       },
-      onItemChange(data) { /*表单项值改变，私有*/
-        this.$emit('on-item-change', data)
-      },
-      onReset() {/*表单被重置(清空按钮被点击等)，私有*/
-        this.$emit('on-reset')
-      },
-      onReRender() {/*表单被重新渲染，私有*/
-        this.$emit('on-re-render')
-      },
       validate() {/*验证表单，公开*/
         this.$refs.formRRef.validate()
       },
-      reValidate(prop){/*手动验证表单项（公开）*/
+      reValidate(prop) {/*手动验证表单项（公开）*/
         this.$refs.formRRef.reValidate(prop)
       },
       changeLoading(val) {/*改变弹框loading状态，私有*/
@@ -237,10 +210,8 @@
         this.showLoading = Boolean(val)
         this.$refs.formRRef.changeLoading(this.showLoading)
       },
-      onSubmit(data) { /*响应提交事件提交数据，私有*/
+      onSubmit() { /*响应提交事件提交数据，私有*/
         this.showLoading = true
-
-        this.$emit('on-submit', data)
       },
       submit() { /*触发提交事件，公开*/
         this.$refs.formRRef.submit()
