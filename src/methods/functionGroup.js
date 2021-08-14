@@ -30,15 +30,28 @@ export function toLine(name) {
  * 去掉对象属性前后空格
  */
 export function trimObj(obj) {
-  if (myTypeof(obj) === 'Object') {
+  let p = myTypeof(obj)
+  if (p === 'Object') {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
-        if (myTypeof(obj[key]) === "String") {
-          obj[key] = obj[key].replace(/^\s+|\s+$/mg, '')
+        let o = myTypeof(obj[key])
+        if (o === 'String') {
+          obj[key] = trim(obj[key])
         }
-        else if (myTypeof(obj[key]) === "Object") {
+        else if (o === 'Object' || o === 'Array') {
           trimObj(obj[key])
         }
+      }
+    }
+  }
+  else if (p === 'Array') {
+    for (let i = 0, l = obj.length; i < l; i++) {
+      let t = myTypeof(obj[i])
+      if (t === 'String') {
+        obj[i] = trim(obj[i])
+      }
+      else if (t === 'Array' || t === 'Object') {
+        trimObj(obj[i])
       }
     }
   }
