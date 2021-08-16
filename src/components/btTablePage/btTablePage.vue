@@ -263,13 +263,15 @@
           }
           temp.unshift(TTK)
         }
-        if (this.sortable === 'custom') {
-          temp.forEach(item => {
+        temp.forEach(item => {
+          if (this.sortable === 'custom') {
             if (item.key && item.sortable !== true && item.sortable !== false) {
               item.sortable = 'custom'
             }
-          })
-        }
+          }else {
+            item.sortable = false
+          }
+        })
         if (this.tableEmptyTdHandle) {
           temp.forEach(item => {
             if (item.key && item.render === undefined) {

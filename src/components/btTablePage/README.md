@@ -24,7 +24,7 @@
 
 * page-size: 正整数，在需要定义初始化表格页面条数时使用，默认：`10`
 
-* sortable: 字符串（'custom'/''），`custom`: 所有带key的列后端排序，`''`: 特定列排序，直接在columns里设置。
+* sortable: 字符串（'custom'/''），`custom`: 所有带key的列后端排序(不需要排序的列在`columns`对应项设置`sortable:false`)，`''`: 不排序（即使在columns设置了sortable也不会生效），不传该字段，和传`''`是同样的效果。
 
 * init-data: 布尔对象，默认为`true`: 组件创建后自动拉取第一次数据，`false`: 不自动拉取第一次，后面改变search-data的值或者调用手动拉取方法。
 
