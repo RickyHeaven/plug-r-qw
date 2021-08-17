@@ -10,7 +10,7 @@
           <show-hide-panel>
             <search-form
                 ref="leftFormRef"
-                :data="formDataLeft"
+                :form-data="formDataLeft"
                 :form-rules="formRulesLeft"
                 @on-search="searchLeft"
             ></search-form>
@@ -55,7 +55,7 @@
           <show-hide-panel>
             <search-form
                 ref="rightFormRef"
-                :data="formDataRight"
+                :form-data="formDataRight"
                 :form-rules="formRulesRight"
                 @on-search="searchRight"
             ></search-form>
