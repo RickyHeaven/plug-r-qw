@@ -26,6 +26,7 @@ import showHidePanelB from "./components/showHidePanelB/showHidePanelB.vue"
 import tableSearch from "./components/tableSearch/tableSearch.vue"
 import selectScrollMore from "./components/selectScrollMore/selectScrollMore.vue"
 import transferBox from "./components/transferBox/transferBox.vue"
+import fixedFullModal from "./components/fixedFullModal/fixedFullModal.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './methods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -73,7 +74,8 @@ const components = {
   showHidePanelB,
   tableSearch,
   selectScrollMore,
-  transferBox
+  transferBox,
+  fixedFullModal
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
