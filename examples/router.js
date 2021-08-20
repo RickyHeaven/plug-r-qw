@@ -174,6 +174,11 @@ export default new Router({
       path: '/findCollection',
       name: 'findCollection',
       component: ()=>import('./components/findCollectionEX.vue')
+    },
+    {
+      path: '/fixedFullModal',
+      name: 'fixedFullModal',
+      component: ()=>import('./components/fixedFullModalEX.vue')
     }
   ]
 })

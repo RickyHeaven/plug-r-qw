@@ -1,8 +1,15 @@
+<!--created 2021.08.20-->
+<!--author ricky email:zhangqingcq@foxmail.com-->
+
 <template>
   <Modal
-    :title="title" v-bind="$attrs" v-on="$listeners" v-model="isOpen" :mask-closable="false" :styles="{top: top}"
-    fullscreen footer-hide
+      v-bind="$attrs" v-on="$listeners" v-model="isOpen" class="fixedFullModalR" :mask-closable="false" :styles="{top: top}"
+      fullscreen footer-hide :closable="false"
   >
+    <div slot="header" class="headerR">
+      <span>{{title}}</span>
+      <Icon class="closeIcoR" type="ios-close" size="40" title="close" @click="close"/>
+    </div>
     <slot></slot>
   </Modal>
 </template>
@@ -31,6 +38,7 @@
       },
       close() {
         this.isOpen = false
+        this.$emit('on-cancel')
       }
     }
   }
