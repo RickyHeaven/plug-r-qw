@@ -156,7 +156,7 @@
         this.$refs.formRRef.changeLoading(this.showLoading)
       },
       getValGroup(){/*获取用户已填数据，公开*/
-        this.$refs.formRRef.getValGroup()
+        return this.$refs.formRRef.getValGroup()
       },
       onSubmit() { /*响应提交事件提交数据，私有*/
         this.showLoading = true
