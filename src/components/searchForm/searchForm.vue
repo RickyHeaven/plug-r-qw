@@ -113,6 +113,9 @@
       changeLoading(val) {/*改变弹框loading状态，私有*/
         this.$refs.formRRef.changeLoading(val === undefined ? false : val)
       },
+      getValGroup(){/*获取用户已填数据，公开*/
+        this.$refs.formRRef.getValGroup()
+      },
       onSubmit(data) { /*响应提交事件提交数据，私有*/
         this.$emit('on-search', data)
       },

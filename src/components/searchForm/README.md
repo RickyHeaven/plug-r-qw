@@ -24,6 +24,8 @@
 ### 方法
 * submit 主动提交组件内整个表单采集的值
 
+* getValGroup 获取用户已填数据
+
 * resetForm 重置表单，该方法会清空表单值并刷新dom，异步方法，表单项默认值不会被清除，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm
 
 * refreshFormDom 刷新dom，异步方法，详见[formR](../formR/README.md#方法)

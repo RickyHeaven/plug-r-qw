@@ -1406,6 +1406,16 @@
         }, 500)
         this.heightChange()
       },
+      getValGroup(){
+        let temp = {}
+        for (let item of this.showingKeys) {
+          temp[item] = this.valGroup[item]
+        }
+        if (this.trim) {
+          temp = trimObj(temp)
+        }
+        return temp
+      },
       validate() {/*主动验证整个表单（公开）*/
         this.$refs.formGroupXRef.validate()
       },
@@ -1425,15 +1435,7 @@
             if (valid) {
               this.showLoading = true
 
-              /*需要提交的表单值*/
-              let temp = {}
-              for (let item of this.showingKeys) {
-                temp[item] = this.valGroup[item]
-              }
-              if (this.trim) {
-                temp = trimObj(temp)
-              }
-              this.$emit('on-submit', temp)
+              this.$emit('on-submit', this.getValGroup())
             }
             setTimeout(() => {
               this.debounceCount = false
