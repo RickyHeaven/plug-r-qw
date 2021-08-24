@@ -48,7 +48,7 @@
 ### 方法
 * submit 主动提交组件内整个表单采集的值
 
-* getValGroup 获取用户已填数据
+* getValGroup 获取用户已填数据，和submit有显著区别，submit会校验表单，并提交on-submit事件。
 
 * close 主动触发取消按钮点击事件，一般用不上
 

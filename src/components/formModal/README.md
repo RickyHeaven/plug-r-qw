@@ -46,7 +46,7 @@
 
 * submit 主动提交弹框内整个表单采集的值
 
-* getValGroup 获取用户已填数据
+* getValGroup 获取用户已填数据，和submit有显著区别，submit会校验表单，并提交on-submit事件。
 
 * getFormHeight 主动获取弹框内表单高度，并根据结果自动调整弹框高度，一般用不上
 

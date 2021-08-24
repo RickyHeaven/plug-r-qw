@@ -75,7 +75,7 @@
 
 * validate 主动验证整个表单
 
-* getValGroup 获取用户已填数据
+* getValGroup 获取用户已填数据，和submit有显著区别，submit会校验表单，并提交on-submit事件。
 
 * changeLoading 主动改变表单提交按钮loading状态，在开启btnLoading的前提下
 
