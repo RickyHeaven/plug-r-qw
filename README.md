@@ -2,7 +2,7 @@
 
 * A JS lib base on Vue and View-design, you can achieve some complex functions with simple code after install this lib.
 
-* 简介：这是一个主要基于Vue和View-design的JS库，库里面提供一些集成度较高功能较复杂的组件（使用频率较高的全局组件和相对较低的需单独引入组件），和一些实用的但不常见（其他库可能没有）的方法，并且使用起来灵活简单。
+* 简介：这是一个主要基于Vue和View-design的JS库，库里面提供一些集成度较高功能较复杂的全局组件，和一些实用的但不常见（其他库可能没有）的方法，并且使用起来灵活简单。
 
 * 安装该库后，可以用简单的几行代码实现较复杂的业务需求；对经验丰富的开发者来说，大大提高开发速度、代码质量、可读性、和可维护性；对萌新来说，将入门门槛进一步降低，让你更快上手。
 ### 用法
