@@ -1,7 +1,7 @@
 {
   "name": "plug-r-qw",
   "version": "1.0.2",
-  "description": "this is a collection fo plug-in developed when I was in qw",
+  "description": "This lib is no longer in use since 2020/05, please install @zhangqingcq/plug-r-qw.",
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
