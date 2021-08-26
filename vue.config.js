@@ -3,7 +3,6 @@ const compressionPlugin = require("compression-webpack-plugin")
 module.exports = {
   devServer: {
     open: true,
-    host: 'local.qwgas.com',
     proxy: {
       '/node-serve': {
         target: 'http://localhost:7890/',

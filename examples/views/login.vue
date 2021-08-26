@@ -176,7 +176,7 @@
             else {
               return false;
             }
-          });
+          })
         }
       }
     }

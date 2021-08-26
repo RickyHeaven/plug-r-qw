@@ -7,8 +7,8 @@
         <span slot="open">ENG</span>
         <span slot="close">CN</span>
       </i-switch>
-      当前env：{{envK}}
-      <span @click="loginH">{{isLogin?'登出':'登录'}}</span>
+      <!--当前env：{{envK}}
+      <span @click="loginH">{{isLogin?'登出':'登录'}}</span>-->
     </div>
     <img class="brandK" alt="Vue logo" src="../assets/logo.png">
     <div class="brandBox">
