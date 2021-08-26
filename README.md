@@ -62,7 +62,9 @@
 <iconTxtBtn icon="ios-trash" name="批量删除"/>
 ```
 ### 注意：
-* 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，推荐使用*cnpm*或淘宝镜像，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
+* 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
+
+* 安装依赖推荐使用*npm*和*npm官方镜像*（*cnpm*和*淘宝镜像*在安装一些有自己的脚本的依赖时很大机率会报错，安装普通依赖没有问题），实在是网速慢可以尝试先使用*npm*加*淘宝镜像*安装，然后使用*npm*和*官方镜像*安装剩下的（不需要一个一个装，不管哪种工具都直接全部安装）
 
 * 部分示例有需要请求接口的组件，所以需要在项目目录下新开一个命令窗口运行：`npm run node-serve` 将该项目配置好的nodeJs服务器启动起来，那些需要请求nodeJs服务器的组件才有数据
 
