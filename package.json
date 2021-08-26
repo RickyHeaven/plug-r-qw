@@ -1,6 +1,6 @@
 {
   "name": "plug-r-qw",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This lib is no longer in use since 2020/05, please install @zhangqingcq/plug-r-qw.",
   "main": "./src/index.js",
   "scripts": {
