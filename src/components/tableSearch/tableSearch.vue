@@ -2,9 +2,12 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="tableSearchV" :style="{right:right,top:top}">
+  <div class="tableSearchV" :style="{position: fixed?'fixed':'absolute',right:right,top:top}">
     <slot>
-      <Input v-model="valueX" :style="{width:width}" search @on-search="onSearch" class="searchInputC" :placeholder="placeholder||t('r.pInput')"/>
+      <Input
+          v-model="valueX" :style="{width:width}" search @on-search="onSearch" class="searchInputC"
+          :placeholder="placeholder||t('r.pInput')"
+      />
     </slot>
     <span class="sbt" @click="openX=!openX" v-show="showBtn" :style="{color:btnColor}"><icon
         :type="iconL" :color="btnColor"
@@ -51,6 +54,11 @@
         /*是否显示高级查询按钮*/
         type: Boolean,
         default: true
+      },
+      fixed: {
+        /*是否为固定定位，默认绝对定位*/
+        type: Boolean,
+        default: false
       },
       width: {
         /*输入框宽度*/
