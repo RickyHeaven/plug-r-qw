@@ -192,7 +192,6 @@
     data() {
       return {
         dataT: this.data,
-        searchDataT: _.cloneDeep(this.searchData),
         pageSizeT: this.pageSize,
         current: 1,
         total: 0,
@@ -218,7 +217,7 @@
       },
       queryData() {
         let temp = {
-          ...this.searchDataT,
+          ...this.searchData,
           current: this.current,
           size: this.pageSizeT
         }
@@ -268,7 +267,8 @@
             if (item.key && item.sortable !== true && item.sortable !== false) {
               item.sortable = 'custom'
             }
-          }else {
+          }
+          else {
             item.sortable = false
           }
         })
@@ -327,14 +327,14 @@
     },
     watch: {
       searchData: {
-        handler(after) {
-          this.search(after)
+        handler() {
+          this.search()
         },
         deep: true
       }
     },
     methods: {
-      firstGetHeight() {
+      firstGetHeight() {/*私有*/
         if (this.tableContainerHeight < 50) {
           setTimeout(this.firstGetHeight, 100)
         }
@@ -342,21 +342,21 @@
           setTimeout(this.getTableContainerHeight, 10)
         }
       },
-      getTableContainerHeight() {
+      getTableContainerHeight() {/*私有*/
         this.tableContainerHeight = this.$refs.tableContainerLOI && this.$refs.tableContainerLOI.clientHeight || 0
       },
-      handleResize() { /*table重新计算尺寸布局*/
+      handleResize() { /*私有，table重新计算尺寸布局*/
         this.getTableContainerHeight()
         if (this.$refs.TableXXX) {
           this.$refs.TableXXX.handleResize()
         }
       },
-      initTable() {
+      initTable() {/*私有*/
         if (this.initData) {
           this.getDataAndClickRow()
         }
       },
-      addRow(row) {
+      addRow(row) {/*添加行（公开），分页时不推荐使用，详细见说明文档*/
         this.dataT.unshift(_.cloneDeep(row))
         setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
@@ -384,28 +384,36 @@
           }
         }
       },
-      deleteRow(index) { /*根据索引数字删除行（公开）*/
+      deleteRow(index) { /*根据索引数字删除行（公开），分页时不推荐使用，详细见说明文档*/
         this.dataT.splice(index, 1)
         setTimeout(() => {
           this.$refs.TableXXX.clickCurrentRow(0)
         }, 100)
       },
-      clearSelect() {/*清空选择*/
-        this.$refs.TableXXX.selectAll(false)
+      clearSelect() {/*清空选择（公开）*/
+        if (this.radio) {
+          if (this.selectedKeys.length > 0) {
+            let i = this.selectedKeys[0].split('-')[1]
+            this.$set(this.dataS[i], 'btChecked', false)
+          }
+        }
+        else {
+          this.$refs.TableXXX.selectAll(false)
+        }
+        if (this.selected.length > 0) {
+          this.selected = []
+          this.$emit('on-selection-change', [])
+        }
+        this.currentKey = null
+        this.currentIndex = null
       },
-      clearTableData() {
+      clearTableData() {/*清空选择（公开）,用于特殊场景下重置表格，不拉取数据，如需刷新数据直接调用getTableData*/
         this.$set(this, 'dataT', [])
-        this.clearPage()
+        this.clearSelect()
         this.current = 1
         this.total = 0
       },
-      clearSearchDataT() { /*searchData每次变动都会存个备份到searchDataT,但有时候我们在外面清空searchData时，
-       并不希望空的searchData触发表格数据拉取（比如我们希望并手动清空table数据，同时清空查询条件form数据），于是没把空的值传递给searchData(searchData不变，
-       但外面的form进行过一次清空),这样就需要手动清空备份，否则外面再次给searchData附与上一次同样的值，不会触发表格数据拉取*/
-        this.searchDataT = {}
-      },
-      search(d) {
-        this.searchDataT = _.cloneDeep(d || this.searchData)
+      search() {/*私有*/
         this.current = 1
         this.getDataAndClickRow()
       },
@@ -430,7 +438,7 @@
           this.getTableData()
         }
       },
-      onRowClick(row, i) {
+      onRowClick(row, i) {/*私有*/
         if (row.btKey === this.currentKey && this.radio) {
           return
         }
@@ -438,14 +446,14 @@
           this.$refs.TableXXX.toggleSelect(i)
         }
       },
-      onSelect(s, row) {
+      onSelect(s, row) {/*私有*/
         this.currentKey = row.btKey
         this.currentIndex = Number(row.btKey.split('-')[1])
         if (this.radio) {
           this.$set(this.dataT[this.currentIndex], 'btChecked', true)
         }
       },
-      selectionHandle(selection) {
+      selectionHandle(selection) {/*私有*/
         if (this.radio) {
           for (let e of this.dataS) {
             if (e.btKey !== this.currentKey) {
@@ -455,20 +463,20 @@
         }
         this.selected = selection
       },
-      getSelected() {/*获取已选行数据*/
+      getSelected() {/*获取已选行数据（公开）*/
         return _.cloneDeep(this.selected)
       },
-      changePage(v) {
+      changePage(v) {/*私有*/
         this.current = v
         this.getDataAndClickRow()
       },
-      pageSizeChange(v) {
+      pageSizeChange(v) {/*私有*/
         this.pageSizeT = v
         if (this.current === 1) {
           this.getDataAndClickRow()
         }
       },
-      onSortChange({key, order}) {
+      onSortChange({key, order}) {/*私有*/
         //表头排序
         if (order === 'normal') {
           /*恢复到默认页面排序*/
@@ -482,17 +490,6 @@
         this.current = 1
         this.getTableData()
       },
-      clearPage() {
-        this.selected = []
-        this.$emit('on-selection-change', [])
-        this.currentKey = null
-        this.currentIndex = null
-      },
-      clearTable() {
-        this.dataT = []
-        this.total = 0
-        this.current = 1
-      },
       getTableData(order, orderKey) { /*拉取表格数据（公开）*/
         return new Promise(resolve => {
           if (order) {
@@ -505,7 +502,7 @@
             $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
               .then(d => {
                 let r
-                this.clearPage()
+                this.clearSelect()
                 if (myTypeof(this.dataHandler) === 'Function') {
                   r = this.dataHandler(d)
                 }
@@ -547,14 +544,14 @@
                 }
                 else {
                   console.warn('请求返回数据有误，无法使用')
-                  this.clearTable()
+                  this.clearTableData()
                   this.$emit('on-data-change', r)
                 }
               })
               .catch(e => {
                 console.warn(e)
-                this.clearPage()
-                this.clearTable()
+                this.clearSelect()
+                this.clearTableData()
                 this.$emit('on-data-change', e)
               })
           }

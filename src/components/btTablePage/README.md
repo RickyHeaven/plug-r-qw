@@ -67,16 +67,12 @@
 
 * clearSelect: 清空选择
 
-* clearTableData: 清空表格（重置数据）
-
-* clearSearchDataT: searchData每次变动都会存个备份到searchDataT,但有时候我们在外面清空searchData时，并不希望空的searchData触发表
-格数据拉取（比如我们希望并手动清空table数据，同时清空查询条件form数据），于是不把空的值传递给searchData(searchData不变，但外面的form
-进行过一次清空),这样就需要手动清空备份，否则外面再次给searchData附与上一次同样的值，不会触发表格数据拉取
+* clearTableData: 清空表格数据（用于特殊场景下重置表格，不拉取数据，如需刷新数据直接调用`getTableData`）
 
 * getDataAndClickRow: 拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行
 
 * getSelected: 获取已选行数据
 
-*getTableData: 拉取表格数据
+* getTableData: 主动拉取(刷新)表格数据
 ### 注意：
 * 该组件的父容器需要有有效的高度，比如给定px、vh高度，或者有效的百分比高度（使用百分比高度必须要能让它生效）

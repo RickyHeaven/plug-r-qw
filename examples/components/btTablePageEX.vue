@@ -11,14 +11,18 @@
           @on-row-click="onRowClick"
           @on-data-change="setTotal"
           show-top-row
-          radio
+          :radio="selectMode==='radio'"
+          :selection="selectMode==='checkbox'"
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
           <div class="topBoxKAQ">
+            <RadioGroup v-model="selectMode" style="margin-right: 20px;" @on-change="clearSelect">
+              <Radio label="radio">单选</Radio>
+              <Radio label="checkbox">多选</Radio>
+            </RadioGroup>
             <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
             <Button @click="getS">get select</Button>
-            <Button>导出</Button>
             <Button @click="handleNew">新增</Button>
           </div>
         </template>
@@ -38,6 +42,7 @@
       return {
         action: 'new',
         nodeServer: false,
+        selectMode: 'radio',
         total: 0,
         searchData: {},
         data: [],
@@ -91,7 +96,7 @@
                       if (this.nodeServer) {
                         this.action = 'edit'
                         this.$refs.formModalRef.updateValGroup(params.row)
-                        this.$refs.formModalRef.setItemToValGroup({id: params.row.id},true)
+                        this.$refs.formModalRef.setItemToValGroup({id: params.row.id}, true)
                         this.$refs.formModalRef.open()
                       }
                       else {
@@ -184,6 +189,9 @@
       }
     },
     methods: {
+      clearSelect(){
+        this.$refs.btTab.clearSelect()
+      },
       handleNew() {
         if (this.nodeServer) {
           this.action = 'new'
@@ -198,9 +206,10 @@
           this.$fetch[this.method]('/node-serve/bt-table-page', d).then(r => {
             if (r && r.code === 0) {
               this.$swal(this.title + '成功', '', 'success')
-              if(this.action === 'new'){
+              if (this.action === 'new') {
                 this.search()
-              }else {
+              }
+              else {
                 this.getData()
               }
               this.$refs.formModalRef.close()
@@ -218,6 +227,7 @@
       },
       getS() {
         console.log(this.$refs.btTab.getSelected())
+        this.$swal('请在控制台查看已选数据', '', 'success')
       },
       search(data) {
         if (!data) {
