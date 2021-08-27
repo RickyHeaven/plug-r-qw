@@ -5,6 +5,8 @@
 * 简介：这是一个主要基于Vue和View-design的JS库，库里面提供一些集成度较高功能较复杂的全局组件，和一些实用的但不常见（其他库可能没有）的方法，并且使用起来灵活简单。
 
 * 安装该库后，可以用简单的几行代码实现较复杂的业务需求；对经验丰富的开发者来说，大大提高开发速度、代码质量、可读性、和可维护性；对萌新来说，将入门门槛进一步降低，让你更快上手。
+
+* [组件](https://github.com/RickyHeaven/plug-r-qw/tree/master/src/components)和[方法](https://github.com/RickyHeaven/plug-r-qw/tree/master/src/methods)都有各自详细的markdown格式说明文档，可直接在[GitHub](https://github.com/RickyHeaven/plug-r-qw.git)查看，也可将项目拉到本地直接查看，或者将示例项目运行起来在示例页面查看。
 ### 用法
 1. npm i @zhangqingcq/plug-r-qw
 
