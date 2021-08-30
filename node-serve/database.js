@@ -5,6 +5,7 @@
  */
 
 let _data = {}
+let idCount = {}
 
 /**
  * 增
@@ -15,10 +16,10 @@ let _data = {}
 exports._save = function (table, data) {
   if (!_data[table]) {
     _data[table] = []
+    idCount[table] = 0
   }
-  let l = _data[table].length
   let b = data.map((e, i) => {
-    return Object.assign(e, {id: l + i})
+    return Object.assign(e, {id: ++idCount[table]})
   })
   b.reverse()
   _data[table].unshift(...b)
@@ -36,11 +37,7 @@ exports._delete = function (table, condition) {
   if (!_data[table]) {
     return false
   }
-  for (let e of _data[table]) {
-    if (condition(e)) {
-      e._r_delete = true
-    }
-  }
+  _data[table] = _data[table].filter(e => !condition(e))
   return true
 }
 /**
@@ -59,12 +56,12 @@ exports._get = function (table, current, size, condition) {
       total: 0
     }
   }
-  let b = _data[table].filter(e => !e._r_delete)
+  let b = _data[table]
   if (condition) {
     b = b.filter(condition)
   }
   return {
-    data: b.slice((current - 1) * size, current * size),
+    data: size === -1 ? b : b.slice((current - 1) * size, current * size),
     total: b.length
   }
 }

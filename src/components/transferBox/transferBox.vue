@@ -9,11 +9,8 @@
           <div class="titleLLL">{{titleLeft}}</div>
           <show-hide-panel>
             <search-form
-                ref="leftFormRef"
-                :form-data="formDataLeft"
-                :form-rules="formRulesLeft"
-                @on-search="searchLeft"
-            ></search-form>
+                ref="leftFormRef" :form-data="formDataLeft" :form-rules="formRulesLeft" @on-search="searchLeft"
+            />
           </show-hide-panel>
         </div>
 
@@ -27,7 +24,7 @@
               :init-data="Boolean(isEmpty(constSearchDataLeft)&&leftTableUrl)"
               get-data-loading
               selection
-          ></bt-table-page>
+          />
         </div>
       </div>
     </div>
@@ -54,11 +51,8 @@
 
           <show-hide-panel>
             <search-form
-                ref="rightFormRef"
-                :form-data="formDataRight"
-                :form-rules="formRulesRight"
-                @on-search="searchRight"
-            ></search-form>
+                ref="rightFormRef" :form-data="formDataRight" :form-rules="formRulesRight" @on-search="searchRight"
+            />
           </show-hide-panel>
         </div>
 
@@ -72,7 +66,7 @@
               :init-data="Boolean(isEmpty(constSearchDataRight)&&rightTableUrl)"
               get-data-loading
               selection
-          ></bt-table-page>
+          />
         </div>
 
       </div>
@@ -231,7 +225,7 @@
     },
     methods: {
       isEmpty: _.isEmpty,
-      reset() {
+      reset() {/*重置穿梭框（公开）*/
         this.$refs.leftFormRef.resetForm()
         this.$refs.rightFormRef.resetForm()
         if (!_.isEmpty(this.searchDataLeft)) {
@@ -240,46 +234,46 @@
         if (!_.isEmpty(this.searchDataRight)) {
           this.searchDataRight = {}
         }
-        this.$refs.lTabRef.clearPage()
-        this.$refs.rTabRef.clearPage()
+        this.$refs.lTabRef.clearSelect()
+        this.$refs.rTabRef.clearSelect()
       },
-      search() {
+      search() {/*主动触发筛选/刷新数据（公开）*/
         this.$refs.lTabRef.search()
         this.$refs.rTabRef.search()
       },
-      lSelectionChange(s) {
+      lSelectionChange(s) {/*私有*/
         this.lSelection = s
       },
-      rSelectionChange(s) {
+      rSelectionChange(s) {/*私有*/
         this.rSelection = s
       },
-      searchLeft(d) {
+      searchLeft(d) {/*私有*/
         this.searchDataLeft = d
       },
-      searchRight(d) {
+      searchRight(d) {/*私有*/
         this.searchDataRight = d
       },
-      add() {
+      add() {/*私有*/
         if (this.addUrl) {
           this.fetchX('add')
         }
       },
-      remove() {
+      remove() {/*私有*/
         if (this.deleteUrl) {
           this.fetchX('delete')
         }
       },
-      addAll() {
+      addAll() {/*私有*/
         if (this.addAllUrl && this.addUrl) {
           this.fetchX('addAll')
         }
       },
-      removeAll() {
+      removeAll() {/*私有*/
         if (this.deleteAllUrl) {
           this.fetchX('deleteAll')
         }
       },
-      fetchX(action) {
+      fetchX(action) {/*私有*/
         let method = this[action + 'Method']
         let url = this[action + 'Url']
         let data = {}

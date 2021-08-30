@@ -176,6 +176,11 @@ export default new Router({
       component: ()=>import('./components/findCollectionEX.vue')
     },
     {
+      path: '/transferBox',
+      name: 'transferBox',
+      component: ()=>import('./components/transferBoxEX.vue')
+    },
+    {
       path: '/fixedFullModal',
       name: 'fixedFullModal',
       component: ()=>import('./components/fixedFullModalEX.vue')

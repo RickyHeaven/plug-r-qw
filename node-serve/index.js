@@ -78,16 +78,51 @@ server.on('request', function (req, res) {
         })
         _send(temp)
         break
+      case '/transfer-box-added':
+        if (method === 'GET') {
+          pageSelect('transfer-box-added')
+        }
+        else if (method === 'POST') {
+          paramsRequest(r => {
+            transferApi(r, 'transfer-box-added', 'bt-table-page')
+          })
+        }
+        break
+      case '/transfer-box-not-added':
+        if (method === 'GET') {
+          pageSelect('bt-table-page')
+        }
+        else if (method === 'DELETE') {
+          paramsRequest(r => {
+            transferApi(r, 'bt-table-page', 'transfer-box-added')
+          })
+        }
+        break
+      case '/transfer-box-added-all':
+        if (method === 'POST') {
+          paramsRequest(r => {
+            transferMove('bt-table-page', 'transfer-box-added', r)
+          })
+        }
+        break
+      case '/transfer-box-not-added-all':
+        if (method === 'DELETE') {
+          paramsRequest(r => {
+            transferMove('transfer-box-added', 'bt-table-page', r)
+          })
+        }
+        break
       case '/':
       default:
         let action = pathname.substr(1)
-        if(action){
+        if (action) {
           if (method === 'GET') {
             pageSelect(action)
           }
           else if (method === 'POST' || method === 'PUT') {
             paramsRequest(r => {
-              let a = method === 'POST' ? _save(action, [r]) : _edit(action, r)
+              let typeR = Object.prototype.toString.call(r).replace(/\[object |]/g, "")
+              let a = method === 'POST' ? _save(action, typeR === 'Array' ? r : [r]) : _edit(action, r)
               let b = {}
               if (a) {
                 b.code = 0
@@ -103,7 +138,8 @@ server.on('request', function (req, res) {
           else if (method === 'DELETE') {
             deleteHandle(action, e => e.id === Number(queryObj.id))
           }
-        }else {
+        }
+        else {
           res.end('hello')
         }
     }
@@ -120,11 +156,24 @@ server.on('request', function (req, res) {
     function pageSelect(action) {
       let current = queryObj.current && Number(queryObj.current) || 1
       let size = queryObj.size && Number(queryObj.size) || 10
+      
+      let queryObjT = JSON.parse(JSON.stringify(queryObj))
+      delete queryObjT.current
+      delete queryObjT.size
+      let keys = Object.keys(queryObjT)
+      
       temp = {}
       let r
-      if (queryObj.name) {
-        const name = decodeURI(queryObj.name)
-        r = _get(action, current, size, e => e.name.indexOf(name) > -1)
+      
+      if (keys.length > 0) {
+        r = _get(action, current, size, e => {
+          for (let iT of keys) {
+            if (e[iT].indexOf(decodeURI(queryObj[iT])) === -1) {
+              return false
+            }
+          }
+          return true
+        })
       }
       else {
         r = _get(action, current, size)
@@ -136,7 +185,7 @@ server.on('request', function (req, res) {
       _send(temp)
     }
     
-    /*post\put请求*/
+    /*post\put\delete请求*/
     function paramsRequest(callback) {
       let r = ''
       req.on('data', d => {
@@ -164,6 +213,49 @@ server.on('request', function (req, res) {
         temp.message = 'error'
       }
       _send(temp)
+    }
+    
+    /**穿梭框--穿梭接口
+     * @param r 接口入参
+     * @param s 要保存数据的表
+     * @param d 要删除数据的表
+     * */
+    function transferApi(r, s, d) {
+      let t = r.map(e => e.id)
+      let a = _save(s, r)
+      let c = _delete(d, e => t.indexOf(e.id) > -1)
+      let b = {}
+      if (a && c) {
+        b.code = 0
+        b.message = 'success'
+      }
+      else {
+        b.code = -1
+        b.message = 'error'
+      }
+      _send(b)
+    }
+    
+    /*将表from的数据按查询条件全部移到表to*/
+    function transferMove(from, to, r) {
+      let keys = Object.keys(r)
+      let tD
+      
+      if (keys.length > 0) {
+        tD = _get(from, 1, -1, e => {
+          for (let iT of keys) {
+            if (e[iT].indexOf(r[iT]) === -1) {
+              return false
+            }
+          }
+          return true
+        })
+      }
+      else {
+        tD = _get(from, 1, -1)
+      }
+      
+      transferApi(tD && tD.data && JSON.parse(JSON.stringify(tD.data)) || [], to, from)
     }
   }
 })
