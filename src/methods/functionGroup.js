@@ -422,7 +422,7 @@ export function findCollection(group, condition, getPath) {
 
 /*判断某个值是否在集合中*/
 export function oneOf(value, validList) {
-  for (let i = 0; i < validList.length; i++) {
+  for (let i = 0, l = validList.length; i < l; i++) {
     if (value === validList[i]) {
       return true
     }
@@ -432,7 +432,7 @@ export function oneOf(value, validList) {
 
 /*小数位数限制，超出会返回被去掉后的值*/
 export function decimalDigitsLimit(val, num = 2) {
-  let expStr = new RegExp("(^-?\\d+.\\d{" + num + "})(\\d+$)")
+  let expStr = new RegExp("(^-?\d+.\d{" + num + "})(\d+$)")
   let valStr = val && String(val) || ''
   if (expStr.test(valStr)) {
     return Number(valStr
