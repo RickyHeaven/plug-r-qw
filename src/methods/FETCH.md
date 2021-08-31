@@ -35,9 +35,9 @@ this.$fetch.all(
    ]
   )
    .then(
-     this.$fetch.spread(result1,result2){
+     this.$fetch.spread((result1,result2)=>{
          console.log(result1,result2)
-     }
+     })
    )
 ```
 ### 注意
