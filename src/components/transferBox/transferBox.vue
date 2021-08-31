@@ -6,7 +6,7 @@
     <div class="leftBoxLLL">
       <div class="fullHeight flexColumnBox">
         <div class="notGrow">
-          <div class="titleLLL">{{titleLeft}}</div>
+          <div class="titleLLL">{{titleLeft||t('r.added')}}</div>
           <show-hide-panel>
             <search-form
                 ref="leftFormRef" :form-data="formDataLeft" :form-rules="formRulesLeft" @on-search="searchLeft"
@@ -30,24 +30,24 @@
     </div>
 
     <div class="middleBoxLLL">
-      <Button class="middleBtLLL" size="large" type="default" @click="removeAll">全部移除
+      <Button class="middleBtLLL" size="large" type="default" @click="removeAll">{{t('r.removeAll')}}
         <Icon type="ios-arrow-forward"/>
       </Button>
-      <Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis">移除
+      <Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis">{{t('r.remove')}}
         <Icon type="ios-arrow-forward"/>
       </Button>
       <Button class="middleBtLLL" size="large" type="primary" @click="add" :disabled="addDis">
         <Icon type="ios-arrow-back"/>
-        添加</Button>
+        {{t('r.add')}}</Button>
       <Button class="middleBtLLL" size="large" type="primary" @click="addAll">
         <Icon type="ios-arrow-back"/>
-        全部添加</Button>
+        {{t('r.addAll')}}</Button>
     </div>
 
     <div class="rightBoxLLL">
       <div class="fullHeight flexColumnBox">
         <div class="notGrow">
-          <div class="titleLLL">{{titleRight}}</div>
+          <div class="titleLLL">{{titleRight||t('r.notAdded')}}</div>
 
           <show-hide-panel>
             <search-form
@@ -76,17 +76,17 @@
 
 <script>
   import _ from 'lodash'
+  import Locale from '../../mixins/locale'
 
   export default {
     name: "transferBox",
+    mixins: [Locale],
     props: {
       titleLeft: {
-        type: String,
-        default: '已添加'
+        type: String
       },
       titleRight: {
-        type: String,
-        default: '未添加'
+        type: String
       },
       formDataLeft: {
         type: Array,
@@ -281,26 +281,26 @@
         switch (action) {
           case 'add':
             data = this.addParamsHandle(this.rSelection)
-            msg = '添加'
+            msg = this.t('r.add')
             break
           case 'delete':
             data = this.deleteParamsHandle(this.lSelection)
-            msg = '移除'
+            msg = this.t('r.remove')
             break
           case 'addAll':
             data = this.addAllParamsHandle(this.rightTableSearchData)
-            msg = '全部添加'
+            msg = this.t('r.addAll')
             break
           case 'deleteAll':
             data = this.deleteAllParamsHandle(this.leftTableSearchData)
-            msg = '全部移除'
+            msg = this.t('r.removeAll')
             break
         }
         if (url) {
           this.$fetch[method](url, data, null, [], {spin: true}, false)
             .then(r => {
               if (r && r.code === 0) {
-                this.$swal(msg + '成功', '', 'success')
+                this.$swal(msg + this.t('r.success'), '', 'success')
                 if (this.$refs.lTabRef) {
                   this.$refs.lTabRef.getTableData()
                 }
@@ -310,11 +310,11 @@
                 this.$emit('transferred')
               }
               else {
-                this.$swal(msg + '失败', r && r.message || '', 'error')
+                this.$swal(msg + this.t('r.failed'), r && r.message || '', 'error')
               }
             })
             .catch(() => {
-              this.$swal(msg + '出错', '', 'error')
+              this.$swal(msg + this.t('r.error'), '', 'error')
             })
         }
       }

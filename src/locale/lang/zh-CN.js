@@ -50,6 +50,15 @@ export default {
     searchFor: '当前搜索：',
     noMore: '没有更多数据了',
     optionLabel: '选项',
-    getDataError: '拉取数据出错'
+    getDataError: '拉取数据出错',
+    add: '添加',
+    remove: '移除',
+    addAll: '全部添加',
+    removeAll: '全部移除',
+    added: '已添加',
+    notAdded: '未添加',
+    success: '成功',
+    failed: '失败',
+    error: '出错',
   }
 }
