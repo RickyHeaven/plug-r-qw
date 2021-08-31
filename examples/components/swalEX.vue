@@ -5,7 +5,7 @@
     <Button @click="swalHandle('error')">失败</Button>
     <Button @click="swalHandle('warning')">警告</Button>
     <Button @click="swalHandle('info')">提示</Button>
-    <Button @click="swalConfirm">swalConfirm对话框</Button>
+    <Button @click="swalConfirm">$swalConfirm对话框</Button>
     <Button @click="swalHandleB">DOM node</Button>
     <Button @click="swalHandleC">swal对话框</Button>
   </div>

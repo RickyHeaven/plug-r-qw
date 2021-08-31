@@ -8,6 +8,23 @@
 
 * icon 字符串，可选值：`'success','error','warning','info'`，可不传
 
+
+```
+推荐使用方式示例：
+this.$swal('操作成功','','success')
+
+复杂场景使用示例：
+this.$swal({
+    title:'操作成功',
+    icon:'success',
+    onOk(){
+        //在这里执行确定按钮被点击后的逻辑
+    }
+})
+
+ps:这种场景使用$swalConfirm更简洁：this.$swalConfirm(null, null, 'warning', () => { console.log('确定被点击') })
+```
+
 ### <a name='option'>option支持属性详解（为对象时）</a>
 * title 字符串，提示框标题，可不传
 
