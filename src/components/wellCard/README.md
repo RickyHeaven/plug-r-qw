@@ -24,4 +24,4 @@
     </div>
 </template>
 ```
-* 卡片支持主题定制化，具体方法在[该库的README](/README.md)中有讲，顶部背景色和卡片边框色为`@titleBg`，顶部文字颜色为`@textColor`，顶部高度为`@headerH`
+* 卡片支持主题定制化，具体方法在[该库的README](/README.md)中有讲，顶部背景色和卡片边框色为`@titleBg`，顶部文字颜色为`@textColor`，顶部高度为`@headerH`。
