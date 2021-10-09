@@ -806,3 +806,17 @@ export function removeEmptyValue(data) {
   }
   return temp
 }
+
+/**
+ *打印页面，根据后端所传递的数据生成
+ * @param data
+ * @return {Promise<any>}
+ */
+export function htmlPrint(data) {
+  /*  let printStr = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body >";
+   printStr = printStr+data+"</body></html>";*/
+  let pwin = window.open("Print.htm", "print");  //如果是本地测试，需要先新建Print.html，如果是在域中使用，则不需要
+  pwin.document.write(data)
+  pwin.document.close()
+  pwin.print()
+}
