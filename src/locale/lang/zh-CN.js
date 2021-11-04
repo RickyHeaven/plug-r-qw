@@ -60,5 +60,8 @@ export default {
     success: '成功',
     failed: '失败',
     error: '出错',
+    pageNotFound: '页面没找到',
+    notFoundMsg: '您访问的页面不存在，点击下面按钮返回主页。',
+    backHome:'返回'
   }
 }

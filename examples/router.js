@@ -184,6 +184,11 @@ export default new Router({
       path: '/fixedFullModal',
       name: 'fixedFullModal',
       component: ()=>import('./components/fixedFullModalEX.vue')
+    },
+    {
+      path: '/page404',
+      name: 'page404',
+      component: ()=>import('./components/page404EX.vue')
     }
   ]
 })

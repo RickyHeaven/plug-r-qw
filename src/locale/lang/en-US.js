@@ -60,5 +60,8 @@ export default {
     success: ' success',
     failed: ' failed',
     error: ' error',
+    pageNotFound: 'Page Not Found',
+    notFoundMsg: 'The page you visited does not exist, click the button below to return to the home page.',
+    backHome: 'Home'
   }
 }
