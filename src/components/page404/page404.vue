@@ -4,7 +4,7 @@
     <div class="ct404">UH OH! {{t('r.pageNotFound')}}</div>
     <div class="p404">{{t('r.notFoundMsg')}}</div>
 
-    <Button class="bt404" @click="back">{{t('r.backHome')}}</Button>
+    <Button class="bt404" @click="back">{{t('r.back')}}</Button>
   </div>
 </template>
 
@@ -16,7 +16,7 @@
     mixins: [Locale],
     methods: {
       back() {
-        this.$router.push('/')
+        this.$router.go(-1)
       }
     }
   }
