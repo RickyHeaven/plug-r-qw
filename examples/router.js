@@ -189,6 +189,11 @@ export default new Router({
       path: '/page404',
       name: 'page404',
       component: ()=>import('./components/page404EX.vue')
+    },
+    {
+      path: '/sichuanCuisine/combo/sideMenu',
+      name: 'sideMenu',
+      component: ()=>import('./components/sideMenuEX.vue')
     }
   ]
 })

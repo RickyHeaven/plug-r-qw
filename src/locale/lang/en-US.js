@@ -61,6 +61,8 @@ export default {
     failed: ' failed',
     error: ' error',
     pageNotFound: 'Page Not Found',
-    notFoundMsg: 'The page you visited does not exist, click the button below to return to previous page.'
+    notFoundMsg: 'The page you visited does not exist, click the button below to return to previous page.',
+    hideMenu:'Hide Menu',
+    showMenu:'Show Menu'
   }
 }

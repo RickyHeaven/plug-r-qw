@@ -28,6 +28,7 @@ import selectScrollMore from "./components/selectScrollMore/selectScrollMore.vue
 import transferBox from "./components/transferBox/transferBox.vue"
 import fixedFullModal from "./components/fixedFullModal/fixedFullModal.vue"
 import page404 from "./components/page404/page404.vue"
+import sideMenu from "./components/sideMenu/sideMenu.vue"
 import messageBox from './methods/messageBox.js'
 import $swal from './methods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
@@ -41,7 +42,7 @@ import {
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
   decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
   isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling,
-  fileExport, getColumnsKeys, removeEmptyValue, findCollection,htmlPrint
+  fileExport, getColumnsKeys, removeEmptyValue, findCollection, htmlPrint, siblingElems
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
@@ -77,7 +78,8 @@ const components = {
   selectScrollMore,
   transferBox,
   fixedFullModal,
-  page404
+  page404,
+  sideMenu
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
@@ -129,7 +131,8 @@ const methodsR = {
   getColumnsKeys,
   removeEmptyValue,
   findCollection,
-  htmlPrint
+  htmlPrint,
+  siblingElems
 }
 
 const install = function (Vue, opts = {}) {

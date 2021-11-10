@@ -820,3 +820,24 @@ export function htmlPrint(data) {
   pwin.document.close()
   pwin.print()
 }
+
+/**
+ * 查找dom元素所有兄弟
+ * @param {node} elem - 被查找的元素
+ */
+export function siblingElems(elem) {
+  let nodes = [];
+  let _elem = elem;
+  while ((elem = elem.previousSibling)) {
+    if (elem.nodeType === 1) {
+      nodes.push(elem);
+    }
+  }
+  
+  while ((_elem = _elem.nextSibling)) {
+    if (_elem.nodeType === 1) {
+      nodes.push(_elem);
+    }
+  }
+  return nodes
+}
