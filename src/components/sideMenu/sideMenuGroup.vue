@@ -2,8 +2,8 @@
   <ul class="groupBoxRP">
     <li :class="{dropItemRP:item.children}" v-for="(item,i) of data" :key="item.path+i">
       <div
-        class="menuTxtR" :class="getClass(item)" @click="handleClick($event,item)"
-        :style="{paddingLeft: item.level*20+'px'}"
+          class="menuTxtR" :class="getClass(item)" @click="handleClick($event,item)"
+          :style="{paddingLeft: item.level*20+'px'}"
       >
         {{item.name||'-- no name --'}}
       </div>
@@ -29,7 +29,7 @@
     },
     methods: {
       getClass(item) {
-        return item.path.indexOf(this.pathName) > -1 ? 'active' : ''
+        return item.path === this.pathName ? 'active' : ''
       },
       handleClick(e, item) {
         e.preventDefault()
