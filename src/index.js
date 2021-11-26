@@ -176,11 +176,18 @@ const install = function (Vue, opts = {}) {
     })
   }
   if (Vue.directive('loadmore') === undefined) {
-    //select下拉滚动监听事件
+    //select下拉滚动监听事件 可通过指令参数传递class来指定容器
     Vue.directive("loadmore", {
       bind(el, binding) {
         // 获取定义好的scroll盒子
-        const SELECT_DOM = el.querySelector(".ivu-select-dropdown")
+        let SELECT_DOM
+        
+        if (binding.arg) {
+          SELECT_DOM = el.querySelector('.' + binding.arg)
+        }
+        else {
+          SELECT_DOM = el.querySelector(".ivu-select-dropdown") || el
+        }
         SELECT_DOM.addEventListener("scroll", function () {
           /*
            * scrollHeight 获取元素内容高度(只读)
