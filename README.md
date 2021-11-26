@@ -63,7 +63,7 @@
 ```
 <iconTxtBtn icon="ios-trash" name="批量删除"/>
 ```
-### 注意：
+### 注意
 * 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
 
 * 安装依赖推荐使用*npm*加*淘宝镜像*的组合（*cnpm*在安装一些有自己脚本的依赖时很大机率会报错；*淘宝镜像*更新速度较慢，有时要隔一天才会拉到新的资源，所以在使用*淘宝镜像*有问题时，可以切回*官方镜像*继续安装），实在是无法安装成功，可清空npm缓存后使用*npm*加*官方镜像*进行安装，如果还是无法成功，那很有可能是你的网络或环境有问题（如node不是稳定版，可降低node版本再尝试；依赖不需要一个一个装，不管哪种工具都直接全部安装）
@@ -106,3 +106,9 @@
     2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
     3. 如果添加了该loader还是有兼容问题，那么将main.js中 import plugRQw from '@zhangqingcq/plug-r-qw' 换成 import plugRQw from '@zhangqingcq/plug-r-qw/lib/plugRQw.umd.js'
 ```
+
+### 本库自带自定义指令
+
+* has 通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`的内联样式，以此来实现元素的权限控制。
+
+* loadmore 在容器滚动到底部时调用传入指令的值（回调函数），可通过指定参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），默认为指令绑定的元素
