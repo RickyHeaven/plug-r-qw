@@ -813,12 +813,9 @@ export function removeEmptyValue(data) {
  * @return {Promise<any>}
  */
 export function htmlPrint(data) {
-  /*  let printStr = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body >";
-   printStr = printStr+data+"</body></html>";*/
-  let pwin = window.open("Print.html", "print") //如果是本地测试，需要先新建Print.html，如果是在域中使用，则不需要
+  const pwin = window.open()
   pwin.document.write(data)
-  pwin.document.close()
-  let tc = setTimeout(() => {
+  const tc = setTimeout(() => {
     pwin.print()
     window.clearTimeout(tc)
   }, 10)
