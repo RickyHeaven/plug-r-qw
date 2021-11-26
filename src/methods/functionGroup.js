@@ -818,9 +818,10 @@ export function htmlPrint(data) {
   let pwin = window.open("Print.html", "print") //如果是本地测试，需要先新建Print.html，如果是在域中使用，则不需要
   pwin.document.write(data)
   pwin.document.close()
-  setTimeout(()=>{
+  let tc = setTimeout(() => {
     pwin.print()
-  },10)
+    window.clearTimeout(tc)
+  }, 10)
 }
 
 /**
