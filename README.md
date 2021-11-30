@@ -111,4 +111,4 @@
 
 * has 通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`的内联样式，以此来实现元素的权限控制。
 
-* loadmore 在容器滚动到底部时调用传入指令的值（回调函数），可通过指定参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
+* loadmore 在容器滚动到底部时调用传入指令的值（回调函数），可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
