@@ -300,7 +300,7 @@
           this.$fetch[method](url, data, null, [], {spin: true}, false)
             .then(r => {
               if (r && r.code === 0) {
-                this.$swal(msg + this.t('r.success'), '', 'success')
+                this.$swal(msg + this.t('r.success'), r && r.message || '', 'success')
                 if (this.$refs.lTabRef) {
                   this.$refs.lTabRef.getTableData()
                 }
