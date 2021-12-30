@@ -13,6 +13,8 @@
 * placeholder: 字符串，占位符，默认：`'请选择'`
 
 * disabled: 布尔对象，禁用编辑功能，默认：`false`
+
+* change-on-select 布尔对象，当此项为 true 时，点选每级菜单选项值都会发生变化，默认：`false`
 ### 事件
 * on-name-change: 中文地址发生变化
 ### 注意

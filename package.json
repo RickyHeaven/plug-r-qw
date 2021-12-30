@@ -27,6 +27,7 @@
     "xss",
     "js-cookie",
     "iview-area",
+    "ar-cascader",
     "vue-amap",
     "vue-json-viewer",
     "qw",
@@ -62,10 +63,10 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "ar-cascader": "^1.0.1",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "echarts": "^4.5.0",
-    "iview-area": "^1.6.0",
     "js-cookie": "2.1.4",
     "lodash": "^4.17.19",
     "moment": "^2.22.2",

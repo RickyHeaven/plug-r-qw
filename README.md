@@ -79,7 +79,7 @@
 
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
-* 本库运行依赖vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、iview-area、vue-amap、vue-json-viewer，但并未将他们的代码打包到库的生产版本中，所以需要在你的项目中安装他们才能使用该库中涉及这些依赖的组件或方法（不用可以不安装），如果想省事，全安装就行，不会安装可以参考对应的官网或npm网站页面或本项目examples目录里的用法
+* 本库运行依赖vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer，但并未将他们的代码打包到库的生产版本中，所以需要在你的项目中安装他们才能使用该库中涉及这些依赖的组件或方法（不用可以不安装），如果想省事，全安装就行，不会安装可以参考对应的官网或npm网站页面或本项目examples目录里的用法
 
 * 有地图的功能是用的高德地图，要在项目初始化才能使用库中地图功能，初始化方法参考该项目的examples中main.js或高德官方文档
 

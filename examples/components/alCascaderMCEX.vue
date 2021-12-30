@@ -48,6 +48,15 @@
         </div>
       </wellCard>
     </div>
+    <div class="boxTM middleF">
+      <wellCard title="点击即选中">
+        <div class="boxInnerSC">
+          行政区域：
+          <alCascaderMC v-model="value6" class="alAK shortN" change-on-select/>
+          <p class="msgD">组件值： {{value6}}</p>
+        </div>
+      </wellCard>
+    </div>
   </div>
 </template>
 
@@ -66,6 +75,7 @@
           '解放碑街道'
         ],
         value5: 500112000000,
+        value6: null
       }
     },
     methods:{

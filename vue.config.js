@@ -103,11 +103,11 @@ module.exports = {
             commonjs2: 'js-cookie',
             amd: 'js-cookie'
           },
-          'iview-area': {
-            root: 'iviewArea',
-            commonjs: 'iview-area',
-            commonjs2: 'iview-area',
-            amd: 'iview-area'
+          'ar-cascader': {
+            root: 'arCascader',
+            commonjs: 'ar-cascader',
+            commonjs2: 'ar-cascader',
+            amd: 'ar-cascader'
           },
           'vue-amap': {
             root: 'VueAMap',

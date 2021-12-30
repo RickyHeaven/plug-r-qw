@@ -35,7 +35,7 @@ import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
 import $swalConfirm from "./methods/swalConfirm.js"
-import iviewArea from 'iview-area'
+import arCascader from 'ar-cascader'
 import JsonView from 'vue-json-viewer'
 import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
@@ -148,7 +148,7 @@ const install = function (Vue, opts = {}) {
     return
   }
   
-  Vue.use(iviewArea)
+  Vue.use(arCascader)
   Vue.use(JsonView)
   
   Object.keys(components).forEach(key => {

@@ -2,7 +2,9 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <al-cascader
+  <ar-cascader
+      v-bind="$attrs"
+      v-on="$listeners"
       class="alCascaderMC"
       ref="alCascaderRefLK"
       v-model="valueT"
