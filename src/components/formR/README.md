@@ -112,6 +112,8 @@
 
 * <a name='buttonType'>buttonType</a> 布尔对象，RadioGroup是否为按钮样式，按钮样式即为一排连在一起的按钮，默认：`false`
 
+* <a name='changeOnSelect'>changeOnSelect</a> 布尔对象，当此项为 true 时，点选每级菜单选项值都会发生变化，默认：`false`
+
 * <a name='changeOption'>changeOption</a> 布尔对象/对象/数组，有待选项的表单项，待选项数据从接口拉取时，拉取地址会改变，给该字段赋值
 `true`，需要改变时直接改变[optionUrl](#optionUrl)即可；如果地址有的查询条件是另一表单项的值，则给该字段赋值对象，如：
 `{valKey:'name',key:'user'}`
@@ -454,7 +456,9 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 
 * [defaultVal](#defaultVal) 默认值，行政区域编码，如：`500103000000`
 
-* [level](#level) 行政区域级数，默认：`2`，表示到区县级；0-省级，1-市级，2-区县，3-街道
+* [level](#level) 行政区域级数，默认：`2`，表示到区县级；0-省级，1-市级，2-区县，该库自1.1.37版本以后不再支持街道选取（level:3不再支持），因为数据来源area-data自2.0版本以后不再包含街道数据
+
+* [changeOnSelect](#changeOnSelect) 布尔对象，当此项为 true 时，点选每级菜单选项值都会发生变化，默认：`false`
 
 * [filterable](#filterable) 是否支持筛选待选项，默认：`true`
 

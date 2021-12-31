@@ -74,7 +74,7 @@
             :label="optionItem.label||optionItem.val"
             :key="'option-'+item.key + index"
             :disabled="!!optionItem.disabled"
-        ></Option>
+        />
       </Select>
       <!--选择输入框（可以选择输入的key，比如选择是想收集体重还是身高）-->
       <select-input
@@ -98,6 +98,7 @@
           :disabled="Boolean(item.disabled) || disabled"
           :filterable="item.filterable!==false"
           :placeholder="item.placeholder||t('r.pSelect')"
+          :change-on-select="Boolean(item.changeOnSelect)"
           @on-name-change="alNameChange($event,item)"
       />
       <!--远程数据级联-->
@@ -196,7 +197,7 @@
           :disabled="Boolean(item.disabled) || disabled"
           :withCredentials="item.withCredentials!==false"
           @on-file-id-change="reValidateAndChangeHandle($event,item)"
-      ></upload-group>
+      />
       <!--日期选择器-->
       <DatePicker
           :style="itemStyle"
@@ -211,7 +212,7 @@
           :editable="false"
           transfer
           @on-change="itemChange($event,item)"
-      ></DatePicker>
+      />
       <!--富文本编辑器-->
       <editor
           class="inlineBlock"
@@ -242,7 +243,7 @@
           class="inlineBlock"
           :style="itemStyle"
       >
-        <slot :name="item.slotName" :val-group="valGroup"></slot>
+        <slot :name="item.slotName" :val-group="valGroup"/>
       </div>
       <!--表单项提示文字-->
       <div v-if="Boolean(item.info)" class="formInfoTxtXN">{{item.info}}</div>
