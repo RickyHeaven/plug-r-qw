@@ -29,15 +29,6 @@
         </div>
       </wellCard>
     </div>
-    <div class="boxTM longE">
-      <wellCard title="4级（level:3)">
-        <div class="boxInnerSC">
-          行政区域：
-          <alCascaderMC v-model="value4" class="alAK" level="3"/>
-          <p class="msgD">组件值： {{value4}}</p>
-        </div>
-      </wellCard>
-    </div>
     <div class="boxTM middleE">
       <wellCard title="外部清空">
         <div class="boxInnerSC">
@@ -68,12 +59,6 @@
         value: null,
         value2: '重庆市',
         value3: '山西省/大同市',
-        value4: [
-          '重庆市',
-          '市辖区',
-          '渝中区',
-          '解放碑街道'
-        ],
         value5: 500112000000,
         value6: null
       }

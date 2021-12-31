@@ -41,7 +41,7 @@
         }
       },
       level: {
-        /*精确至几级行政区域（0：省级，1：市级，2：县级，3：街道）*/
+        /*精确至几级行政区域（0：省级，1：市级，2：县级）*/
         type: [
           Number,
           String
@@ -49,8 +49,7 @@
         validator: val => oneOf(String(val), [
           '0',
           '1',
-          '2',
-          '3'
+          '2'
         ]),
         default() {
           return 2
