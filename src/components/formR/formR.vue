@@ -563,7 +563,7 @@
           }
         }
       },
-      getDefaultValues() {
+      getDefaultValues() {/*获取默认值（私有）*/
         let temp = {}
         for (let e of this.formDataT) {
           if (e.tempKey && isValidValue(e.defaultVal)) {
@@ -1206,7 +1206,7 @@
           }
         }
       },
-      findOptions(root, after) {
+      findOptions(root, after) {/*collectLabel时找出选中的选项（私有）*/
         if (root.multiple || root.type === 'checkboxGroup') {
           let t = []
           for (let e of root.options) {
@@ -1269,8 +1269,8 @@
       },
       updateTempKeys(data, notClearOthers) { /*更新未暴露表单项值（私有）*/
         for (let item of this.formDataT) {
-          if ((notClearOthers && (data[item.key] !== undefined || data[item.key2] !== undefined) ||
-            (!notClearOthers)) && (item.tempKey)) {
+          if ((notClearOthers && (data[item.key] !== undefined || data[item.key2] !== undefined) || !notClearOthers) &&
+            item.tempKey) {
             switch (item.type) {
               case 'inputMap':
                 if (_.isNumber(data[item.key]) && _.isNumber(data[item.key2])) {
@@ -1311,12 +1311,11 @@
                   }
                 }
                 else {
-                  if (item.multiple) {
+                  if (item.multiple || item.type === 'checkboxGroup') {/*当notClearOthers为false时用来清空*/
                     this.$set(this.tempKeys, item.tempKey, [])
                   }
                   else {
                     this.$set(this.tempKeys, item.tempKey, null)
-                    
                   }
                 }
                 break
@@ -1339,20 +1338,32 @@
           }
         }
       },
-      updateFormDataT(data) { /*更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值（公开）*/
-        if (myTypeof(data) === 'Array') {
-          for (let item of data) {
-            if ((item.index || item.index === 0) && item.key && item.val !== undefined) {
-              this.$set(this.formDataT[item.index], item.key, item.val)
+      updateFormDataT(d) { /*更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值（公开）；
+       d为对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、需要改变的属性，如要改变第二个表单组件的label和title,则为:{index:1,label:XXX,title:XXX}*/
+        if (myTypeof(d) === 'Array') {
+          for (let e of d) {
+            this.changeDataHandle(e)
+          }
+        }
+        else if (myTypeof(d) === 'Object') {
+          this.changeDataHandle(d)
+        }
+        this.heightChange()
+      },
+      changeDataHandle(d) {/*改变表单结构（私有）*/
+        let {index, key, val} = d
+        if (index || index === 0) {
+          if (key && (val || val !== undefined)) {
+            this.$set(this.formDataT[index], key, val)
+          }
+          else {
+            for (let k of Object.keys(d)) {
+              if (k !== 'index') {
+                this.$set(this.formDataT[index], k, d[k])
+              }
             }
           }
         }
-        else if (myTypeof(data) === 'Object') {
-          if ((data.index || data.index === 0) && data.key && data.val !== undefined) {
-            this.$set(this.formDataT[data.index], data.key, data.val)
-          }
-        }
-        this.heightChange()
       },
       reValidate(prop) { /*手动验证表单项（公开）*/
         setTimeout(() => {
@@ -1383,7 +1394,7 @@
         }
         this.itemChange(name, root)
       },
-      reValidateAndChangeHandle(val, root) {
+      reValidateAndChangeHandle(val, root) {/*重新校验（私有）*/
         this.itemChange(val, root)
         this.$nextTick(function () {
           this.$refs.formGroupXRef.validateField(root.key)
@@ -1420,7 +1431,7 @@
         }, 500)
         this.heightChange()
       },
-      getValGroup() {
+      getValGroup() {/*生成valGroup(私有)*/
         let temp = {}
         for (let item of this.showingKeys) {
           temp[item] = this.valGroup[item]

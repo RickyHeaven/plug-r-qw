@@ -50,7 +50,7 @@
       <wellCard title="详细示例">
         <div class="inPage">
           <formR
-              :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true" @on-submit="submitB"
+              ref="formRef" :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true" @on-submit="submitB"
           >
             <template #switchLJ="{valGroup}">
               <i-switch v-model="valGroup.switchStatus"/>
@@ -115,8 +115,8 @@
           },
           {
             type: 'txt',
-            label: '统计机构',
-            val: '前卫表业'
+            label: '改变表单结构（示例）',
+            val: '我将会在页面加载5秒之后改变'
           },
           {
             type: 'custom',
@@ -140,7 +140,8 @@
             type: 'input',
             label: '禁用示例',
             disabled: true,
-            key: 'nameXX'
+            key: 'nameDisabled',
+            defaultVal: '我是默认姓名'
           },
           {
             type: 'radioGroup',
@@ -574,13 +575,14 @@
           },
           {
             type: 'select', /*待选项地址会改变(直接改变formData对应项<即本下拉框>的optionUrl)的下拉框演示*/
-            label: '设备型号（待选项地址改变）',
-            key: 'deviceModelId4',
+            label: '选项地址改变N',
+            key: 'friendN',
             asyncOption: true,
             changeOption: true, /*地址直接改变（通过监听下面的optionUrl）*/
-            optionUrl: null, /*此处如没有初始地址，需把optionUrl设置为null(必须在这声明这个字段，否则监听不到)*/
-            optionLabel: 'paramModelName',
-            optionVal: 'id'
+            optionUrl: null, /*此处如没有初始地址，需把optionUrl设置为null(必须在这声明这个字段，否则监听不到)，需要改变时直接改变此处的值（见下方mounted示例，不要使用updateFormDataT方法，它在该场景下不适用）*/
+            optionLabel: 'name',
+            optionVal: 'tel',
+            placeholder:"页面加载10秒后下拉框会有可选项，没看到变化？刷新页面再来一次~"
           },
           {
             type: 'inputMap',
@@ -669,6 +671,17 @@
         ],
         valGroup5: []
       }
+    },
+    created() {
+      this.setTimeout(()=>{
+        this.$refs.formRef.updateFormDataT({index:1,val:'我现在变了，没看到？刷新页面再给你变一次~'})
+      },5000)
+    },
+    mounted() {
+      this.setTimeout(() => {
+        this.data5[window._.findIndex(this.data5, e => e.key === 'friendN')].optionUrl =
+          location.pathname + "testData/formR/people.json"
+      }, 10000)
     },
     methods: {
       submit(val) {

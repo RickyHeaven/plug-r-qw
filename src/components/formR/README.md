@@ -69,7 +69,10 @@
 * updateValGroup 更新表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，传参示例1：`{index:0,key:'info',val:'我是新的提示信息'}`，
 传参示例2：`[{index:0,key:'info',val:'我是新的提示信息'},...]`
 
-* updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值，formDataT为formR组件私有属性，不可直接操作，故有该方法
+* updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值，formDataT为formR组件私有属性，不可直接操作，故有该方法；
+参数为一个对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、需要改变的属性，如要改变第二个表单组件的label和title,
+则为:`{index:1,label:XXX,title:XX}`。注意：带选项的组件`changeOption`属性为`true`时，不要调用该方法改变formR内部optionUrl，
+而应该直接在外面改变绑定到formData的数组对应子项的optionUrl
 
 * reValidate 手动验证表单项
 
@@ -115,11 +118,11 @@
 * <a name='changeOnSelect'>changeOnSelect</a> 布尔对象，当此项为 true 时，点选每级菜单选项值都会发生变化，默认：`false`
 
 * <a name='changeOption'>changeOption</a> 布尔对象/对象/数组，有待选项的表单项，待选项数据从接口拉取时，拉取地址会改变，给该字段赋值
-`true`，需要改变时直接改变[optionUrl](#optionUrl)即可；如果地址有的查询条件是另一表单项的值，则给该字段赋值对象，如：
-`{valKey:'name',key:'user'}`
-表示其中一个查询条件是`&user=name表单项的值`，name表单项值改变，optionUrl就会自动改变，就会重新拉取待选项数据；如果有多个这种条件，用数
-组存放他们，如：`[{valKey...},{...}]`，多个条件必须都有值才会发起请求，如果某条件可有可无（有值就带上，没有就不要该条件），则设置该条件
-`notRequired`属性为`true`
+`true`，需要改变时直接改变[optionUrl](#optionUrl)即可（该场景下直接改变绑定到formData的数组就行，不要调用updateFormDataT改变formR内部optionUrl,
+updateFormDataT在此处不适用，详细使用方法见该库示例）；如果地址有的查询条件是另一表单项的值，则给该字段赋值对象，如：
+`{valKey:'name',key:'user'}`表示其中一个查询条件是`&user=name表单项的值`，name表单项值改变，optionUrl就会自动改变，就会重新拉取待选项数据；
+如果有多个这种条件，用数组存放他们，如：`[{valKey...},{...}]`，多个条件必须都有值才会发起请求，如果某条件可有可无（有值就带上，没有就不要该条件），
+则设置该条件`notRequired`属性为`true`
  
 * <a name='class'>class</a> 字符串，表单项自定义样式类名，可用于自定义单个formItem独有样式，如果想传多个class，class之间用空格隔开，所有type类型皆支持该属性
 
