@@ -58,11 +58,11 @@
 
             <template slot="cnu">
               <span>阶梯</span>
-              <Table border stripe :columns="columns" :data="tableData"></Table>
+              <Table border stripe :columns="columns" :data="tableData" />
             </template>
           </formR>
           表单提交的值：
-          <json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable></json-viewer>
+          <json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable />
         </div>
       </wellCard>
     </div>
@@ -714,9 +714,8 @@
     }
 
     &.detailUA {
-      height: 2800px;
+      height: 3200px;
       width: 800px;
     }
   }
-
 </style>
