@@ -340,8 +340,18 @@
           },
           {
             type: 'select',
-            label: '联系人B(带选项筛选)',
+            label: '联系人B(多选)',
             key: 'friendB',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel',
+            multiple: true
+          },
+          {
+            type: 'select',
+            label: '联系人C(带选项筛选)',
+            key: 'friendC',
             asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
@@ -352,8 +362,8 @@
           },
           {
             type: 'select',
-            label: '联系人C（待选项禁用）',
-            key: 'friendC',
+            label: '联系人D（待选项禁用）',
+            key: 'friendD',
             asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
@@ -362,28 +372,48 @@
           },
           {
             type: 'select',
-            label: '负责人(借用待选项)',
-            key: 'friendC',
+            label: '联系人E(借用待选项)',
+            key: 'friendE',
             borrowOption: 'friend' /*借用另外一个组件的待选项*/
           },
           {
             type: 'select',
-            label: '设备类型(收集多个字段)', /*收集待选项的多个字段，一个是默认的val,另一个是label，及其他*/
-            key: 'friendD',
+            label: '联系人F(收集多个字段)', /*收集待选项的多个字段，一个是默认的val,另一个是label，及其他*/
+            key: 'friendF',
             collectLabel: [
               {
                 valKey: 'label', /*字段在接口返回结果中名字，'label'为一个特殊值，表示取待选项的label就行*/
-                key: 'name' /*该字段需要提交的名字*/
+                key: 'friendFName' /*该字段需要提交的名字*/
               },
               {
                 valKey: 'birth', /*字段在接口返回结果中名字*/
-                key: 'birth' /*该字段需要提交的名字*/
+                key: 'friendFBirth' /*该字段需要提交的名字*/
               }
             ],
             asyncOption: true,
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel'
+          },
+          {
+            type: 'select',
+            label: '多选M(收集多个字段)',
+            key: 'friendM',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel',
+            multiple: true,
+            collectLabel: [
+              {
+                valKey: 'label', /*字段在接口返回结果中名字，'label'为一个特殊值，表示取待选项的label就行*/
+                key: 'friendMName' /*该字段需要提交的名字*/
+              },
+              {
+                valKey: 'birth', /*字段在接口返回结果中名字*/
+                key: 'friendMBirth' /*该字段需要提交的名字*/
+              }
+            ]
           },
           {
             type: 'date',
@@ -403,7 +433,7 @@
             dateType: 'year',
             label: '年份A',
             key: 'yearA',
-            defaultVal:'2022'
+            defaultVal: '2022'
           },
           {
             type: 'txt',
@@ -413,7 +443,7 @@
           {
             type: 'select',
             label: '待选项名字拼接示例',
-            key: 'friendE',
+            key: 'friendG',
             asyncOption: true,
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: [
@@ -425,7 +455,7 @@
           {
             type: 'select',
             label: '远程加本地选项',
-            key: 'friendF',
+            key: 'friendH',
             asyncOption: true, /*远程待选项*/
             localOption: [
               /*本地待选项，只有远程下拉框才会有，否则直接写在options就行*/
@@ -463,12 +493,25 @@
           },
           {
             type: 'checkboxGroup',
-            label: '联系人F',
-            key: 'friendF',
+            label: '联系人K(远程选项)',
+            key: 'friendK',
             asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel'
+          },
+          {
+            type: 'checkboxGroup',
+            label: '联系人L(收集其他字段)',
+            key: 'friendL',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel',
+            collectLabel: {
+              valKey: 'label',
+              key: 'friendLName'
+            }
           },
           {
             type: 'radio',

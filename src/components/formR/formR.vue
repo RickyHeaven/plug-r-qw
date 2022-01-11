@@ -155,7 +155,7 @@
       <CheckboxGroup
           :style="itemStyle"
           v-else-if="item.type === 'checkboxGroup'"
-          v-model="valGroup[item.key]"
+          v-model="tempKeys[item.tempKey]"
           @on-change="reValidateAndChangeHandle($event,item)"
       >
         <Checkbox
@@ -379,15 +379,14 @@
         valGroup: {}, /*表单项值，对外公开，提交时传递到外层*/
         formDataT: [], /*表单结构数据*/
         tempKeys: {}, /*不对外暴露表单项值*/
-        unwatchGroup: [],
+        unwatchGroup: []/*需要监听的事件集合*/,
         mgrUrl: window.g && window.g.mgrURL || null,
         selectInputKeys: [], /*selectInput的key没有写死在formData中（因为是动态的）,为了在showingKeys中能捕捉到这类组件的key,特声明此变量*/
         hiddenKeys: [], /*通过 setItemToValGroup 直接存入valGroup的字段*/
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
         clientHeightR: 0,
-        uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/web/v1/fsc/file' ||
-          '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
+        uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/web/v1/fsc/file' || '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
         debounceCount: false
       }
     },
@@ -638,7 +637,7 @@
                 ((_.isPlainObject(this.tempKeys[root.tempKey]) || _.isArray(this.tempKeys[root.tempKey])) &&
                   _.isEmpty(this.tempKeys[root.tempKey]))) {
                 if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
-                  'select') {
+                  'select' || root.type === 'checkboxGroup') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {
@@ -804,8 +803,7 @@
                       }
                     }
                   }
-                  else if (_.isBoolean(
-                    item.changeOption)) {  /*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
+                  else if (_.isBoolean(item.changeOption)) {  /*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
                     this.unwatchGroup.push(this.$watch(() => this.formData[_.indexOf(temp, item)].optionUrl, after => {
                       let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
                       this.tempKeys[item.tempKey] = null
@@ -835,28 +833,26 @@
               else if (myTypeof(item.borrowOption) === 'String') {/*借用待选项*/
                 item.options = _.find(temp, {key: item.borrowOption}).options
               }
-              
-              if (item.type !== 'checkboxGroup') {
-                const tempKeyC = 'opEle' + Math.floor(Math.random() * 100000000)
-                if (item.key) {
-                  item.tempKey = tempKeyC
-                  if (item.type === 'select' && item.multiple) {
-                    this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : [])
-                  }
-                  else if (item.booleanVal) {
-                    this.$set(this.tempKeys, tempKeyC,
-                      item.defaultVal !== undefined ? (Boolean(item.defaultVal) ? 1 : 0) : null)
-                  }
-                  else {
-                    this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : null)
-                  }
-                  
-                  this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyC], after => {
-                    this.tempKeysWatchHandle(after, item)
-                  }, {
-                    immediate: true
-                  }))
+
+              const tempKeyC = 'opEle' + Math.floor(Math.random() * 100000000)
+              if (item.key) {
+                item.tempKey = tempKeyC
+                if (item.type === 'select' && item.multiple || item.type === 'checkboxGroup') {
+                  this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : [])
                 }
+                else if (item.booleanVal) {
+                  this.$set(this.tempKeys, tempKeyC,
+                    item.defaultVal !== undefined ? (Boolean(item.defaultVal) ? 1 : 0) : null)
+                }
+                else {
+                  this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : null)
+                }
+
+                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyC], after => {
+                  this.tempKeysWatchHandle(after, item)
+                }, {
+                  immediate: true
+                }))
               }
               break
             case 'date':
@@ -1093,11 +1089,12 @@
               break
             case 'select':
             case 'radioGroup':
+            case 'checkboxGroup':
               if (root.booleanVal && (!root.multiple)) {
                 this.valGroup[root.key] =
                   ((after === undefined || after === '' || after === null) ? null : Boolean(after))
               }
-              else if (root.multiple) {
+              else if (root.multiple || root.type === 'checkboxGroup') {
                 this.valGroup[root.key] = Object.assign([], after)
               }
               else {
@@ -1105,34 +1102,28 @@
               }
               /*除了要收集绑定值，还要一并收集其他字段*/
               if (root.collectLabel) {
+                const targetOption = this.findOptions(root, after)
+
                 if (_.isPlainObject(root.collectLabel)) {
                   if (root.collectLabel.key && root.collectLabel.valKey) {
-                    if (after || after === 0 || after === false) {
-                      for (let opItem of root.options) {
-                        if (opItem.val === after) {
-                          this.$set(this.valGroup, root.collectLabel.key, opItem[root.collectLabel.valKey])
-                          break
-                        }
-                      }
+                    if (_.isArray(targetOption)) {
+                      this.$set(this.valGroup, root.collectLabel.key,
+                        targetOption.map(e => e[root.collectLabel.valKey]))
                     }
                     else {
-                      this.valGroup[root.collectLabel.key] = null
+                      this.$set(this.valGroup, root.collectLabel.key,
+                        targetOption && targetOption[root.collectLabel.valKey] || null)
                     }
                   }
                 }
                 else if (_.isArray(root.collectLabel)) {
                   for (let item of root.collectLabel) {
                     if (item.key && item.valKey) {
-                      if (after || after === 0 || after === false) {
-                        for (let opItem of root.options) {
-                          if (opItem.val === after) {
-                            this.$set(this.valGroup, item.key, opItem[item.valKey])
-                            break
-                          }
-                        }
+                      if (_.isArray(targetOption)) {
+                        this.$set(this.valGroup, item.key, targetOption.map(e => e[item.valKey]))
                       }
                       else {
-                        this.valGroup[item.key] = null
+                        this.$set(this.valGroup, item.key, targetOption && targetOption[item.valKey] || null)
                       }
                     }
                   }
@@ -1215,6 +1206,27 @@
           }
         }
       },
+      findOptions(root, after) {
+        if (root.multiple || root.type === 'checkboxGroup') {
+          let t = []
+          for (let e of root.options) {
+            if (after.indexOf(e.val) !== -1) {
+              t.push(e)
+            }
+          }
+          return t
+        }
+        else {
+          if (after || after === 0 || after === false) {
+            for (let e of root.options) {
+              if (e.val === after) {
+                return e
+              }
+            }
+          }
+          return false
+        }
+      },
       setItemToValGroup(data, notClearOthers) { /*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，公开）*/
         let temp = {}
         for (let key in this.valGroup) {
@@ -1286,8 +1298,9 @@
                 break
               case 'select':
               case 'radioGroup':
+              case 'checkboxGroup':
                 if (data[item.key] && data[item.key] !== '--' || data[item.key] === 0 || data[item.key] === false) {
-                  if (item.multiple) {
+                  if (item.multiple || item.type === 'checkboxGroup') {
                     this.$set(this.tempKeys, item.tempKey, [...data[item.key]])
                   }
                   else if (item.booleanVal) {
@@ -1407,7 +1420,7 @@
         }, 500)
         this.heightChange()
       },
-      getValGroup(){
+      getValGroup() {
         let temp = {}
         for (let item of this.showingKeys) {
           temp[item] = this.valGroup[item]
