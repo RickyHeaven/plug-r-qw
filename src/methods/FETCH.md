@@ -40,6 +40,11 @@ this.$fetch.all(
      })
    )
 ```
+
+* config 该字段指向axios构造的$fetch实例，可用该字段进行实例配置，例如：
+```
+  this.$fetch.config.defaults.heanders.common['X-Requested-With'] = 'XMLHttpRequest'
+```
 ### 注意
 * 所有请求方式都返回promise对象，推荐使用then和catch处理
 

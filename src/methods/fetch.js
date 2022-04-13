@@ -366,5 +366,6 @@ export default {
   
   all: axios.all,
   
-  spread: axios.spread
+  spread: axios.spread,
+  config: service
 }
