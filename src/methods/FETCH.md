@@ -44,6 +44,9 @@ this.$fetch.all(
 * config 该字段指向axios构造的$fetch实例，可用该字段进行实例配置，例如：
 ```
   this.$fetch.config.defaults.heanders.common['X-Requested-With'] = 'XMLHttpRequest'
+
+  PS：如果在main.js这类不能用this访问vue实例的地方，可以这样写： vue.prototype.$fetch.config.XXX
+      需要注意的是，这类配置需在plug-r-qw库被实例化后使用，及vue.user(plugRQw,...) 代码之后
 ```
 ### 注意
 * 所有请求方式都返回promise对象，推荐使用then和catch处理
