@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL tc">
+    <showReadMe/>
     <toHome/>
     <Button @click="confirmHandle">点击模拟请求</Button>
   </div>

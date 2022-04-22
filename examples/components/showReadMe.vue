@@ -1,10 +1,12 @@
 <template>
   <div :class="{conMA:true,fullKA:open}">
-    <span class="btnAR" @click="click" :style="{color:color}"><Icon type="ios-paper" style="position: relative;bottom: 1px;"/> 查看说明</span>
+    <span class="btnAR" @click="click" :style="{color:color}"><Icon
+        type="ios-paper" style="position: relative;bottom: 1px;"
+    /> 查看说明</span>
     <full-screen-pop :title="$route.name" ref="popA" @on-close="open=false">
       <div class="wallK">
         <div class="markdown-body myCardB">
-          <component :is="comps[$route.name]"/>
+          <component :is="comps[$route.name]||mec[$route.name.replace('$','')]"/>
         </div>
       </div>
     </full-screen-pop>
@@ -13,6 +15,7 @@
 
 <script>
   import comps from '../../src/components'
+  import mec from '../../src/methods'
 
   export default {
     name: "showReadMe",
@@ -24,6 +27,7 @@
     data() {
       return {
         comps: comps,
+        mec: mec,
         open: false
       }
     },
@@ -44,6 +48,8 @@
     z-index: 10;
     top: 20px;
     right: 120px;
+    text-align: left;
+
     &.fullKA {
       top: 0;
       left: 0;

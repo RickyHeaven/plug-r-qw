@@ -1,5 +1,5 @@
 <template>
-  <span>hello by ricky</span>
+  <span>Greetings from Ricky.</span>
 </template>
 <script>
   export default {

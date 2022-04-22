@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL tc">
+    <showReadMe/>
     <toHome/>
     <Button @click="swalHandle('success')">成功</Button>
     <Button @click="swalHandle('error')">失败</Button>

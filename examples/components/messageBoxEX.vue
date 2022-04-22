@@ -1,5 +1,6 @@
 <template>
   <div class="examplePageL tc">
+    <showReadMe/>
     <toHome/>
     <Button @click="confirmHandle">对话框</Button>
     <Button @click="confirmHandleB">promise对话框</Button>
