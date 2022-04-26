@@ -66,8 +66,7 @@
 
 * setItemToValGroup 设置表单项的值，可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，valGroup为formR组件私有属性，不可直接操作，故有该方法
 
-* updateValGroup 更新表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，传参示例1：`{index:0,key:'info',val:'我是新的提示信息'}`，
-传参示例2：`[{index:0,key:'info',val:'我是新的提示信息'},...]`
+* updateValGroup 更新表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，传参示例1：`{info:'我是新的提示信息',name:'王五',...}`
 
 * updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值，formDataT为formR组件私有属性，不可直接操作，故有该方法；
 参数为一个对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、需要改变的属性，如要改变第二个表单组件的label和title,
