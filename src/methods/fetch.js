@@ -41,13 +41,13 @@ function logoutHandle() {
  * 拦截器，在请求返回时调用
  */
 service.interceptors.response.use(res => {
-  if (res && res.data && res.data.code === 403) {
+  if (res && (res.status === 403 || res.data && res.data.code === 403)) {
     messageBox({
       content: t('r.http.403'),
       onOk: logoutHandle
     })
   }
-  else if (res && res.data && res.data.code === 409) {
+  else if (res && (res.status === 409 || res.data && res.data.code === 409)) {
     messageBox({
       content: t('r.http.409'),
       onOk: logoutHandle
