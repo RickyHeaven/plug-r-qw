@@ -52,3 +52,34 @@ this.$fetch.all(
 * 所有请求方式都返回promise对象，推荐使用then和catch处理
 
 * 除非必须使用async和await配合的同步函数，否则不推荐使用，该配合有诸多弊端
+
+* 该插件自带拦截器，需要配合vuex实现：
+```
+  1.项目在main.js中实例化该库时，需要将vuex的store对象传递给库：
+      Vue.use(plugRQw, {
+        store,
+        ...
+      })
+
+  2.项目的store中需要增加个action：logout，用于登出操作。
+
+  拦截器有：
+  (1) error.response.status 或 response.data.code 为 403 时，为登录失效，需要重新登录，会弹出重新登录的确认框，点击确定会分发vuex中名为‘logout’的action。
+
+  (2) error.response.status 或 response.data.code 为 409 时，为该账号已在其他地方登录，会弹出重新登录的确认框，点击确定会分发vuex中名为‘logout’的action。
+```
+
+* 该插件的spin功能（请求时显示遮罩层提示，让用户无法点击页面），需要配合vuex实现：
+```
+  1.项目在main.js中实例化该库时，需要将vuex的store对象传递给库，上面已经有示例了。
+
+  2.项目的store中需要增加两个mutations，用来记录正在请求的数量，然后开发者根据请求数量来自行实现遮罩层是否显示（大于0时显示），如：
+    ADD_FETCH_COUNT(state) {
+      state.fetchCount++
+    },
+    MINUS_FETCH_COUNT(state) {
+      state.fetchCount--
+    }
+
+    这里mutation的名字必须是 ADD_FETCH_COUNT 和 MINUS_FETCH_COUNT ，至于内部控制请求数量的字段可随意，后续实现可参考示例项目examples自行发挥。
+```

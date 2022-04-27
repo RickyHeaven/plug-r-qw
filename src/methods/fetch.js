@@ -22,10 +22,10 @@ function notInitYet() {
 /**
  * 拦截器，在发起请求前调用
  */
-service.interceptors.request.use(config => {
-  return config
-}, err => {
-  return Promise.reject(err)
+service.interceptors.request.use(q => {
+  return q
+}, e => {
+  return Promise.reject(e)
 })
 
 function logoutHandle() {
@@ -40,50 +40,29 @@ function logoutHandle() {
 /**
  * 拦截器，在请求返回时调用
  */
-service.interceptors.response.use(res => {
-  if (res && (res.status === 403 || res.data && res.data.code === 403)) {
+service.interceptors.response.use(r => {
+  if (r && r.data && (r.data.code === 403 || r.data.code === 409)) {
     messageBox({
-      content: t('r.http.403'),
+      content: t('r.http.' + r.data.code),
       onOk: logoutHandle
     })
   }
-  else if (res && (res.status === 409 || res.data && res.data.code === 409)) {
+  return r
+}, e => {
+  if (e && e.response && (e.response.status === 403 || e.response.status === 409)) {
     messageBox({
-      content: t('r.http.409'),
+      content: t('r.http.' + e.response.status),
       onOk: logoutHandle
     })
   }
-  return res
-}, err => {
-  if (err.response) {
-    if (err.response.status === 403) {
-      messageBox({
-        content: t('r.http.403'),
-        onOk: logoutHandle
-      })
-    }
-    else if (err.response.status === 409) {
-      messageBox({
-        content: t('r.http.409'),
-        onOk: logoutHandle
-      })
-    }
-    if (err.response.data) {
-      return Promise.reject(err.response.data)
-    }
-    else {
-      return Promise.reject(err.response)
-    }
-  }
-  else {
-    return Promise.reject(err)
-  }
+  console.warn('请求出错：', e)
+  return Promise.reject(e)
 })
 
 /**
  * 封装请求结果和错误处理
  */
-function checkResult(res, msg, rPath, config) {
+function checkResult(r, msg, rPath, config) {
   if (config && config.spin) {
     if (service.store) {
       service.store.commit('MINUS_FETCH_COUNT')
@@ -92,96 +71,85 @@ function checkResult(res, msg, rPath, config) {
       notInitYet()
     }
   }
-  let yes = true
-  let temp = res && res.data
-  if (temp) {
+  let y = true
+  let d = r && r.data
+  if (d) {
     rPath = rPath ? rPath : []
-    for (let item of rPath) {
-      temp = temp[item]
-      yes = yes && temp
+    for (let e of rPath) {
+      d = d[e]
+      y = y && d
     }
-    if (yes) {
-      return temp
+    if (y) {
+      return d
     }
-    else {
-      console.warn(msg ? msg : '请求失败')
-      return false
-    }
-  }
-  else {
-    console.warn(msg ? msg : '请求失败')
+    msg && console.warn(msg)
     return false
   }
+  msg && console.warn(msg)
+  return false
 }
 
 function handleRequest(method, url, data, msg, rPath, config, isUrlData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((s, j) => {
     switch (method) {
       case 'get':
         service.get(url, {params: data}).then(r => {
-          let temp = checkResult(r, msg, rPath, config)
-          if (temp) {
-            resolve(temp)
+          let d = checkResult(r, msg, rPath, config)
+          if (d) {
+            s(d)
           }
           else {
-            console.warn(msg || '请求失败')
-            reject(r)
+            j(r)
           }
         }).catch(e => {
           checkResult({}, msg, rPath, config)
-          console.warn('请求出错：', e)
-          reject(e)
+          j(e)
         })
         break
       case 'delete':
         let keyT = isUrlData ? 'params' : 'data'
         service.delete(url, {[keyT]: data}).then(r => {
-          let temp = checkResult(r, msg, rPath, config)
-          if (temp) {
-            resolve(temp)
+          let d = checkResult(r, msg, rPath, config)
+          if (d) {
+            s(d)
           }
           else {
-            console.warn(msg || '请求失败')
-            reject(r)
+            j(r)
           }
         }).catch(e => {
           checkResult({}, msg, rPath, config)
-          console.warn('请求出错：', e)
-          reject(e)
+          j(e)
         })
         break
       case 'post':
         service.post(url, data, config).then(r => {
-          let temp = checkResult(r, msg, rPath, config)
-          if (temp) {
-            resolve(temp)
+          let d = checkResult(r, msg, rPath, config)
+          if (d) {
+            s(d)
           }
           else {
-            console.warn(msg || '请求失败')
-            reject(r)
+            j(r)
           }
         }).catch(e => {
           checkResult({}, msg, rPath, config)
-          console.warn('请求出错：', e)
-          reject(e)
+          j(e)
         })
         break
       case 'put':
         service.put(url, data, config).then(r => {
-          let temp = checkResult(r, msg, rPath, config)
-          if (temp) {
-            resolve(temp)
+          let d = checkResult(r, msg, rPath, config)
+          if (d) {
+            s(d)
           }
           else {
-            console.warn(msg || '请求失败')
-            reject(r)
+            j(r)
           }
         }).catch(e => {
           checkResult({}, msg, rPath, config)
-          console.warn('请求出错：', e)
-          reject(e)
+          j(e)
         })
         break
+      default:
     }
   })
 }
@@ -197,11 +165,9 @@ function handleRequest(method, url, data, msg, rPath, config, isUrlData) {
  * @param isUrlData delete方法传参模式 true:params,false:data
  * @returns {Promise<*>}
  */
-function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
-  return new Promise((resolve, reject) => {
-    
+function checkRequest(method, url, data, msg, rPath, config = {}, isUrlData) {
+  return new Promise((s, j) => {
     if (url) {
-      config = config || {}
       if (config && config.spin) {
         if (service.store) {
           service.store.commit('ADD_FETCH_COUNT')
@@ -219,10 +185,10 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
          */
         let httpEnv = Object.keys(window.g).filter(e => e.indexOf('URL') > -1).map(e => e.replace('URL', ''))
         
-        for (let item of httpEnv) {
-          let regExp = new RegExp('^\/' + item + '(?=\/.*$)', 'i')
-          if (regExp.test(url) && window.g[item + 'URL']) {
-            url_ = window.g[item + 'URL'] + url.replace(regExp, '')
+        for (let e of httpEnv) {
+          let regExp = new RegExp('^\/' + e + '(?=\/.*$)', 'i')
+          if (regExp.test(url) && window.g[e + 'URL']) {
+            url_ = window.g[e + 'URL'] + url.replace(regExp, '')
             break
           }
         }
@@ -240,9 +206,9 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
         }
         if (data && (!_.isEmpty(data))) {
           if (_.isArray(data)) {
-            for (let item of data) {
-              if (item || item === 0 || item === false || (item === '' && !config.noEmptyStr)) {
-                data_.push(item)
+            for (let e of data) {
+              if (e || e === 0 || e === false || (e === '' && !config.noEmptyStr)) {
+                data_.push(e)
               }
             }
           }
@@ -258,14 +224,14 @@ function checkRequest(method, url, data, msg, rPath, config, isUrlData) {
       }
       let method_ = method.toLowerCase()
       handleRequest(method_, url_, data_, msg, rPath, config, isUrlData).then(r => {
-        resolve(r)
+        s(r)
       }).catch(e => {
-        reject(e)
+        j(e)
       })
     }
     else {
       console.error('没有请求地址:url')
-      reject('没有请求地址:url')
+      j('没有请求地址:url')
     }
   })
 }
@@ -320,21 +286,21 @@ export default {
   },
   
   post(url, data = {}, msg, rPath, config) {
-    return new Promise((resolve, reject) => {
+    return new Promise((s, j) => {
       checkRequest('post', url, data, msg, rPath, config).then(r => {
-        resolve(r)
+        s(r)
       }).catch(e => {
-        reject(e)
+        j(e)
       })
     })
   },
   
   put(url, data = {}, msg, rPath, config) {
-    return new Promise((resolve, reject) => {
+    return new Promise((s, j) => {
       checkRequest('put', url, data, msg, rPath, config).then(r => {
-        resolve(r)
+        s(r)
       }).catch(e => {
-        reject(e)
+        j(e)
       })
     })
   },
@@ -345,27 +311,26 @@ export default {
    *  url和data都传时,url = '/devices',data={id:2,name:'meter'}
    */
   get(url, data = {}, msg, rPath, config) {
-    return new Promise((resolve, reject) => {
+    return new Promise((s, j) => {
       checkRequest('get', url, data, msg, rPath, config).then(r => {
-        resolve(r)
+        s(r)
       }).catch(e => {
-        reject(e)
+        j(e)
       })
     })
   },
   
   delete(url, data = {}, msg, rPath, config, isUrlData = true) {
-    return new Promise((resolve, reject) => {
+    return new Promise((s, j) => {
       checkRequest('delete', url, data, msg, rPath, config, isUrlData).then(r => {
-        resolve(r)
+        s(r)
       }).catch(e => {
-        reject(e)
+        j(e)
       })
     })
   },
   
   all: axios.all,
-  
   spread: axios.spread,
   config: service
 }

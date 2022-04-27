@@ -1,8 +1,22 @@
 <template>
   <div id="app">
     <router-view/>
+    <Spin v-show="fetchCount>0" class="topSpin" fix/>
   </div>
 </template>
+<script>
+  import {mapState} from 'vuex'
+
+  export default {
+    name: 'App',
+    computed: {
+      ...mapState([
+        'fetchCount'
+      ])
+    }
+  }
+
+</script>
 
 <style>
   @import "~github-markdown-css";
