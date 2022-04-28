@@ -112,6 +112,21 @@ server.on('request', function (req, res) {
           })
         }
         break
+      case '/fetch-spin':
+        let tm = setTimeout(() => {
+          _send({message: '回来了'})
+          clearTimeout(tm)
+        }, 3000)
+        break
+      case '/fetch-403':
+        _send({message: '登录超时'}, 403)
+        break
+      case '/fetch-403-b':
+        _send({
+          code: 403,
+          message: '登录超时'
+        })
+        break
       case '/':
       default:
         let action = pathname.substr(1)
@@ -144,8 +159,8 @@ server.on('request', function (req, res) {
         }
     }
     
-    function _send(d) {
-      res.writeHead(200, {
+    function _send(d, c) {
+      res.writeHead(c || 200, {
         'content-type': 'application/json'
       })
       res.write(JSON.stringify(d))
