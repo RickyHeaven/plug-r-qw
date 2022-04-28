@@ -53,6 +53,7 @@
   </div>
 </template>
 
+
 <script>
   export default {
     name: "examplePage6",
