@@ -1,8 +1,6 @@
 <template>
   <div class="home">
     <div class="btBox">
-      <Input class="searchB" search placeholder="快捷查找当前页面示例" @on-search="search"/>
-
       {{$t('r.testMsg')+' | '+$t('e.testTxt')}}
       <i-switch size="large" v-model="localeT" style="margin-right: 10px">
         <span slot="open">ENG</span>
@@ -19,13 +17,29 @@
     <div>
       <div class="menuBox">
         <h1>目录</h1>
-        <p style="color: #aaa">鼠标悬浮于示例显示中文title</p>
         <ol class="menuList">
-          <li v-for="(item,index) of routeArr" :key="'menu'+index" :title="item.meta&&item.meta.title">
-            <span style="margin-right: 8px">{{index+1}}.</span>
-            <router-link class="rLinkN" :class="{active:active.indexOf(index)!==-1}" :to="item.path">{{item.name}}
-            </router-link>
-          </li>
+          <div class="mold" v-for="(item,index) of routeArr" :key="'menu'+index">
+            <div class="tit">
+              <i class="iconfont icon-label"></i>
+              <span>{{item.name}}</span>
+            </div>
+            <div class="cont">
+              <router-link
+                  class="li"
+                  v-for="(subItem,ix) of item.children"
+                  :to="subItem.path"
+                  :key="'subItem'+ix"
+                  :style="{background:subItem.meta.bg}"
+              >
+                <div class="show bz-buttonAnimat" :class="subItem.meta.cls">
+                  <div class="icon"><i class='iconfont' :class="subItem.meta.icon"></i></div>
+                  <div class="txt">{{subItem.name}}</div>
+                  <!--随机动画，当前索引值为偶数就显示四条边，奇数就显示两条边-->
+                  <div v-show="(ix + 3) % 2 == 0" class="inner"></div>
+                </div>
+              </router-link>
+            </div>
+          </div>
         </ol>
       </div>
     </div>
@@ -74,18 +88,6 @@
       ]), ...mapActions({
         logoutA: 'logout'
       }),
-      search(d) {
-        if (d) {
-          this.active = this.routeArr.map((e, i) => {
-            if (e.name.toLowerCase().indexOf(d.toLowerCase()) !== -1) {
-              return i
-            }
-          }).filter(e => e !== undefined)
-        }
-        else {
-          this.active = []
-        }
-      },
       loginH() {
         if (this.isLogin) {
           this.logoutA()
@@ -105,13 +107,6 @@
       position: absolute;
       top: 10px;
       right: 20px;
-
-      .searchB {
-        display: inline-block;
-        width: 200px;
-        margin-right: 20px;
-      }
-
       > span {
         margin-left: 10px;
         color: #46be87;
@@ -141,31 +136,175 @@
       overflow-y: auto;
 
       .menuList {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
 
-        > li {
-
-          width: 280px;
-          margin-right: 15px;
-          line-height: 40px;
-          font-size: 18px;
-
-          .rLinkN {
-            color: #46be87;
-            border: 1px dashed transparent;
-            padding: 2px 4px;
-
-            &.active {
-              border-color: #fb4286;
+        .mold {
+          width: 100%;
+          height: auto;
+          margin: 20px 0;
+          .tit{
+            font-size: 20px;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            i{
+              margin-right: 10px;
             }
-            &:hover{
-              color: #57f024;
+            span{
+              color: #24abf2;
+              font-weight: bold
+            }
+          }
+
+          .cont{
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            .li {
+              cursor: default;
+              width: 360px;
+              background-color: #46be87;
+              height: 120px;
+              border-radius: 4px;
+              display: block;
+              float: left;
+              margin:0 30px 30px 0;
+              position: relative;
+              .show{
+                width: 300px;
+                height: 80px;
+                margin: 20px auto 0;
+                position: relative;
+                cursor: pointer;
+                color: white;
+                overflow: hidden;
+                .icon{
+                  height: 30px;
+                  line-height: 30px;
+                  overflow: hidden;
+                  margin:10px 0 10px;
+                  text-align: center;
+                  i{
+                    font-size: 30px;
+                  }
+                }
+                .txt{
+                  font-size: 18px;
+                  height: 18px;
+                  line-height: 18px;
+                  color: #fff;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
             }
           }
         }
       }
     }
   }
+
+  /**
+    规定鼠标移入时动画效果,纯CSS3
+    bz-buttonAnimat       //规定线条显示
+    clockwise             //规定动画顺时针
+    counterclockwise      //规定动画逆时针
+    horizontal            //上下两条边框出现线条
+    vertical              //左右两条边框出现线条
+    both                  //四条边框出现线条
+   **/
+  .bz-buttonAnimat{position:relative;}
+  .bz-buttonAnimat .inner{position:absolute;top:0;left:0;width:100%;height:100%;}
+  .bz-buttonAnimat:nth-of-type(1):before,
+  .bz-buttonAnimat:nth-of-type(1):after,
+  .bz-buttonAnimat:nth-of-type(1) .inner:before,
+  .bz-buttonAnimat:nth-of-type(1) .inner:after{background-color:#ffa726;}
+  .bz-buttonAnimat:nth-of-type(2):before,
+  .bz-buttonAnimat:nth-of-type(2):after,
+  .bz-buttonAnimat:nth-of-type(2) .inner:before,
+  .bz-buttonAnimat:nth-of-type(2) .inner:after{background-color:#26a69a;}
+  .bz-buttonAnimat:nth-of-type(3):before,
+  .bz-buttonAnimat:nth-of-type(3):after,
+  .bz-buttonAnimat:nth-of-type(3) .inner:before,
+  .bz-buttonAnimat:nth-of-type(3) .inner:after{background-color:#7e57c2;}
+  .bz-buttonAnimat:before,
+  .bz-buttonAnimat:after,
+  .bz-buttonAnimat .inner:before,
+  .bz-buttonAnimat .inner:after{position:absolute;content:"";display:block;-webkit-transition:-webkit-transform 0.3s;transition:-webkit-transform 0.3s;transition:transform 0.3s;transition:transform 0.3s,-webkit-transform 0.3s;}
+  .bz-buttonAnimat.horizontal:before,
+  .bz-buttonAnimat.horizontal:after,
+  .bz-buttonAnimat.both:before,
+  .bz-buttonAnimat.both:after{left:0;width:100%;height:2px;-webkit-transform:scaleX(0);transform:scaleX(0);}
+  .bz-buttonAnimat.horizontal .inner:before,
+  .bz-buttonAnimat.horizontal .inner:after,
+  .bz-buttonAnimat.both .inner:before,
+  .bz-buttonAnimat.both .inner:after{top:0;width:2px;height:100%;-webkit-transform:scaleY(0);transform:scaleY(0);}
+  .bz-buttonAnimat.horizontal .inner:before,
+  .bz-buttonAnimat.both .inner:before{left:0;}
+  .bz-buttonAnimat.horizontal .inner:after,
+  .bz-buttonAnimat.both .inner:after{right:0;}
+  .bz-buttonAnimat.horizontal .inner:hover:before,
+  .bz-buttonAnimat.horizontal .inner:hover:after,
+  .bz-buttonAnimat.both .inner:hover:before,
+  .bz-buttonAnimat.both .inner:hover:after{-webkit-transform:scaleY(1);transform:scaleY(1);}
+  .bz-buttonAnimat.horizontal:before,
+  .bz-buttonAnimat.both:before{top:0;}
+  .bz-buttonAnimat.horizontal:after,
+  .bz-buttonAnimat.both:after{bottom:0;}
+  .bz-buttonAnimat.horizontal:hover:before,
+  .bz-buttonAnimat.horizontal:hover:after,
+  .bz-buttonAnimat.both:hover:before,
+  .bz-buttonAnimat.both:hover:after{-webkit-transform:scaleX(1);transform:scaleX(1);}
+  .bz-buttonAnimat.horizontal:hover .inner:before,
+  .bz-buttonAnimat.horizontal:hover .inner:after,
+  .bz-buttonAnimat.both:hover .inner:before,
+  .bz-buttonAnimat.both:hover .inner:after{-webkit-transform:scaleY(1);transform:scaleY(1);}
+  .bz-buttonAnimat.horizontal.clockwise .inner:before,
+  .bz-buttonAnimat.both.clockwise .inner:before{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.horizontal.clockwise .inner:after,
+  .bz-buttonAnimat.both.clockwise .inner:after{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.horizontal.clockwise:before,
+  .bz-buttonAnimat.both.clockwise:before{-webkit-transform-origin:right center;transform-origin:right center;}
+  .bz-buttonAnimat.horizontal.clockwise:after,
+  .bz-buttonAnimat.both.clockwise:after{-webkit-transform-origin:left center;transform-origin:left center;}
+  .bz-buttonAnimat.horizontal.clockwise:hover .inner:before,
+  .bz-buttonAnimat.both.clockwise:hover .inner:before{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.horizontal.clockwise:hover .inner:after,
+  .bz-buttonAnimat.both.clockwise:hover .inner:after{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.horizontal.clockwise:hover:before,
+  .bz-buttonAnimat.both.clockwise:hover:before{-webkit-transform-origin:left center;transform-origin:left center;}
+  .bz-buttonAnimat.horizontal.clockwise:hover:after,
+  .bz-buttonAnimat.both.clockwise:hover:after{-webkit-transform-origin:right center;transform-origin:right center;}
+  .bz-buttonAnimat.horizontal.counterclockwise .inner:before,
+  .bz-buttonAnimat.both.counterclockwise .inner:before{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.horizontal.counterclockwise .inner:after,
+  .bz-buttonAnimat.both.counterclockwise .inner:after{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:before,
+  .bz-buttonAnimat.both.counterclockwise:before{-webkit-transform-origin:left center;transform-origin:left center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:after,
+  .bz-buttonAnimat.both.counterclockwise:after{-webkit-transform-origin:right center;transform-origin:right center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:hover .inner:before,
+  .bz-buttonAnimat.both.counterclockwise:hover .inner:before{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:hover .inner:after,
+  .bz-buttonAnimat.both.counterclockwise:hover .inner:after{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:hover:before,
+  .bz-buttonAnimat.both.counterclockwise:hover:before{-webkit-transform-origin:right center;transform-origin:right center;}
+  .bz-buttonAnimat.horizontal.counterclockwise:hover:after,
+  .bz-buttonAnimat.both.counterclockwise:hover:after{-webkit-transform-origin:left center;transform-origin:left center;}
+  .bz-buttonAnimat.vertical:before,
+  .bz-buttonAnimat.vertical:after{top:0;width:2px;height:100%;-webkit-transform:scaleY(0);transform:scaleY(0);}
+  .bz-buttonAnimat.vertical:before{left:0;}
+  .bz-buttonAnimat.vertical:after{right:0;}
+  .bz-buttonAnimat.vertical:hover:before,
+  .bz-buttonAnimat.vertical:hover:after{-webkit-transform:scaleY(1);transform:scaleY(1);}
+  .bz-buttonAnimat.vertical.clockwise:before{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.vertical.clockwise:after{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.vertical.clockwise:hover:before{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.vertical.clockwise:hover:after{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.vertical.counterclockwise:before{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
+  .bz-buttonAnimat.vertical.counterclockwise:after{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.vertical.counterclockwise:hover:before{-webkit-transform-origin:top center;transform-origin:top center;}
+  .bz-buttonAnimat.vertical.counterclockwise:hover:after{-webkit-transform-origin:bottom center;transform-origin:bottom center;}
 </style>
