@@ -42,7 +42,28 @@ export default new Router({
       name: 'CSS',
       component: () => import('./views/routerViewComponent.vue'),
       children:[
-
+        {
+          path: '/loaders',
+          name: 'loaders',
+          component: () => import('./components/loadersEX.vue'),
+          meta: {
+            title: '组件：各种加载动画',
+            bg: 'linear-gradient(to right, #8E54E9, #4776E6)',
+            icon: 'icon-loader',
+            cls: 'counterclockwise horizontal'
+          }
+        },
+        {
+          path: '/figure',
+          name: 'figure',
+          component: () => import('./components/figureEX.vue'),
+          meta: {
+            title: '样式：各种图形动画实例',
+            bg: 'linear-gradient(to right, #8E54E9, #4776E6)',
+            icon: 'icon-css3',
+            cls: 'counterclockwise horizontal'
+          }
+        }
       ]
     },
     {
@@ -262,13 +283,68 @@ export default new Router({
       component: () => import('./views/routerViewComponent.vue'),
       children:[
         {
+          path: '/formR',
+          name: 'formR',
+          component: () => import('./components/formREX.vue'),
+          meta: {
+            title: '组件：表单核心组件',
+            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            icon: 'icon-formR',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
           path: '/btTablePage',
           name: 'btTablePage',
           component: () => import('./components/btTablePageEX.vue'),
           meta: {
             title: '组件：顶部按钮、表格、页签集合',
-            bg: 'linear-gradient(to right, #7a2828, #a73737)',
+            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
             icon: 'icon-table',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/formModal',
+          name: 'formModal',
+          component: () => import('./components/formModalEX.vue'),
+          meta: {
+            title: '组件：表单弹框',
+            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            icon: 'icon-formModal',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/searchForm',
+          name: 'searchForm',
+          component: () => import('./components/searchFormEX.vue'),
+          meta: {
+            title: '组件：搜索表单',
+            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            icon: 'icon-searchForm',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/formGroup',
+          name: 'formGroup',
+          component: () => import('./components/formGroupEX.vue'),
+          meta: {
+            title: '组件：表单组',
+            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            icon: 'icon-formGroup',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/tableSearch',
+          name: 'tableSearch',
+          component: () => import('./components/tableSearchEX.vue'),
+          meta: {
+            title: '组件：带高级查询按钮的快捷搜索组件',
+            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            icon: 'icon-searchForm',
             cls: 'counterclockwise both'
           }
         },
@@ -372,67 +448,12 @@ export default new Router({
           }
         },
         {
-          path: '/formR',
-          name: 'formR',
-          component: () => import('./components/formREX.vue'),
-          meta: {
-            title: '组件：表单核心组件',
-            bg: 'linear-gradient(to right, #727a17, #414d0b)',
-            icon: 'icon-formR',
-            cls: 'counterclockwise both'
-          }
-        },
-        {
-          path: '/formModal',
-          name: 'formModal',
-          component: () => import('./components/formModalEX.vue'),
-          meta: {
-            title: '组件：表单弹框',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
-            icon: 'icon-formModal',
-            cls: 'counterclockwise both'
-          }
-        },
-        {
-          path: '/searchForm',
-          name: 'searchForm',
-          component: () => import('./components/searchFormEX.vue'),
-          meta: {
-            title: '组件：搜索表单',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
-            icon: 'icon-searchForm',
-            cls: 'counterclockwise both'
-          }
-        },
-        {
-          path: '/formGroup',
-          name: 'formGroup',
-          component: () => import('./components/formGroupEX.vue'),
-          meta: {
-            title: '组件：表单组',
-            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
-            icon: 'icon-formGroup',
-            cls: 'counterclockwise both'
-          }
-        },
-        {
-          path: '/tableSearch',
-          name: 'tableSearch',
-          component: () => import('./components/tableSearchEX.vue'),
-          meta: {
-            title: '组件：带高级查询按钮的快捷搜索组件',
-            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
-            icon: 'icon-searchForm',
-            cls: 'counterclockwise both'
-          }
-        },
-        {
           path: '/selectScrollMore',
           name: 'selectScrollMore',
           component: () => import('./components/selectScrollMoreEX.vue'),
           meta: {
             title: '组件：带下拉加载更多的选择框',
-            bg: 'linear-gradient(to right, #eea849, #f46b45)',
+            bg: 'linear-gradient(to right, #7a2828, #a73737)',
             icon: 'icon-selectScrollMore',
             cls: 'counterclockwise both'
           }

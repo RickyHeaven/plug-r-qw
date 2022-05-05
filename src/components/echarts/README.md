@@ -1,5 +1,7 @@
 ## echarts 图表组件
 
+使用方式：`<echart />` 标签
+
 echarts，一个使用 JavaScript 实现的开源可视化库。
 
 可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等）。

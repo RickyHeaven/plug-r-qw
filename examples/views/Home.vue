@@ -30,6 +30,7 @@
                   :to="subItem.path"
                   :key="'subItem'+ix"
                   :style="{background:subItem.meta.bg}"
+                  :title="subItem.meta.title"
               >
                 <div class="show bz-buttonAnimat" :class="subItem.meta.cls">
                   <div class="icon"><i class='iconfont' :class="subItem.meta.icon"></i></div>
@@ -207,7 +208,7 @@
   }
 
   /**
-    规定鼠标移入时动画效果,纯CSS3
+    规定鼠标移入时动画效果
     bz-buttonAnimat       //规定线条显示
     clockwise             //规定动画顺时针
     counterclockwise      //规定动画逆时针
