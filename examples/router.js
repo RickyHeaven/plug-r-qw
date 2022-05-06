@@ -26,15 +26,38 @@ export default new Router({
       component: () => import('./views/routerViewComponent.vue'),
       children:[
         {
-          path: '/echarts',
-          name: 'echarts',
-          component: () => import('./components/echartsEX.vue'),
+          path: '/echart-line',
+          name: 'echart-line',
+          component: () => import('./components/echartLineEX.vue'),
           meta: {
-            title: '组件：统计图',
+            title: '组件：折线图',
             bg: 'linear-gradient(to right, #A5FECB, #20BDFF, #5433FF)',
-            cls: 'clockwise horizontal'
+            cls: 'clockwise horizontal',
+            icon: 'icon-echart-line'
           }
         },
+        {
+          path: '/echart-bar',
+          name: 'echart-bar',
+          component: () => import('./components/echartBarEX.vue'),
+          meta: {
+            title: '组件：柱状图',
+            bg: 'linear-gradient(to right, #A5FECB, #20BDFF, #5433FF)',
+            cls: 'clockwise horizontal',
+            icon: 'icon-echart-bar'
+          }
+        },
+        {
+          path: '/echart-pie',
+          name: 'echart-pie',
+          component: () => import('./components/echartPieEX.vue'),
+          meta: {
+            title: '组件：饼状图',
+            bg: 'linear-gradient(to right, #A5FECB, #20BDFF, #5433FF)',
+            cls: 'clockwise horizontal',
+            icon: 'icon-pie'
+          }
+        }
       ]
     },
     {
@@ -77,7 +100,7 @@ export default new Router({
           component: () => import('./components/inputMapEX.vue'),
           meta: {
             title: '组件：带输入框的地图',
-            bg: 'linear-gradient(to right, #8E54E9, #4776E6)',
+            bg: 'linear-gradient(to right, #dc2430, #7b4397)',
             icon: 'icon-iconfind',
             cls: 'counterclockwise horizontal'
           }
@@ -203,24 +226,24 @@ export default new Router({
           }
         },
         {
-          path: '/page404',
-          name: 'page404',
-          component: () => import('./components/page404EX.vue'),
-          meta: {
-            title: '组件：404页面',
-            bg: 'linear-gradient(to right, #dc2430, #7b4397)',
-            icon: 'icon-notPage',
-            cls: 'counterclockwise horizontal'
-          }
-        },
-        {
           path: '/sichuanCuisine/combo/sideMenu',
           name: 'sideMenu',
           component: () => import('./components/sideMenuEX.vue'),
           meta: {
             title: '组件：侧边菜单',
-            bg: 'linear-gradient(to right, #dc2430, #7b4397)',
+            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
             icon: 'icon-leftMenu',
+            cls: 'counterclockwise horizontal'
+          }
+        },
+        {
+          path: '/page404',
+          name: 'page404',
+          component: () => import('./components/page404EX.vue'),
+          meta: {
+            title: '组件：404页面',
+            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            icon: 'icon-notPage',
             cls: 'counterclockwise horizontal'
           }
         }
@@ -259,7 +282,7 @@ export default new Router({
           component: () => import('./components/checkboxGroupThreeClassEX.vue'),
           meta: {
             title: '组件：三级复选组',
-            bg: 'linear-gradient(to right, #348AC7, #7474BF)',
+            bg: 'linear-gradient(to right, #2a0845, #6441A5)',
             icon:'icon-tree',
             cls: 'counterclockwise vertical'
           }

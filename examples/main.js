@@ -22,10 +22,13 @@ import zhR from '../src/locale/lang/zh-CN'
 // import zhR from '../lib/lang/zh-CN'
 import './global/init.js'
 import './global/echartConfig'
+import dataV from '@jiaminghi/data-view'
+
 
 Vue.config.productionTip = false
 
 Vue.use(VueI18n)
+Vue.use(dataV)
 
 Vue.locale = () => {
 }
@@ -74,6 +77,7 @@ import westeros from './global/westeros.json'
 
 echarts.registerTheme('westeros', westeros)
 window.$echarts = echarts //图表
+
 
 VueAMap.initAMapApiLoader({
   key: 'ff57a9e37db989fcd67dc02a4f136084',

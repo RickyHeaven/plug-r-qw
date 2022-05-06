@@ -6,7 +6,7 @@
     <full-screen-pop :title="$route.name" ref="popA" @on-close="open=false">
       <div class="wallK">
         <div class="markdown-body myCardB">
-          <component :is="comps[$route.name]||mec[$route.name.replace('$','').toLowerCase()]"/>
+          <component :is="comps[routeNow] || (comps[$route.name] || mec[$route.name.replace('$','').toLowerCase()])"/>
         </div>
       </div>
     </full-screen-pop>
@@ -20,6 +20,10 @@
   export default {
     name: "showReadMe",
     props: {
+      routeNow: { //手动设置说明地址
+        type: String,
+        default: null
+      },
       color: {
         default: '#46be87'
       }

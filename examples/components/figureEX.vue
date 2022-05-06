@@ -5,7 +5,7 @@
 
     <!--图形-->
     <div class="figure">
-      <div class="burst-8" id="burst-8"></div>
+      <div class="burst-8" id="burst-8">burst-8</div>
       <div class="burst-12" id="burst-12"></div>
       <div class="talkbubble" id="talkbubble"></div>
       <div class="heart" id="heart"></div>
@@ -166,7 +166,7 @@
     div{
       float: left;
       margin-right: 50px;
-      margin-bottom:50px
+      margin-bottom:50px;
     }
   }
   /*六边形*/

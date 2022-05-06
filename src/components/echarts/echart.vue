@@ -14,16 +14,16 @@
     name: 'echart',
     mixins: [Locale],
     props: {
-      config: Object,   //图表配置，可以覆盖整个图表,
-      theme: String,   //图表主题，不传默认为设计稿款式
-      params: Object, //图表参数
-      url: String,   //拉取数据的接口地址
-      data: Object,     //图表默认数据，没有url请求可以展示静态数据
-      initData: { //初始化数据，即组件创建后自动拉取第一次数据,默认不会
+      config: Object,         //图表配置，可以覆盖整个图表,
+      theme: String,          //图表主题，不传默认为设计稿款式
+      params: Object,         //图表参数
+      url: String,            //拉取数据的接口地址
+      data: Object,           //图表默认数据，没有url请求可以展示静态数据
+      initData: {             //初始化数据，即组件创建后自动拉取第一次数据,默认不会
         type: Boolean,
         default: false
       },
-      yAxis: {    //Y轴数据
+      yAxis: {                //Y轴数据
         type: Object,
         default() {
           return {
@@ -31,7 +31,7 @@
           }
         }
       },
-      xAxis: {     //X轴数据
+      xAxis: {                //X轴数据
         type: Object,
         default() {
           return {
@@ -39,54 +39,54 @@
           }
         }
       },
-      tooltip: {   //提示框，鼠标悬浮交互时的信息提示
+      tooltip: {              //提示框，鼠标悬浮交互时的信息提示
         type: Object,
         default() {
           return {}
         }
       },
-      series: {    //you know
+      series: {               //you know
         type: Array,
         default() {
           return []
         }
       },
-      name: {     //图表名称，必传
+      name: {                 //图表名称，必传
         type: String,
         default: ''
       },
-      title: {     //图表标题
+      title: {                //图表标题
         type: String
       },
-      titleColor: String,    //标题颜色
+      titleColor: String,     //标题颜色
       titleFontSize: Number,  //标题字体大小
-      titleFontWeight: [
+      titleFontWeight: [      //标题字体粗细
         String,
         Number
-      ], //标题字体粗细
-      titleX: String, //标题的水平位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'left', 'center', 'right'
-      titleY: String,    //标题的垂直位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'
-      subTitle: {  //图表副标题
+      ],
+      titleX: String,         //标题的水平位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'left', 'center', 'right'
+      titleY: String,         //标题的垂直位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'
+      subTitle: {             //图表副标题
         type: String,
         default: ''
       },
-      subTitleColor: String, //副标题颜色
-      subTitleFontSize: Number,  //副标题字体大小
-      legendShow: {  //是否显示图例，默认为显示
+      subTitleColor: String,  //副标题颜色
+      subTitleFontSize: Number,//副标题字体大小
+      legendShow: {           //是否显示图例，默认为显示
         type: Boolean,
         default: true
       },
-      legendType: String, //图例类型，'plain'：普通图例。缺省就是普通图例。'scroll'：可滚动翻页的图例。当图例数量较多时可以使用。
-      legendColor: String,   //图例颜色
-      legendFontSize: Number,   //图例字体大小
-      legendX: String,  //图例的水平位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'left', 'center', 'right'
-      legendY: String,   //图例的垂直位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'
+      legendType: String,     //图例类型，'plain'：普通图例。缺省就是普通图例。'scroll'：可滚动翻页的图例。当图例数量较多时可以使用。
+      legendColor: String,    //图例颜色
+      legendFontSize: Number, //图例字体大小
+      legendX: String,        //图例的水平位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'left', 'center', 'right'
+      legendY: String,        //图例的垂直位置，可以是 20 像素值，也可以是'20%'相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'
       legendOrient: String,   //图例朝向, horizontal -- 水平对齐，vertical -- 垂直对齐
-      widthT: {     //you know
+      widthT: {               //you know
         type: String,
         default: '870px'
       },
-      heightT: {    //you know
+      heightT: {              //you know
         type: String,
         default: '384px'
       }
@@ -120,7 +120,7 @@
             this.init()
           }
         },
-        deep: true,
+        deep: true
       },
       data: {
         handler(after) {     //静态数据变更
@@ -182,18 +182,16 @@
               .catch(e => {
                 console.warn(e)
               })
-          }
-          else if ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0)) {
+          } else if ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0)) {
             //没有url，且没有window.echartConfig.url，且有静态数据也可以执行回调
             resolve()
-          }
-          else {
+          } else {
             console.warn('没有有效的请求地址，无法获取图表数据')
           }
         })
       }, //视图渲染
       init() {
-        //实例化DOM元素
+        //实例化DOM元素（ID,主题）
         let myChart = window.$echarts.init(document.getElementById(this.name),
           this.theme || window.echartConfig && window.echartConfig.theme)
 
@@ -211,8 +209,7 @@
         let option = {}
         if (this.config) {
           option = this.config
-        }
-        else {
+        } else {
           let settingT = window.echartConfig || {}
           option = {
             //标题

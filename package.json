@@ -63,6 +63,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "@jiaminghi/data-view": "^2.10.0",
     "ar-cascader": "^1.0.5",
     "axios": "^0.27.1",
     "core-js": "^3.6.5",
