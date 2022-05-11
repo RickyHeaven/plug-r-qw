@@ -38,6 +38,7 @@ import $swalConfirm from "./methods/swalConfirm.js"
 import arCascader from 'ar-cascader'
 import JsonView from 'vue-json-viewer'
 import loaders from './components/loaders/loaders.vue'
+import echartMap from './components/echartMap/echartMap.vue'
 import {
   myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
   getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
@@ -74,6 +75,7 @@ const components = {
   searchForm,
   formGroup,
   echart,
+  echartMap,
   loaders,
   showHidePanelB,
   tableSearch,

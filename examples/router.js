@@ -105,6 +105,17 @@ export default new Router({
             cls: 'counterclockwise horizontal'
           }
         },
+        {
+          path: '/echartMap',
+          name: 'echartMap',
+          component: () => import('./components/echartMapEX.vue'),
+          meta: {
+            title: '组件：基于echarts技术支持的地图',
+            bg: 'linear-gradient(to right, #dc2430, #7b4397)',
+            icon: 'icon-china-map',
+            cls: 'counterclockwise horizontal'
+          }
+        }
       ]
     },
     {

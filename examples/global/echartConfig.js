@@ -4,6 +4,7 @@
  */
 window.echartConfig = {
   theme: 'westeros',          //设计稿主题：westeros - 通心粉款式，其他款式需单独引入JSON文件或直接在实例化中配置，比较流行风格如：（vintage、macarons、infographic、shine、roma）
+  region: 'china',            //地图json文件，默认为中国，其他国家需单独引入JSON文件或直接在实例化中配置
   params: {},                 //图表默认参数
   url: '',                    //图表默认接口地址
   data: {},                   //图表默认演示数据

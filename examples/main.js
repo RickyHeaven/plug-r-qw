@@ -74,10 +74,9 @@ Vue.prototype.pageSizes = [
 import echarts from "echarts"
 /** 设计稿主题款式 westeros - 通心粉款式 */
 import westeros from './global/westeros.json'
-
 echarts.registerTheme('westeros', westeros)
-window.$echarts = echarts //图表
-
+//全局echarts对象
+window.$echarts = echarts
 
 VueAMap.initAMapApiLoader({
   key: 'ff57a9e37db989fcd67dc02a4f136084',
