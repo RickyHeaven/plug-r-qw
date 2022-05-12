@@ -430,6 +430,13 @@
             }
           },
           {
+            type: 'time',
+            dateType: 'timerange',
+            label: '理想上班时间',
+            key: 'onDuty',
+            key2: 'offDuty'
+          },
+          {
             type: 'date',
             dateType: 'year',
             label: '年份A',

@@ -510,6 +510,7 @@
                   r = d
                 }
                 if (r.data) {
+                  /*接口返回数据为空时可能是用null表示，所以有下面逻辑*/
                   if (r.data.records || r.data.records === null) {
                     this.dataT = r.data.records || []
                   }

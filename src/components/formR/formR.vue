@@ -12,6 +12,8 @@
       class="formXN"
       :key="formReRenderKey"
   >
+    <!--解决form只有一个input时enter触发页面刷新的问题-->
+    <FormItem style="display: none"><input type="text"/></FormItem>
     <FormItem
         v-for="(item,index) of formDataT"
         v-if="getFormItemIfVal(item)"
@@ -22,8 +24,6 @@
         :class="{withInfo:Boolean(item.info),withTitle:Boolean(item.title),inlineFormItemXN: inline,noLabel: item.type === 'selectInput',[item.class]:item.class}"
         :style="formStyle"
     >
-      <!--解决form只有一个input时enter触发页面刷新的问题-->
-      <input type="text" style="display: none">
       <!--纯文本,也可以不传label和val,单纯用来布局占位-->
       <span v-if="item.type === 'txt'" :class="{likeInputX:item.likeInput}">{{item.valKey?valGroup[item.valKey]||'无':item.val}}</span>
       <!--数字输入框-->
@@ -210,6 +210,22 @@
           :options="item.dateOptions||null"
           :clearable="item.clearable!==false"
           :editable="false"
+          transfer
+          @on-change="itemChange($event,item)"
+      />
+      <!--时间选择器-->
+      <TimePicker
+          :style="itemStyle"
+          v-else-if="item.type === 'time'"
+          v-model="tempKeys[item.tempKey]"
+          :type="item.dateType"
+          :disabled="Boolean(item.disabled) || disabled"
+          placement="bottom-end"
+          :placeholder="item.placeholder||t('r.selectDate')"
+          :steps="item.steps||[]"
+          :clearable="item.clearable!==false"
+          :editable="false"
+          :format="item.format||'HH:mm:ss'"
           transfer
           @on-change="itemChange($event,item)"
       />
@@ -646,18 +662,17 @@
                     lat: root.defaultVal2
                   }
                 }
-                else if (root.type === 'date') {
-                  if (root.dateType === 'date' || root.dateType === 'datetime') {
+                else if (root.type === 'date' || root.type === 'time') {
+                  if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
+                    root.dateType === 'year' || root.dateType === 'month') {
                     this.tempKeys[root.tempKey] = root.defaultVal
                   }
-                  else if (root.dateType === 'daterange' || root.dateType === 'datetimerange') {
+                  else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
+                    'timerange') {
                     this.tempKeys[root.tempKey] = item.defaultVal && item.defaultVal2 && [
                       root.defaultVal,
                       root.defaultVal2
                     ] || []
-                  }
-                  else if (item.dateType === 'year' || item.dateType === 'month') {
-                    this.$set(this.tempKeys, tempKeyB, item.defaultVal)
                   }
                 }
               }
@@ -856,19 +871,19 @@
               }
               break
             case 'date':
+            case 'time':
               const tempKeyB = 'date' + Math.floor(Math.random() * 100000000)
               item.tempKey = tempKeyB
-              if (item.dateType === 'date' || item.dateType === 'datetime') {
+              if (item.dateType === 'date' || item.dateType === 'datetime' || item.dateType === 'time' ||
+                item.dateType === 'year' || item.dateType === 'month') {
                 this.$set(this.tempKeys, tempKeyB, item.defaultVal || null)
               }
-              else if (item.dateType === 'daterange' || item.dateType === 'datetimerange') {
+              else if (item.dateType === 'daterange' || item.dateType === 'datetimerange' || item.dateType ===
+                'timerange') {
                 this.$set(this.tempKeys, tempKeyB, item.defaultVal && item.defaultVal2 && [
                   item.defaultVal,
                   item.defaultVal2
                 ] || [])
-              }
-              else if (item.dateType === 'year' || item.dateType === 'month') {
-                this.$set(this.tempKeys, tempKeyB, item.defaultVal || null)
               }
               this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
                 this.tempKeysWatchHandle(after, item)
@@ -881,19 +896,7 @@
       initOption(url, item, val) { /*初始化表单项的选项，如下拉选项，多选、单选组选项（私有）*/
         $fetch.get(url)
           .then(r => {
-            let tempOption
-            if (r && r.data && r.data.records) {
-              tempOption = r.data.records || []
-            }
-            else if (r && r.data) {
-              tempOption = r.data || []
-            }
-            else if (r) {
-              tempOption = r || []
-            }
-            else {
-              tempOption = []
-            }
+            let tempOption = (r && r.data && r.data.records) || (r && r.data) || r || []
             if (myTypeof(tempOption) === 'Array') {
               if (myTypeof(item.optionFilter) === 'Function') {
                 tempOption = item.optionFilter(tempOption)
@@ -1131,15 +1134,27 @@
               }
               break
             case 'date':
-              const format = root.format || 'YYYY-MM-DD'
-              const formatB = root.format || 'YYYY-MM-DD HH:mm:ss'
-              const formatC = root.format || 'YYYY'
-              const formatD = root.format || 'MM'
-              if (root.dateType === 'date') {
+            case 'time':
+              let tp = root.dateType
+
+              const fm = {
+                date: 'YYYY-MM-DD',
+                daterange: 'YYYY-MM-DD',
+                datetime: 'YYYY-MM-DD HH:mm:ss',
+                datetimerange: 'YYYY-MM-DD HH:mm:ss',
+                year: 'YYYY',
+                month: 'MM'
+              }
+
+              if (tp === 'date' || tp === 'datetime' || tp === 'time' || tp === 'year' || tp === 'month') {
                 if (after) {
-                  this.valGroup[root.key] = moment(after)
-                    .format(format)
-                  if (root.addTime) {
+                  if (tp === 'time') {
+                    this.valGroup[root.key] = after
+                  }
+                  else {
+                    this.valGroup[root.key] = moment(after).format(root.format || fm[tp])
+                  }
+                  if (tp === 'date' && root.addTime) {
                     this.valGroup[root.key] += ' 00:00:00'
                   }
                 }
@@ -1147,13 +1162,17 @@
                   this.valGroup[root.key] = null
                 }
               }
-              else if (root.dateType === 'daterange') {
+              else if (tp === 'daterange' || tp === 'datetimerange' || tp === 'timerange') {
                 if (after && after[0] && after[1]) {
-                  this.valGroup[root.key] = moment(after[0])
-                    .format(format)
-                  this.valGroup[root.key2] = moment(after[1])
-                    .format(format)
-                  if (root.addTime) {
+                  if (tp === 'timerange') {
+                    this.valGroup[root.key] = after[0]
+                    this.valGroup[root.key2] = after[1]
+                  }
+                  else {
+                    this.valGroup[root.key] = moment(after[0]).format(root.format || fm[tp])
+                    this.valGroup[root.key2] = moment(after[1]).format(root.format || fm[tp])
+                  }
+                  if (tp === 'daterange' && root.addTime) {
                     this.valGroup[root.key] += ' 00:00:00'
                     this.valGroup[root.key2] += ' 23:59:59'
                   }
@@ -1161,45 +1180,6 @@
                 else {
                   this.valGroup[root.key] = null
                   this.valGroup[root.key2] = null
-                }
-              }
-              else if (root.dateType === 'datetime') {
-                if (after) {
-                  this.valGroup[root.key] = moment(after)
-                    .format(formatB)
-                }
-                else {
-                  this.valGroup[root.key] = null
-                }
-              }
-              else if (root.dateType === 'datetimerange') {
-                if (after && after[0] && after[1]) {
-                  this.valGroup[root.key] = moment(after[0])
-                    .format(formatB)
-                  this.valGroup[root.key2] = moment(after[1])
-                    .format(formatB)
-                }
-                else {
-                  this.valGroup[root.key] = null
-                  this.valGroup[root.key2] = null
-                }
-              }
-              else if (root.dateType === 'year') {
-                if (after) {
-                  this.valGroup[root.key] = moment(after)
-                    .format(formatC)
-                }
-                else {
-                  this.valGroup[root.key] = null
-                }
-              }
-              else if (root.dateType === 'month') {
-                if (after) {
-                  this.valGroup[root.key] = moment(after)
-                    .format(formatD)
-                }
-                else {
-                  this.valGroup[root.key] = null
                 }
               }
               break
@@ -1320,18 +1300,18 @@
                 }
                 break
               case 'date':
-                if (item.dateType === 'date' || item.dateType === 'datetime') {
+              case 'time':
+                if (item.dateType === 'date' || item.dateType === 'datetime' || item.dateType === 'year' ||
+                  item.dateType === 'month' || item.dateType === 'time') {
                   this.tempKeys[item.tempKey] = data[item.key] && data[item.key] !== '--' ? data[item.key] : null
                 }
-                else if (item.dateType === 'daterange' || item.dateType === 'datetimerange') {
+                else if (item.dateType === 'daterange' || item.dateType === 'datetimerange' || item.dateType ===
+                  'timerange') {
                   this.tempKeys[item.tempKey] =
                     data[item.key] && data[item.key] !== '--' && data[item.key2] && data[item.key2] !== '--' && [
                       data[item.key],
                       data[item.key2]
                     ] || []
-                }
-                else if (item.dateType === 'year' || item.dateType === 'month') {
-                  this.tempKeys[item.tempKey] = data[item.key] && data[item.key] !== '--' ? data[item.key] : null
                 }
                 break
             }

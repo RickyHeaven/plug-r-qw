@@ -163,7 +163,11 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='format'>format</a> 数组，uploadGroup支持的格式，不限制的话不用设置该字段，如：`['jpg','png']`
 
-* <a name='formatB'>format（date组件）</a> 字符串，指定date组件返回日期格式，无特殊需求时可不传，组件有对应的默认格式，常用值：`'YYYY'、'MM'、'YYYY-MM-DD'、'YYYY-MM-DD HH:mm:ss'`，具体参考Moment.js官网
+* <a name='formatB'>format（date组件）</a> 字符串，指定date组件返回日期格式，无特殊需求时可不传，组件有对应的默认格式，常用值：
+`'YYYY'、'MM'、'YYYY-MM-DD'、'YYYY-MM-DD HH:mm:ss'`，具体参考Moment.js官网
+
+* <a name='formatC'>format（time组件）</a> 字符串，指定time组件返回日期格式及操作界面维度，无特殊需求时可不传，组件有对应的默认格式，常用值：
+`'HH:mm:ss'、'HH:mm'、'HH'`
 
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
 
@@ -248,10 +252,12 @@ name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装�
 
 * <a name='step'>step</a> 数字，InputNumber（数字输入框）的步长，即每次点表单项箭头增大或减小的值，可以是小数
 
+* <a name='steps'>steps</a> 数组，timePicker选择器下拉列表的时间间隔，数组的三项分别对应小时、分钟、秒。例如设置为 [1, 15] 时，分钟会显示：00、15、30、45。默认值：`[]`
+
 * <a name='title'>title</a> 字符串，表单项的标题，位于表单项左上方，样式见示例
 
 * <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、asyncCascader、radio、
-radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inputMap、custom
+radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor、inputMap、custom
 
 * <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如远程数据级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
 
@@ -732,6 +738,37 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、editor、inpu
 * [format](#formatB) 日期格式，不传时使用默认格式，常用值：`'YYYY'、'MM'、'YYYY-MM-DD'、'YYYY-MM-DD HH:mm:ss'`，具体参考Moment.js官网
 
 * [dateOptions](#dateOptions) DatePicker选择器额外配置，比如不可选日期与快捷选项
+
+* [placeholder](#placeholder) 占位符，默认：`'请选择'`
+
+* [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
+
+#### time 时间选择器
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [defaultVal2](#defaultVal2) 默认值2，为区间时间时，结束时间默认值
+
+* [dateType](#dateType) 时间类型，可选值：`'time'、'timerange'`
+
+* [format](#formatC) 时间格式（控制返回值的格式和操作界面维度），不传时使用默认格式，常用值：`'HH:mm:ss'、'HH:mm'、'HH'`
+
+* [steps](#steps) timePicker选择器下拉列表的时间间隔，数组的三项分别对应小时、分钟、秒。例如设置为 [1, 15] 时，分钟会显示：00、15、30、45。默认值：`[]`
 
 * [placeholder](#placeholder) 占位符，默认：`'请选择'`
 
