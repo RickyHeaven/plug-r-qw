@@ -2,16 +2,18 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="flexColumnBox wellCardR" :style="wellStyle">
-    <div class="panelHeader notGrow">
-      <div class="fl" style="font-weight: bold">{{title||t('r.title')}}</div>
-      <div class="btsF">
-        <slot name="bts"/>
+  <div :style="wellStyle">
+    <div class="flexColumnBox wellCardR">
+      <div class="panelHeader notGrow">
+        <div class="fl" style="font-weight: bold">{{title||t('r.title')}}</div>
+        <div class="btsF">
+          <slot name="bts"/>
+        </div>
       </div>
-    </div>
-    <div class="growFlexItem relativeBox">
-      <div class="fullFlowContent">
-        <slot/>
+      <div class="growFlexItem relativeBox">
+        <div class="fullFlowContent">
+          <slot/>
+        </div>
       </div>
     </div>
   </div>
@@ -41,11 +43,18 @@
           String
         ],
         default: '100%'
+      },
+      inline: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
       wellStyle() {
         let temp = {}
+        if(this.inline){
+          temp.display = 'inline-block'
+        }
         let attrArr = [
           'width',
           'height'

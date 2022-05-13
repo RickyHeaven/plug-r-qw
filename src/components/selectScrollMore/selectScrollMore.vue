@@ -52,6 +52,9 @@
         type: Boolean,
         default: true
       },
+      optionFilter: {
+        type: Function
+      },
       optionsLabelKey: {
         /*待选项label取接口数据中哪个字段*/
         type: [
@@ -69,6 +72,11 @@
         /*搜索框的值在拉取待选项数据的条件中对应的key*/
         type: String,
         default: 'name'
+      },
+      searchWordsRequired: {
+        /*只有在searchKey对应字段有值时（用户输入内容搜索时）拉取数据*/
+        type: Boolean,
+        default: false
       },
       collectLabel: {
         /*需要在选中时返回出value以外其他字段*/
@@ -251,6 +259,10 @@
       getData() {
         return new Promise((resolve, reject) => {
           if (this.getOptions) {
+            if (this.searchWordsRequired && !isValidValue(this.searchStr)) {
+              resolve()
+              return
+            }
             $fetch.get(this.url, this.searchDataT)
               .then(r => {
                 this.isFresh = false
@@ -266,6 +278,9 @@
                 else if (r && r.data && myTypeof(r.data) === 'Object') {
                   temp = [r.data]
                   this.pages = 1
+                }
+                if (myTypeof(this.optionFilter) === 'Function') {
+                  temp = this.optionFilter(temp)
                 }
                 if (!_.isEmpty(temp)) {
                   temp = temp.map((e, i) => {

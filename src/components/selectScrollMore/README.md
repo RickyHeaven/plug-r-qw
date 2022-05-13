@@ -16,6 +16,8 @@
 
 * searchKey: 字符串，搜索框的值在拉取待选项数据的条件中对应的key
 
+* searchWordsRequired: 布尔对象，只有在searchKey对应字段有值时（用户输入内容搜索时）拉取数据，默认：`false`
+
 * collectLabel: 布尔对象，需要在选中时返回出value以外其他字段，配合on-change事件使用，默认：`false`
 
 * placeholder: 字符串，input占位符，默认：`'请输入'`
