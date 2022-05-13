@@ -161,14 +161,14 @@
       }
     },
     methods: {
-      addInputEventListener() {
+      addInputEventListener() {/*私有，不可调用*/
         const inputEl = this.$refs.selectScrollSourceRef.$children[0].$refs.input
         inputEl.addEventListener('keyup', this.getOption)
       },
-      setQuery(val) {
+      setQuery(val) {/*私有，不可调用*/
         this.$refs.selectScrollSourceRef.$children[0].query = val
       },
-      reset() {
+      reset() {/*私有，不可调用*/
         if (!this.isFresh) {
           this.valueT = null
           this.isFresh = true
@@ -180,7 +180,7 @@
           this.urlChanged = false
         }
       },
-      isSelect(val) {
+      isSelect(val) {/*私有，不可调用*/
         for (let item of this.options) {
           if (item.label === val) {
             return true
@@ -188,7 +188,7 @@
         }
         return false
       },
-      getOption: _.debounce(function (e) {
+      getOption: _.debounce(function (e) {/*私有，不可调用*/
         const val = e.target.value
         if (!this.isSelect(val)) {
           if (isValidValue(val)) {
@@ -240,7 +240,7 @@
           }
         }
       }, 600),
-      loadMore() {
+      loadMore() {/*私有，不可调用*/
         if (this.urlChanged) {
           this.reset()
         }
@@ -257,7 +257,7 @@
           })
         }
       },
-      getData() {
+      getData() {/*私有，不可调用*/
         return new Promise((resolve, reject) => {
           if (this.getOptions) {
             if (this.searchWordsRequired && !isValidValue(this.searchStr)) {
