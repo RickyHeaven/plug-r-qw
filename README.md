@@ -79,7 +79,7 @@
 
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
-* 本库运行依赖vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer，但并未将他们的代码打包到库的生产版本中，所以需要在你的项目中安装他们才能使用该库中涉及这些依赖的组件或方法（不用可以不安装），如果想省事，全安装就行，不会安装可以参考对应的官网或npm网站页面或本项目examples目录里的用法
+* 本库主要依赖有`vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex`需要在使用vue-cli脚手架搭建项目时安装（选上），其他依赖安装该库后这些依赖可直接在项目中引入后使用，无需再次安装至你的项目，但其中`view-design、vue-amap`需要在你的项目手动初始化，可以参考对应的官网或npm网站页面或本项目examples目录里的用法
 
 * 该库自`1.1.35`版本开始，弃用`iview-area`，改用本人改良的`ar-cascader`，所以升级到该版本及以后使用行政区域级联组件，需要卸载iview-area，并安装ar-cascader
 
@@ -104,7 +104,7 @@
   }
   
   注意：
-    1. 这个loader会用到'path'、'core-js'、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目没有这些npm依赖，请安装它们
+    1. 这个loader会用到'path'、'core-js'、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目报错没有这些npm依赖，请安装它们
     2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
     3. 如果添加了该loader还是有兼容问题，那么将main.js中 import plugRQw from '@zhangqingcq/plug-r-qw' 换成 import plugRQw from '@zhangqingcq/plug-r-qw/lib/plugRQw.umd.js'
 ```
