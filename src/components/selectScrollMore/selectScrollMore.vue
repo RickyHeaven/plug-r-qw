@@ -3,7 +3,7 @@
 
 <template>
   <Select
-      v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" v-on="$listeners" transfer filterable
+      v-model="valueT" ref="selectScrollSourceRef" v-bind="$attrs" transfer filterable
       v-loadmore="loadMore" :placeholder="placeholderT" :disabled="disabled"
   >
     <Option v-for="(item,index) in options" :key="'op'+index" :value="item.value" :disabled="item.disabled">{{item.label}}</Option>

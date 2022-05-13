@@ -30,6 +30,15 @@
         <p class="outJ">值： <span>{{value2}}</span></p>
       </div>
     </well-card>
+    <well-card title="multiple 多选" width="300px" height="400px" inline style="margin-left: 10px">
+      <div class="inBox">
+        <select-scroll-more
+            v-model="value3" url="/node-serve/select-scroll-more" :searchData="{size:7}" @on-change="handleChange"
+            style="width: 250px" multiple allow-create
+        />
+        <p class="outJ">值： <span>{{value3}}</span></p>
+      </div>
+    </well-card>
   </div>
 </template>
 
@@ -40,7 +49,8 @@
       return {
         value: null,
         value1: null,
-        value2: null
+        value2: null,
+        value3: null
       }
     },
     methods: {

@@ -2,7 +2,7 @@
 远程下拉选择框，下拉滚动加载更多选项，支持筛选，全局UI组件，直接用
 
 ### 属性
-* value: 对象，组件的值，建议使用v-model绑定，默认：`null`
+* value: 数字/字符串/数组，组件的值，建议使用v-model绑定，默认：`null`
 
 * url: 字符串，待选项接口地址，不带条件
 
@@ -30,3 +30,14 @@
 * on-change: 组件值改变，可以收到除v-model以外其他字段（选项中），collectLabel需为`true`时生效
 
 * 该组件依赖于自定义指令v-loadmore，而该指令触发条件之一是下拉列表必须在y方向滚动（下拉列表最大高度200px，大概7条数据），所以searchData的size字段需大于等于7
+
+### 支持的view-design中Select原生属性（下面没有列举的一律不支持）：
+* multiple: 布尔对象，是否支持多选，默认：`false`
+
+* not-found-text: 字符串，当下拉列表为空时显示的内容，默认：`无匹配数据`
+
+* prefix: 字符串，在 Select 内显示图标
+
+* max-tag-count: 数字，多选时最多显示多少个 tag
+
+* max-tag-placeholder: 方法，隐藏 tag 时显示的内容，参数是剩余项数量
