@@ -10,6 +10,8 @@
 
 * getOptions: 布尔对象，是否拉取待选项,false:不拉取，并清空待选项和值，默认：`true`
 
+* optionFilter: 函数，接口返回数据处理函数，传入接口返回的数据，返回处理后的数据，例如：`d => d.filter(e => e.id !== 3)`
+
 * optionsLabelKey: 字符串/数组，待选项label取接口数据中哪个字段，默认：`'name'`
 
 * optionsValKey: 字符串，待选项value取接口数据中哪个字段，默认：`'id'`

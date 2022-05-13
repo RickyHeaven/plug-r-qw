@@ -53,6 +53,7 @@
         default: true
       },
       optionFilter: {
+        /*接口返回数据处理函数，传入接口返回的数据，返回处理后的数据*/
         type: Function
       },
       optionsLabelKey: {
