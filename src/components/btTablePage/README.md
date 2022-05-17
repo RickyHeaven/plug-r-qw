@@ -69,7 +69,7 @@
 
 * clearTableData: 清空表格数据（用于特殊场景下重置表格，不拉取数据，如需刷新数据直接调用`getTableData`）
 
-* getDataAndClickRow: 拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行
+* getDataAndClickRow: 单选模式下：拉取表格数据并且自动点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行；非单选模式：仅拉取数据（等同`getTableData`）
 
 * getSelected: 获取已选行数据
 

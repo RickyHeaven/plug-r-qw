@@ -210,7 +210,7 @@
                 this.search()
               }
               else {
-                this.getData()
+                this.$refs.btTab.getDataAndClickRow(true)
               }
               this.$refs.formModalRef.close()
             }

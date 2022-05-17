@@ -417,15 +417,15 @@
         this.current = 1
         this.getDataAndClickRow()
       },
-      getDataAndClickRow(clickCurrentRow, order, orderKey) { /*拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行（公开）*/
-        if (clickCurrentRow || this.rowClickNum !== -1) {
-          this.getTableData(order, orderKey)
+      getDataAndClickRow(clickCurrentRow, order, orderKey) { /*单选模式时（非单选模式只拉数据不点击），拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行（公开）*/
+        if (this.radio && (clickCurrentRow || this.rowClickNum !== -1)) {
+          this.getTableData(order, orderKey, clickCurrentRow)
             .then(() => {
               //点击对应行
               if (this.dataT.length > 0) {
                 setTimeout(() => {
                   if (clickCurrentRow) {
-                    this.$refs.TableXXX.clickCurrentRow(this.currentIndex)
+                    this.$refs.TableXXX.clickCurrentRow(this.currentIndex || 0)
                   }
                   else {
                     this.$refs.TableXXX.clickCurrentRow(this.rowClickNum)
@@ -439,7 +439,7 @@
         }
       },
       onRowClick(row, i) {/*私有*/
-        if (row.btKey === this.currentKey && this.radio) {
+        if (row.btChecked && this.radio) {
           return
         }
         if ((this.selection || this.radio) && this.rowClickSelect) {
@@ -490,7 +490,7 @@
         this.current = 1
         this.getTableData()
       },
-      getTableData(order, orderKey) { /*拉取表格数据（公开）*/
+      getTableData(order, orderKey, keepSelect) { /*拉取表格数据（公开）*/
         return new Promise(resolve => {
           if (order) {
             this.order = order
@@ -502,7 +502,9 @@
             $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
               .then(d => {
                 let r
-                this.clearSelect()
+                if (!keepSelect) {
+                  this.clearSelect()
+                }
                 if (myTypeof(this.dataHandler) === 'Function') {
                   r = this.dataHandler(d)
                 }

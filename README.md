@@ -79,7 +79,7 @@
 
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
-* 本库主要依赖有`vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex`需要在使用vue-cli脚手架搭建项目时安装（选上），其他依赖在项目安装该库后，可直接在项目中引入后使用，无需再次将它们安装至你的项目，但其中`view-design、vue-amap`需要在你的项目手动初始化，可以参考对应的官网或npm网站页面或本项目examples目录里的初始化方法
+* 本库主要依赖有`vue、vue-router、vuex、view-design、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex`需要在使用vue-cli脚手架搭建项目时安装（选上），`vue-i18n`需要手动安装(如果你是国际化版本)，其他依赖在项目安装该库后，可直接在项目中引入后使用，无需再次将它们安装至你的项目，但其中`view-design、vue-amap`需要在你的项目手动初始化，可以参考对应的官网或npm网站页面或本项目examples目录里的初始化方法
 
 * 该库自`1.1.35`版本开始，弃用`iview-area`，改用本人改良的`ar-cascader`，所以升级到该版本及以后使用行政区域级联组件，需要卸载iview-area，并安装ar-cascader
 
