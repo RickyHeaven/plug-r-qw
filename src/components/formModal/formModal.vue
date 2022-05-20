@@ -7,7 +7,6 @@
       :title="title||t('r.title')"
       v-model="openModal"
       :mask-closable="false"
-      :styles="{height:height+'px'}"
       :footer-hide="hideFooter"
       :class="{hideFooter: hideFooter}"
       :width="width"
@@ -20,11 +19,10 @@
         :form-data="formData"
         :label-width="labelWidth"
         :btnLoading="btnLoading"
-        @on-height-change="setHeight"
         @on-submit="onSubmit"
     >
       <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
-        <slot :name="item.slotName" :val-group="valGroup"></slot>
+        <slot :name="item.slotName" :val-group="valGroup" />
       </template>
     </form-r>
     <div slot="footer">
@@ -95,72 +93,15 @@
     data() {
       return {
         openModal: false,
-        formHeight: 200,
-        showLoading: false,
-        windowInnerH: window.innerHeight
+        showLoading: false
       }
     },
     computed: {
-      height() {
-        let temp
-        if (this.hideFooter) {
-          temp = this.formHeight + 110
-        }
-        else {
-          temp = this.formHeight + 170
-        }
-        if (this.windowInnerH && temp > this.windowInnerH - 200) {
-          temp = this.windowInnerH - 200
-        }
-        return temp
-      },
       formDataC() {
         return this.formData.filter(e => e.type === 'custom')
       }
     },
-    created() {
-      let me = this
-
-      /*给窗口绑定窗口尺寸改变获取尺寸的事件*/
-      if (!window.onresizeGetHeight) {
-        if (window.onresize) {
-          let temp = window.onresize
-          window.onresize = _.debounce(() => {
-            temp()
-            me.setInnerHeight()
-            window.onresizeGetHeight = true
-          }, 100)
-        }
-        else {
-          window.onresize = _.debounce(() => {
-            me.setInnerHeight()
-            window.onresizeGetHeight = true
-          }, 100)
-        }
-      }
-    },
-    mounted() {
-      this.$nextTick(this.setInnerHeight)
-    },
     methods: {
-      setInnerHeight() {/*私有*/
-        this.windowInnerH = window.innerHeight
-      },
-      getFormHeight() { /*获取表单高度，公开*/
-        if (this.$refs.formRRef.$el.clientHeight < 30) {
-          setTimeout(() => {
-            this.getFormHeight()
-          }, 100)
-        }
-        else {
-          setTimeout(this.setHeight, 100)
-        }
-      },
-      setHeight(height) {/*设置弹框内容区高度，公开*/
-        let cHeight = this.$refs.formRRef.$el.clientHeight
-        let temp = height && (height > cHeight ? height : cHeight) || cHeight
-        this.formHeight = temp || 200
-      },
       resetForm() { /*重置表单，会清空表单值并刷新表单dom，异步方法，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.resetForm()
@@ -234,7 +175,6 @@
           this.$emit('on-close')
         }
         else {
-          this.getFormHeight()
           this.$emit('on-open')
         }
       }

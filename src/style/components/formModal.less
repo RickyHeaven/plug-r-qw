@@ -7,44 +7,18 @@
 @import "../common/size";
 
 .formModal {
-  .ivu-modal {
-    .ivu-modal-content {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
+  .ivu-modal .ivu-modal-content {
+    .ivu-modal-body {
+      max-height: calc(~"100vh - 240px");
+      overflow-y: auto;
+    }
 
-      .ivu-modal-body {
-        position: absolute;
-        top: 51px;
-        bottom: 57px;
-        left: 0;
-        right: 0;
-        overflow-y: auto;
-      }
-
-      .ivu-modal-footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
+    .ivu-modal-footer {
+      text-align: center;
     }
   }
 
-  &.hideFooter {
-    .ivu-modal {
-      .ivu-modal-content {
-        .ivu-modal-body {
-          height: calc(~'100% - 50px')
-        }
-      }
-    }
-  }
-
-  .ivu-btn{
+  .ivu-btn {
     &.modal-save-btn {
       background-color: @primary;
       color: #fff;

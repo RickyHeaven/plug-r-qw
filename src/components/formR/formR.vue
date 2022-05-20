@@ -401,7 +401,6 @@
         hiddenKeys: [], /*通过 setItemToValGroup 直接存入valGroup的字段*/
         showLoading: false,
         formReRenderKey: Math.floor(Math.random() * 100000000 + 1000), /*刷新表单*/
-        clientHeightR: 0,
         uploadUrl: window.g && window.g.mgrURL && window.g.mgrURL + '/web/v1/fsc/file' || '/file', /*上传组件的文件上传地址，远程上传（直接上传到服务器）时，如果没设置，则用该地址*/
         debounceCount: false
       }
@@ -496,7 +495,6 @@
           this.initFormDataT()
           
           this.refreshFormDom().then(() => {
-            this.heightChange()
             this.$emit('on-re-render')
             resolve()
           })
@@ -1328,7 +1326,6 @@
         else if (myTypeof(d) === 'Object') {
           this.changeDataHandle(d)
         }
-        this.heightChange()
       },
       changeDataHandle(d) {/*改变表单结构（私有）*/
         let {index, key, val} = d
@@ -1380,14 +1377,6 @@
           this.$refs.formGroupXRef.validateField(root.key)
         })
       },
-      heightChange() {/*私有*/
-        this.$nextTick(function () {
-          if (this.clientHeightR !== this.$el.clientHeight) {
-            this.clientHeightR = this.$el.clientHeight
-            this.$emit('on-height-change', this.clientHeightR)
-          }
-        })
-      },
       itemChange(e, root) { /*表单项值更新（私有）*/
         setTimeout(() => {
           let data = {
@@ -1409,7 +1398,6 @@
           }
           this.$emit('on-item-change', data)
         }, 500)
-        this.heightChange()
       },
       getValGroup() {/*生成valGroup(私有)*/
         let temp = {}
