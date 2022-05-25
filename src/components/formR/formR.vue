@@ -1116,6 +1116,11 @@
                         (isValidValue(targetOption[root.collectLabel.valKey]) ? targetOption[root.collectLabel.valKey] :
                           null))
                     }
+
+                    let sameKeyCom = _.find(this.formDataT, {key: root.collectLabel.key})
+                    if (sameKeyCom && sameKeyCom.tempKey) {
+                      this.tempKeys[sameKeyCom.tempKey] = this.valGroup[root.collectLabel.key]
+                    }
                   }
                 }
                 else if (_.isArray(root.collectLabel)) {
@@ -1127,6 +1132,11 @@
                       else {
                         this.$set(this.valGroup, item.key,
                           targetOption && (isValidValue(targetOption[item.valKey]) ? targetOption[item.valKey] : null))
+                      }
+
+                      let sameKeyCom = _.find(this.formDataT, {key: item.key})
+                      if (sameKeyCom && sameKeyCom.tempKey) {
+                        this.tempKeys[sameKeyCom.tempKey] = this.valGroup[item.key]
                       }
                     }
                   }

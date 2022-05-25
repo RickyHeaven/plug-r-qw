@@ -97,7 +97,7 @@
 
 ### formData元素支持字段说明（按字母升序）
 * <a name='activeChange'>activeChange</a> 布尔对象，InputNumber（数字输入框）是否实时响应数据，设置为`false`时，只会在失焦时更改数
-据，默认:`true`
+据，默认:`false`
 
 * <a name='addTime'>addTime</a> 布尔对象，DatePicker不选择时间（只选日期）时，但提交时需要带上时间，给该字段赋值`true`,会自动加上
 `00:00:00`，如果是区间，开始时间加`00:00:00`，结束时间加`23:59:59`，默认:`false`
