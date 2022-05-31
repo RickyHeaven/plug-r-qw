@@ -14,7 +14,7 @@
 
 * bg: 字符串，设置面板背景色，默认：`#ccc`
 
-* defaultCheck: 布尔类型，是否设置默认勾选（默认`false`），如果设为true,则在v-model绑定的*columns*项里设置`showSettingCheck:true`
+* defaultCheck: 布尔类型，是否设置默认勾选（默认`false`，用于默认展示所有列），如果设为true（用于默认展示部分列）,则在v-model绑定的*columns*项里设置`showSettingCheck:true`
 ### 注意
 * sKey命名一定要规范
 
