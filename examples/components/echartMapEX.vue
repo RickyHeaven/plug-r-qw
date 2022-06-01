@@ -5,11 +5,10 @@
     <div class="map-one">
       <echart-map
           :title="titleOne"
-          :tooltip="tooltipOne"
-          :geoItemStyle="geoItemStyleOne"
-          :mapLabel="mapLabelOne"
+          :tooltip="tooltip"
           name="china-map"
           ref="china-map"
+          :btn-style="btnStyle"
           :seriesData="seriesData"
           :seriesDataPro="seriesDataPro"
           :visualMapShow="true"
@@ -25,10 +24,42 @@
       />
     </div>
     <div class="map-two">
+      <div class="map-bg"></div>
       <echart-map
+          :title="titleTwo"
+          :geoItemStyle="geoItemStyle"
+          :mapLabel="mapLabel"
+          :mapItemStyle="mapItemStyle"
+          :seriesData="seriesDataTwo"
+          scatterSymbol="arrow"
           name="china-map-two"
           ref="china-map-two"
-          :tooltip="tooltipTwo"
+          :inRangeColor="['#4b85fa', '#175ce5', '#0a2966']"
+          widthT="100%"
+          heightT="100%"
+      />
+    </div>
+    <div class="map-three">
+      <echart-map
+          :title="titleThree"
+          :mapItemStyle="mapItemStyleThree"
+          :mapLabel="mapLabelThree"
+          :tooltip="tooltipThree"
+          name="beijing-map"
+          ref="beijing-map"
+          widthT="100%"
+          heightT="100%"
+      />
+    </div>
+    <div class="map-four">
+      <div class="map-bg"></div>
+      <echart-map
+          :title="titleFour"
+          :mapLabel="mapLabelFour"
+          :mapItemStyle="mapItemStyleFour"
+          :tooltip="tooltipFour"
+          name="world-map"
+          ref="world-map"
           widthT="100%"
           heightT="100%"
       />
@@ -44,7 +75,12 @@
         seriesData: [],      //重构后地图的省级数据
         seriesDataPro: [],   //重构后地图的市区县数据
         toolTipData: [],     //后端返回的省级数据
-        provinceData: []     //后端返回的市区县数据
+        provinceData: [],    //后端返回的市区县数据
+        seriesDataTwo: [],
+        btnStyle: {          //返回按钮样式
+          left: '45%',
+          top: '50px'
+        }
       }
     },
     mounted() {
@@ -443,31 +479,88 @@
         this.seriesDataPro[i].name = this.provinceData[i].cityName
         this.seriesDataPro[i].value = this.provinceData[i].shopCount
       }
+      // 模拟第二种后端返回的数据
+      this.seriesDataTwo = [
+        {
+          'name': '北京',
+          'value': 200
+        },
+        {
+          'name': '新疆',
+          'value': 600
+        },
+        {
+          'name': '重庆',
+          'value': 800
+        },
+        {
+          'name': '四川',
+          'value': 1000
+        }
+      ]
       this.$nextTick(()=>{
         this.$refs['china-map'].initEcharts("china", "中国")
+        this.$refs['china-map-two'].initEcharts("china", "中国")
+        this.$refs['beijing-map'].initEcharts("beijing", "北京")
+        this.$refs['world-map'].initEcharts("world", "世界")
       })
     },
     methods:{
-      mapLabelOne(){
+      //地图区域颜色回调函数
+      mapItemStyleThree(){
         return {
           normal: {
-            show: true, //显示省份标签
-            textStyle: {
-              color: "#895139"
-            } //省份标签字体颜色
+            borderWidth: 1,           //区域边框宽度
+            borderColor: '#000',      //区域边框颜色
+            areaColor: "#edf2fa",     //区域颜色
           },
-          emphasis: { //对应的鼠标悬浮效果
-            show: true,
-            textStyle: {
-              color: "#323232"
-            }
+          emphasis: {
+            borderWidth: 2,
+            borderColor: '#9c9c9c',
+            areaColor: "#74d24b"
+          }
+        }
+      },
+      mapItemStyle(){
+        return {
+          normal: {
+            borderWidth: .4,          //区域边框宽度
+            borderColor: '#62aef5',   //区域边框颜色
+            areaColor: "#edf2fa",     //区域颜色
+          },
+          emphasis: {
+            borderWidth: .5,
+            borderColor: '#4b0082',
+            areaColor: "#ece39e",
+            shadowOffsetX: 5,
+            shadowOffsetY: 10,
+            shadowBlur: 5,
+            shadowColor: "rgba(0, 0, 0, 0.5)"
+          }
+        }
+      },
+      mapItemStyleFour(){
+        return {
+          normal: {
+            borderWidth: .4,          //区域边框宽度
+            borderColor: '#0550c3',   //区域边框颜色
+            areaColor: "#41a4d7",     //区域颜色
+          },
+          emphasis: {
+            borderWidth: .5,
+            borderColor: '#dd9023',
+            areaColor: "#ece39e",
+            shadowOffsetX: 5,
+            shadowOffsetY: 10,
+            shadowBlur: 5,
+            shadowColor: "rgba(0, 0, 0, 0.5)"
           }
         }
       },
       //地图标题回调函数
       titleOne(){
         return {
-          text:'中国地图产品销售量并包含区县级',
+          text:'中国地图产品销售量并包含市区县级',
           textStyle: {
             color: '#333',
             fontSize: 30,
@@ -477,20 +570,99 @@
           top: 'top'
         }
       },
-      //地图区域默认颜色回调，可定义的颜色之多，请参考echarts中的geo文档
-      geoItemStyleOne(){
+      titleTwo(){
+        return {
+          text:'自定义阴影遮罩标点地图样式',
+          textStyle: {
+            color: '#fff',
+            fontSize: 28
+          },
+          left: 'center',
+          top: '20px'
+        }
+      },
+      titleThree(){
+        return {
+          text:'自定义显示指定地图区域（北京市）',
+          textStyle: {
+            color: '#000',
+            fontSize: 28
+          },
+          left: 'center',
+          top: '20px'
+        }
+      },
+      titleFour(){
+        return {
+          text:'世界地图',
+          textStyle: {
+            color: '#fff',
+            fontSize: 28
+          },
+          left: 'center',
+          top: '10%'
+        }
+      },
+      //地图区域标签默认颜色回调，可定义的颜色之多，请参考echarts文档
+      mapLabelThree(){
         return {
           normal: {
-            areaColor: '#3c8dbc', // 没有值得时候颜色
-            borderColor: '#097bba'
+            show: true, //显示省份标签
+            textStyle: {
+              //省份标签字体颜色
+              color: "#323232",
+              fontSize: 12
+            }
           },
-          emphasis: {
-            areaColor: '#fbd456', // 鼠标滑过选中的颜色
+          emphasis: { //对应的鼠标悬浮效果
+            show: true,
+            textStyle: {
+              color: "#3b7ec3"
+            }
+          }
+        }
+      },
+      mapLabelFour(){
+        return {
+          normal: {
+            show: false
+          }
+        }
+      },
+      mapLabel(){
+        return {
+          normal: {
+            show: true, //显示省份标签
+            textStyle: {
+              //省份标签字体颜色
+              color: "#323232",
+              textBorderColor: '#fff',
+              textBorderWidth: 2
+            }
+          },
+          emphasis: { //对应的鼠标悬浮效果
+            show: true,
+            textStyle: {
+              color: "#F53131"
+            },
+          }
+        }
+      },
+      //地图区域默认颜色回调，可定义的颜色之多，请参考echarts文档
+      geoItemStyle(){
+        return {
+          normal: {
+            //区域颜色没有值的时候默认颜色
+            areaColor: '#edf2fa',
+            shadowBlur: 10,
+            shadowColor: "#051433",
+            shadowOffsetX: 10,
+            shadowOffsetY: 20
           }
         }
       },
       //工具提示框回调
-     tooltipOne(params){
+      tooltip(params){
        let mapName = this.$refs['china-map'].mapName
        let tmp = mapName === "china" ? this.toolTipData : this.provinceData
        let toolTiphtml = ''
@@ -510,8 +682,11 @@
          return toolTiphtml
        }
       },
-      tooltipTwo(){
-        return '您想随便定义任何内容也是可以的'
+      tooltipThree(params){
+        return '这是'+ params.seriesName+ '的' + params.name
+      },
+      tooltipFour(params){
+        return params.name
       },
       // 金额转换万字单位 start
       unitConvert(num) {
@@ -550,13 +725,27 @@
 </script>
 
 <style scoped lang="less">
-  .map-one,.map-two{
+  .examplePageL{
+    overflow-x: hidden;
+    overflow-y: scroll
+  }
+  .map-one,.map-two,.map-three,.map-four{
     width: 50%;
-    height: 100%;
+    height: 93%;
     position: relative;
     float: left;
   }
-  .map-two{
+  .map-two,.map-four{
     background: linear-gradient(45deg, #020d29, #030b33);
+    .map-bg{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: radial-gradient(rgba(60,155,250,1), rgba(60,155,250,0), #030b33);
+      opacity: .4;
+      z-index: 0;
+    }
   }
 </style>

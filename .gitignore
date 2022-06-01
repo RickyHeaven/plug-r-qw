@@ -88,3 +88,4 @@ yarn-error.log*
 *.sw*
 /lib/demo.html
 /debug.log
+/public/map

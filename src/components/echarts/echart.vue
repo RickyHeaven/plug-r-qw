@@ -10,12 +10,21 @@
   import Locale from '../../mixins/locale'
   import $fetch from '../../methods/fetch'
 
+  //引入echarts对象
+  import echarts from "echarts"
+  //默认主题款式 westeros - 通心粉款式，其他主题可以通过自定义引入echarts依赖后主题但名称theme一定要对应上
+  import westeros from './westeros'
+  echarts.registerTheme('westeros', westeros)
+
   export default { //图表样式
     name: 'echart',
     mixins: [Locale],
     props: {
       config: Object,         //图表配置，可以覆盖整个图表,
-      theme: String,          //图表主题，不传默认为设计稿款式
+      theme: {                //图表主题名称，不传默认为 westeros - 通心粉款式
+        type: String,
+        default: 'westeros'
+      },
       params: Object,         //图表参数
       url: String,            //拉取数据的接口地址
       data: Object,           //图表默认数据，没有url请求可以展示静态数据
@@ -91,10 +100,9 @@
         default: '384px'
       }
     },
-
     data() {
       return {
-        dataT: this.data || window.echartConfig && window.echartConfig.data,
+        dataT: this.data,
         yAxisT: this.yAxis,
         xAxisT: this.xAxis,
         seriesT: this.series
@@ -161,9 +169,8 @@
       //数据拉取
       getData() {
         return new Promise((resolve, reject) => {
-          if (this.url || window.echartConfig && window.echartConfig.url) {
-            $fetch.get(this.url || window.echartConfig && window.echartConfig.url,
-              this.params || window.echartConfig && window.echartConfig.params)
+          if (this.url) {
+            $fetch.get(this.url, this.params)
               .then(r => {
                 if (r.data || r.data === null) {
                   if (r.data.charts || r.data.charts === null) {
@@ -183,7 +190,7 @@
                 console.warn(e)
               })
           } else if ((this.dataT && this.dataT.series) || (this.seriesT && this.seriesT.length > 0)) {
-            //没有url，且没有window.echartConfig.url，且有静态数据也可以执行回调
+            //没有url且有静态数据也可以执行回调
             resolve()
           } else {
             console.warn('没有有效的请求地址，无法获取图表数据')
@@ -192,8 +199,7 @@
       }, //视图渲染
       init() {
         //实例化DOM元素（ID,主题）
-        let myChart = window.$echarts.init(document.getElementById(this.name),
-          this.theme || window.echartConfig && window.echartConfig.theme)
+        let myChart = echarts.init(document.getElementById(this.name), this.theme)
 
         //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
         let me = this
@@ -210,34 +216,33 @@
         if (this.config) {
           option = this.config
         } else {
-          let settingT = window.echartConfig || {}
           option = {
             //标题
             title: {
               text: this.dataT.title ? this.dataT.title : (this.title || t('r.unknown')),
               textStyle: {
-                color: this.dataT.titleColor || this.titleColor || settingT.titleColor,
-                fontSize: this.dataT.titleFontSize || this.titleFontSize || settingT.titleFontSize,
-                fontWeight: this.dataT.titleFontWeight || this.titleFontWeight || settingT.titleFontWeight
+                color: this.dataT.titleColor || this.titleColor,
+                fontSize: this.dataT.titleFontSize || this.titleFontSize,
+                fontWeight: this.dataT.titleFontWeight || this.titleFontWeight
               },
-              x: this.dataT.titleX || this.titleX || settingT.titleX,
-              y: this.dataT.titleY || this.titleY || settingT.titleY,
+              x: this.dataT.titleX || this.titleX,
+              y: this.dataT.titleY || this.titleY,
               subtext: this.dataT.subTitle ? this.dataT.subTitle : this.subTitle,
               subtextStyle: {
-                color: this.dataT.subTitleColor || this.subTitleColor || settingT.subTitleColor,
-                fontSize: this.dataT.subTitleFontSize || this.subTitleFontSize || settingT.subTitleFontSize,
+                color: this.dataT.subTitleColor || this.subTitleColor,
+                fontSize: this.dataT.subTitleFontSize || this.subTitleFontSize,
               }
             }, // 图例
             legend: {
               show: this.dataT.legendShow ? this.dataT.legendShow : this.legendShow,
-              type: this.dataT.legendType || this.legendType || settingT.legendType,
+              type: this.dataT.legendType || this.legendType,
               textStyle: {
-                color: this.dataT.legendColor || this.legendColor || settingT.legendColor,
-                fontSize: this.dataT.legendFontSize || this.legendFontSize || settingT.legendFontSize
+                color: this.dataT.legendColor || this.legendColor,
+                fontSize: this.dataT.legendFontSize || this.legendFontSize
               },
-              x: this.dataT.legendX || this.legendX || settingT.legendX,
-              y: this.dataT.legendY || this.legendY || settingT.legendY,
-              orient: this.dataT.legendOrient || this.legendOrient || settingT.legendOrient
+              x: this.dataT.legendX || this.legendX,
+              y: this.dataT.legendY || this.legendY,
+              orient: this.dataT.legendOrient || this.legendOrient
             }, // 提示框，鼠标悬浮交互时的信息提示
             tooltip: this.dataT.tooltip ? this.dataT.tooltip : this.tooltip, // 横轴坐标轴
             xAxis: this.dataT.xAxis ? this.dataT.xAxis : this.xAxisT, // 纵轴坐标轴
