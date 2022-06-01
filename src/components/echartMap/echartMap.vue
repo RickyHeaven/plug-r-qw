@@ -5,13 +5,53 @@
 -->
 <template>
   <div class="echart-main" :style="{width:widthT,height:heightT}">
-    <Button @click="oback" v-show="back" id="back" class="hidden" type="primary">返回全国</Button>
+    <Button @click="oback" :style="btnStyle" v-show="back" id="back" class="hidden" type="primary">返回全国</Button>
     <div class="echart-map" :id="name"></div>
   </div>
 </template>
 <script>
-  let provinces = ['shanghai', 'hebei', 'shanxi', 'neimenggu', 'liaoning', 'jilin', 'heilongjiang', 'jiangsu', 'zhejiang', 'anhui', 'fujian', 'jiangxi', 'shandong', 'henan', 'hubei', 'hunan', 'guangdong', 'guangxi', 'hainan', 'sichuan', 'guizhou', 'yunnan', 'xizang', 'shanxi1', 'gansu', 'qinghai', 'ningxia', 'xinjiang', 'beijing', 'tianjin', 'chongqing', 'xianggang', 'aomen'];
+  let provinces = ['shanghai', 'hebei', 'shanxi', 'neimenggu', 'liaoning', 'jilin', 'heilongjiang', 'jiangsu', 'zhejiang', 'anhui', 'fujian', 'jiangxi', 'shandong', 'henan', 'hubei', 'hunan', 'guangdong', 'guangxi', 'hainan', 'sichuan', 'guizhou', 'yunnan', 'xizang', 'shanxi1', 'gansu', 'qinghai', 'ningxia', 'xinjiang', 'beijing', 'tianjin', 'chongqing', 'xianggang', 'aomen']
   let provincesText = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门'];
+
+  //引入echarts对象
+  import echarts from "echarts"
+  //引入地图JSON文件，资源来自依赖包，懒加载模式，但依然不够优雅，有更好的方案欢迎提出
+  import china from "../../../node_modules/echarts/map/json/china"
+  import world from "../../../node_modules/echarts/map/json/world"
+  import anhui from "../../../node_modules/echarts/map/json/province/anhui"
+  import aomen from "../../../node_modules/echarts/map/json/province/aomen"
+  import beijing from "../../../node_modules/echarts/map/json/province/beijing"
+  import chongqing from "../../../node_modules/echarts/map/json/province/chongqing"
+  import fujian from "../../../node_modules/echarts/map/json/province/fujian"
+  import gansu from "../../../node_modules/echarts/map/json/province/gansu"
+  import guangdong from "../../../node_modules/echarts/map/json/province/guangdong"
+  import guangxi from "../../../node_modules/echarts/map/json/province/guangxi"
+  import guizhou from "../../../node_modules/echarts/map/json/province/guizhou"
+  import hainan from "../../../node_modules/echarts/map/json/province/hainan"
+  import hebei from "../../../node_modules/echarts/map/json/province/hebei"
+  import heilongjiang from "../../../node_modules/echarts/map/json/province/heilongjiang"
+  import henan from "../../../node_modules/echarts/map/json/province/henan"
+  import hubei from "../../../node_modules/echarts/map/json/province/hubei"
+  import hunan from "../../../node_modules/echarts/map/json/province/hunan"
+  import jiangsu from "../../../node_modules/echarts/map/json/province/jiangsu"
+  import jiangxi from "../../../node_modules/echarts/map/json/province/jiangxi"
+  import jilin from "../../../node_modules/echarts/map/json/province/jilin"
+  import liaoning from "../../../node_modules/echarts/map/json/province/liaoning"
+  import neimenggu from "../../../node_modules/echarts/map/json/province/neimenggu"
+  import ningxia from "../../../node_modules/echarts/map/json/province/ningxia"
+  import qinghai from "../../../node_modules/echarts/map/json/province/qinghai"
+  import shandong from "../../../node_modules/echarts/map/json/province/shandong"
+  import shanghai from "../../../node_modules/echarts/map/json/province/shanghai"
+  import shanxi from "../../../node_modules/echarts/map/json/province/shanxi"
+  import shanxi1 from "../../../node_modules/echarts/map/json/province/shanxi1"
+  import sichuan from "../../../node_modules/echarts/map/json/province/sichuan"
+  import taiwan from "../../../node_modules/echarts/map/json/province/taiwan"
+  import tianjin from "../../../node_modules/echarts/map/json/province/tianjin"
+  import xianggang from "../../../node_modules/echarts/map/json/province/xianggang"
+  import xinjiang from "../../../node_modules/echarts/map/json/province/xinjiang"
+  import xizang from "../../../node_modules/echarts/map/json/province/xizang"
+  import yunnan from "../../../node_modules/echarts/map/json/province/yunnan"
+  import zhejiang from "../../../node_modules/echarts/map/json/province/zhejiang"
 
   export default {
     name: 'echartMap',
@@ -20,10 +60,120 @@
         type: String,
         default: ''
       },
-      tooltip: Function,        //工具提示框回调函数
-      geoItemStyle: Function,   //地图区域默认颜色回调函数
-      title: Function,          //标题回调函数
-      mapLabel: Function,       //地图区域标签颜色回调函数
+      btnStyle: Object,         //返回按钮样式
+      scatterTooltip:{          //标点回调函数
+        type: Function,
+        default: (params)=>{
+          //params返回数组形式，内容分别是经度、维度、值
+          return params.data.value[2]
+        }
+      },
+      tooltip: {                    //工具提示框回调函数
+        type: Function,
+        default: ()=>{
+          return '随便定义任何内容也是可以的，通过回调函数取'
+        }
+      },
+      scatterGeoItemStyle:{     //标点样式回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            normal: {
+              color: '#F62157'
+            }
+          }
+        }
+      },
+      scatterGeoLabelTextStyle:{        //气泡标签回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            color: '#fff',
+            fontSize: 9
+          }
+        }
+      },
+      scatterGeoLabel:{        //地图区域标签颜色回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            normal: {
+              show: false,
+              formatter: '{b}',
+              position: 'right'
+            },
+            emphasis: {
+              show: true
+            }
+          }
+        }
+      },
+      geoItemStyle: {           //地图区域默认颜色回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            normal: {
+              areaColor: '#3c8dbc',     // 没有值得时候颜色
+              borderColor: '#097bba'
+            },
+            emphasis: {
+              areaColor: '#fbd456',     // 鼠标滑过选中的颜色
+            }
+          }
+        }
+      },
+      scatterGeoShow:{          //是否显示标点，默认显示
+        type: Boolean,
+        default: true
+      },
+      title: {                   //标题回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            show: false
+          }
+        }
+      },
+      mapLabel: {                //地图区域标签颜色回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            normal: {
+              show: true, //显示省份标签
+              textStyle: {
+                color: "#895139"
+              } //省份标签字体颜色
+            },
+            emphasis: { //对应的鼠标悬浮效果
+              show: true,
+              textStyle: {
+                color: "#323232"
+              }
+            }
+          }
+        }
+      },
+      mapItemStyle: {   //地图区域颜色回调函数
+        type: Function,
+        default: ()=>{
+          return {
+            normal: {
+              borderWidth: .5, //区域边框宽度
+              borderColor: '#0550c3', //区域边框颜色
+              areaColor: "#0b7e9e", //区域颜色
+            },
+            emphasis: {
+              borderWidth: .5,
+              borderColor: '#4b0082',
+              areaColor: "#ece39e",
+            }
+          }
+        }
+      },
+      scatterSymbol: {           //标点类型，还可以自定义图片地址
+        type: String,
+        default: 'pin'
+      },
       maxSize4Pin: {            //侧边最大值
         type: Number,
         default: 40
@@ -32,39 +182,43 @@
         type: Number,
         default: 30
       },
-      seriesData: Array,        //省级数据
-      seriesDataPro: Array,     //市区县数据
-      region: {                 //地图json文件，不传默认为中国
-        type: String,
-        default: 'china'
+      seriesData: {     //省级数据
+        type: Array,
+        default: ()=>{
+          return []
+        }
       },
-      widthT: {                 //you know
-        type: String,
-        default: '870px'
+      seriesDataPro: {    //市区县数据
+        type: Array,
+        default: ()=>{
+          return []
+        }
       },
-      heightT: {                //you know
-        type: String,
-        default: '384px'
+      inRangeColor: {     //范围区域颜色，从最大值到最小值的颜色区分
+        type: Array,
+        default: ()=>{
+          return []
+        }
       },
-      inRangeColor: Array,     //从最大值到最小值的区域颜色
-      visualMapFontColor: String,       //视觉映射字体颜色
-      visualMapFontSize: Number,        //视觉映射字体大小
-      visualMapFontWeight: String,      //视觉映射字体粗细
-      visualMapFontBorderColor: String, //视觉映射字体描边颜色
-      visualMapFontBorderWidth: Number, //视觉映射字体描边粗细
-      visualMapShow:{             //视觉映射组件，默认不显示
+      visualMapTextStyle: {             //视觉映射字体样式
+        type: Function,
+        default: ()=>{
+          return {}
+        }
+      },
+      visualMapShow:{                   //视觉映射组件，默认不显示
         type: Boolean,
         default: false
       },
-      visualMapOrient: {      //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
+      visualMapOrient: {                //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
         type: String,
         default: 'horizontal'
       },
-      visualMapSeriesIndex: { //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
+      visualMapSeriesIndex: {           //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
         type: Number,
         default: 1
       },
-      visualMapHeight: {         //视觉映射组件高度
+      visualMapHeight: {                //视觉映射组件高度
         type: Number,
         default: null
       },
@@ -83,19 +237,31 @@
       visualMapTop:{             //视觉映射组件距离头部位置，默认95%
         type: String,
         default: '95%'
+      },
+      scatterGeoZlevel: {
+        type: Number,
+        default: 6
+      },
+      widthT: {                 //you know
+        type: String,
+        default: '870px'
+      },
+      heightT: {                //you know
+        type: String,
+        default: '384px'
       }
     },
     data() {
       return {
         mapName:'china',       //地域名称
         myChart: null,         //地图对象
-        back: false            //返回按钮是否显示的状态
+        back: false,           //返回按钮是否显示的状态
+        myFile: null           //需要加载的地图区域名称，特殊动态形式
       }
     },
     mounted() {
       //实例化DOM元素（ID,国家JSON文件）
-      this.myChart = window.$echarts.init(document.getElementById(this.name),
-        this.region || window.echartConfig && window.echartConfig.region)
+      this.myChart = echarts.init(document.getElementById(this.name))
       // 全国时，添加click 进入省级
       let me = this
       me.myChart.on('click', (param)=> {
@@ -137,163 +303,135 @@
       }
     },
     methods: {
-      // 加载地图实例化内容结构，canvas渲染基于echarts技术，数据结构基于高德地图技术
+        /**
+         * 加载地图实例化内容结构，canvas渲染基于echarts技术，数据结构基于高德地图技术
+         * 目前没有找到更好的引入方式实现，import动态加载不行，require形式也不行
+         * 欢迎其他开发者提供更好的懒加载方式，提升代码优雅性
+         * **/
       initEcharts(pName, Chinese_) {
-        //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
-        let me = this
+        //注册地图
+        echarts.registerMap(pName,this.regionName(pName))
+        //渲染地图
+        this.loadMap(pName, Chinese_)
+      },
+      loadMap(pName, Chinese_){
         //渲染在地图上的数据
         let tmpSeriesData = pName === "china" ? this.seriesData : this.seriesDataPro
-        //地图款式，从中国精确到省份
-        let url = pName === "china" ? 'map/china/china.json': 'map/china/province/'+ pName + '.json'
-        /** 动态加载地图的json文件 */
-        me.$fetch.get(location.pathname + url).then(res => {
-          if (res) {
-            //注册json文件到echarts算法
-            window.$echarts.registerMap(pName, res)
-            //定义侧边滑动的最大值和最小值，根据返回的数据来
-            let max = Math.max.apply(Math, tmpSeriesData.map(function(o) {
-              return o.value
-            })), min = 0
-            // 指定地图的配置项和数据
-            let option = {
-              //标题
-              title: me.title(),
-              tooltip: {
-                trigger: 'item',
-                // 鼠标滑过显示的数据
-                formatter: (params) => {
-                  //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                  return me.tooltip(params)
-                }
-              },
-              //视觉映射组件
-              visualMap: {
-                show: me.visualMapShow,
-                min: min,
-                max: max,                          //侧边滑动的最大值，从数据中获取
-                left: me.visualMapLeft,            //组件位置
-                top: me.visualMapTop,              //组件位置
-                inverse: me.visualMapInverse,      //是否反转 visualMap 组件
-                itemHeight:me.visualMapHeight,     //图形的高度，即长条的高度
-                itemWidth: me.visualMapWidth,      //图形的宽度，即长条的高度
-                text: ['高', '低'],                //文本，默认为数值文本
-                textStyle: {                      //字体样式
-                  color: me.visualMapFontColor,
-                  fontSize: me.visualMapFontSize,
-                  fontWeight: me.visualMapFontWeight,
-                  textBorderColor: me.visualMapFontBorderColor,
-                  textBorderWidth: me.visualMapFontBorderWidth
-                },
-                calculable: false,                        //是否显示拖拽用的手柄（手柄能拖拽调整选中范围）
-                seriesIndex: me.visualMapSeriesIndex,     //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
-                orient: me.visualMapOrient,               //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
-                inRange: {
-                  color: me.inRangeColor                  //范围区域颜色
-                }
-              },
-              geo: {
-                show: true,
-                map: pName,
-                roam: false,
-                label: {
-                  normal: {
-                    show: false
-                  },
-                  emphasis: {
-                    show: false
-                  }
-                },
-                itemStyle: me.geoItemStyle()    //默认区域颜色，因定制化的可能性较多，由回调函数执行
-              },
-              series: [
-                {
-                  /**
-                   地图区域颜色，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
-                   如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
-                   这些可以配合 visualMap 组件完成
-                   注意scatter有先后优先级顺序！
-                   **/
-                  name: '散点',
-                  type: 'scatter',
-                  coordinateSystem: 'geo',
-                  data: tmpSeriesData,
-                  symbolSize: '1',
-                  label: {
-                    normal: {
-                      show: false,
-                      formatter: '{b}',
-                      position: 'right'
-                    },
-                    emphasis: {
-                      show: false
-                    }
-                  }
-                },
-                {
-                  name: Chinese_ || pName,
-                  type: 'map',
-                  mapType: pName,
-                  roam: false, //是否开启鼠标缩放和平移漫游
-                  data: tmpSeriesData,
-                  selectedMode: 'single',
-                  label: me.mapLabel(),
-                  itemStyle: {
-                    normal: {
-                      borderWidth: .5, //区域边框宽度
-                      borderColor: '#0550c3', //区域边框颜色
-                      areaColor: "#0b7e9e", //区域颜色
-                    },
-                    emphasis: {
-                      borderWidth: .5,
-                      borderColor: '#4b0082',
-                      areaColor: "#ece39e",
-                    }
-                  }
-                },
-                {
-                  /**
-                   地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
-                   如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
-                   这些可以配合 visualMap 组件完成
-                   注意scatter有先后优先级顺序！
-                   **/
-                  name: '点',
-                  type: 'scatter',
-                  coordinateSystem: 'geo',
-                  //气泡
-                  symbol: 'pin',
-                  symbolSize: function(val) {
-                    let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
-                    let b = me.maxSize4Pin - a * max
-                    return a * val[2] + b
-                  },
-                  label: {
-                    normal: {
-                      show: true,
-                      formatter: function(params) {
-                        return params.data.value[2]
-                      },
-                      textStyle: {
-                        color: '#fff',
-                        fontSize: 9
-                      }
-                    }
-                  },
-                  itemStyle: {
-                    normal: {
-                      //标点颜色
-                      color: '#F62157'
-                    }
-                  },
-                  zlevel: 6,
-                  data: this.convertData(me.seriesData)
-                },
-              ]
+        //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
+        let me = this
+        //定义侧边滑动的最大值和最小值，根据返回的数据来，没有值默认都为0
+        let max = 0,min = 0
+        if(me.seriesData || me.seriesDataPro){
+          max = Math.max.apply(Math, tmpSeriesData.map(function(o) {
+            return o.value
+          }))
+        }
+        // 指定地图的配置项和数据
+        let option = {
+          //标题
+          title: me.title(),
+          //工具提示
+          tooltip: {
+            trigger: 'item',
+            // 鼠标滑过显示的数据
+            formatter: (params) => {
+              //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+              return me.tooltip(params)
             }
-            // 使用刚指定的配置项和数据显示图表。
-            me.myChart.setOption(option)
-          }
-        })
+          },
+          //视觉映射组件
+          visualMap: {
+            show: me.visualMapShow,
+            min: min,                                 //侧边滑动的最小值，从数据中获取
+            max:max,                                  //侧边滑动的最大值，从数据中获取
+            left: me.visualMapLeft,                   //组件位置
+            top: me.visualMapTop,                     //组件位置
+            inverse: me.visualMapInverse,             //是否反转 visualMap 组件
+            itemHeight:me.visualMapHeight,            //图形的高度，即长条的高度
+            itemWidth: me.visualMapWidth,             //图形的宽度，即长条的高度
+            text: ['高', '低'],                       //文本，默认为数值文本
+            textStyle: me.visualMapTextStyle(),       //字体样式
+            calculable: false,                        //是否显示拖拽用的手柄（手柄能拖拽调整选中范围）
+            seriesIndex: me.visualMapSeriesIndex,     //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
+            orient: me.visualMapOrient,               //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
+            inRange: {
+              color: me.inRangeColor                  //范围区域颜色
+            }
+          },
+          //地理位置
+          geo: {
+            show: true,
+            map: pName,
+            roam: false,
+            label: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            itemStyle: me.geoItemStyle()    //默认区域颜色，因定制化的可能性较多，由回调函数执行
+          },
+          series: [
+            {
+              /**
+               地图区域颜色，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
+               如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
+               这些可以配合 visualMap 组件完成
+               注意scatter有先后优先级顺序！
+               **/
+              name: '散点',
+              type: 'scatter',
+              coordinateSystem: 'geo',
+              data: tmpSeriesData,
+              symbolSize: '1',
+              label: me.scatterGeoLabel()
+            },
+            {
+              name: Chinese_ || pName,
+              type: 'map',
+              mapType: pName,
+              roam: false, //是否开启鼠标缩放和平移漫游
+              data: tmpSeriesData,
+              selectedMode: 'single',
+              label: me.mapLabel(),
+              itemStyle: me.mapItemStyle()
+            },
+            {
+              /**
+               地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
+               如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
+               这些可以配合 visualMap 组件完成
+               注意scatter有先后优先级顺序！
+               **/
+              name: '点',
+              type: 'scatter',
+              coordinateSystem: 'geo',
+              symbol: me.scatterSymbol,   //标点类型
+              symbolSize: (val)=> {
+                let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
+                let b = me.maxSize4Pin - a * max
+                return a * val[2] + b
+              },
+              label: {
+                normal: {
+                  show: me.scatterGeoShow,
+                  formatter: function(params) {
+                    //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+                    return me.scatterTooltip(params)
+                  },
+                  textStyle: me.scatterGeoLabelTextStyle()
+                }
+              },
+              itemStyle: me.scatterGeoItemStyle(),
+              zlevel: me.scatterGeoZlevel,
+              data: this.convertData(tmpSeriesData)
+            },
+          ]
+        }
+        // 使用刚指定的配置项和数据显示图表。
+        me.myChart.setOption(option)
       },
       //返回地域事件
       oback(){
@@ -309,7 +447,7 @@
         let geoCoordMap = {}
         // loading start
         this.myChart.showLoading()
-        let mapFeatures = window.$echarts.getMap(name).geoJson.features
+        let mapFeatures = echarts.getMap(name).geoJson.features
         // loading end
         this.myChart.hideLoading()
         mapFeatures.forEach(function(v) {
@@ -336,6 +474,119 @@
           }
         }
         return res
+      },
+      // 全球、中国、各省的JSON文件懒加载模式，不太优雅，有更好的方式欢迎改进
+      regionName(name){
+        switch (name) {
+          case 'china':
+            return china
+          break
+          case 'world':
+            return world
+            break
+          case 'anhui':
+            return anhui
+          break
+          case 'aomen':
+            return aomen
+          break
+          case 'beijing':
+            return beijing
+          break
+          case 'chongqing':
+            return chongqing
+          break
+          case 'fujian':
+            return fujian
+            break
+          case 'gansu':
+            return gansu
+            break
+          case 'guangdong':
+            return guangdong
+            break
+          case 'guangxi':
+            return guangxi
+            break
+          case 'guizhou':
+            return guizhou
+            break
+          case 'hainan':
+            return hainan
+            break
+          case 'hebei':
+            return hebei
+            break
+          case 'heilongjiang':
+            return heilongjiang
+            break
+          case 'henan':
+            return henan
+            break
+          case 'hubei':
+            return hubei
+            break
+          case 'hunan':
+            return hunan
+            break
+          case 'jiangsu':
+            return jiangsu
+            break
+          case 'jiangxi':
+            return jiangxi
+            break
+          case 'jilin':
+            return jilin
+            break
+          case 'liaoning':
+            return liaoning
+            break
+          case 'neimenggu':
+            return neimenggu
+            break
+          case 'ningxia':
+            return ningxia
+            break
+          case 'qinghai':
+            return qinghai
+            break
+          case 'shandong':
+            return shandong
+            break
+          case 'shanghai':
+            return shanghai
+            break
+          case 'shanxi':
+            return shanxi
+            break
+          case 'shanxi1':
+            return shanxi1
+            break
+          case 'sichuan':
+            return sichuan
+            break
+          case 'taiwan':
+            return taiwan
+            break
+          case 'tianjin':
+            return tianjin
+            break
+          case 'xianggang':
+            return xianggang
+            break
+          case 'xinjiang':
+            return xinjiang
+            break
+          case 'xizang':
+            return xizang
+            break
+          case 'yunnan':
+            return yunnan
+            break
+          case 'zhejiang':
+            return zhejiang
+            break
+        }
       }
     }
   }

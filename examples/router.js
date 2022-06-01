@@ -105,7 +105,7 @@ export default new Router({
             cls: 'counterclockwise horizontal'
           }
         },
-        /*{
+        {
           path: '/echartMap',
           name: 'echartMap',
           component: () => import('./components/echartMapEX.vue'),
@@ -115,7 +115,7 @@ export default new Router({
             icon: 'icon-china-map',
             cls: 'counterclockwise horizontal'
           }
-        }*/
+        }
       ]
     },
     {

@@ -21,7 +21,6 @@ import zhR from '../src/locale/lang/zh-CN'
 // import enR from '../lib/lang/en-US'
 // import zhR from '../lib/lang/zh-CN'
 import './global/init.js'
-import './global/echartConfig'
 import dataV from '@jiaminghi/data-view'
 
 
@@ -65,18 +64,6 @@ Vue.prototype.pageSizes = [
   50,
   100
 ]
-
-/**
- * @description 注入 echarts 图表,全局控制，只加载一次主题
- * @param {object} registerTheme - 引入需要添加的主题和创建名称
- * @return {object} $echarts
- */
-import echarts from "echarts"
-/** 设计稿主题款式 westeros - 通心粉款式 */
-import westeros from './global/westeros.json'
-echarts.registerTheme('westeros', westeros)
-//全局echarts对象
-window.$echarts = echarts
 
 VueAMap.initAMapApiLoader({
   key: 'ff57a9e37db989fcd67dc02a4f136084',

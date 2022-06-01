@@ -54,6 +54,9 @@
 </template>
 
 <script>
+  //自定义主题、特殊场景、二次渲染或者反复设置动态值时才建议引入echarts，通常的图表数据不需要再手动引入依赖
+  import echarts from "echarts"
+
   export default {
     name: "echartBarEX",
     data() {
@@ -298,31 +301,37 @@
       setDataState(datas){
         //这两个变量为特殊变量，列表会保存所有值，但是变量才是真正渲染图表的值，根据用户设置的state状态来确定是否赋值
         let Names = [],Nums = []
-        //首先查找local缓存里是否设置过，缓存名称可以是从接口里取也可以是动态设置
+        //首先遍历接口返回的所有值
+        for(let k = 0;k<datas.length;k++){
+          //追加名称
+          Names.push(datas[k].name)
+          //追加值
+          Nums.push(datas[k].num)
+          //追加状态全部为true
+          datas[k].state = true
+        }
+        //查找local缓存里是否设置过，如果有，更改状态
         let localDatas = JSON.parse(localStorage.getItem(this.showDataName))
         //没有缓存或者手动清除了需要全部重新取值
-        if(!localDatas){
-          for(let k = 0;k<datas.length;k++){
-            //追加名称
-            Names.push(datas[k].name)
-            //追加值
-            Nums.push(datas[k].num)
-            //追加状态全部为true
-            datas[k].state = true
-          }
-        }else{
+        if(localDatas){
           //有缓存的话从缓存里取值和名称
-          for(let j = 0;j<localDatas.length;j++){
-            //获取缓存的状态
-            if(localDatas[j].scales == datas[j].scales){
-              datas[j].state = localDatas[j].state
-            }
-            //必须状态为true才追加
-            if(datas[j].state){
-              //追加名称
-              Names.push(datas[j].name)
-              //追加值
-              Nums.push(datas[j].num)
+          for(let j = 0;j<datas.length;j++){
+            //通过二维数组查找状态是否设置过
+            for(let p = 0;p<localDatas.length;p++){
+              //获取缓存的状态
+              if(datas[j].name == localDatas[p].name){
+                datas[j].state = localDatas[p].state
+                //必须状态为true才可以显示，没有删除渲染值
+                if(!localDatas[p].state){
+                  for(let n = 0;n<Names.length;n++){
+                    if(Names[n] == localDatas[p].name){
+                      Names.splice(n,1)
+                      Nums.splice(n,1)
+                      break
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -332,12 +341,19 @@
         this.dataFour = this.loadChart(Names,Nums)
       },
       openSet(){
+        //获取列表返回值
+        this.setList = this.showData
         //查询是否有缓存记录，没有的话从列表中取
         let local = JSON.parse(localStorage.getItem(this.showDataName))
         if(local){
-          this.setList = local
-        }else{
-          this.setList = this.showData
+          for(let i = 0;i<this.setList.length;i++){
+            for(let j = 0;j<local.length;j++){
+              if(this.setList[i].name == local[j].name){
+                this.setList[i].state = local[j].state
+                break
+              }
+            }
+          }
         }
         //打开模态框
         this.setModal = true
@@ -356,7 +372,7 @@
         this.$nextTick(()=>{
           this.dataFour = this.loadChart(names,nums)
           //手动让图表自适应
-          let myChart = window.$echarts.init(document.getElementById(this.showDataName))
+          let myChart = echarts.init(document.getElementById(this.showDataName))
           myChart.resize()
         })
         //保存图表设置的配置缓存
