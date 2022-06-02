@@ -16,7 +16,7 @@
   //引入echarts对象
   import echarts from "echarts"
   //引入地图JSON文件，资源来自依赖包
-  import chinaMapData from '../../../node_modules/china-map-data/index'
+  import chinaMapData from 'china-map-data'
 
   export default {
     name: 'echartMap',

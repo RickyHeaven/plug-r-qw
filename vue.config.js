@@ -122,7 +122,7 @@ module.exports = {
             amd: 'vue-json-viewer'
           },
           'china-map-data': {
-            root: 'chinaMapData',
+            root: 'china-map-data',
             commonjs: 'china-map-data',
             commonjs2: 'china-map-data',
             amd: 'china-map-data'
