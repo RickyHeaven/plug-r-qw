@@ -15,43 +15,8 @@
 
   //引入echarts对象
   import echarts from "echarts"
-  //引入地图JSON文件，资源来自依赖包，懒加载模式，但依然不够优雅，有更好的方案欢迎提出
-  import china from "../../../node_modules/echarts/map/json/china"
-  import world from "../../../node_modules/echarts/map/json/world"
-  import anhui from "../../../node_modules/echarts/map/json/province/anhui"
-  import aomen from "../../../node_modules/echarts/map/json/province/aomen"
-  import beijing from "../../../node_modules/echarts/map/json/province/beijing"
-  import chongqing from "../../../node_modules/echarts/map/json/province/chongqing"
-  import fujian from "../../../node_modules/echarts/map/json/province/fujian"
-  import gansu from "../../../node_modules/echarts/map/json/province/gansu"
-  import guangdong from "../../../node_modules/echarts/map/json/province/guangdong"
-  import guangxi from "../../../node_modules/echarts/map/json/province/guangxi"
-  import guizhou from "../../../node_modules/echarts/map/json/province/guizhou"
-  import hainan from "../../../node_modules/echarts/map/json/province/hainan"
-  import hebei from "../../../node_modules/echarts/map/json/province/hebei"
-  import heilongjiang from "../../../node_modules/echarts/map/json/province/heilongjiang"
-  import henan from "../../../node_modules/echarts/map/json/province/henan"
-  import hubei from "../../../node_modules/echarts/map/json/province/hubei"
-  import hunan from "../../../node_modules/echarts/map/json/province/hunan"
-  import jiangsu from "../../../node_modules/echarts/map/json/province/jiangsu"
-  import jiangxi from "../../../node_modules/echarts/map/json/province/jiangxi"
-  import jilin from "../../../node_modules/echarts/map/json/province/jilin"
-  import liaoning from "../../../node_modules/echarts/map/json/province/liaoning"
-  import neimenggu from "../../../node_modules/echarts/map/json/province/neimenggu"
-  import ningxia from "../../../node_modules/echarts/map/json/province/ningxia"
-  import qinghai from "../../../node_modules/echarts/map/json/province/qinghai"
-  import shandong from "../../../node_modules/echarts/map/json/province/shandong"
-  import shanghai from "../../../node_modules/echarts/map/json/province/shanghai"
-  import shanxi from "../../../node_modules/echarts/map/json/province/shanxi"
-  import shanxi1 from "../../../node_modules/echarts/map/json/province/shanxi1"
-  import sichuan from "../../../node_modules/echarts/map/json/province/sichuan"
-  import taiwan from "../../../node_modules/echarts/map/json/province/taiwan"
-  import tianjin from "../../../node_modules/echarts/map/json/province/tianjin"
-  import xianggang from "../../../node_modules/echarts/map/json/province/xianggang"
-  import xinjiang from "../../../node_modules/echarts/map/json/province/xinjiang"
-  import xizang from "../../../node_modules/echarts/map/json/province/xizang"
-  import yunnan from "../../../node_modules/echarts/map/json/province/yunnan"
-  import zhejiang from "../../../node_modules/echarts/map/json/province/zhejiang"
+  //引入地图JSON文件，资源来自依赖包
+  import chinaMapData from '../../../node_modules/china-map-data/index'
 
   export default {
     name: 'echartMap',
@@ -68,7 +33,7 @@
           return params.data.value[2]
         }
       },
-      tooltip: {                    //工具提示框回调函数
+      tooltip: {                //工具提示框回调函数
         type: Function,
         default: ()=>{
           return '随便定义任何内容也是可以的，通过回调函数取'
@@ -326,6 +291,7 @@
             return o.value
           }))
         }
+
         // 指定地图的配置项和数据
         let option = {
           //标题
@@ -475,116 +441,116 @@
         }
         return res
       },
-      // 全球、中国、各省的JSON文件懒加载模式，不太优雅，有更好的方式欢迎改进
+      // 全球、中国、各省的JSON文件懒加载模式，有更好的方式欢迎改进
       regionName(name){
         switch (name) {
           case 'china':
-            return china
+            return chinaMapData.china
           break
           case 'world':
-            return world
+            return chinaMapData.world
             break
           case 'anhui':
-            return anhui
+            return chinaMapData.province.anhui
           break
           case 'aomen':
-            return aomen
+            return chinaMapData.province.aomen
           break
           case 'beijing':
-            return beijing
+            return chinaMapData.province.beijing
           break
           case 'chongqing':
-            return chongqing
+            return chinaMapData.province.chongqing
           break
           case 'fujian':
-            return fujian
+            return chinaMapData.province.fujian
             break
           case 'gansu':
-            return gansu
+            return chinaMapData.province.gansu
             break
           case 'guangdong':
-            return guangdong
+            return chinaMapData.province.guangdong
             break
           case 'guangxi':
-            return guangxi
+            return chinaMapData.province.guangxi
             break
           case 'guizhou':
-            return guizhou
+            return chinaMapData.province.guizhou
             break
           case 'hainan':
-            return hainan
+            return chinaMapData.province.hainan
             break
           case 'hebei':
-            return hebei
+            return chinaMapData.province.hebei
             break
           case 'heilongjiang':
-            return heilongjiang
+            return chinaMapData.province.heilongjiang
             break
           case 'henan':
-            return henan
+            return chinaMapData.province.henan
             break
           case 'hubei':
-            return hubei
+            return chinaMapData.province.hubei
             break
           case 'hunan':
-            return hunan
+            return chinaMapData.province.hunan
             break
           case 'jiangsu':
-            return jiangsu
+            return chinaMapData.province.jiangsu
             break
           case 'jiangxi':
-            return jiangxi
+            return chinaMapData.province.jiangxi
             break
           case 'jilin':
-            return jilin
+            return chinaMapData.province.jilin
             break
           case 'liaoning':
-            return liaoning
+            return chinaMapData.province.liaoning
             break
           case 'neimenggu':
-            return neimenggu
+            return chinaMapData.province.neimenggu
             break
           case 'ningxia':
-            return ningxia
+            return chinaMapData.province.ningxia
             break
           case 'qinghai':
-            return qinghai
+            return chinaMapData.province.qinghai
             break
           case 'shandong':
-            return shandong
+            return chinaMapData.province.shandong
             break
           case 'shanghai':
-            return shanghai
+            return chinaMapData.province.shanghai
             break
           case 'shanxi':
-            return shanxi
+            return chinaMapData.province.shanxi
             break
           case 'shanxi1':
-            return shanxi1
+            return chinaMapData.province.shanxi1
             break
           case 'sichuan':
-            return sichuan
+            return chinaMapData.province.sichuan
             break
           case 'taiwan':
-            return taiwan
+            return chinaMapData.province.taiwan
             break
           case 'tianjin':
-            return tianjin
+            return chinaMapData.province.tianjin
             break
           case 'xianggang':
-            return xianggang
+            return chinaMapData.province.xianggang
             break
           case 'xinjiang':
-            return xinjiang
+            return chinaMapData.province.xinjiang
             break
           case 'xizang':
-            return xizang
+            return chinaMapData.province.xizang
             break
           case 'yunnan':
-            return yunnan
+            return chinaMapData.province.yunnan
             break
           case 'zhejiang':
-            return zhejiang
+            return chinaMapData.province.zhejiang
             break
         }
       }
