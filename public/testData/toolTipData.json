@@ -1,0 +1,281 @@
+[
+  {
+    "provinceName": "北京",
+    "provinceKey": 110000,
+    "cityName": null,
+    "cityKey": null,
+    "shopCount": 58,
+    "totalPrice": 860448.7,
+    "orderCount": 31744,
+    "onlineCount": 0
+  }, {
+  "provinceName": "天津",
+  "provinceKey": 120000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 74,
+  "totalPrice": 697438.3,
+  "orderCount": 30025,
+  "onlineCount": 0
+}, {
+  "provinceName": "河北",
+  "provinceKey": 130000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 175,
+  "totalPrice": 1051461.5,
+  "orderCount": 50625,
+  "onlineCount": 0
+}, {
+  "provinceName": "山西",
+  "provinceKey": 140000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 73,
+  "totalPrice": 432680.2,
+  "orderCount": 20427,
+  "onlineCount": 0
+}, {
+  "provinceName": "内蒙古",
+  "provinceKey": 150000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 46,
+  "totalPrice": 379952.5,
+  "orderCount": 14585,
+  "onlineCount": 0
+}, {
+  "provinceName": "辽宁",
+  "provinceKey": 210000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 74,
+  "totalPrice": 543290.6,
+  "orderCount": 27143,
+  "onlineCount": 0
+}, {
+  "provinceName": "吉林",
+  "provinceKey": 220000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 25,
+  "totalPrice": 234353.7,
+  "orderCount": 11123,
+  "onlineCount": 0
+}, {
+  "provinceName": "黑龙江",
+  "provinceKey": 230000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 25,
+  "totalPrice": 152894.8,
+  "orderCount": 6481,
+  "onlineCount": 0
+}, {
+  "provinceName": "上海",
+  "provinceKey": 310000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 78,
+  "totalPrice": 665877.5,
+  "orderCount": 26753,
+  "onlineCount": 0
+}, {
+  "provinceName": "江苏",
+  "provinceKey": 320000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 475,
+  "totalPrice": 3302139.4,
+  "orderCount": 158180,
+  "onlineCount": 0
+}, {
+  "provinceName": "浙江",
+  "provinceKey": 330000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 332,
+  "totalPrice": 2285259.3,
+  "orderCount": 116344,
+  "onlineCount": 0
+}, {
+  "provinceName": "安徽",
+  "provinceKey": 340000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 168,
+  "totalPrice": 1081322.1,
+  "orderCount": 57139,
+  "onlineCount": 0
+}, {
+  "provinceName": "福建",
+  "provinceKey": 350000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 145,
+  "totalPrice": 1352019.8,
+  "orderCount": 65228,
+  "onlineCount": 0
+}, {
+  "provinceName": "江西",
+  "provinceKey": 360000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 103,
+  "totalPrice": 689353.7,
+  "orderCount": 31822,
+  "onlineCount": 0
+}, {
+  "provinceName": "山东",
+  "provinceKey": 370000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 198,
+  "totalPrice": 1177320.9,
+  "orderCount": 59966,
+  "onlineCount": 0
+}, {
+  "provinceName": "河南",
+  "provinceKey": 410000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 184,
+  "totalPrice": 953710.6,
+  "orderCount": 52829,
+  "onlineCount": 0
+}, {
+  "provinceName": "湖北",
+  "provinceKey": 420000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 125,
+  "totalPrice": 890921.4,
+  "orderCount": 46768,
+  "onlineCount": 0
+}, {
+  "provinceName": "湖南",
+  "provinceKey": 430000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 111,
+  "totalPrice": 1007182.7,
+  "orderCount": 44094,
+  "onlineCount": 0
+}, {
+  "provinceName": "广东",
+  "provinceKey": 440000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 384,
+  "totalPrice": 3792306.1,
+  "orderCount": 165774,
+  "onlineCount": 0
+}, {
+  "provinceName": "广西",
+  "provinceKey": 450000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 194,
+  "totalPrice": 1252955,
+  "orderCount": 69882,
+  "onlineCount": 0
+}, {
+  "provinceName": "海南",
+  "provinceKey": 460000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 58,
+  "totalPrice": 617514,
+  "orderCount": 33090,
+  "onlineCount": 0
+}, {
+  "provinceName": "重庆",
+  "provinceKey": 500000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 35,
+  "totalPrice": 468892.6,
+  "orderCount": 20163,
+  "onlineCount": 0
+}, {
+  "provinceName": "四川",
+  "provinceKey": 510000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 127,
+  "totalPrice": 793622.7,
+  "orderCount": 43625,
+  "onlineCount": 0
+}, {
+  "provinceName": "贵州",
+  "provinceKey": 520000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 78,
+  "totalPrice": 659747.2,
+  "orderCount": 28817,
+  "onlineCount": 0
+}, {
+  "provinceName": "云南",
+  "provinceKey": 530000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 87,
+  "totalPrice": 657485.2,
+  "orderCount": 30916,
+  "onlineCount": 0
+}, {
+  "provinceName": "西藏",
+  "provinceKey": 540000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 5,
+  "totalPrice": 106922.4,
+  "orderCount": 2470,
+  "onlineCount": 0
+}, {
+  "provinceName": "陕西",
+  "provinceKey": 610000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 65,
+  "totalPrice": 589961.2,
+  "orderCount": 27093,
+  "onlineCount": 0
+}, {
+  "provinceName": "甘肃",
+  "provinceKey": 620000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 40,
+  "totalPrice": 248209.2,
+  "orderCount": 12390,
+  "onlineCount": 0
+}, {
+  "provinceName": "青海",
+  "provinceKey": 630000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 3,
+  "totalPrice": 33328.1,
+  "orderCount": 1161,
+  "onlineCount": 0
+}, {
+  "provinceName": "宁夏",
+  "provinceKey": 640000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 14,
+  "totalPrice": 146590.7,
+  "orderCount": 5240,
+  "onlineCount": 0
+}, {
+  "provinceName": "新疆",
+  "provinceKey": 650000,
+  "cityName": null,
+  "cityKey": null,
+  "shopCount": 43,
+  "totalPrice": 294423.4,
+  "orderCount": 11741,
+  "onlineCount": 0
+}]

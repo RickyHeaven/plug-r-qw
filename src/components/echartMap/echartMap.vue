@@ -218,8 +218,7 @@
       return {
         mapName:'china',       //地域名称
         myChart: null,         //地图对象
-        back: false,           //返回按钮是否显示的状态
-        myFile: null           //需要加载的地图区域名称，特殊动态形式
+        back: false            //返回按钮是否显示的状态
       }
     },
     mounted() {
