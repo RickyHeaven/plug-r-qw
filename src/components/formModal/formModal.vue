@@ -29,7 +29,7 @@
       <Button
           @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading"
       >{{okBtTxt||t('r.confirm')}}</Button>
-      <Button @click="close" class="modal-cancel-btn">{{cancelBtTxt||t('r.cancel')}}</Button>
+      <Button @click="close" class="modal-cancel-btn" v-if="!hideCancelBt">{{cancelBtTxt||t('r.cancel')}}</Button>
     </div>
   </Modal>
 </template>
@@ -78,6 +78,11 @@
       cancelBtTxt: {
         /*取消按钮内容*/
         type: String
+      },
+      hideCancelBt: {
+        /*隐藏取消按钮（只显示确定按钮，点击确定关闭弹框，如“查看”弹框）*/
+        type: Boolean,
+        default: false
       },
       hideFooter: {
         /*隐藏底栏*/
@@ -158,7 +163,11 @@
         this.showLoading = true
       },
       submit() { /*触发提交事件，公开*/
-        this.$refs.formRRef.submit()
+        if(this.hideCancelBt){
+          this.close()
+        }else {
+          this.$refs.formRRef.submit()
+        }
       },
       open() { /*触发打开弹框事件，公开*/
         this.openModal = true
