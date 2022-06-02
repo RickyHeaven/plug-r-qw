@@ -120,6 +120,12 @@ module.exports = {
             commonjs: 'vue-json-viewer',
             commonjs2: 'vue-json-viewer',
             amd: 'vue-json-viewer'
+          },
+          'china-map-data': {
+            root: 'chinaMapData',
+            commonjs: 'china-map-data',
+            commonjs2: 'china-map-data',
+            amd: 'china-map-data'
           }
         },
         plugins: [
