@@ -1,6 +1,6 @@
 {
   "name": "@zhangqingcq/plug-r-qw",
-  "version": "1.1.59",
+  "version": "1.1.61",
   "description": "A JS lib base on Vue and View-design, you can achieve some complex functions with simple code after install this lib.",
   "main": "/lib/plugRQw.umd.min.js",
   "scripts": {
@@ -43,6 +43,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-service": "^4.5.0",
+    "china-map-data": "^1.0.4",
     "compression-webpack-plugin": "^4.0.0",
     "css-loader": "^3.5.3",
     "deepmerge": "^2.2.1",
@@ -66,7 +67,6 @@
     "@jiaminghi/data-view": "^2.10.0",
     "ar-cascader": "^1.0.5",
     "axios": "^0.27.1",
-    "china-map-data": "^1.0.4",
     "core-js": "^3.6.5",
     "echarts": "^4.5.0",
     "js-cookie": "2.1.4",

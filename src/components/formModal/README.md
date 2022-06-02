@@ -20,6 +20,8 @@
 
 * disabled 布尔对象，禁用弹框内表单，默认：`false`
 
+* hideCancelBt 布尔对象，隐藏取消按钮（只显示确定按钮，点击确定关闭弹框，如“查看”弹框），默认：`false`
+
 * hideFooter 布尔对象，隐藏底栏，默认：`false`
 
 * btnLoading 布尔对象，提交按钮显示loading，默认：`false`
