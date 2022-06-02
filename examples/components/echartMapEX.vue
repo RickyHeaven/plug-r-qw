@@ -516,7 +516,7 @@
       })
     },
     methods:{
-      //返回地图上一级
+      //点击地图触发所点击的区域是哪个，针对性渲染
       onClickMap(name,txt){
         this.regionName(name)
         this.$refs['china-map'].initEcharts(name, txt)

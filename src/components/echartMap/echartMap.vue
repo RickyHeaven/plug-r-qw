@@ -396,12 +396,12 @@
         // 使用刚指定的配置项和数据显示图表。
         me.myChart.setOption(option)
       },
-      //返回地域事件
+      //返回地域事件，目前只有省级到中国两级，此处可以升级，留意一下
       oback(){
         //隐藏返回按钮
         this.back = false
         this.mapName = 'china'
-        this.$emit('on-click-map',this.mapName)
+        this.$emit('on-click-map',this.mapName,'中国')
       },
       // 用名称获取经纬度
       getGeoCoordMap(name) {
