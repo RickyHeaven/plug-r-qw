@@ -15,8 +15,6 @@
 
   //引入echarts对象
   import echarts from "echarts"
-  //引入地图JSON文件，资源来自依赖包
-  import chinaMapData from 'china-map-data'
 
   export default {
     name: 'echartMap',
@@ -239,6 +237,7 @@
               if (param.name === provincesText[i]) {
                 me.mapName = provinces[i]
                 //显示对应省份的方法
+                me.$emit('on-click-map',provinces[i],provincesText[i])
                 me.initEcharts(provinces[i],provincesText[i])
                 break;
               }
@@ -274,8 +273,6 @@
          * 欢迎其他开发者提供更好的懒加载方式，提升代码优雅性
          * **/
       initEcharts(pName, Chinese_) {
-        //注册地图
-        echarts.registerMap(pName,this.regionName(pName))
         //渲染地图
         this.loadMap(pName, Chinese_)
       },
@@ -404,7 +401,7 @@
         //隐藏返回按钮
         this.back = false
         this.mapName = 'china'
-        this.initEcharts("china", "中国")
+        this.$emit('on-click-map',this.mapName)
       },
       // 用名称获取经纬度
       getGeoCoordMap(name) {
@@ -440,119 +437,6 @@
           }
         }
         return res
-      },
-      // 全球、中国、各省的JSON文件懒加载模式，有更好的方式欢迎改进
-      regionName(name){
-        switch (name) {
-          case 'china':
-            return chinaMapData.china
-          break
-          case 'world':
-            return chinaMapData.world
-            break
-          case 'anhui':
-            return chinaMapData.province.anhui
-          break
-          case 'aomen':
-            return chinaMapData.province.aomen
-          break
-          case 'beijing':
-            return chinaMapData.province.beijing
-          break
-          case 'chongqing':
-            return chinaMapData.province.chongqing
-          break
-          case 'fujian':
-            return chinaMapData.province.fujian
-            break
-          case 'gansu':
-            return chinaMapData.province.gansu
-            break
-          case 'guangdong':
-            return chinaMapData.province.guangdong
-            break
-          case 'guangxi':
-            return chinaMapData.province.guangxi
-            break
-          case 'guizhou':
-            return chinaMapData.province.guizhou
-            break
-          case 'hainan':
-            return chinaMapData.province.hainan
-            break
-          case 'hebei':
-            return chinaMapData.province.hebei
-            break
-          case 'heilongjiang':
-            return chinaMapData.province.heilongjiang
-            break
-          case 'henan':
-            return chinaMapData.province.henan
-            break
-          case 'hubei':
-            return chinaMapData.province.hubei
-            break
-          case 'hunan':
-            return chinaMapData.province.hunan
-            break
-          case 'jiangsu':
-            return chinaMapData.province.jiangsu
-            break
-          case 'jiangxi':
-            return chinaMapData.province.jiangxi
-            break
-          case 'jilin':
-            return chinaMapData.province.jilin
-            break
-          case 'liaoning':
-            return chinaMapData.province.liaoning
-            break
-          case 'neimenggu':
-            return chinaMapData.province.neimenggu
-            break
-          case 'ningxia':
-            return chinaMapData.province.ningxia
-            break
-          case 'qinghai':
-            return chinaMapData.province.qinghai
-            break
-          case 'shandong':
-            return chinaMapData.province.shandong
-            break
-          case 'shanghai':
-            return chinaMapData.province.shanghai
-            break
-          case 'shanxi':
-            return chinaMapData.province.shanxi
-            break
-          case 'shanxi1':
-            return chinaMapData.province.shanxi1
-            break
-          case 'sichuan':
-            return chinaMapData.province.sichuan
-            break
-          case 'taiwan':
-            return chinaMapData.province.taiwan
-            break
-          case 'tianjin':
-            return chinaMapData.province.tianjin
-            break
-          case 'xianggang':
-            return chinaMapData.province.xianggang
-            break
-          case 'xinjiang':
-            return chinaMapData.province.xinjiang
-            break
-          case 'xizang':
-            return chinaMapData.province.xizang
-            break
-          case 'yunnan':
-            return chinaMapData.province.yunnan
-            break
-          case 'zhejiang':
-            return chinaMapData.province.zhejiang
-            break
-        }
       }
     }
   }

@@ -11,6 +11,7 @@
           :btn-style="btnStyle"
           :seriesData="seriesData"
           :seriesDataPro="seriesDataPro"
+          @on-click-map="onClickMap"
           :visualMapShow="true"
           :visualMapInverse="true"
           :visualMapFontSize="20"
@@ -68,6 +69,10 @@
 </template>
 
 <script>
+  //引入echarts对象
+  import echarts from "echarts"
+  //引入地图JSON文件，资源来自依赖包
+  import chinaMapData from 'china-map-data'
   export default {
     name: "echartMapEX",
     data() {
@@ -499,13 +504,136 @@
         }
       ]
       this.$nextTick(()=>{
+        //注册地图，由示例页面来处理JSON数据
+        this.regionName('china')
+        //渲染地图，由组件来处理逻辑
         this.$refs['china-map'].initEcharts("china", "中国")
         this.$refs['china-map-two'].initEcharts("china", "中国")
+        this.regionName('beijing')
         this.$refs['beijing-map'].initEcharts("beijing", "北京")
+        this.regionName('world')
         this.$refs['world-map'].initEcharts("world", "世界")
       })
     },
     methods:{
+      //返回地图上一级
+      onClickMap(name,txt){
+        this.regionName(name)
+        this.$refs['china-map'].initEcharts(name, txt)
+      },
+      //注册地图JSON文件，由页面例子来处理
+      regionName(name){
+        switch (name) {
+          case 'china':
+            echarts.registerMap('china',chinaMapData.china)
+            break
+          case 'world':
+            echarts.registerMap('world',chinaMapData.world)
+            break
+          case 'anhui':
+            echarts.registerMap('anhui',chinaMapData.province.anhui)
+            break
+          case 'aomen':
+            echarts.registerMap('aomen',chinaMapData.province.aomen)
+            break
+          case 'beijing':
+            echarts.registerMap('beijing',chinaMapData.province.beijing)
+            break
+          case 'chongqing':
+            echarts.registerMap('chongqing',chinaMapData.province.chongqing)
+            break
+          case 'fujian':
+            echarts.registerMap('fujian',chinaMapData.province.fujian)
+            break
+          case 'gansu':
+            echarts.registerMap('gansu',chinaMapData.province.gansu)
+            break
+          case 'guangdong':
+            echarts.registerMap('guangdong',chinaMapData.province.guangdong)
+            break
+          case 'guangxi':
+            echarts.registerMap('guangxi',chinaMapData.province.guangxi)
+            break
+          case 'guizhou':
+            echarts.registerMap('guizhou',chinaMapData.province.guizhou)
+            break
+          case 'hainan':
+            echarts.registerMap('hainan',chinaMapData.province.hainan)
+            break
+          case 'hebei':
+            echarts.registerMap('hebei',chinaMapData.province.hebei)
+            break
+          case 'heilongjiang':
+            echarts.registerMap('heilongjiang',chinaMapData.province.heilongjiang)
+            break
+          case 'henan':
+            echarts.registerMap('henan',chinaMapData.province.henan)
+            break
+          case 'hubei':
+            echarts.registerMap('hubei',chinaMapData.province.hubei)
+            break
+          case 'hunan':
+            echarts.registerMap('hunan',chinaMapData.province.hunan)
+            break
+          case 'jiangsu':
+            echarts.registerMap('jiangsu',chinaMapData.province.jiangsu)
+            break
+          case 'jiangxi':
+            echarts.registerMap('jiangxi',chinaMapData.province.jiangxi)
+            break
+          case 'jilin':
+            echarts.registerMap('jilin',chinaMapData.province.jilin)
+            break
+          case 'liaoning':
+            echarts.registerMap('liaoning',chinaMapData.province.liaoning)
+            break
+          case 'neimenggu':
+            echarts.registerMap('neimenggu',chinaMapData.province.neimenggu)
+            break
+          case 'ningxia':
+            echarts.registerMap('ningxia',chinaMapData.province.ningxia)
+            break
+          case 'qinghai':
+            echarts.registerMap('qinghai',chinaMapData.province.qinghai)
+            break
+          case 'shandong':
+            echarts.registerMap('shandong',chinaMapData.province.shandong)
+            break
+          case 'shanghai':
+            echarts.registerMap('shanghai',chinaMapData.province.shanghai)
+            break
+          case 'shanxi':
+            echarts.registerMap('shanxi',chinaMapData.province.shanxi)
+            break
+          case 'shanxi1':
+            echarts.registerMap('shanxi1',chinaMapData.province.shanxi1)
+            break
+          case 'sichuan':
+            echarts.registerMap('sichuan',chinaMapData.province.sichuan)
+            break
+          case 'taiwan':
+            echarts.registerMap('taiwan',chinaMapData.province.taiwan)
+            break
+          case 'tianjin':
+            echarts.registerMap('tianjin',chinaMapData.province.tianjin)
+            break
+          case 'xianggang':
+            echarts.registerMap('xianggang',chinaMapData.province.xianggang)
+            break
+          case 'xinjiang':
+            echarts.registerMap('xinjiang',chinaMapData.province.xinjiang)
+            break
+          case 'xizang':
+            echarts.registerMap('xizang',chinaMapData.province.xizang)
+            break
+          case 'yunnan':
+            echarts.registerMap('yunnan',chinaMapData.province.yunnan)
+            break
+          case 'zhejiang':
+            echarts.registerMap('zhejiang',chinaMapData.province.zhejiang)
+            break
+        }
+      },
       //地图区域颜色回调函数
       mapItemStyleThree(){
         return {
