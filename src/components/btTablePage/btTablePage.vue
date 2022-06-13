@@ -240,6 +240,7 @@
           if (this.radio) {
             TTK = {
               title: ' ',
+              width: 65,
               render: (h, params) => {
                 return h('Radio', {
                   props: {
@@ -252,7 +253,6 @@
           else {
             TTK = {
               type: "selection",
-              align: "center",
               width: 60
             }
           }
@@ -270,6 +270,9 @@
           }
           else {
             item.sortable = false
+          }
+          if (!item.align) {
+            item.align = 'center'
           }
         })
         if (this.tableEmptyTdHandle) {

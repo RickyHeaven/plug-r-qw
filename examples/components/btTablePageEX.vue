@@ -50,13 +50,11 @@
           {
             title: 'ID',
             key: 'id',
-            align: 'center',
             width: 80
           },
           {
             title: "文件名称",
             key: "name",
-            align: "center",
             minWidth: 250,
             render: (h, params) => {
               return h("span", {
@@ -71,23 +69,19 @@
           },
           {
             title: "文件类型",
-            key: "mimeType",
-            align: "center"
+            key: "mimeType"
           },
           {
             title: "文件大小",
-            key: "size",
-            align: "center"
+            key: "size"
           },
           {
             title: "备注",
-            key: "remark",
-            align: "center"
+            key: "remark"
           },
           {
             title: '操作',
             width: 240,
-            align: "center",
             render: (h, params) => {
               return h("div", [
                 h("Button", {
