@@ -191,6 +191,12 @@
     },
     data() {
       return {
+        pageSizes: this.pageSizes || [
+          10,
+          20,
+          30,
+          40
+        ],
         dataT: this.data,
         pageSizeT: this.pageSize,
         current: 1,

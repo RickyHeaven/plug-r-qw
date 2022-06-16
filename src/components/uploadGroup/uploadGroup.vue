@@ -4,21 +4,10 @@
 <template>
   <div>
     <Upload
-        name="files"
-        :action="urlT"
-        :before-upload="handelManualUpload"
-        :on-error="uploadError"
-        :on-success="uploadSuccess"
-        :on-exceeded-size="overSize"
-        :on-preview="onPreview"
-        :on-remove="onRemove"
-        :on-format-error="onFormatError"
-        :data="data"
-        :max-size="maxSize"
-        :show-upload-list="false"
-        :with-credentials="withCredentials"
-        :format="format"
-        :multiple="multiple||false"
+        name="files" :action="urlT" :before-upload="handelManualUpload" :on-error="uploadError"
+        :on-success="uploadSuccess" :on-exceeded-size="overSize" :on-preview="onPreview" :on-remove="onRemove"
+        :on-format-error="onFormatError" :data="data" :max-size="maxSize" :show-upload-list="false"
+        :with-credentials="withCredentials" :format="format" :multiple="multiple||false"
         :disabled="length > 0 && fileList.length >= length||Boolean(disabled)"
     > <!--暂时屏蔽multiple选项-->
       <Button
@@ -31,8 +20,8 @@
         <img :src="url+'/'+item+'/download?preview=true'" :alt="item">
         <div class="deleteModal">
           <Icon
-              type="ios-expand" size="40" class="previewExpand" @click="fullScreenImgByDom(url+'/'+item+'/download?preview=true')"
-              :title="t('r.fView')"
+              type="ios-expand" size="40" class="previewExpand"  :title="t('r.fView')"
+              @click="fullScreenImgByDom(url+'/'+item+'/download?preview=true')"
           />
           <Icon
               type="ios-trash-outline" size="40" class="previewDelete" @click="deleteById($event,item)"
@@ -58,26 +47,23 @@
         </div>
       </div>
     </div>
-    <div
-        class="customFileListM"
-        v-show="previewType === 'localList'&& fileList.length>0"
-    >
+    <div class="customFileListM" v-show="previewType === 'localList'&& fileList.length>0">
       <p
           class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList"
           :key="'manualItem'+index"
       >
-        <Icon :type="getFileTypeIconByName(item.name)"/>
-        <span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{item.name}}</span>
+        <Icon v-if="item.name" :type="getFileTypeIconByName(item.name)"/>
+        <span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{getName(item)}}</span>
         <span class="btBoxJ">
-          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" :title="t('r.fView')"/>
+          <Icon
+              v-if="showPreview(item)" type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)"
+              :title="t('r.fView')"
+          />
           <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
         </span>
       </p>
     </div>
-    <div
-        class="customFileListM"
-        v-show="previewType === 'list' && fileDefaultList.length>0"
-    >
+    <div class="customFileListM" v-show="previewType === 'list' && fileDefaultList.length>0">
       <p
           class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList"
           :key="'defaultItem'+index"
@@ -85,7 +71,10 @@
         <Icon :type="getFileTypeIconByName(item.name)"/>
         <span class="upNameT" @click="downloadDefaultFile(item)" :title="t('r.download')">{{item.name||t('r.file')+(index+1)}}</span>
         <span class="btBoxJ">
-          <Icon type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)" :title="t('r.fView')"/>
+          <Icon
+              v-if="showPreview(item)" type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)"
+              :title="t('r.fView')"
+          />
           <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
         </span>
       </p>
@@ -101,6 +90,7 @@
   import fullScreenImgByDom from '../../methods/fullScreenImgByDom.js'
   import $swal from '../../methods/swal.js'
   import Locale from '../../mixins/locale'
+  import _ from 'lodash'
 
   export default {
     name: "uploadGroup",
@@ -260,7 +250,10 @@
                 return []
               }
               else {
-                return [Number(this.fileIdListProp)]
+                if (/^\d*$/.test(this.fileIdListProp)) {
+                  return [Number(this.fileIdListProp)]
+                }
+                return [this.fileIdListProp]
               }
             case 'Array':
               return this.fileIdListProp.filter(e => e !== '--')
@@ -356,6 +349,9 @@
       clear() {
         this.fileList = []
       },
+      getName(item) {
+        return item.name || _.last(item.split('/'))
+      },
       async getFileSrcList(data) {
         let temp = []
         for (let item of data) {
@@ -376,33 +372,35 @@
           window.open(this.url + '/' + item.response.data[0].id + '/download')
         }
       },
+      showPreview(file) {
+        if (this.manualUpload) {
+          return file.type && isImgByFile(file.type)
+        }
+        return file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id &&
+          file.mimeType && isImgByFile(file.mimeType)
+      },
       listExpand(file) {//列表图片预览
         if (this.manualUpload) {
           getFileSrc(file)
             .then(r => {
-              if (isImgByFile(file.type)) {
-                //图片的 base64 格式, 可以直接当成 img 的 src 属性值
-                fullScreenImgByDom(r)
-              }
-              else {
-                $swal(this.t('r.info.title'), this.t('r.notImg'), 'info')
-              }
+              //图片的 base64 格式, 可以直接当成 img 的 src 属性值
+              fullScreenImgByDom(r)
             })
         }
-        else if (file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id) {
-          if (isImgByFile(file.mimeType)) {
-            fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download?preview=true')
-          }
-          else {
-            $swal(this.t('r.info.title'), this.t('r.notImg'), 'info')
-          }
+        else {
+          fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download?preview=true')
         }
       },
       downloadManualFile(file) {
-        getFileSrc(file)
-          .then(r => {
-            downloadFileReaderFile(file.name, r)
-          })
+        if (myTypeof(file) === 'String' && file.indexOf('http') > -1) {
+          window.open(file)
+        }
+        else if (myTypeof(file) === 'File') {
+          getFileSrc(file)
+            .then(r => {
+              downloadFileReaderFile(file.name, r)
+            })
+        }
       },
       handelManualUpload(file) {
         if (this.manualUpload) {
