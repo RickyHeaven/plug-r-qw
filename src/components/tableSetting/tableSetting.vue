@@ -38,7 +38,7 @@
    * @param {string} [right] - 设置面板定位-右（相对于按钮）
    * @param {string} [width] - 设置面板宽度
    * @param {string} [bg] - 设置面板背景色
-   * @param {boolean} [defaultCheck] - 是否设置默认勾选（默认false），如果设为true,则在v-model绑定的columns项里设置showSettingCheck为true
+   * @param {boolean} [defaultCheck] - 是否设置默认勾选（默认false，用于默认展示所有列），如果设为true（用于默认展示部分列）,则在v-model绑定的columns项里设置showSettingCheck:true
    * @example 调用示例 <table-search v-model="areaName" :open="openSearch" placeholder="片区名称" @on-search="search" @on-toggle="openSearch=!openSearch"/>
    */
   import _ from 'lodash'
