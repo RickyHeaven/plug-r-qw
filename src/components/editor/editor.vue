@@ -156,7 +156,8 @@
       //定义自定义菜单‘预览’
       class ViewMenu extends BtnMenu {
         constructor(editor) {
-          const $elem = $(`<div class="w-e-menu" title="${titleT}"><i class="ivu-icon ivu-icon-ios-eye" style="font-size: 22px;"></i></div>`)
+          const $elem = $(
+            `<div class="w-e-menu" title="${titleT}"><i class="ivu-icon ivu-icon-ios-eye" style="font-size: 22px;"></i></div>`)
 
           super($elem, editor)
         }
@@ -319,6 +320,10 @@
     },
     beforeDestroy() {
       // 销毁编辑器
+      let l = document.getElementById(this.editorId + 'preview')
+      if (l) {
+        document.getElementsByTagName('body')[0].removeChild(l)
+      }
       this.editor.destroy()
       this.editor = null
     },
