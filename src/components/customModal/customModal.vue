@@ -14,17 +14,20 @@
       <slot name="footer">
         <Button class="modal-save-btn" :loading="btnLoading&&loading" @click="handleSub">
           <span v-if="btnLoading&&loading">Loading...</span>
-          <span v-else>{{$t('r.confirm')}}</span>
+          <span v-else>{{t('r.confirm')}}</span>
         </Button>
-        <Button class="modal-cancel-btn" @click="close" v-if="!hideCancelBt">{{$t('r.cancel')}}</Button>
+        <Button class="modal-cancel-btn" @click="close" v-if="!hideCancelBt">{{t('r.cancel')}}</Button>
       </slot>
     </template>
   </Modal>
 </template>
 
 <script>
+  import Locale from '../../mixins/locale'
+
   export default {
     name: "customModal",
+    mixins: [Locale],
     props: {
       title: {
         type: String,
