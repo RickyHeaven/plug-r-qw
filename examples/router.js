@@ -350,6 +350,17 @@ export default new Router({
           }
         },
         {
+          path: '/customModal',
+          name: 'customModal',
+          component: () => import('./components/customModalEX.vue'),
+          meta: {
+            title: '组件：表单弹框',
+            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            icon: 'icon-formModal',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
           path: '/searchForm',
           name: 'searchForm',
           component: () => import('./components/searchFormEX.vue'),

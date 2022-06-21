@@ -19,6 +19,7 @@ import fullScreenPop from "./components/fullScreenPop/fullScreenPop.vue"
 import headerBt from "./components/headerBt/headerBt.vue"
 import formR from "./components/formR/formR.vue"
 import formModal from "./components/formModal/formModal.vue"
+import customModal from "./components/customModal/customModal.vue"
 import searchForm from "./components/searchForm/searchForm.vue"
 import formGroup from "./components/formGroup/formGroup.vue"
 import echart from "./components/echarts/echart.vue"
@@ -72,6 +73,7 @@ const components = {
   headerBt,
   formR,
   formModal,
+  customModal,
   searchForm,
   formGroup,
   echart,
