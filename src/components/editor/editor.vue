@@ -433,14 +433,15 @@
 
           wallE.innerHTML = this.value
           wallE.style.width = _w + 'px'
-          wallE.style.height = _h + 'px'
+          outWallE.style.height = _h + 'px'
           body[0].append(preEl)
         }
         else {
           let wallE = preEl.children[0].children[1].children[0]
+          let outWallE = preEl.children[0].children[1]
           wallE.innerHTML = this.value
           wallE.style.width = _w + 'px'
-          wallE.style.height = _h + 'px'
+          outWallE.style.height = _h + 'px'
           preEl.style.display = 'block'
         }
       }
