@@ -20,7 +20,7 @@
         <img :src="url+'/'+item+'/download?preview=true'" :alt="item">
         <div class="deleteModal">
           <Icon
-              type="ios-expand" size="40" class="previewExpand"  :title="t('r.fView')"
+              type="ios-expand" size="40" class="previewExpand" :title="t('r.fView')"
               @click="fullScreenImgByDom(url+'/'+item+'/download?preview=true')"
           />
           <Icon
@@ -350,7 +350,7 @@
         this.fileList = []
       },
       getName(item) {
-        return item.name || _.last(item.split('/'))
+        return item.name || item.split && _.last(item.split('/')) || item
       },
       async getFileSrcList(data) {
         let temp = []
