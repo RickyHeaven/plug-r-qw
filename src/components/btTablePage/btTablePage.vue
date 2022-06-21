@@ -198,7 +198,7 @@
           40
         ],
         dataT: this.data,
-        pageSizeT: this.pageSize,
+        pageSizeT: localStorage.getItem('btPageSize') && Number(localStorage.getItem('btPageSize')) || this.pageSize,
         current: 1,
         total: 0,
         selected: [],
@@ -481,6 +481,7 @@
       },
       pageSizeChange(v) {/*私有*/
         this.pageSizeT = v
+        localStorage.setItem('btPageSize', v)
         if (this.current === 1) {
           this.getDataAndClickRow()
         }
