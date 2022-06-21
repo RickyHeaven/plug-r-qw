@@ -334,6 +334,8 @@
       previewHandler() {
         const id = this.editorId + 'preview'
         let preEl = document.getElementById(id)
+        let _w = localStorage.getItem('editorPreviewW') || 300
+        let _h = localStorage.getItem('editorPreviewH') || 500
         if (!preEl) {
           const body = document.getElementsByTagName('body')
 
@@ -341,7 +343,7 @@
           preEl.setAttribute('id', id)
           preEl.setAttribute('class', 'editor-preview-mask')
           preEl.innerHTML =
-            `<div class="editor-preview-body"><div class="editor-preview-head"><div><span>宽</span><input type="number" value="300" min="200"><span>高</span><input type="number" value="500" min="300"></div><i class="ivu-icon ivu-icon-md-close"></i></div><div class="editor-preview-out-wall"><div class="editor-preview-wall ${this.previewClass}"></div></div></div>`
+            `<div class="editor-preview-body"><div class="editor-preview-head"><div><span>宽</span><input type="number" value="${_w}" min="200"><span>高</span><input type="number" value="${_h}" min="300"></div><i class="ivu-icon ivu-icon-md-close"></i></div><div class="editor-preview-out-wall"><div class="editor-preview-wall ${this.previewClass}"></div></div></div>`
 
           let outWallE = preEl.children[0].children[1]
           let wallE = preEl.children[0].children[1].children[0]
@@ -381,6 +383,7 @@
               e.target.value = bodyW - spaceW
             }
             wallE.style.width = val + 'px'
+            localStorage.setItem('editorPreviewW', val)
           }
 
           inputW.addEventListener('blur', wHandler)
@@ -418,6 +421,7 @@
               e.target.value = bodyH - spaceH
             }
             outWallE.style.height = val + 'px'
+            localStorage.setItem('editorPreviewH', val)
           }
 
           inputH.addEventListener('blur', hHandler)
@@ -428,11 +432,15 @@
           })
 
           wallE.innerHTML = this.value
+          wallE.style.width = _w + 'px'
+          wallE.style.height = _h + 'px'
           body[0].append(preEl)
         }
         else {
           let wallE = preEl.children[0].children[1].children[0]
           wallE.innerHTML = this.value
+          wallE.style.width = _w + 'px'
+          wallE.style.height = _h + 'px'
           preEl.style.display = 'block'
         }
       }
