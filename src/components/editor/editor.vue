@@ -40,7 +40,7 @@
       },
       focus: {
         type: Boolean,
-        default: false
+        default: true
       },
       changeInterval: {
         /*设置change事件触发时间间隔*/

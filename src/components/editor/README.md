@@ -6,7 +6,7 @@
 
 * valueType 字符串，内容类型，`html`和`text`二选一，默认：`html`
 
-* focus 布尔对象，是否自动获取焦点，默认：`false`
+* focus 布尔对象，是否在编辑器初始化时自动获取焦点，默认：`true`
 
 * changeInterval 数字，on-change事件触发时间，默认：`200`
 
