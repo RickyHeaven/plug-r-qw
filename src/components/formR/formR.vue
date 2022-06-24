@@ -242,6 +242,7 @@
           :uploadImgShowBase64="item.uploadImgShowBase64!==false"
           :showLinkImg="item.showLinkImg!==false"
           :uploadImgServe="item.uploadImgServe"
+          :previewClass="item.previewClass||'r-editor-view'"
           @on-change="reValidateAndChangeHandle($event,item)"
       />
       <input-map
