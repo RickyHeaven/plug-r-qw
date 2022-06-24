@@ -73,6 +73,14 @@
       .editor-preview-wall {
         width: @wallW;
         overflow: hidden;
+        *{
+          word-break: break-word;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
+        img {
+          max-width: 100% !important;
+        }
       }
     }
   }
