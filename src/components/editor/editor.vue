@@ -374,9 +374,9 @@
 
             const bodyW = body[0].clientWidth
 
-            if (val < 200) {
-              val = 200
-              e.target.value = 200
+            if (val < 250) {
+              val = 250
+              e.target.value = 250
             }
             else if (val > bodyW - spaceW) {
               val = bodyW - spaceW
