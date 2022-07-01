@@ -11,7 +11,7 @@
   import $fetch from '../../methods/fetch'
 
   //引入echarts对象
-  import echarts from "echarts"
+  import * as echarts from 'echarts'
   //默认主题款式 westeros - 通心粉款式，其他主题可以通过自定义引入echarts依赖后主题但名称theme一定要对应上
   import westeros from './westeros'
   echarts.registerTheme('westeros', westeros)

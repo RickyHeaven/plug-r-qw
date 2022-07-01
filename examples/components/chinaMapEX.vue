@@ -23,7 +23,7 @@
 
 <script>
   //引入echarts对象
-  import echarts from "echarts"
+  import * as echarts from 'echarts'
   //引入地图JSON文件，资源来自依赖包
   import {china,province} from 'china-map-data'
   //引入模拟后端返回的数据
@@ -42,6 +42,10 @@
           top: '50px'
         }
       }
+    },
+    beforeDestroy(){
+      //组件销毁时也一并销毁地图实例
+      echarts.dispose('china-map')
     },
     mounted() {
       // 模拟后端返回的省份数据

@@ -13,7 +13,7 @@
 
 <script>
   //引入echarts对象
-  import echarts from "echarts"
+  import * as echarts from 'echarts'
   //引入地图JSON文件，资源来自依赖包
   import beijing from 'china-map-data/province/beijing'
   export default {
@@ -23,10 +23,16 @@
 
       }
     },
+    beforeDestroy(){
+      //组件销毁时也一并销毁地图实例
+      echarts.dispose('beijing-map')
+    },
     mounted() {
-      //注册地图，由示例页面来处理JSON数据
-      this.regionName('beijing')
-      this.$refs['beijing-map'].initEcharts("beijing", "北京")
+      this.$nextTick(()=>{
+        //注册地图，由示例页面来处理JSON数据
+        this.regionName('beijing')
+        this.$refs['beijing-map'].initEcharts("beijing", "北京")
+      })
     },
     methods:{
       //注册地图JSON文件，由页面例子来处理

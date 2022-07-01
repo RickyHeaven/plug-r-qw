@@ -13,7 +13,7 @@
 
 <script>
   //引入echarts对象
-  import echarts from "echarts"
+  import * as echarts from 'echarts'
   //引入地图JSON文件，资源来自依赖包
   import {world} from 'china-map-data'
   export default {
@@ -23,11 +23,17 @@
 
       }
     },
+    beforeDestroy(){
+      //组件销毁时也一并销毁地图实例
+      echarts.dispose('world-map')
+    },
     mounted() {
-      //注册地图，由示例页面来处理JSON数据
-      this.regionName('world')
-      //渲染地图，由组件来处理逻辑
-      this.$refs['world-map'].initEcharts("world", "世界")
+      this.$nextTick(()=>{
+        //注册地图，由示例页面来处理JSON数据
+        this.regionName('world')
+        //渲染地图，由组件来处理逻辑
+        this.$refs['world-map'].initEcharts("world", "世界")
+      })
     },
     methods:{
       //注册地图JSON文件，由页面例子来处理
