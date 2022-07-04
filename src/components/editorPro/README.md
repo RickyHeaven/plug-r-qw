@@ -12,8 +12,12 @@
 
 * height 正数/字符串，编辑区域高度，默认：`300`
 
+* placeholder 字符串，占位符，默认：`请输入`
+
+* disabled 布尔对象，禁用编辑功能，默认：`false`
+
 ### 注意
-自定义上传到服务器的逻辑
+* 自定义上传到服务器的逻辑
 ```
   editorConfig.MENU_CONF['uploadImage'] ={
     async customUpload(file,insertFn){
@@ -26,3 +30,5 @@
     }
   }
 ```
+
+* 定制样式（编辑区域、预览层等）：编辑区class为`editor-pro-editor`，预览层id为`editor-preview`,直接另外写新样式覆写原有样式即可。

@@ -245,6 +245,20 @@
           :previewClass="item.previewClass||'r-editor-view'"
           @on-change="reValidateAndChangeHandle($event,item)"
       />
+      <!--富文本编辑器Pro-->
+      <editor-pro
+          class="inlineBlock"
+          :style="itemStyle"
+          v-else-if="item.type === 'editorPro'"
+          v-model="valGroup[item.key]"
+          :placeholder="item.placeholder || t('r.pInput')"
+          :disabled="Boolean(item.disabled) || disabled"
+          :toolbarConfig="item.toolbarConfig||{}"
+          :editorConfig="item.editorConfig||{}"
+          :mode="item.mode||'simple'"
+          :height="item.height||300"
+          @input="reValidateAndChangeHandle($event,item)"
+      />
       <input-map
           v-else-if="item.type === 'inputMap'"
           v-model="tempKeys[item.tempKey]"
@@ -293,6 +307,7 @@
   import asyncCascader from '../asyncCascader/asyncCascader.vue'
   import uploadGroup from '../uploadGroup/uploadGroup.vue'
   import editor from '../editor/editor.vue'
+  import editorPro from '../editorPro/editorPro.vue'
   import inputMap from '../inputMap/inputMap.vue'
   import Locale from '../../mixins/locale'
   import {setTimeout} from '../../methods/timer'
@@ -306,6 +321,7 @@
       asyncCascader,
       uploadGroup,
       editor,
+      editorPro,
       inputMap
     },
     props: {
@@ -530,7 +546,7 @@
                   'key',
                   key
                 ])
-                if (formItem && formItem.type === 'editor') {
+                if (formItem && (formItem.type === 'editor' || formItem.type === 'editorPro')) {
                   this.$set(this.valGroup, key, '')
                 }
                 else {
@@ -1037,7 +1053,7 @@
               this.$set(this.valGroup, item.key,
                 item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : [])
             }
-            else if (item.type === 'editor') {
+            else if (item.type === 'editor' || item.type === 'editorPro') {
               this.$set(this.valGroup, item.key,
                 item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : '')
             }

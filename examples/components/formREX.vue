@@ -58,11 +58,11 @@
 
             <template slot="cnu">
               <span>阶梯</span>
-              <Table border stripe :columns="columns" :data="tableData" />
+              <Table border stripe :columns="columns" :data="tableData"/>
             </template>
           </formR>
           表单提交的值：
-          <json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable />
+          <json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable/>
         </div>
       </wellCard>
     </div>
@@ -589,7 +589,7 @@
             optionUrl: null, /*此处如没有初始地址，需把optionUrl设置为null(必须在这声明这个字段，否则监听不到)，需要改变时直接改变此处的值（见下方mounted示例，不要使用updateFormDataT方法，它在该场景下不适用）*/
             optionLabel: 'name',
             optionVal: 'tel',
-            placeholder:"页面加载10秒后下拉框会有可选项，没看到变化？刷新页面再来一次~"
+            placeholder: "页面加载10秒后下拉框会有可选项，没看到变化？刷新页面再来一次~"
           },
           {
             type: 'inputMap',
@@ -598,6 +598,12 @@
             key2: 'lat',
             defaultVal: 100.225668,
             defaultVal2: 25.589449
+          },
+          {
+            type: 'editorPro',
+            label: '文章',
+            key: 'articleA',
+            defaultVal:'<p>你好！</p>'
           }
         ],
         rules5: {
@@ -680,9 +686,12 @@
       }
     },
     created() {
-      this.setTimeout(()=>{
-        this.$refs.formRef.updateFormDataT({index:1,val:'我现在变了，没看到？刷新页面再给你变一次~'})
-      },5000)
+      this.setTimeout(() => {
+        this.$refs.formRef.updateFormDataT({
+          index: 1,
+          val: '我现在变了，没看到？刷新页面再给你变一次~'
+        })
+      }, 5000)
     },
     mounted() {
       this.setTimeout(() => {
@@ -721,7 +730,7 @@
     }
 
     &.detailUA {
-      height: 3200px;
+      height: 3800px;
       width: 800px;
     }
   }

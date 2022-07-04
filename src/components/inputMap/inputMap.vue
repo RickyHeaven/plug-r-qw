@@ -134,7 +134,7 @@
       this.checkHeight()
     },
     beforeDestroy() {
-      if(this.mapX === null){
+      if(!this.mapX){
         return
       }
       this.mapX.destroy()

@@ -157,6 +157,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='editable'>editable</a> 布尔对象，InputNumber（数字输入框）是否可编辑，为`false`时,只能通过UI操作，不能通过光标修改，默认：`true`
 
+* <a name='editorConfig'>editorConfig</a> 对象，编辑器配置，参考[wangEditor5 编辑器配置](https://www.wangeditor.com/v5/editor-config.html)
+
 * <a name='filterable'>filterable</a> 布尔对象，是否支持筛选待选项，有的类型默认为真，有的为假，具体见后面的'type说明'
 
 * <a name='format'>format</a> 数组，uploadGroup支持的格式，不限制的话不用设置该字段，如：`['jpg','png']`
@@ -166,6 +168,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='formatC'>format（time组件）</a> 字符串，指定time组件返回日期格式及操作界面维度，无特殊需求时可不传，组件有对应的默认格式，常用值：
 `'HH:mm:ss'、'HH:mm'、'HH'`
+
+* <a name='height'>height</a> 正数/字符串，富文本编辑器Pro编辑区域高度，默认：`300`
 
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
 
@@ -195,6 +199,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 * <a name='maxSize'>maxSize</a> 数字，uploadGroup支持上传的文件大小限制，不限制则不设置，注意不要带单位，默认单位kb
 
 * <a name='min'>min</a> 数字，表单项允许最小值，需要类型支持时才生效
+
+* <a name='mode'>mode</a> 字符串，`'default'` 默认模式 - 集成了 wangEditor 所有功能；`'simple'` 简洁模式 - 仅有部分常见功能，但更加简洁易用，默认：`'simple'`
 
 * <a name='multiple'>multiple</a> 布尔对象，Select是否支持多选，默认：`false`
 
@@ -254,8 +260,10 @@ name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装�
 
 * <a name='title'>title</a> 字符串，表单项的标题，位于表单项左上方，样式见示例
 
+* <a name='toolbarConfig'>toolbarConfig</a> 对象，工具栏配置，参考[wangEditor5 工具栏配置](https://www.wangeditor.com/v5/toolbar-config.html)
+
 * <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、asyncCascader、radio、
-radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor、inputMap、custom
+radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor、editorPro、inputMap、custom
 
 * <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如远程数据级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
 
@@ -784,7 +792,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 
 * [class](#class) 单个表单项的自定义样式类名
 
-#### editor 富文本框
+#### editor 富文本编辑器
 * [label](#label) 标签
 
 * [key](#key) 表单项收集的数据在提交时所在字段
@@ -806,6 +814,33 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * [uploadImgShowBase64](#uploadImgShowBase64) 布尔对象，是否使用base64作为本地图片上传保存方式，默认：true
 
 * [uploadImgServe](#uploadImgServe) 对象，具体参考[editor](../editor/README.md)组件的README.md文档
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
+
+#### editorPro 富文本编辑器Pro
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [toolbarConfig](#toolbarConfig) 对象，工具栏配置，参考[wangEditor5 工具栏配置](https://www.wangeditor.com/v5/toolbar-config.html)
+
+* [editorConfig](#editorConfig) 对象，编辑器配置，参考[wangEditor5 编辑器配置](https://www.wangeditor.com/v5/editor-config.html) 
+
+* [mode](#mode) 字符串，`'default'` 默认模式 - 集成了 wangEditor 所有功能；`'simple'` 简洁模式 - 仅有部分常见功能，但更加简洁易用，默认：`'simple'`
+
+* [height](#height) 正数/字符串，编辑区域高度，默认：`300`
 
 * [title](#title) 表单项的标题，位于表单项左上方
 

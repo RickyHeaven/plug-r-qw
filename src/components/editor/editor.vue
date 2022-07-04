@@ -319,11 +319,14 @@
       }, 10)
     },
     beforeDestroy() {
-      // 销毁编辑器
       let l = document.getElementById(this.editorId + 'preview')
       if (l) {
         document.getElementsByTagName('body')[0].removeChild(l)
       }
+      if (!this.editor) {
+        return
+      }
+      // 销毁编辑器
       this.editor.destroy()
       this.editor = null
     },
