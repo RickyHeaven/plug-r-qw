@@ -51,7 +51,6 @@ import {
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
 import './methods/wangeditor5init'
-import '@wangeditor/editor/dist/css/style.css'
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
