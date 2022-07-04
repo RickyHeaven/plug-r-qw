@@ -29,7 +29,7 @@
 
   .editor-preview-body {
     text-align: left;
-    padding-top: calc(~'@{headH} + 1px');
+    padding-top: @headH;
     position: relative;
     display: inline-block;
     .editor-preview-head {
@@ -38,6 +38,7 @@
       left: 0;
       height: @headH;
       width: 100%;
+      border-bottom: 1px solid #ccc;
       background-color: #fff;
       padding: 0 10px 0 5px;
 
@@ -81,6 +82,8 @@
         img {
           max-width: 100% !important;
         }
+        font-size: 16px;
+        color: #000;
       }
     }
   }

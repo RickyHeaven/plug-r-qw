@@ -133,6 +133,13 @@
     mounted() {
       this.checkHeight()
     },
+    beforeDestroy() {
+      if(this.mapX === null){
+        return
+      }
+      this.mapX.destroy()
+      this.mapX = null
+    },
     methods: {
       checkHeight() {
         if (this.$refs[this.vidT] && this.$refs[this.vidT].clientHeight < 10 || (!this.$refs[this.vidT])) {

@@ -11,6 +11,7 @@ import showHidePanel from "./components/showHidePanel/showHidePanel.vue"
 import selectInput from "./components/selectInput/selectInput.vue"
 import asyncCascader from "./components/asyncCascader/asyncCascader.vue"
 import editor from "./components/editor/editor.vue"
+import editorPro from "./components/editorPro/editorPro.vue"
 import alCascaderMC from "./components/alCascaderMC/alCascaderMC.vue"
 import checkboxTree from "./components/checkboxTree/checkboxTree.vue"
 import checkboxGroupTwoClass from "./components/checkboxGroupTwoClass/checkboxGroupTwoClass.vue"
@@ -49,6 +50,8 @@ import {
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
+import './methods/wangeditor5init'
+import '@wangeditor/editor/dist/css/style.css'
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
@@ -65,6 +68,7 @@ const components = {
   selectInput,
   asyncCascader,
   editor,
+  editorPro,
   alCascaderMC,
   checkboxTree,
   checkboxGroupTwoClass,

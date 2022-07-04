@@ -475,7 +475,18 @@ export default new Router({
           name: 'editor',
           component: () => import('./components/editorEX.vue'),
           meta: {
-            title: '组件：富文本',
+            title: '组件：富文本编辑器',
+            bg: 'linear-gradient(to right, #727a17, #414d0b)',
+            icon: 'icon-editor',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/editorPro',
+          name: 'editorPro',
+          component: () => import('./components/editorProEX.vue'),
+          meta: {
+            title: '组件：富文本编辑器Pro',
             bg: 'linear-gradient(to right, #727a17, #414d0b)',
             icon: 'icon-editor',
             cls: 'counterclockwise both'

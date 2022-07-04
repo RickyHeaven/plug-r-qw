@@ -1,8 +1,8 @@
+const {defineConfig} = require('@vue/cli-service')
 const compressionPlugin = require("compression-webpack-plugin")
-
-module.exports = {
+module.exports = defineConfig({
+  transpileDependencies: true,
   devServer: {
-    open: true,
     proxy: {
       '/node-serve': {
         target: 'http://localhost:7890/',
@@ -126,7 +126,25 @@ module.exports = {
             commonjs: 'china-map-data',
             commonjs2: 'china-map-data',
             amd: 'china-map-data'
-          }
+          },
+           '@wangeditor/editor': {
+           root: '@wangeditor/editor',
+           commonjs: '@wangeditor/editor',
+           commonjs2: '@wangeditor/editor',
+           amd: '@wangeditor/editor'
+           },
+           '@wangeditor/editor-for-vue': {
+           root: '@wangeditor/editor-for-vue',
+           commonjs: '@wangeditor/editor-for-vue',
+           commonjs2: '@wangeditor/editor-for-vue',
+           amd: '@wangeditor/editor-for-vue'
+           },
+           '@jiaminghi/data-view': {
+           root: '@jiaminghi/data-view',
+           commonjs: '@jiaminghi/data-view',
+           commonjs2: '@jiaminghi/data-view',
+           amd: '@jiaminghi/data-view'
+           }
         },
         plugins: [
           new compressionPlugin({
@@ -180,4 +198,4 @@ module.exports = {
   },
   
   productionSourceMap: false
-}
+})

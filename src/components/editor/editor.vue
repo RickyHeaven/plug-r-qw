@@ -359,9 +359,6 @@
               if (e.key) {
                 notEnter = e.key !== 'Enter'
               }
-              else {
-                notEnter = e.keyCode !== 13
-              }
               if (notEnter) {
                 return
               }
@@ -395,9 +392,6 @@
               let notEnter = false
               if (e.key) {
                 notEnter = e.key !== 'Enter'
-              }
-              else {
-                notEnter = e.keyCode !== 13
               }
               if (notEnter) {
                 return
