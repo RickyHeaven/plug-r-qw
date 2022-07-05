@@ -31,7 +31,7 @@
   }
 ```
 
-* 定制样式（编辑区域、预览层等）：编辑区class为`editor-pro-editor`，预览层id为`editor-preview`,直接另外写新样式覆写原有样式即可。
+* 定制样式（编辑区域、预览层,解决z-index导致的穿透等）：编辑器容器class为：`editor-pro-root`，工具栏class为：`editor-pro-toolbar`，编辑区class为`editor-pro-editor`，预览层id为`editor-preview`,直接另外写新样式覆写原有样式即可。
 
 * 编辑器工具栏菜单key:
 ```angular2
