@@ -33,64 +33,76 @@
 
 * 定制样式（编辑区域、预览层等）：编辑区class为`editor-pro-editor`，预览层id为`editor-preview`,直接另外写新样式覆写原有样式即可。
 
-* 编辑器工具栏菜单key:`0: "bold"
-               1: "underline"
-               2: "italic"
-               3: "through"
-               4: "code"
-               5: "sub"
-               6: "sup"
-               7: "clearStyle"
-               8: "color"
-               9: "bgColor"
-               10: "fontSize"
-               11: "fontFamily"
-               12: "indent"
-               13: "delIndent"
-               14: "justifyLeft"
-               15: "justifyRight"
-               16: "justifyCenter"
-               17: "justifyJustify"
-               18: "lineHeight"
-               19: "insertImage"
-               20: "deleteImage"
-               21: "editImage"
-               22: "viewImageLink"
-               23: "imageWidth30"
-               24: "imageWidth50"
-               25: "imageWidth100"
-               26: "divider"
-               27: "emotion"
-               28: "insertLink"
-               29: "editLink"
-               30: "unLink"
-               31: "viewLink"
-               32: "codeBlock"
-               33: "blockquote"
-               34: "headerSelect"
-               35: "header1"
-               36: "header2"
-               37: "header3"
-               38: "header4"
-               39: "header5"
-               40: "todo"
-               41: "redo"
-               42: "undo"
-               43: "fullScreen"
-               44: "enter"
-               45: "bulletedList"
-               46: "numberedList"
-               47: "insertTable"
-               48: "deleteTable"
-               49: "insertTableRow"
-               50: "deleteTableRow"
-               51: "insertTableCol"
-               52: "deleteTableCol"
-               53: "tableHeader"
-               54: "tableFullWidth"
-               55: "insertVideo"
-               56: "uploadVideo"
-               57: "editVideoSize"
-               58: "uploadImage"
-               59: "codeSelectLang"
-               60: "previewX"`
+* 编辑器工具栏菜单key:
+```angular2
+[
+  "headerSelect",
+  "blockquote",
+  "|",
+  "bold",
+  "underline",
+  "italic",
+  {
+    "key": "group-more-style",
+    "menuKeys": [
+      "through",
+      "code",
+      "sup",
+      "sub",
+      "clearStyle"
+    ]
+  },
+  "color",
+  "bgColor",
+  "|",
+  "fontSize",
+  "fontFamily",
+  "lineHeight",
+  "|",
+  "bulletedList",
+  "numberedList",
+  "todo",
+  {
+    "key": "group-justify",
+    "menuKeys": [
+      "justifyLeft",
+      "justifyRight",
+      "justifyCenter",
+      "justifyJustify"
+    ]
+  },
+  {
+    "key": "group-indent",
+    "menuKeys": [
+      "indent",
+      "delIndent"
+    ]
+  },
+  "|",
+  "emotion",
+  "insertLink",
+  {
+    "key": "group-image",
+    "menuKeys": [
+      "insertImage",
+      "uploadImage"
+    ]
+  },
+  {
+    "key": "group-video",
+    "menuKeys": [
+      "insertVideo",
+      "uploadVideo"
+    ]
+  },
+  "insertTable",
+  "codeBlock",
+  "divider",
+  "|",
+  "undo",
+  "redo",
+  "|",
+  "previewX",
+  "fullScreen"
+]
+```
