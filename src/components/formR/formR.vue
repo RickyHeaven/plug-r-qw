@@ -614,7 +614,7 @@
         }
         return temp
       },
-      getFormItemIfVal(item) { /*判断是否展示表单项（私有）*/
+      getFormItemIfVal(item) { /*判断是否展示表单项（私有，高频被调用方法，每次表单中有任何值更改，都会被调用formDataT长度次）*/
         if (item.show) {
           if (myTypeof(item.show) === 'Object') {
             return this.returnIfVal(item, this.dealIfItem(item.show))
@@ -661,7 +661,7 @@
         }
       },
       returnIfVal(root, val) { /*处理表单项展示逻辑（私有）*/
-        if (val && root.key) {
+        if (!root.showing && val && root.key) {
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
               if (this.tempKeys[root.tempKey] === null ||
