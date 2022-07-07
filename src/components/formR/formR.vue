@@ -662,6 +662,8 @@
       },
       returnIfVal(root, val) { /*处理表单项展示逻辑（私有）*/
         if (!root.showing && val && root.key) {
+          this.$set(root, 'showing', val)
+
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
               if (this.tempKeys[root.tempKey] === null ||
@@ -703,8 +705,9 @@
           if (root.tempKey) { /*在隐藏表单项展示时把它的值赋给统计对象*/
             this.tempKeysWatchHandle(this.tempKeys[root.tempKey], root)
           }
+        }else {
+          this.$set(root, 'showing', val)
         }
-        this.$set(root, 'showing', val)
         return val
       },
       initFormDataT() { /*初始化表单结构（私有）*/

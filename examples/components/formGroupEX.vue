@@ -4,10 +4,10 @@
     <toHome/>
     <form-group
         ref="formGroup" :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit" @on-item-change="onItemChange" cancel-bt-txt="清空" @on-cancel="clear"
-    ></form-group>
+    />
     <div style="margin-top: 30px">
       组件提交的值：
-      <json-viewer :value="valGroup" theme="my-awesome-json-theme" copyable></json-viewer>
+      <json-viewer :value="valGroup" theme="my-awesome-json-theme" copyable/>
     </div>
   </div>
 </template>
