@@ -221,7 +221,7 @@
           :type="item.dateType"
           :disabled="Boolean(item.disabled) || disabled"
           placement="bottom-end"
-          :placeholder="item.placeholder||t('r.selectDate')"
+          :placeholder="item.placeholder||t('r.selectTime')"
           :steps="item.steps||[]"
           :clearable="item.clearable!==false"
           :editable="false"

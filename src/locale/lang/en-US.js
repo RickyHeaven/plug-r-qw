@@ -16,6 +16,7 @@ export default {
     pSelect: 'Select',
     pInput: 'Enter here',
     selectDate: 'Select date',
+    selectTime: 'Select time',
     search: 'Search here',
     level: {
       1: 'Level 1',

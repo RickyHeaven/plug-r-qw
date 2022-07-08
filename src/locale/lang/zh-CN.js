@@ -16,6 +16,7 @@ export default {
     pSelect: '请选择',
     pInput: '请输入',
     selectDate: '选择日期',
+    selectTime: '选择时间',
     search: '搜索',
     level: {
       1: '一级',
