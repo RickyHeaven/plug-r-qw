@@ -26,10 +26,6 @@
         seriesData: []
       }
     },
-    beforeDestroy(){
-      //组件销毁时也一并销毁地图实例
-      echarts.dispose('china-map-two')
-    },
     mounted() {
       // 随便造点数据
       this.seriesData = [

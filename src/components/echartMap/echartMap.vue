@@ -251,16 +251,20 @@
       if (!window.echartResizeMJ[me.name]) {
         let temp = window.onresize
         if (temp) {
-          window.onresize = function () {
-            temp()
-            me.myChart.resize()
-            window.echartResizeMJ[me.name] = true
+          window.onresize = ()=> {
+            if(me.myChart){
+              temp()
+              me.myChart.resize()
+              window.echartResizeMJ[me.name] = true
+            }
           }
         }
         else {
-          window.onresize = function () {
-            me.myChart.resize()
-            window.echartResizeMJ[me.name] = true
+          window.onresize = ()=> {
+            if(me.myChart){
+              me.myChart.resize()
+              window.echartResizeMJ[me.name] = true
+            }
           }
         }
       }
@@ -437,6 +441,14 @@
         }
         return res
       }
+    },
+    //生命周期结束前
+    beforeDestroy(){
+      //销组件毁时也一并销毁地图实例，释放内存
+      this.myChart.clear()
+      this.myChart.dispose()
+      this.myChart = null
+      window.echartResizeMJ = {}
     }
   }
 </script>

@@ -102,6 +102,7 @@
     },
     data() {
       return {
+        myChart: null,         //图表对象
         dataT: this.data,
         yAxisT: this.yAxis,
         xAxisT: this.xAxis,
@@ -198,16 +199,15 @@
         })
       }, //视图渲染
       init() {
-        //实例化DOM元素（ID,主题）
-        let myChart = echarts.init(document.getElementById(this.name), this.theme)
-
         //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
         let me = this
+        //实例化DOM元素（ID,主题）
+        me.myChart = echarts.init(document.getElementById(this.name), this.theme)
         //时间轴中的时间点改变后的事件，返回给父组件
-        myChart.on('timelinechanged', function (res) {
+        me.myChart.on('timelinechanged', function (res) {
           me.$emit('time-line-change', res.currentIndex)
         })
-        myChart.on('click', 'series.bar', function (res) {
+        me.myChart.on('click', 'series.bar', function (res) {
           me.$emit('series-bar-click', res)
         })
 
@@ -252,7 +252,7 @@
         }
 
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option)
+        me.myChart.setOption(option)
 
         //自适应样式
         if (window.echartResizeMJ === undefined) {
@@ -261,20 +261,32 @@
         if (!window.echartResizeMJ[me.name]) {
           let temp = window.onresize
           if (temp) {
-            window.onresize = function () {
-              temp()
-              myChart.resize()
-              window.echartResizeMJ[me.name] = true
+            window.onresize = ()=> {
+              if(me.myChart){
+                temp()
+                me.myChart.resize()
+                window.echartResizeMJ[me.name] = true
+              }
             }
           }
           else {
-            window.onresize = function () {
-              myChart.resize()
-              window.echartResizeMJ[me.name] = true
+            window.onresize = ()=> {
+              if(me.myChart){
+                me.myChart.resize()
+                window.echartResizeMJ[me.name] = true
+              }
             }
           }
         }
       }
+    },
+    //生命周期结束前
+    beforeDestroy(){
+      //销组件毁时也一并销毁图表实例、resize监听，释放内存
+      this.myChart.clear()
+      this.myChart.dispose()
+      this.myChart = null
+      window.echartResizeMJ = {}
     }
   }
 </script>

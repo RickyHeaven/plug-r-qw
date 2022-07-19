@@ -23,10 +23,6 @@
 
       }
     },
-    beforeDestroy(){
-      //组件销毁时也一并销毁地图实例
-      echarts.dispose('world-map')
-    },
     mounted() {
       this.$nextTick(()=>{
         //注册地图，由示例页面来处理JSON数据

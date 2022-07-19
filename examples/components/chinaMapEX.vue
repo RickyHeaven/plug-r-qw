@@ -43,10 +43,6 @@
         }
       }
     },
-    beforeDestroy(){
-      //组件销毁时也一并销毁地图实例
-      echarts.dispose('china-map')
-    },
     mounted() {
       // 模拟后端返回的省份数据
       this.toolTipData = toolTipData
