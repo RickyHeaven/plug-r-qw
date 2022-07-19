@@ -331,6 +331,16 @@
             ]
           },
           {
+            type: 'input',
+            label: '正则条件',
+            key: 'major3',
+            show: {
+              /*条件为正则表达式*/
+              key: 'education', /*除了2以外所有的*/
+              reg: /^(?!2$).*$/
+            }
+          },
+          {
             type: 'select',
             label: '联系人',
             key: 'friend',
@@ -603,7 +613,7 @@
             type: 'editorPro',
             label: '文章',
             key: 'articleA',
-            defaultVal:'<p>你好！</p>'
+            defaultVal: '<p>你好！</p>'
           }
         ],
         rules5: {

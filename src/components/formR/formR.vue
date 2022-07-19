@@ -644,7 +644,10 @@
         }
       },
       dealIfItem(item) { /*处理展示表单项逻辑（私有）*/
-        if (myTypeof(item.val) === 'Array') {
+        if (item.reg && typeof item.reg.test === 'function') {
+          return item.reg.test(this.valGroup[item.key])
+        }
+        else if (myTypeof(item.val) === 'Array') {
           for (let val of item.val) {
             if ((this.valGroup[item.key] || this.valGroup[item.key] === 0 || this.valGroup[item.key] === false) &&
               val === '.') {/*只要控制项有值及展示*/
@@ -705,7 +708,8 @@
           if (root.tempKey) { /*在隐藏表单项展示时把它的值赋给统计对象*/
             this.tempKeysWatchHandle(this.tempKeys[root.tempKey], root)
           }
-        }else {
+        }
+        else {
           this.$set(root, 'showing', val)
         }
         return val

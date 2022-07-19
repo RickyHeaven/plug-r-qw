@@ -301,6 +301,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * val 数组，目标表单项为哪些值时，满足条件，如：`[1,2]`表示age为1或2时，满足条件；该字段接受一个特殊值`'.'`，表示该条件key对应字段只要有
 有效值既满足，有效值意思是 0 或 false 或转为Boolean结果为 true
 
+* reg 正则表达式，当val这个字段已经不能满足业务需求时，可启用该值传递正则表达式（val无需再传值），当正则表达式匹配给定key对应的值成功时，表单项展示，否则隐藏。
+
 注意：如果条件有多个，show的类型变为多个条件对象组成的数组；多个条件间关系为且，如果想要为或，需设置[showOr](#showOr)为`true`
 
 ### type说明
