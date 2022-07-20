@@ -445,10 +445,12 @@
     //生命周期结束前
     beforeDestroy(){
       //销组件毁时也一并销毁地图实例，释放内存
-      this.myChart.clear()
-      this.myChart.dispose()
-      this.myChart = null
-      window.echartResizeMJ = {}
+      if(this.myChart){
+        this.myChart.clear()
+        this.myChart.dispose()
+        this.myChart = null
+        window.echartResizeMJ = {}
+      }
     }
   }
 </script>
