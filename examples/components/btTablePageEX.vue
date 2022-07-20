@@ -69,14 +69,17 @@
           },
           {
             title: "文件类型",
+            minWidth: 250,
             key: "mimeType"
           },
           {
             title: "文件大小",
+            minWidth: 250,
             key: "size"
           },
           {
             title: "备注",
+            minWidth: 250,
             key: "remark"
           },
           {
@@ -183,7 +186,7 @@
       }
     },
     methods: {
-      clearSelect(){
+      clearSelect() {
         this.$refs.btTab.clearSelect()
       },
       handleNew() {

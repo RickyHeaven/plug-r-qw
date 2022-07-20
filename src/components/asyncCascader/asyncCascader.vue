@@ -5,7 +5,7 @@
   <Cascader
       ref="cascaderRT" :data="data" v-model="val" @on-change="onChange" change-on-select transfer
       :disabled="disabled" :render-format="format" :placeholder="placeholder||t('r.pSelect')" :filterable="filterable"
-  ></Cascader>
+  />
 </template>
 
 <script>

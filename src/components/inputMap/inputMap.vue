@@ -134,11 +134,14 @@
       this.checkHeight()
     },
     beforeDestroy() {
-      if(!this.mapX){
+      if (!this.mapX) {
         return
       }
       this.mapX.destroy()
       this.mapX = null
+      this.geoCoder = null
+      this.autoCompleteX = null
+      this.infoWindow = null
     },
     methods: {
       checkHeight() {
@@ -163,7 +166,7 @@
                   name: this.valProp.name
                 })
               }
-              new AMap.Autocomplete({
+              this.autoCompleteX = new AMap.Autocomplete({
                 input: this.$refs.mapInput.$el.children[1]
               }).on('select', (val) => {
                 if (val && val.poi && val.poi.name) {

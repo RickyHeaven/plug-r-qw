@@ -341,6 +341,14 @@
             }
           },
           {
+            type: 'input',
+            label: '回调函数',
+            key: 'major4',
+            defaultVal:'abc',
+            /*条件为回调函数*/
+            show: valGroup => valGroup.education > 3
+          },
+          {
             type: 'select',
             label: '联系人',
             key: 'friend',
@@ -638,6 +646,9 @@
             }
           ],
           education: {
+            required: true
+          },
+          school: {
             required: true
           },
           major: {

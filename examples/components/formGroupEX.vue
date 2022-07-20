@@ -22,9 +22,9 @@
           {
             type: 'input',
             label: '名称',
-            disabled: true,
+            // disabled: true,
             key: 'name'
-          },
+          }/*,
           {
             type: 'input',
             inputType: 'number',
@@ -84,7 +84,7 @@
             type: 'select',
             label: '联系人',
             key: 'friend',
-            asyncOption: true, /*远程待选项*/
+            asyncOption: true, /!*远程待选项*!/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel'
@@ -99,7 +99,7 @@
             type: 'editor',
             key: 'signature',
             label: '个性签名'
-          }
+          }*/
         ],
         formRules: {
           age: {
