@@ -242,9 +242,10 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='separator'>separator</a> 字符串，label分隔符，默认：`'/'`
 
-* <a name='show'>show</a> 对象/数组，表单项显示设置，[详细说明](#showDetail)如：`{key:'name',val:['Ricky','Tom']}`，表示只在
+* <a name='show'>show</a> 对象/数组/回调函数，表单项显示设置，[详细说明](#showDetail)如：`{key:'name',val:['Ricky','Tom']}`，表示只在
 name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装这些条件对象，如：`[{key,val...},{...}]`，它们的关系为且，即所有条件都满足才显
-示，如果需要条件关系为或，给表单项[showOr](#showOr)赋值`true`
+示，如果需要条件关系为或，给表单项[showOr](#showOr)赋值`true`；当给定格式的对象或数组不能满足业务需求时，可传一个回调函数，函数参数为formR的valGroup，
+回调函数需要有返回值，当返回值为真时，表单项展示，返回值为假时，表单项隐藏。
 
 * <a name='showImg'>showImg</a> 布尔对象，uploadGroup是否以图片方式显示已上传的图片文件，默认：`false`
 

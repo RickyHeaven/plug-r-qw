@@ -15,9 +15,9 @@
     <!--解决form只有一个input时enter触发页面刷新的问题-->
     <FormItem style="display: none"><input type="text"/></FormItem>
     <FormItem
-        v-for="(item,index) of formDataT"
+        v-for="(item,i) of formDataT"
         v-if="getFormItemIfVal(item)"
-        :key="'formItem'+index"
+        :key="'formItem'+i"
         :label="item.type !== 'radio'&&item.type !== 'checkbox'?item.label:' '"
         :prop="item.key||''"
         class="relativeBox"
@@ -69,10 +69,10 @@
           :clearable="item.clearable!==false"
       >
         <Option
-            v-for="(optionItem,index) in item.options"
+            v-for="(optionItem,i) in item.options"
             :value="optionItem.val"
             :label="optionItem.label||optionItem.val"
-            :key="'option-'+item.key + index"
+            :key="'option-'+item.key + i"
             :disabled="!!optionItem.disabled"
         />
       </Select>
@@ -614,7 +614,7 @@
         }
         return temp
       },
-      getFormItemIfVal(item) { /*判断是否展示表单项（私有，高频被调用方法，每次表单中有任何值更改，都会被调用formDataT长度次）*/
+      getFormItemIfVal(item) { /*判断是否展示表单项（私有，高频被调用方法，每次表单中有任何值更改，都会被调用formDataT长度次，而且还可能触发连锁反应）*/
         if (item.show) {
           if (myTypeof(item.show) === 'Object') {
             return this.returnIfVal(item, this.dealIfItem(item.show))
@@ -637,11 +637,14 @@
               return this.returnIfVal(item, true)
             }
           }
+          else if (myTypeof(item.show) === 'Function') {
+            return this.returnIfVal(item, item.show(this.valGroup))
+          }
         }
-        else {
+        else if (!item.showing) {
           this.$set(item, 'showing', true)
-          return true
         }
+        return true
       },
       dealIfItem(item) { /*处理展示表单项逻辑（私有）*/
         if (item.reg && typeof item.reg.test === 'function') {

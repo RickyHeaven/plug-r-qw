@@ -329,6 +329,7 @@
       // 销毁编辑器
       this.editor.destroy()
       this.editor = null
+      this.xssP = null
     },
     methods: {
       setHtml(val) {

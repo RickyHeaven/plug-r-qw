@@ -2,13 +2,13 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="btTablePage fullHeight">
+  <div class="btTablePage fullHeight" ref="tableBox">
     <div class="topBtn" v-show="showTopRow">
-      <slot name="tableSetting"></slot>
+      <slot name="tableSetting" />
 
-      <slot name="topMsg"></slot>
+      <slot name="topMsg" />
 
-      <slot name="topBtnGroup"></slot>
+      <slot name="topBtnGroup" />
     </div>
     <div
         class="tableContainer fullHeight"
@@ -321,19 +321,6 @@
     created() {
       this.initTable()
     },
-    mounted() {
-      this.firstGetHeight()
-      if (window.onresize) {
-        let temp = window.onresize
-        window.onresize = _.debounce(() => {
-          temp()
-          this.handleResize()
-        })
-      }
-      else {
-        window.onresize = _.debounce(this.handleResize)
-      }
-    },
     watch: {
       searchData: {
         handler() {
@@ -343,23 +330,6 @@
       }
     },
     methods: {
-      firstGetHeight() {/*私有*/
-        if (this.tableContainerHeight < 50) {
-          setTimeout(this.firstGetHeight, 100)
-        }
-        else {
-          setTimeout(this.getTableContainerHeight, 10)
-        }
-      },
-      getTableContainerHeight() {/*私有*/
-        this.tableContainerHeight = this.$refs.tableContainerLOI && this.$refs.tableContainerLOI.clientHeight || 0
-      },
-      handleResize() { /*私有，table重新计算尺寸布局*/
-        this.getTableContainerHeight()
-        if (this.$refs.TableXXX) {
-          this.$refs.TableXXX.handleResize()
-        }
-      },
       initTable() {/*私有*/
         if (this.initData) {
           this.getDataAndClickRow()
