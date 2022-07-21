@@ -3,7 +3,8 @@
     <showReadMe/>
     <toHome/>
     <form-group
-        ref="formGroup" :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit" @on-item-change="onItemChange" cancel-bt-txt="清空" @on-cancel="clear"
+        ref="formGroup" :form-data="data" :form-rules="formRules" width="800px" @on-submit="submit"
+        @on-item-change="onItemChange" cancel-bt-txt="清空" @on-cancel="clear"
     />
     <div style="margin-top: 30px">
       组件提交的值：
@@ -22,12 +23,10 @@
           {
             type: 'input',
             label: '名称',
-            // disabled: true,
             key: 'name'
-          }/*,
+          },
           {
-            type: 'input',
-            inputType: 'number',
+            type: 'inputNumber',
             label: '年龄',
             key: 'age'
           },
@@ -62,16 +61,7 @@
           {
             type: 'input',
             label: '专业',
-            key: 'major',
-            show: {
-              key: 'education',
-              val: [
-                2,
-                3,
-                4,
-                5
-              ]
-            }
+            key: 'major'
           },
           {
             type: 'date',
@@ -84,7 +74,7 @@
             type: 'select',
             label: '联系人',
             key: 'friend',
-            asyncOption: true, /!*远程待选项*!/
+            asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel'
@@ -99,7 +89,7 @@
             type: 'editor',
             key: 'signature',
             label: '个性签名'
-          }*/
+          }
         ],
         formRules: {
           age: {
@@ -118,7 +108,7 @@
       onItemChange(data) {
         console.log('item change:', data)
       },
-      clear(){
+      clear() {
         this.$refs.formGroup.resetForm()
       }
     }
