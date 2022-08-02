@@ -24,7 +24,7 @@
     }
   }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   [data-loader]
   {
     margin: 8px;
