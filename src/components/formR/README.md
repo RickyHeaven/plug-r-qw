@@ -188,6 +188,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='likeInput'>likeInput</a> 布尔对象，表单项右侧区域模拟input样式，只有type为txt时有效，默认：`false`
 
+* <a name='localOption'>localOption</a> 数组，表单项待选项为远程拉取时，使用该属性可设置固定的本地选项，排在远程选项前面
+
 * <a name='manualUpload'>manualUpload</a> 布尔对象，uploadGroup手动上传（本地上传，采集file对象），默认：`false`
 
 * <a name='mapHeight'>mapHeight</a> 字符串，inputMap的地图高度，默认值：`'250px'`
@@ -418,6 +420,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 
 * [optionVal](#optionVal) 待选项val对应接口数据的字段名
 
+* [localOption](#localOption) 数组，表单项待选项为远程拉取时，使用该属性可设置固定的本地选项，排在远程选项前面
+
 * [optionFilter](#optionFilter) 待选项筛选方法
 
 * [disableOptionByOthers](#disableOptionByOthers) 根据其他表单项的值禁用待选项
@@ -641,6 +645,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * [optionLabel](#optionLabel) 待选项label对应接口数据的字段名
 
 * [optionVal](#optionVal) 待选项val对应接口数据的字段名
+
+* [localOption](#localOption) 数组，表单项待选项为远程拉取时，使用该属性可设置固定的本地选项，排在远程选项前面
 
 * [optionFilter](#optionFilter) 待选项筛选方法
 
