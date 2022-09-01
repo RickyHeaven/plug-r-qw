@@ -454,21 +454,3 @@
     }
   }
 </script>
-<style scoped lang="less">
-  .echart-main{
-    overflow: hidden;
-    position: relative;
-    .echart-map{
-      position: absolute;
-      width: 100%;
-      height: 100%
-    }
-    #back{
-      position:absolute;
-      top:10px;
-      left:0;
-      cursor:pointer;
-      z-index: 101;
-    }
-  }
-</style>
