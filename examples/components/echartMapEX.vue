@@ -2,19 +2,23 @@
   <div class="examplePageL vh100">
     <showReadMe route-now="echartMap"/>
     <toHome/>
-    <div class="map-one">
-      <chinaMap />
+    <div class="map-five">
+      <div class="map-bg"></div>
+      <chinaMapThree width-t="100%" height-t="100%" />
     </div>
     <div class="map-two">
       <div class="map-bg"></div>
       <chinaMapTwo />
     </div>
-    <div class="map-three">
-      <beijingMap />
-    </div>
     <div class="map-four">
       <div class="map-bg"></div>
       <worldMap />
+    </div>
+    <div class="map-one">
+      <chinaMap />
+    </div>
+    <div class="map-three">
+      <beijingMap />
     </div>
   </div>
 </template>
@@ -24,13 +28,15 @@
   import chinaMapTwo from './chinaMapTwoEX'
   import beijingMap from './beijingMapEX'
   import worldMap from './worldMapEX'
+  import chinaMapThree from './chinaMapThreeEX'
   export default {
     name: "echartMapEX",
     components:{
       chinaMap,
       chinaMapTwo,
       beijingMap,
-      worldMap
+      worldMap,
+      chinaMapThree
     },
     data() {
       return {
@@ -48,13 +54,13 @@
     overflow-x: hidden;
     overflow-y: scroll
   }
-  .map-one,.map-two,.map-three,.map-four{
+  .map-one,.map-two,.map-three,.map-four,.map-five{
     width: 50%;
     height: 93%;
     position: relative;
     float: left
   }
-  .map-two,.map-four{
+  .map-two,.map-four,.map-five{
     background: linear-gradient(45deg, #020d29, #030b33);
     .map-bg{
       width: 100%;

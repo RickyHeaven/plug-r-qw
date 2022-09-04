@@ -20,7 +20,7 @@
   //引入地图JSON文件，资源来自依赖包
   import {china} from 'china-map-data'
   export default {
-    name: "echartMapEX",
+    name: "chinaMapTwoEX",
     data() {
       return {
         seriesData: []

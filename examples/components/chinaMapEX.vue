@@ -2,19 +2,16 @@
   <echart-map
       :title="title"
       :tooltip="tooltip"
+      @on-click-map="onClickMap"
       name="china-map"
       ref="china-map"
       :btn-style="btnStyle"
       :seriesData="seriesData"
       :seriesDataPro="seriesDataPro"
-      @on-click-map="onClickMap"
       :visualMapShow="true"
       :visualMapInverse="true"
-      :visualMapFontSize="20"
-      visualMapFontColor="#222"
-      titleFontWeight="bold"
       visualMapLeft="30%"
-      visualMaptop="bottom"
+      visualMapTop="bottom"
       :inRangeColor="['#dbfefe', '#1066d5']"
       widthT="100%"
       heightT="100%"
@@ -128,19 +125,6 @@
             textStyle: {
               color: "#F53131"
             },
-          }
-        }
-      },
-      //地图区域默认颜色回调，可定义的颜色之多，请参考echarts文档
-      geoItemStyle(){
-        return {
-          normal: {
-            //区域颜色没有值的时候默认颜色
-            areaColor: '#edf2fa',
-            shadowBlur: 10,
-            shadowColor: "#051433",
-            shadowOffsetX: 10,
-            shadowOffsetY: 20
           }
         }
       },

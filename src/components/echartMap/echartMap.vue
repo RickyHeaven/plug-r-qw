@@ -56,22 +56,7 @@
           }
         }
       },
-      scatterGeoLabel:{        //地图区域标签颜色回调函数
-        type: Function,
-        default: ()=>{
-          return {
-            normal: {
-              show: false,
-              formatter: '{b}',
-              position: 'right'
-            },
-            emphasis: {
-              show: true
-            }
-          }
-        }
-      },
-      geoItemStyle: {           //地图区域默认颜色回调函数
+      geoItemStyle: {           //地理全局颜色回调函数
         type: Function,
         default: ()=>{
           return {
@@ -121,9 +106,9 @@
         default: ()=>{
           return {
             normal: {
-              borderWidth: .5, //区域边框宽度
-              borderColor: '#0550c3', //区域边框颜色
-              areaColor: "#0b7e9e", //区域颜色
+              borderWidth: .5,                  //区域边框宽度
+              borderColor: '#0550c3',           //区域边框颜色
+              areaColor: "#0b7e9e",             //区域颜色
             },
             emphasis: {
               borderWidth: .5,
@@ -337,23 +322,9 @@
                 show: false
               }
             },
-            itemStyle: me.geoItemStyle()    //默认区域颜色，因定制化的可能性较多，由回调函数执行
+            itemStyle: me.geoItemStyle()    //地理全局颜色，因定制化的可能性较多，由回调函数执行
           },
           series: [
-            {
-              /**
-               地图区域颜色，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
-               如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
-               这些可以配合 visualMap 组件完成
-               注意scatter有先后优先级顺序！
-               **/
-              name: '散点',
-              type: 'scatter',
-              coordinateSystem: 'geo',
-              data: tmpSeriesData,
-              symbolSize: '1',
-              label: me.scatterGeoLabel()
-            },
             {
               name: Chinese_ || pName,
               type: 'map',
@@ -363,48 +334,76 @@
               selectedMode: 'single',
               label: me.mapLabel(),
               itemStyle: me.mapItemStyle()
-            },
-            {
-              /**
-               地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
-               如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
-               这些可以配合 visualMap 组件完成
-               注意scatter有先后优先级顺序！
-               **/
-              name: '点',
-              type: 'scatter',
-              coordinateSystem: 'geo',
-              symbol: me.scatterSymbol,   //标点类型
-              symbolSize: (val)=> {
-                let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
-                let b = me.maxSize4Pin - a * max
-                return a * val[2] + b
-              },
-              label: {
-                normal: {
-                  show: me.scatterGeoShow,
-                  formatter: function(params) {
-                    //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                    return me.scatterTooltip(params)
-                  },
-                  textStyle: me.scatterGeoLabelTextStyle()
-                }
-              },
-              itemStyle: me.scatterGeoItemStyle(),
-              zlevel: me.scatterGeoZlevel,
-              data: this.convertData(tmpSeriesData)
-            },
+            }
           ]
         }
+
+        //如果有设置scatterGeoShow，增加地图上出现标点功能，属于echart散点（气泡）图，有优先级
+        if(me.scatterGeoShow){
+          option.series.push(this.setMark(tmpSeriesData,max,min))
+        }
+
+        //如果有设置inRangeColor来增加城市颜色从最小数据到最大数据的强调色配置，属于echart散点（气泡）图，在series数组中优先级最高
+        if(me.inRangeColor.length > 0){
+          option.series.unshift(this.setScatter(tmpSeriesData))
+        }
+
         // 使用刚指定的配置项和数据显示图表。
         me.myChart.setOption(option)
       },
-      //返回地域事件，目前只有省级到中国两级，此处可以升级，留意一下
+      //返回地域事件，目前只有省级到中国两级，此处可以升级
       oback(){
         //隐藏返回按钮
         this.back = false
         this.mapName = 'china'
         this.$emit('on-click-map',this.mapName,'中国')
+      },
+      // 设置区域等级颜色，数据来源于地图各个省份的信息，优先级最高，配合visualMap视觉映射组件才可使用
+      setScatter(data){
+        return {
+          /**
+           地图区域颜色，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
+           如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
+           这些可以配合 visualMap 组件完成
+           注意scatter有先后优先级顺序！
+           **/
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          data: data
+        }
+      },
+      // 设置标点，数据来源于地图各个省份的信息,max和min来源于loadMap配置
+      setMark(data,max,min){
+        let me = this
+        return {
+          /**
+           地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
+           如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
+           这些可以配合 visualMap 组件完成
+           注意scatter有先后优先级顺序！
+           **/
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          symbol: me.scatterSymbol,   //标点类型
+          symbolSize: (val)=> {
+            let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
+            let b = me.maxSize4Pin - a * max
+            return a * val[2] + b
+          },
+          label: {
+            normal: {
+              show: me.scatterGeoShow,
+              formatter: function(params) {
+                //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+                return me.scatterTooltip(params)
+              },
+              textStyle: me.scatterGeoLabelTextStyle()
+            }
+          },
+          itemStyle: me.scatterGeoItemStyle(),
+          zlevel: me.scatterGeoZlevel,
+          data: me.convertData(data)
+        }
       },
       // 用名称获取经纬度
       getGeoCoordMap(name) {
