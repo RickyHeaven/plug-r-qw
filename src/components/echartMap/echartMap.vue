@@ -27,17 +27,10 @@
         type: String,
         default: 'normal'
       },
-      migrationConfig:{         //迁徒图配置
-        type: Object,
-        default(){
-          return {
-            HFData: [           //关联的城市数据
-              {
-                name:  null,    //关联的城市名称
-                value: null     //关联的城市数值
-              }
-            ]
-          }
+      migrationData:{         //迁徒图配置
+        type: Array,
+        default: ()=>{
+          return []
         }
       },
       btnStyle: Object,         //返回按钮样式
@@ -284,12 +277,12 @@
             this.loadNormalMap(pName, Chinese_)       //渲染普通数据型地图
             break;
           case "migration":
-            this.loadMigrationMap(pName, Chinese_)    //渲染迁徒型地图实例化对象
+            this.loadMigrationMap(pName)             //渲染迁徒型地图实例化对象
             break;
         }
       },
       //迁徒型地图实例化对象
-      loadMigrationMap(pName, Chinese_){
+      loadMigrationMap(pName){
         //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
         let me = this
 
@@ -299,7 +292,7 @@
         // 配置
         series.push(
           {
-            // 系列名称，用于tooltip的显示
+            // 出发地
             type: 'lines',
             zlevel: 1,
             // 用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中
@@ -324,10 +317,10 @@
                 curveness: 0.2 //幅度
               }
             },
-            data: this.convertCitysData(this.migrationConfig.HFData) //开始到结束数据
+            data: this.convertCitysData(this.migrationData) //开始到结束数据
           },
           {
-            //出发地信息
+            // 目的地信息
             type: 'lines',
             zlevel: 2,
             effect: {
@@ -352,10 +345,10 @@
                 curveness: 0.2
               }
             },
-            data: this.convertCitysData(this.migrationConfig.HFData)
+            data: this.convertCitysData(this.migrationData)
           },
           {
-            // 目的地信息
+            //标记
             type: 'effectScatter',
             coordinateSystem: 'geo',
             zlevel: 2,
@@ -381,10 +374,10 @@
                 color: color[0]
               }
             },
-            data: this.migrationConfig.HFData.map((dataItem) => {
+            data: this.migrationData.map((dataItem) => {
               return {
                 name: dataItem[1].name,
-                value: this.migrationConfig.lnglatData[dataItem[1].name].concat([dataItem[1].value])
+                value: dataItem[1].lngLat.concat([dataItem[1].value])
               }
             })
           }
@@ -421,22 +414,22 @@
         }
 
         option.series = series
-        // 使用刚指定的配置项和数据显示图表。
+        // 使用刚指定的配置项和数据显示图表
         me.myChart.setOption(option)
       },
-      convertCitysData (data) {
+      convertCitysData(data) {
         let res = []
         for (let i = 0; i < data.length; i++) {
           let dataItem = data[i]
-          let fromCoord = this.migrationConfig.lnglatData[dataItem[0].name]
-          let toCoord = this.migrationConfig.lnglatData[dataItem[1].name]
+          let fromCoord = dataItem[0].lngLat
+          let toCoord = dataItem[1].lngLat
           if (fromCoord && toCoord) {
             res.push([{
               coord: fromCoord
             },
-              {
-                coord: toCoord
-              }])
+            {
+              coord: toCoord
+            }])
           }
         }
         return res
@@ -528,6 +521,41 @@
         // 使用刚指定的配置项和数据显示图表。
         me.myChart.setOption(option)
       },
+      // 转换数据用于标记，有值的情况下才可以标记
+      convertData(data) {
+        let geoCoordMap = this.getGeoCoordMap(this.mapName)
+        let res = []
+        for (let i = 0; i < data.length; i++) {
+          // 数据的名字对应的经纬度
+          let geoCoord = geoCoordMap[data[i].name]
+          // 如果数据data对应上
+          if (geoCoord) {
+            res.push({
+              name: data[i].name,
+              value: geoCoord.concat(data[i].value)
+            })
+          }
+        }
+        return res
+      },
+      // 用名称获取经纬度
+      getGeoCoordMap(name) {
+        name = name ? name : 'china'
+        // 获取地图数据对象
+        let geoCoordMap = {}
+        // loading start
+        this.myChart.showLoading()
+        let mapFeatures = echarts.getMap(name).geoJson.features
+        // loading end
+        this.myChart.hideLoading()
+        mapFeatures.forEach(function(v) {
+          // 地区名称
+          let name = v.properties.name
+          // 地区经纬度
+          geoCoordMap[name] = v.properties.cp
+        })
+        return geoCoordMap
+      },
       //返回地域事件，目前只有省级到中国两级，此处可以升级
       oback(){
         //隐藏返回按钮
@@ -581,41 +609,6 @@
           data: me.convertData(data)
         }
       },
-      // 用名称获取经纬度
-      getGeoCoordMap(name) {
-        name = name ? name : 'china'
-        // 获取地图数据对象
-        let geoCoordMap = {}
-        // loading start
-        this.myChart.showLoading()
-        let mapFeatures = echarts.getMap(name).geoJson.features
-        // loading end
-        this.myChart.hideLoading()
-        mapFeatures.forEach(function(v) {
-          // 地区名称
-          let name = v.properties.name
-          // 地区经纬度
-          geoCoordMap[name] = v.properties.cp
-        })
-        return geoCoordMap
-      },
-      // 转换数据用于标记，有值的情况下才可以标记
-      convertData(data) {
-        let geoCoordMap = this.getGeoCoordMap(this.mapName)
-        let res = []
-        for (let i = 0; i < data.length; i++) {
-          // 数据的名字对应的经纬度
-          let geoCoord = geoCoordMap[data[i].name]
-          // 如果数据data对应上
-          if (geoCoord) {
-            res.push({
-              name: data[i].name,
-              value: geoCoord.concat(data[i].value)
-            })
-          }
-        }
-        return res
-      }
     },
     //生命周期结束前
     beforeDestroy(){
