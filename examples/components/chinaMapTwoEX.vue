@@ -30,8 +30,12 @@
       // 随便造点数据
       this.seriesData = [
         {
+          'name': '宁夏',
+          'value': 850
+        },
+        {
           'name': '北京',
-          'value': 200
+          'value': 850
         },
         {
           'name': '新疆',

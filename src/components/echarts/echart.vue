@@ -204,12 +204,19 @@
         //实例化DOM元素（ID,主题）
         me.myChart = echarts.init(document.getElementById(this.name), this.theme)
         //时间轴中的时间点改变后的事件，返回给父组件
-        me.myChart.on('timelinechanged', function (res) {
+        me.myChart.on('timelinechanged', (res)=> {
           me.$emit('time-line-change', res.currentIndex)
         })
-        me.myChart.on('click', 'series.bar', function (res) {
-          me.$emit('series-bar-click', res)
+
+        me.myChart.on('click', (res)=> {
+          me.$emit('series-click', res)
         })
+
+        /**
+        document.getElementById(this.name).onclick = (e)=>{
+          me.$emit('series-bar-click', e)
+        }
+         */
 
         // 指定图表的配置项和数据
         let option = {}

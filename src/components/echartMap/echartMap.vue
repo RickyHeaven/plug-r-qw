@@ -23,6 +23,23 @@
         type: String,
         default: ''
       },
+      mapType: {                //地图类型，默认为数据展示型地图，其他类型有：migration(迁徒图)
+        type: String,
+        default: 'normal'
+      },
+      migrationConfig:{         //迁徒图配置
+        type: Object,
+        default(){
+          return {
+            HFData: [           //关联的城市数据
+              {
+                name:  null,    //关联的城市名称
+                value: null     //关联的城市数值
+              }
+            ]
+          }
+        }
+      },
       btnStyle: Object,         //返回按钮样式
       scatterTooltip:{          //标点回调函数
         type: Function,
@@ -261,11 +278,171 @@
          * 欢迎其他开发者提供更好的懒加载方式，提升代码优雅性
          * **/
       initEcharts(pName, Chinese_) {
-        //渲染地图
-        this.loadMap(pName, Chinese_)
+        //地图类型
+        switch (this.mapType) {
+          case "normal":
+            this.loadNormalMap(pName, Chinese_)       //渲染普通数据型地图
+            break;
+          case "migration":
+            this.loadMigrationMap(pName, Chinese_)    //渲染迁徒型地图实例化对象
+            break;
+        }
       },
-      loadMap(pName, Chinese_){
-        //渲染在地图上的数据
+      //迁徒型地图实例化对象
+      loadMigrationMap(pName, Chinese_){
+        //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
+        let me = this
+
+        let color = ['#fff', '#FFFFA8', '#46bee9']
+        let planePath = 'arrow' // 箭头的svg
+        let series = []
+        // 配置
+        series.push(
+          {
+            // 系列名称，用于tooltip的显示
+            type: 'lines',
+            zlevel: 1,
+            // 用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中
+            // effect出发到目的地 的白色尾巴线条
+            // 线特效的配置
+            effect: {
+              show: true,
+              period: 6,
+              // 特效动画的时间，单位为 s
+              trailLength: 0.1,
+              // 特效尾迹的长度。取从 0 到 1 的值，数值越大尾迹越长
+              color: '#46bee9',
+              // 移动箭头颜色
+              symbol: planePath,
+              symbolSize: 6 // 特效标记的大小
+            },
+            // lineStyle出发到目的地 的线条颜色
+            lineStyle: {
+              normal: {
+                color: color[0],
+                width: 0,
+                curveness: 0.2 //幅度
+              }
+            },
+            data: this.convertCitysData(this.migrationConfig.HFData) //开始到结束数据
+          },
+          {
+            //出发地信息
+            type: 'lines',
+            zlevel: 2,
+            effect: {
+              show: true,
+              period: 6,
+              trailLength: 0,
+              symbol: planePath,
+              symbolSize: 6
+            },
+            lineStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#FFFFA8' // 出发
+                },
+                  {
+                    offset: 1,
+                    color: '#58B3CC ' // 结束 颜色
+                  }], false),
+                width: 1.5,
+                opacity: 0.4,
+                curveness: 0.2
+              }
+            },
+            data: this.convertCitysData(this.migrationConfig.HFData)
+          },
+          {
+            // 目的地信息
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+              brushType: 'stroke'
+            },
+            label: {
+              normal: {
+                show: me.scatterGeoShow,
+                position: 'right',
+                formatter: function(params) {
+                  //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+                  return me.scatterTooltip(params)
+                },
+                textStyle: me.scatterGeoLabelTextStyle()
+              }
+            },
+            symbolSize: (val) => {
+              return val[2] / 8
+            },
+            itemStyle: {
+              normal: {
+                color: color[0]
+              }
+            },
+            data: this.migrationConfig.HFData.map((dataItem) => {
+              return {
+                name: dataItem[1].name,
+                value: this.migrationConfig.lnglatData[dataItem[1].name].concat([dataItem[1].value])
+              }
+            })
+          }
+        )
+        // 指定地图的配置项和数据
+        let option = {
+          //标题
+          title: me.title(),
+          //工具提示
+          tooltip: {
+            trigger: 'item',
+            // 鼠标滑过显示的数据
+            formatter: (params) => {
+              //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+              return me.tooltip(params)
+            }
+          },
+          //地理位置
+          geo: {
+            show: true,
+            map: pName,
+            roam: false,
+            label: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            itemStyle: me.geoItemStyle()    //地理全局颜色，因定制化的可能性较多，由回调函数执行
+          },
+          series: []
+        }
+
+        option.series = series
+        // 使用刚指定的配置项和数据显示图表。
+        me.myChart.setOption(option)
+      },
+      convertCitysData (data) {
+        let res = []
+        for (let i = 0; i < data.length; i++) {
+          let dataItem = data[i]
+          let fromCoord = this.migrationConfig.lnglatData[dataItem[0].name]
+          let toCoord = this.migrationConfig.lnglatData[dataItem[1].name]
+          if (fromCoord && toCoord) {
+            res.push([{
+              coord: fromCoord
+            },
+              {
+                coord: toCoord
+              }])
+          }
+        }
+        return res
+      },
+      //数据型地图实例化对象
+      loadNormalMap(pName, Chinese_){
         let tmpSeriesData = pName === "china" ? this.seriesData : this.seriesDataPro
         //事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
         let me = this
@@ -294,7 +471,7 @@
           visualMap: {
             show: me.visualMapShow,
             min: min,                                 //侧边滑动的最小值，从数据中获取
-            max:max,                                  //侧边滑动的最大值，从数据中获取
+            max: max,                                 //侧边滑动的最大值，从数据中获取
             left: me.visualMapLeft,                   //组件位置
             top: me.visualMapTop,                     //组件位置
             inverse: me.visualMapInverse,             //是否反转 visualMap 组件
@@ -304,7 +481,7 @@
             textStyle: me.visualMapTextStyle(),       //字体样式
             calculable: false,                        //是否显示拖拽用的手柄（手柄能拖拽调整选中范围）
             seriesIndex: me.visualMapSeriesIndex,     //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
-            orient: me.visualMapOrient,               //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。
+            orient: me.visualMapOrient,               //如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）
             inRange: {
               color: me.inRangeColor                  //范围区域颜色
             }
@@ -329,7 +506,7 @@
               name: Chinese_ || pName,
               type: 'map',
               mapType: pName,
-              roam: false, //是否开启鼠标缩放和平移漫游
+              roam: false,                  //是否开启鼠标缩放和平移漫游
               data: tmpSeriesData,
               selectedMode: 'single',
               label: me.mapLabel(),
@@ -338,7 +515,7 @@
           ]
         }
 
-        //如果有设置scatterGeoShow，增加地图上出现标点功能，属于echart散点（气泡）图，有优先级
+        //如果有设置scatterGeoShow，增加地图上出现标点的series配置，属于echart散点（气泡）图
         if(me.scatterGeoShow){
           option.series.push(this.setMark(tmpSeriesData,max,min))
         }
@@ -380,7 +557,6 @@
            地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
            如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
            这些可以配合 visualMap 组件完成
-           注意scatter有先后优先级顺序！
            **/
           type: 'scatter',
           coordinateSystem: 'geo',
@@ -430,7 +606,7 @@
         for (let i = 0; i < data.length; i++) {
           // 数据的名字对应的经纬度
           let geoCoord = geoCoordMap[data[i].name]
-          // 如果数据data对应上，
+          // 如果数据data对应上
           if (geoCoord) {
             res.push({
               name: data[i].name,
