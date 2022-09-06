@@ -1158,7 +1158,7 @@
                       }
                       else {
                         this.$set(this.valGroup, item.key,
-                          targetOption && (isValidValue(targetOption[item.valKey]) ? targetOption[item.valKey] : null))
+                          targetOption && (isValidValue(targetOption[item.valKey]) ? targetOption[item.valKey] : null) || null)
                       }
 
                       let sameKeyCom = _.find(this.formDataT, {key: item.key})
