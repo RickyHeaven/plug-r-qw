@@ -15,6 +15,8 @@
       :inRangeColor="['#dbfefe', '#1066d5']"
       widthT="100%"
       heightT="100%"
+      :maxSize4Pin="50"
+      :minSize4Pin="30"
   />
 </template>
 

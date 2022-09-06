@@ -10,6 +10,11 @@
       map-type="migration"
       :migrationData="migrationData"
       :scatterTooltip="scatterTooltip"
+      scatterSymbol="circle"
+      scatterLabelPosition="right"
+      :scatterGeoItemStyle="scatterGeoItemStyle"
+      :maxSize4Pin="20"
+      :minSize4Pin="10"
   />
 </template>
 
@@ -17,7 +22,7 @@
   //引入echarts对象
   import * as echarts from 'echarts'
   //引入地图JSON文件，资源来自依赖包
-  import {china,province} from 'china-map-data'
+  import {china} from 'china-map-data'
   export default {
     name: "chinaMapThreeEX",
     props: {
@@ -47,7 +52,7 @@
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '沈阳',value: 66,lngLat: [123.1238, 42.1216]}],
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '武汉',value: 66,lngLat: [114.3896, 30.6628]}],
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '昆明',value: 66,lngLat: [102.9199, 25.4663]}],
-          [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '重庆',value: 118,lngLat: [106.553263, 29.564724]}],
+          [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '重庆',value: 11880,lngLat: [106.553263, 29.564724]}],
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '杭州',value: 66,lngLat: [119.5313, 29.8773]}],
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '成都',value: 66,lngLat: [103.9526, 30.7617]}],
           [{name: '重庆',lngLat: [106.553263, 29.564724]}, {name: '拉萨',value: 66,lngLat: [91.1865, 30.1465]}],
@@ -71,6 +76,13 @@
       })
     },
     methods:{
+      scatterGeoItemStyle(){  //标点样式配置
+        return {
+          normal: {
+            color: '#fff'
+          }
+        }
+      },
       //注册地图JSON文件，由页面例子来处理
       regionName(name){
         echarts.registerMap(name,china)
@@ -82,7 +94,7 @@
       //地图标题回调函数
       title(){
         return {
-          text:'中华人民共和国',
+          text:'迁途图',
           textStyle: {
             color: '#2C68FF',
             fontSize: 14
