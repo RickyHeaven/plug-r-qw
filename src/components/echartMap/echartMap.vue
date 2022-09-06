@@ -234,7 +234,9 @@
       },
       visualMapText: {
         type: Array,
-        default: ['高', '低']
+        default: ()=>{
+          return ['高', '低']
+        }
       },
       visualMapTextStyle: {             //视觉映射字体样式
         type: Function,
