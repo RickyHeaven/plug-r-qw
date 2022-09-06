@@ -1141,7 +1141,7 @@
                     else {
                       this.$set(this.valGroup, root.collectLabel.key, targetOption &&
                         (isValidValue(targetOption[root.collectLabel.valKey]) ? targetOption[root.collectLabel.valKey] :
-                          null))
+                          null) || null)
                     }
 
                     let sameKeyCom = _.find(this.formDataT, {key: root.collectLabel.key})
