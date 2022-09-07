@@ -1139,9 +1139,11 @@
                         targetOption.map(e => e[root.collectLabel.valKey]))
                     }
                     else {
-                      this.$set(this.valGroup, root.collectLabel.key, targetOption &&
-                        (isValidValue(targetOption[root.collectLabel.valKey]) ? targetOption[root.collectLabel.valKey] :
-                          null) || null)
+                      let t = null
+                      if (targetOption && isValidValue(targetOption[root.collectLabel.valKey])) {
+                        t = targetOption[root.collectLabel.valKey]
+                      }
+                      this.$set(this.valGroup, root.collectLabel.key, t)
                     }
 
                     let sameKeyCom = _.find(this.formDataT, {key: root.collectLabel.key})
@@ -1157,8 +1159,11 @@
                         this.$set(this.valGroup, item.key, targetOption.map(e => e[item.valKey]))
                       }
                       else {
-                        this.$set(this.valGroup, item.key,
-                          targetOption && (isValidValue(targetOption[item.valKey]) ? targetOption[item.valKey] : null) || null)
+                        let t = null
+                        if (targetOption && isValidValue(targetOption[item.valKey])) {
+                          t = targetOption[item.valKey]
+                        }
+                        this.$set(this.valGroup, item.key, t)
                       }
 
                       let sameKeyCom = _.find(this.formDataT, {key: item.key})
