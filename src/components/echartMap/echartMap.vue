@@ -114,7 +114,7 @@
           return {}
         }
       },
-      scatterTooltip:{          //标点回调函数
+      scatterLabel:{          //标点回调函数
         type: Function,
         default: (params)=>{
           //params返回数组形式，内容分别是经度、维度、值
@@ -429,7 +429,7 @@
                     position: me.scatterLabelPosition,
                     formatter: (params) => {
                       //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                      return me.scatterTooltip(params)
+                      return me.scatterLabel(params)
                     },
                     textStyle: me.scatterGeoLabelTextStyle()
                   }
@@ -664,7 +664,7 @@
                 position: me.scatterLabelPosition,
                 formatter: (params)=> {
                   //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                  return me.scatterTooltip(params)
+                  return me.scatterLabel(params)
                 },
                 textStyle: me.scatterGeoLabelTextStyle()
               }

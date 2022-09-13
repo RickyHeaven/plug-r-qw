@@ -9,7 +9,7 @@
       :heightT="heightT"
       map-type="migration"
       :migrationData="migrationData"
-      :scatterTooltip="scatterTooltip"
+      :scatter-label="scatterLabel"
       scatterSymbol="circle"
       scatterLabelPosition="right"
       :scatterGeoItemStyle="scatterGeoItemStyle"
@@ -87,7 +87,7 @@
       regionName(name){
         echarts.registerMap(name,china)
       },
-      scatterTooltip(params){
+      scatterLabel(params){
         //params返回数组形式，内容分别是经度、维度、值
         return params.data.name + '：' + params.data.value[2]
       },
