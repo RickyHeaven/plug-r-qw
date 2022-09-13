@@ -23,6 +23,10 @@
         type: String,
         default: ''
       },
+      roam: {                   //迁徒图缩放功能，默认为true
+        type: Boolean,
+        default: true
+      },
       mapType: {                //地图类型，默认为数据展示型地图，其他类型有：migration(迁徒图)
         type: String,
         default: 'normal'
@@ -104,7 +108,7 @@
         }
       },
       btnStyle: Object,         //返回按钮样式
-      setScatter:{             //自定义地图标记
+      setScatter:{              //自定义地图标记
         type: Function,
         default: ()=>{
           return {}
@@ -466,7 +470,7 @@
           geo: {
             show: true,
             map: pName,
-            roam: false,
+            roam: me.roam,
             label: {
               normal: {
                 show: false
