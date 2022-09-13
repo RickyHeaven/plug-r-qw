@@ -104,6 +104,12 @@
         }
       },
       btnStyle: Object,         //返回按钮样式
+      setScatter:{             //自定义地图标记
+        type: Function,
+        default: ()=>{
+          return {}
+        }
+      },
       scatterTooltip:{          //标点回调函数
         type: Function,
         default: (params)=>{
@@ -399,39 +405,50 @@
             effect: me.migrationEffect2(),
             lineStyle: me.migrationLineStyle2(),
             data: this.convertCitysData(this.migrationData)
-          },
-          {
-            //标记
-            type: 'effectScatter',
-            coordinateSystem: 'geo',
-            zlevel: 2,
-            rippleEffect: me.migrationRippleEffect(),
-            symbol: me.scatterSymbol,               //标点类型
-            label: {
-              normal: {
-                show: me.scatterGeoShow,
-                position: me.scatterLabelPosition,
-                formatter: (params) => {
-                  //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                  return me.scatterTooltip(params)
-                },
-                textStyle: me.scatterGeoLabelTextStyle()
-              }
-            },
-            symbolSize: (val)=> {
-              let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
-              let b = me.maxSize4Pin - a * max
-              return a * val[2] + b
-            },
-            itemStyle: me.scatterGeoItemStyle(),
-            data: this.migrationData.map((dataItem) => {
-              return {
-                name: dataItem[1].name,
-                value: dataItem[1].lngLat.concat([dataItem[1].value])
-              }
-            })
           }
         )
+
+        //如果有设置scatterGeoShow，增加地图上出现标点的series配置，属于echart散点（气泡）图
+        if(me.scatterGeoShow){
+          if(JSON.stringify(this.setScatter()) == '{}'){
+            series.push(
+              {
+                //标记
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: me.migrationRippleEffect(),
+                symbol: me.scatterSymbol,               //标点类型
+                label: {
+                  normal: {
+                    show: me.scatterGeoShow,
+                    position: me.scatterLabelPosition,
+                    formatter: (params) => {
+                      //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+                      return me.scatterTooltip(params)
+                    },
+                    textStyle: me.scatterGeoLabelTextStyle()
+                  }
+                },
+                symbolSize: (val)=> {
+                  let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
+                  let b = me.maxSize4Pin - a * max
+                  return a * val[2] + b
+                },
+                itemStyle: me.scatterGeoItemStyle(),
+                data: this.migrationData.map((dataItem) => {
+                  return {
+                    name: dataItem[1].name,
+                    value: dataItem[1].lngLat.concat([dataItem[1].value])
+                  }
+                })
+              }
+            )
+          }else{
+            series.push(this.setScatter())
+          }
+        }
+
         // 指定地图的配置项和数据
         let option = {
           //标题
@@ -557,7 +574,7 @@
 
         //如果有设置inRangeColor来增加城市颜色从最小数据到最大数据的强调色配置，属于echart散点（气泡）图，在series数组中优先级最高
         if(me.inRangeColor.length > 0){
-          option.series.unshift(this.setScatter(tmpSeriesData))
+          option.series.unshift(this.setRegionColor(tmpSeriesData))
         }
 
         // 使用刚指定的配置项和数据显示图表
@@ -606,7 +623,7 @@
         this.$emit('on-click-map',this.mapName,'中国')
       },
       // 设置区域等级颜色，数据来源于地图各个省份的信息，优先级最高，配合visualMap视觉映射组件才可使用
-      setScatter(data){
+      setRegionColor(data){
         return {
           /**
            地图区域颜色，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
@@ -622,36 +639,40 @@
       // 设置标点，数据来源于地图各个省份的信息,max和min来源于loadMap配置
       setMark(data,max,min){
         let me = this
-        return {
-          /**
-           地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
-           如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
-           这些可以配合 visualMap 组件完成
-           **/
-          type: 'scatter',
-          coordinateSystem: 'geo',
-          symbol: me.scatterSymbol,   //标点类型
-          symbolSize: (val)=> {
-            let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
-            let b = me.maxSize4Pin - a * max
-            return a * val[2] + b
-          },
-          label: {
-            normal: {
-              show: me.scatterGeoShow,
-              position: me.scatterLabelPosition,
-              formatter: (params)=> {
-                //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
-                return me.scatterTooltip(params)
-              },
-              textStyle: me.scatterGeoLabelTextStyle()
-            }
-          },
-          itemStyle: me.scatterGeoItemStyle(),
-          zlevel: me.scatterGeoZlevel,
-          data: me.convertData(data)
+        if(JSON.stringify(this.setScatter()) == '{}'){
+          return {
+            /**
+             地图标点，属于echart散点（气泡）图。直角坐标系上的散点图可以用来展现数据的 x，y 之间的关系，
+             如果数据项有多个维度，其它维度的值可以通过不同大小的 symbol 展现成气泡图，也可以用颜色来表现。
+             这些可以配合 visualMap 组件完成
+             **/
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            symbol: me.scatterSymbol,   //标点类型
+            symbolSize: (val)=> {
+              let a = (me.maxSize4Pin - me.minSize4Pin) / (max - min)
+              let b = me.maxSize4Pin - a * max
+              return a * val[2] + b
+            },
+            label: {
+              normal: {
+                show: me.scatterGeoShow,
+                position: me.scatterLabelPosition,
+                formatter: (params)=> {
+                  //回调函数调用的是父级函数，因为各种业务导致鼠标移入时情况都不一样，所以要把函数释放出来
+                  return me.scatterTooltip(params)
+                },
+                textStyle: me.scatterGeoLabelTextStyle()
+              }
+            },
+            itemStyle: me.scatterGeoItemStyle(),
+            zlevel: me.scatterGeoZlevel,
+            data: me.convertData(data)
+          }
+        }else{
+          return this.setScatter()
         }
-      },
+      }
     },
     //生命周期结束前
     beforeDestroy(){
