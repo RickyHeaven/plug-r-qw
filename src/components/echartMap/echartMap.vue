@@ -27,7 +27,7 @@
         type: Boolean,
         default: true
       },
-      setSeries: {              //自定义series内容配置
+      setSeries: {              //自定义series内容配置，定义后会覆盖组件自带的series配置
        type: Array,
         default: ()=>{
           return []
@@ -481,9 +481,9 @@
           series: []
         }
 
-        //如果有自定义series配置，追加配置
+        //如果有自定义series配置，覆盖所有之前的配置
         if(me.setSeries.length > 0){
-          series = series.concat(this.setSeries)
+          series = this.setSeries
         }
 
         // 使用刚指定的配置项和数据显示图表
@@ -543,9 +543,9 @@
           series.unshift(this.setRegionColor(tmpSeriesData))
         }
 
-        //如果有自定义series，追加配置
+        //如果有自定义series配置，覆盖所有之前的配置
         if(me.setSeries.length > 0){
-          series = series.concat(this.setSeries)
+          series = this.setSeries
         }
 
         // 使用刚指定的配置项和数据显示图表
