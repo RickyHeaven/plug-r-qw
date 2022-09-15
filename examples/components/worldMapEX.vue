@@ -8,6 +8,7 @@
       ref="world-map"
       widthT="100%"
       heightT="100%"
+      :roam="false"
   />
 </template>
 

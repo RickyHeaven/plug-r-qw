@@ -17,6 +17,7 @@
       heightT="100%"
       :maxSize4Pin="50"
       :minSize4Pin="30"
+      :roam="false"
   />
 </template>
 

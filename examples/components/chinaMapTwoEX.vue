@@ -11,6 +11,7 @@
       :inRangeColor="['#4b85fa', '#175ce5', '#0a2966']"
       widthT="100%"
       heightT="100%"
+      :roam="false"
   />
 </template>
 
