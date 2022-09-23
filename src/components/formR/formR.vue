@@ -522,7 +522,9 @@
           this.formReRenderKey = Math.floor(Math.random() * 100000000 + 1000)
           /*刷新表单*/
           this.$nextTick(function () {
-            resolve()
+            setTimeOut(function () {
+              resolve()
+            }, 10)
           })
         })
       },
