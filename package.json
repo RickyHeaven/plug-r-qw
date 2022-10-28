@@ -55,10 +55,10 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-less": "^4.0.1",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^5.1.0",
     "less": "^2.7.3",
     "less-loader": "^5.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.3",
     "sass-loader": "^8.0.2",
     "vue-markdown-loader": "^2.4.1",
     "vue-template-compiler": "^2.6.14"
