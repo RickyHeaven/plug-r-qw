@@ -693,7 +693,7 @@ export function setValByOption({group, condition, key, val, childKey = 'children
 export function hasPermission(value) {
   let btnPermissions = sessionStorage.getItem("btnPermissions")
   if (btnPermissions) {
-    return btnPermissions.indexOf(value) > -1
+    return btnPermissions.split(',').indexOf(value) > -1
   }
   return false
 }
@@ -826,17 +826,17 @@ export function htmlPrint(data) {
  * @param {node} elem - 被查找的元素
  */
 export function siblingElems(elem) {
-  let nodes = [];
-  let _elem = elem;
+  let nodes = []
+  let _elem = elem
   while ((elem = elem.previousSibling)) {
     if (elem.nodeType === 1) {
-      nodes.push(elem);
+      nodes.push(elem)
     }
   }
   
   while ((_elem = _elem.nextSibling)) {
     if (_elem.nodeType === 1) {
-      nodes.push(_elem);
+      nodes.push(_elem)
     }
   }
   return nodes
