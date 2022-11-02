@@ -200,6 +200,19 @@
                 }
                 this.$emit('on-change', this.valueT)
               })
+
+              this.mapX.on('hotspotclick', (d) => {
+                this.createMarker({
+                  name: d.name,
+                  lng: d.lnglat.lng,
+                  lat: d.lnglat.lat
+                })
+                this.valueT = {
+                  name: d.name,
+                  lng: d.lnglat.lng,
+                  lat: d.lnglat.lat
+                }
+              })
             })
           })
       },
