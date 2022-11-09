@@ -4,11 +4,11 @@
 <template>
   <div class="btTablePage fullHeight" ref="tableBox">
     <div class="topBtn" v-show="showTopRow">
-      <slot name="tableSetting" />
+      <slot name="tableSetting"/>
 
-      <slot name="topMsg" />
+      <slot name="topMsg"/>
 
-      <slot name="topBtnGroup" />
+      <slot name="topBtnGroup"/>
     </div>
     <div
         class="tableContainer fullHeight"
@@ -41,7 +41,7 @@
           :page-size="pageSizeT"
           show-sizer
           show-total
-          size="small"
+          :size="pageComponentSize"
           @on-change="changePage"
           @on-page-size-change="pageSizeChange"
       />
@@ -187,6 +187,10 @@
         /*浅色背景表头，避免和headerBar菜单紧邻时页面局部颜色不平衡*/
         type: Boolean,
         default: false
+      },
+      pageComponentSize: {
+        type: String,
+        default: 'default'
       }
     },
     data() {
