@@ -50,8 +50,6 @@
 
 * getValGroup 获取用户已填数据，和submit有显著区别，submit会校验表单，并提交on-submit事件。
 
-* getFormHeight 主动获取弹框内表单高度，并根据结果自动调整弹框高度，一般用不上
-
 * setHeight 主动设置弹框内表单高度（为了间接影响弹框高度），需要传高度，一般用不上
 
 * resetForm 重置表单，该方法会清空表单值并刷新dom，异步方法，表单项默认值不会被清除，详见[formR](../formR/README.md#方法)，注意并不是重新渲染表单，重新渲染方法为 reRenderForm
