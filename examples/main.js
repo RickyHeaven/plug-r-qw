@@ -65,8 +65,12 @@ Vue.prototype.pageSizes = [
   100
 ]
 
+window._AMapSecurityConfig = {
+  securityJsCode:'1e77836c15c172e8cda4249f26d64326',
+}
+
 VueAMap.initAMapApiLoader({
-  key: 'ff57a9e37db989fcd67dc02a4f136084',
+  key: 'd1e34acab7c1eae8614e0a12bfafc99d',
   plugin: [
     'AMap.Autocomplete',
     'AMap.Geocoder'
