@@ -13,6 +13,8 @@
           show-top-row
           :radio="selectMode==='radio'"
           :selection="selectMode==='checkbox'"
+          :draggable="true"
+          @on-drag-drop="dragDrop"
       >
         <template slot="topMsg">共有：{{total}} 条数据。</template>
         <template slot="topBtnGroup">
@@ -45,7 +47,7 @@
         selectMode: 'radio',
         total: 0,
         searchData: {},
-        data: [],
+        btData: [],
         columns: [
           {
             title: 'ID',
@@ -129,7 +131,7 @@
                     }
                   }
                 }, '删除')
-              ]);
+              ])
             }
           }
         ],
@@ -186,6 +188,17 @@
       }
     },
     methods: {
+      //高级示例，拖拽行排序
+      dragDrop(a, b) {
+        let d = this.$refs.btTab.dataS
+        //提出a
+        let t = d.splice(a, 1)
+        //将a插到b后面
+        d.splice(b,0,...t)
+        this.$nextTick(function () {
+          this.$refs.btTab.dataS = d
+        })
+      },
       clearSelect() {
         this.$refs.btTab.clearSelect()
       },
