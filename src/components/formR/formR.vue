@@ -1230,13 +1230,16 @@
       },
       findOptions(root, after) {/*collectLabel时找出选中的选项（私有）*/
         if (root.multiple || root.type === 'checkboxGroup') {
-          let t = []
-          for (let e of root.options) {
-            if (after.indexOf(e.val) !== -1) {
-              t.push(e)
+          if(after){
+            let t = []
+            for (let e of root.options) {
+              if (after.indexOf(e.val) !== -1) {
+                t.push(e)
+              }
             }
+            return t
           }
-          return t
+          return false
         }
         else {
           if (after || after === 0 || after === false) {
