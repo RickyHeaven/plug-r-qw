@@ -59,7 +59,7 @@ module.exports = defineConfig({
             commonjs2: 'vuex',
             amd: 'vuex'
           },
-          'view-design': {
+          '@zhangqingcq/view-design-r': {
             root: 'ViewUI',
             commonjs: 'view-design',
             commonjs2: 'view-design',
