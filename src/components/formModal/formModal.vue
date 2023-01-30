@@ -35,10 +35,10 @@
 </template>
 
 <script>
-  import _ from 'lodash'
   import formR from '../formR/formR.vue'
   import Locale from '../../mixins/locale'
   import {setTimeout} from '../../methods/timer'
+  import {myTypeof} from "../../methods/functionGroup"
 
   export default {
     name: "formModal",
@@ -102,7 +102,17 @@
       }
     },
     computed: {
+      formTeam() {
+        return myTypeof(this.formData[0]) === 'Array'
+      },
       formDataC() {
+        if(this.formTeam){
+          let t = []
+          for(let f of this.formData){
+            t = t.concat(f.filter(e => e.type === 'custom'))
+          }
+          return t
+        }
         return this.formData.filter(e => e.type === 'custom')
       }
     },

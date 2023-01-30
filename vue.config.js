@@ -24,6 +24,16 @@ module.exports = defineConfig({
     }
   },
   
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true
+        }
+      }
+    }
+  },
+  
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       return {
@@ -127,24 +137,24 @@ module.exports = defineConfig({
             commonjs2: 'china-map-data',
             amd: 'china-map-data'
           },
-           '@wangeditor/editor': {
-           root: '@wangeditor/editor',
-           commonjs: '@wangeditor/editor',
-           commonjs2: '@wangeditor/editor',
-           amd: '@wangeditor/editor'
-           },
-           '@wangeditor/editor-for-vue': {
-           root: '@wangeditor/editor-for-vue',
-           commonjs: '@wangeditor/editor-for-vue',
-           commonjs2: '@wangeditor/editor-for-vue',
-           amd: '@wangeditor/editor-for-vue'
-           },
-           '@jiaminghi/data-view': {
-           root: '@jiaminghi/data-view',
-           commonjs: '@jiaminghi/data-view',
-           commonjs2: '@jiaminghi/data-view',
-           amd: '@jiaminghi/data-view'
-           }
+          '@wangeditor/editor': {
+            root: '@wangeditor/editor',
+            commonjs: '@wangeditor/editor',
+            commonjs2: '@wangeditor/editor',
+            amd: '@wangeditor/editor'
+          },
+          '@wangeditor/editor-for-vue': {
+            root: '@wangeditor/editor-for-vue',
+            commonjs: '@wangeditor/editor-for-vue',
+            commonjs2: '@wangeditor/editor-for-vue',
+            amd: '@wangeditor/editor-for-vue'
+          },
+          '@jiaminghi/data-view': {
+            root: '@jiaminghi/data-view',
+            commonjs: '@jiaminghi/data-view',
+            commonjs2: '@jiaminghi/data-view',
+            amd: '@jiaminghi/data-view'
+          }
         },
         plugins: [
           new compressionPlugin({

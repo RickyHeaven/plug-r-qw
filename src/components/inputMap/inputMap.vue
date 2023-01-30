@@ -143,6 +143,18 @@
       this.autoCompleteX = null
       this.infoWindow = null
     },
+    watch: {
+      valProp(after) {
+        //更新地图mark
+        if (after && after.lng && after.lat) {
+          this.createMarker({
+            lng: after.lng,
+            lat: after.lat,
+            name: after.name
+          })
+        }
+      }
+    },
     methods: {
       checkHeight() {
         if (this.$refs[this.vidT] && this.$refs[this.vidT].clientHeight < 10 || (!this.$refs[this.vidT])) {

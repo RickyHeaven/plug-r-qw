@@ -127,7 +127,7 @@
 
             return [temp]
           }
-          else if (_.isArray(this.value)) {
+          else if (Array.isArray(this.value)) {
             return _.cloneDeep(this.value)
           }
           else {
@@ -153,7 +153,7 @@
             if (code && code.length < 12) {
               code += '000000'
             }
-            if (_.isArray(val)) {
+            if (Array.isArray(val)) {
               name = val.map(item => {
                 return item.name
               })

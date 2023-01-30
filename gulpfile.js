@@ -6,7 +6,7 @@ const autoprefixer = require('gulp-autoprefixer')
 const del = require('del')
 const {src, dest, series} = gulp
 
-//编译 scss
+//编译 less
 function build(cb) {
   src('./src/style/index.less')
     .pipe(less({style: 'expanded'}))

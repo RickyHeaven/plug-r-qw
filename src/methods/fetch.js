@@ -198,14 +198,14 @@ function checkRequest(method, url, data, msg, rPath, config = {}, isUrlData) {
         data_ = data
       }
       else {
-        if (_.isArray(data)) {
+        if (Array.isArray(data)) {
           data_ = []
         }
         else {
           data_ = {}
         }
         if (data && (!_.isEmpty(data))) {
-          if (_.isArray(data)) {
+          if (Array.isArray(data)) {
             for (let e of data) {
               if (e || e === 0 || e === false || (e === '' && !config.noEmptyStr)) {
                 data_.push(e)

@@ -18,7 +18,7 @@
       @on-submit="onSubmit"
   >
     <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
-      <slot :name="item.slotName" :val-group="valGroup"></slot>
+      <slot :name="item.slotName" :val-group="valGroup"/>
     </template>
   </form-r>
 </template>
@@ -26,6 +26,7 @@
 <script>
   import formR from '../formR/formR.vue'
   import Locale from '../../mixins/locale'
+  import {myTypeof} from "../../methods/functionGroup"
 
   export default {
     name: "searchForm",
@@ -63,7 +64,17 @@
       }
     },
     computed: {
+      formTeam() {
+        return myTypeof(this.formData[0]) === 'Array'
+      },
       formDataC() {
+        if(this.formTeam){
+          let t = []
+          for(let f of this.formData){
+            t = t.concat(f.filter(e => e.type === 'custom'))
+          }
+          return t
+        }
         return this.formData.filter(e => e.type === 'custom')
       }
     },

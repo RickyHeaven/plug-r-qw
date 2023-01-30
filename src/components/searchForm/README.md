@@ -6,6 +6,8 @@
 
 * formRules 对象，组件内表单验证规则，参考formR
 
+* teamClass 字符串，分组表单-组容器的class，用于布局和样式控制，默认：`formTeamBox`
+
 * showInlineClearBt 布尔对象，显示清空按钮，默认：`true`
 
 * btnLoading 布尔对象，查询按钮显示loading，默认：`false`

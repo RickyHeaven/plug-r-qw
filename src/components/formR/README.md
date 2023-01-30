@@ -12,6 +12,39 @@
     }
   ]
 ```
+注意：
+从@zhangqingcq/plug-r-qw@1.3.0开始，formData支持二维数组，为`分组表单`（单个表单内部表单项有分组，用于支持表单项布局和样式控制）结构数据，如：
+```
+  [
+    [
+      {
+        type: 'input',
+        key: 'name',
+        label: '姓名'
+      },
+      {
+        type: 'input',
+        key: 'sex',
+        label: '性别'
+      }
+    ],
+    [
+      {
+        type: 'input',
+        key: 'post',
+        label: '应聘岗位'
+      },
+      {
+        type: 'input',
+        key: 'pay',
+        label: '期望薪资'
+      }
+    ]
+  ]
+```
+这是一个表单，但是内部表单项可以分为“基本信息”和“应聘信息”两组，并在布局和样式上进行区分，具体可参考库内示例项目`formTeam`。
+
+
 * formRules 对象，表单验证数据，如：
 ```
   {
@@ -29,6 +62,8 @@
 * itemWidth 数字，表单项内容宽度，用于行内表单，默认：`200`
 
 * inline 布尔对象，是否为行内表单，默认：`false`
+
+* teamClass 字符串，分组表单-组容器的class，用于布局和样式控制，默认：`formTeamBox`
 
 * showLongOkBt 布尔对象，是否展示长确定按钮，默认：`false`
 
@@ -67,7 +102,7 @@
 * updateValGroup 更新表单项的值，只能更新已有字段，valGroup为formR组件私有属性，不可直接操作，故有该方法，传参示例1：`{info:'我是新的提示信息',name:'王五',...}`
 
 * updateFormDataT 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值，formDataT为formR组件私有属性，不可直接操作，故有该方法；
-参数为一个对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、需要改变的属性，如要改变第二个表单组件的label和title,
+参数为一个对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、indexB-当表单为`分组表单`时必填（表示表单项的二位数组索引第二位）、需要改变的属性，如要改变第二个表单组件的label和title,
 则为:`{index:1,label:XXX,title:XX}`。注意：带选项的组件`changeOption`属性为`true`时，不要调用该方法改变formR内部optionUrl，
 而应该直接在外面改变绑定到formData的数组对应子项的optionUrl
 
@@ -103,6 +138,8 @@
 `00:00:00`，如果是区间，开始时间加`00:00:00`，结束时间加`23:59:59`，默认:`false`
 
 * <a name='asyncOption'>asyncOption</a> 布尔对象，有选项的表单项的待选项数据来源于接口，需配合[optionUrl](#optionUrl)使用，默认:`false`
+
+* <a name='autosize'>autosize</a> 对象，自适应内容高度，仅在 textarea 类型下有效，可传入对象，如 { minRows: 2, maxRows: 6 }，默认:`{minRows:2}`
 
 * <a name='booleanVal'>booleanVal</a> 布尔对象，是否为布尔值，当需要表单项为布尔值时，给该字段赋值`true`，该表单项可接受布尔值，提交
 时提交布尔值，注意：需要表单项类型支持（目前仅select单选和radioGroup支持），具体见后面的'type'说明，默认：`false`
@@ -171,6 +208,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='height'>height</a> 正数/字符串，富文本编辑器Pro编辑区域高度，默认：`300`
 
+* <a name='icon'>icon</a> 字符串，输入框尾部图标
+
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
 
 * <a name='itemBorder'>itemBorder</a> 布尔对象，RadioGroup选项是否带边框，默认：`false`
@@ -206,7 +245,7 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='multiple'>multiple</a> 布尔对象，Select是否支持多选，默认：`false`
 
-* <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为number类型，需是类似number的字符串才能转，否则收集的值为字符串，
+* <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为`number`类型，需是类似`number`的字符串才能转(如：`'32.2'`、`'-13.9'`)，否则收集的值为字符串，
 默认：`false`
 
 * <a name='onlyLastVal'>onlyLastVal</a> 布尔对象，只返回最后一级的值，表单项特殊配置，如远程数据级联，具体见后面的'type说明'，默认：
@@ -236,9 +275,13 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='optionVal'>optionVal</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，待选项val对应接口数据的字段名，如：`optionVal:'id'`
 
+* <a name='password'>password</a> 布尔对象，是否显示切换密码图标，仅input支持，默认：`false`
+
 * <a name='placeholder'>placeholder</a> 字符串，表单项占位符，不是所有类型都支持该字段，具体见后面的'type说明'
 
 * <a name='precision'>precision</a> 数字，InputNumber（数字输入框）的精度，即小数位数
+
+* <a name='prefix'>prefix</a> 字符串，输入框头部图标
 
 * <a name='readonly'>readonly</a> 布尔对象，InputNumber（数字输入框）只读，和disabled效果类似，样式不一样，默认：`false`
 
@@ -246,7 +289,7 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='show'>show</a> 对象/数组/回调函数，表单项显示设置，[详细说明](#showDetail)如：`{key:'name',val:['Ricky','Tom']}`，表示只在
 name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装这些条件对象，如：`[{key,val...},{...}]`，它们的关系为且，即所有条件都满足才显
-示，如果需要条件关系为或，给表单项[showOr](#showOr)赋值`true`；当给定格式的对象或数组不能满足业务需求时，可传一个回调函数，函数参数为formR的valGroup，
+示，如果需要条件关系为或，给表单项[showOr](#showOr)赋值`true`；当给定格式的对象或数组不能满足业务需求时，可传一个回调函数，函数参数为`formR`的`valGroup`，
 回调函数需要有返回值，当返回值为真时，表单项展示，返回值为假时，表单项隐藏。
 
 * <a name='showImg'>showImg</a> 布尔对象，uploadGroup是否以图片方式显示已上传的图片文件，默认：`false`
@@ -255,11 +298,17 @@ name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装�
 
 * <a name='showOr'>showOr</a> 布尔对象，表单项各显示条件间关系为或运算，默认：`false`
 
-* <a name='slotName'>slotName</a> 字符串，type为custom的插槽名字，，具体见后面的'type说明'
+* <a name='showWordLimit'>showWordLimit</a> 布尔对象，是否显示输入字数统计，可以配合 maxlength 使用，默认：`false`
+
+* <a name='slotName'>slotName</a> 字符串，type为custom、input的插槽名字，具体见后面的'type说明'
+
+* <a name='slotPosition'>slotPosition</a> 字符串，type为input的插槽位置，如：`prepend`、`append`，目前只支持这两个值，具体可参考示例项目的`formTeam`示例
 
 * <a name='step'>step</a> 数字，InputNumber（数字输入框）的步长，即每次点表单项箭头增大或减小的值，可以是小数
 
 * <a name='steps'>steps</a> 数组，timePicker选择器下拉列表的时间间隔，数组的三项分别对应小时、分钟、秒。例如设置为 [1, 15] 时，分钟会显示：00、15、30、45。默认值：`[]`
+
+* <a name='suffix'>suffix</a> 字符串，输入框尾部图标
 
 * <a name='title'>title</a> 字符串，表单项的标题，位于表单项左上方，样式见示例
 
@@ -302,9 +351,9 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * key 字符串，目标表单项（控制当前表单项是否展示的表单项）的key，当前表单项即设置show属性的表单项，如：`key:'age'`
 
 * val 数组，目标表单项为哪些值时，满足条件，如：`[1,2]`表示age为1或2时，满足条件；该字段接受一个特殊值`'.'`，表示该条件key对应字段只要有
-有效值既满足，有效值意思是 0 或 false 或转为Boolean结果为 true
+有效值既满足，有效值意思是`0` `false`或转为Boolean结果为`true`的值
 
-* reg 正则表达式，当val这个字段已经不能满足业务需求时，可启用该值传递正则表达式（val无需再传值），当正则表达式匹配给定key对应的值成功时，表单项展示，否则隐藏。
+* reg 正则表达式，当val这个字段已经不能满足业务需求时，可用`reg`传递正则表达式（val无需再传值），当正则表达式匹配给定key对应的值成功时，表单项展示，否则隐藏。
 
 注意：如果条件有多个，show的类型变为多个条件对象组成的数组；多个条件间关系为且，如果想要为或，需设置[showOr](#showOr)为`true`
 
@@ -341,6 +390,14 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * [maxLength](#maxLength) 最大长度限制，不限制则不设置
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [password](#password) 布尔对象，是否显示切换密码图标，默认：`false`
+
+* [icon](#icon) 字符串，输入框尾部图标
+
+* [prefix](#prefix) 字符串，输入框头部图标
+
+* [suffix](#suffix) 字符串，输入框尾部图标
 
 * [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 
@@ -683,6 +740,10 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 
 * [maxLength](#maxLength) 最大长度限制，不限制则不设置
 
+* [showWordLimit](#showWordLimit) 布尔对象，是否显示输入字数统计，可以配合 maxlength 使用，默认：`false`
+
+* [autosize](#autosize) 自适应内容高度，仅在 textarea 类型下有效，可传入对象，如 { minRows: 2, maxRows: 6 }，默认:`{minRows:2}`
+
 * [numberVal](#numberVal) 值转换为number类型
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
@@ -858,13 +919,17 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 #### inputMap 地图组件
 * [label](#label) 标签
 
-* [key](#key) 表单项收集的数据在提交时所在字段，经度
+* [key](#key) 表单项收集的数据在提交时所在字段，经度，必填，如：`lng`
 
-* [key2](#key2) 表单项收集的数据在提交时所在字段，纬度
+* [key2](#key2) 表单项收集的数据在提交时所在字段，纬度，必填，如：`lat`
+
+* [key3](#key2) 表单项收集的数据在提交时所在字段，地址名字，非必填，如：`name`
 
 * [defaultVal](#defaultVal) 默认值，经度
 
 * [defaultVal2](#defaultVal2) 默认值2，纬度
+
+* [defaultVal3](#defaultVal2) 默认值3，地址名字
 
 * [showMap](#showMap) 显示地图，默认：`true`
 

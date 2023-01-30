@@ -6,7 +6,7 @@
     <full-screen-pop :title="$route.name" ref="popA" @on-close="open=false">
       <div class="wallK">
         <div class="markdown-body myCardB">
-          <component :is="comps[routeNow] || (comps[$route.name] || mec[$route.name.replace('$','').toLowerCase()])"/>
+          <component :is="comps[routeNow] || comps[$route.name] || mec[$route.name.replace('$','').toLowerCase()]"/>
         </div>
       </div>
     </full-screen-pop>

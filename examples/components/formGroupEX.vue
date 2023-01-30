@@ -80,10 +80,21 @@
             optionVal: 'tel'
           },
           {
+            type: 'alCascader', /*行政区域级联*/
+            label: '住址',
+            key: 'addressCode',
+            key2: 'addressName',
+            level: 2
+          },
+          {
             type: 'inputMap',
-            label: '地址',
+            label: '详细地址',
             key: 'lng',
-            key2: 'lat'
+            key2: 'lat',
+            key3: 'detailAddress',
+            defaultVal: 106.463077,
+            defaultVal2: 29.568138,
+            defaultVal3: '重庆大学(地铁站)'
           },
           {
             type: 'editor',
@@ -100,6 +111,15 @@
           }
         }
       }
+    },
+    mounted() {
+      this.setTimeout(() => {
+        this.$refs.formGroup.updateValGroup({
+          lng: 106.499401,
+          lat: 29.616077,
+          detailAddress:'光电园(地铁站)'
+        }, true)
+      }, 5000)
     },
     methods: {
       submit(data) {

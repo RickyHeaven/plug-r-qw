@@ -5,6 +5,7 @@ import Login from './views/login.vue'
 Vue.use(Router)
 
 export default new Router({
+  scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
       path: '/',
@@ -390,6 +391,17 @@ export default new Router({
             title: '组件：带高级查询按钮的快捷搜索组件',
             bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
             icon: 'icon-searchForm',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/formTeam',
+          name: 'formTeam',
+          component: () => import('./components/formTeamEX.vue'),
+          meta: {
+            title: '组件：单个表单内部带分组（便于布局和样式控制）',
+            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            icon: 'icon-formR',
             cls: 'counterclockwise both'
           }
         },

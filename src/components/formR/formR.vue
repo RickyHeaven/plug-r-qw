@@ -3,284 +3,36 @@
 
 <template>
   <Form
-      ref="formGroupXRef"
-      :model="valGroup"
-      :rules="formRulesT"
-      :label-width="labelWidth"
-      :inline="inline"
-      :show-message="showMessage"
-      class="formXN"
-      :key="formReRenderKey"
+      ref="formGroupXRef" :model="valGroup" :rules="formRulesT" :label-width="labelWidth"
+      :inline="inline" :show-message="showMessage" class="formXN" :key="formReRenderKey"
   >
     <!--解决form只有一个input时enter触发页面刷新的问题-->
     <FormItem style="display: none"><input type="text"/></FormItem>
-    <FormItem
-        v-for="(item,i) of formDataT"
-        v-if="getFormItemIfVal(item)"
-        :key="'formItem'+i"
-        :label="item.type !== 'radio'&&item.type !== 'checkbox'?item.label:' '"
-        :prop="item.key||''"
-        class="relativeBox"
-        :class="{withInfo:Boolean(item.info),withTitle:Boolean(item.title),inlineFormItemXN: inline,noLabel: item.type === 'selectInput',[item.class]:item.class}"
-        :style="formStyle"
+    <div v-for="(box,n) of formDataT" v-if="formTeam" :class="[teamClass,'formTeamBox'+n]" :key="'formTeamBox'+n">
+      <item-r
+          v-for="(item,i) of box" :key="'formItem'+i" :item="item" v-if="getFormItemIfVal(item)" :style="formStyle"
+          :item-style="itemStyle" :val-group="valGroup" :temp-keys="tempKeys" :inline="inline" :disabled="disabled"
+          :label-width="labelWidth" :item-width="itemWidth" :mgr-url="mgrUrl" :upload-url="uploadUrl"
+          @item-change="itemChange" @re-validate="reValidateAndChangeHandle" @clear-temp-key-item="clearTempKeyItem"
+          @select-input-change="onSelectInputChange" @al-name-change="alNameChange"
+          @async-label-change="asyncLabelChange"
+      >
+        <template :slot="s.slotName" v-for="s in getSlotFormData(box)" slot-scope="{valGroup}">
+          <slot :name="s.slotName" :val-group="valGroup"/>
+        </template>
+      </item-r>
+    </div>
+    <item-r
+        v-for="(item,i) of formDataT" :key="'formItem'+i" :item="item" v-if="!formTeam&&getFormItemIfVal(item)"
+        :style="formStyle" :item-style="itemStyle" :val-group="valGroup" :temp-keys="tempKeys" :inline="inline"
+        :disabled="disabled" :label-width="labelWidth" :item-width="itemWidth" :mgr-url="mgrUrl" :upload-url="uploadUrl"
+        @item-change="itemChange" @re-validate="reValidateAndChangeHandle" @clear-temp-key-item="clearTempKeyItem"
+        @select-input-change="onSelectInputChange" @al-name-change="alNameChange" @async-label-change="asyncLabelChange"
     >
-      <!--纯文本,也可以不传label和val,单纯用来布局占位-->
-      <span v-if="item.type === 'txt'" :class="{likeInputX:item.likeInput}">{{item.valKey?valGroup[item.valKey]||'无':item.val}}</span>
-      <!--数字输入框-->
-      <InputNumber
-          :style="itemStyle"
-          v-else-if="item.type === 'inputNumber'"
-          v-model="tempKeys[item.tempKey]"
-          :max="(item.max||item.max===0)?item.max:Infinity"
-          :min="(item.min||item.min===0)?item.min:-Infinity"
-          :precision="item.precision"
-          :step="item.step||1"
-          :placeholder="item.placeholder||t('r.pInput')"
-          :disabled="Boolean(item.disabled) || disabled"
-          :readonly="Boolean(item.readonly)"
-          :editable="item.editable !== false"
-          @on-blur="itemChange($event,item)"
-          :active-change="Boolean(item.activeChange)"
-          :clearable="item.clearable!==false"
-      />
-      <!--输入框-->
-      <Input
-          :style="itemStyle"
-          v-else-if="item.type === 'input'"
-          v-model="tempKeys[item.tempKey]"
-          :maxlength="item.maxLength||null"
-          :placeholder="item.placeholder||t('r.pInput')"
-          :disabled="Boolean(item.disabled) || disabled"
-          @on-blur="reValidateAndChangeHandle($event,item)"
-          :clearable="item.clearable!==false"
-      />
-      <!--下拉框-->
-      <Select
-          v-else-if="item.type === 'select'"
-          v-model="tempKeys[item.tempKey]"
-          :style="itemStyle"
-          :filterable="(item.filterable === true || item.filterable === false)?item.filterable : false"
-          :disabled="Boolean(item.disabled) || disabled"
-          :multiple="Boolean(item.multiple)"
-          :placeholder="item.placeholder||t('r.pSelect')"
-          @on-clear="clearTempKeyItem($event,item.tempKey)"
-          @on-change="reValidateAndChangeHandle($event,item)"
-          transfer
-          :clearable="item.clearable!==false"
-      >
-        <Option
-            v-for="(optionItem,i) in item.options"
-            :value="optionItem.val"
-            :label="optionItem.label||optionItem.val"
-            :key="'option-'+item.key + i"
-            :disabled="!!optionItem.disabled"
-        />
-      </Select>
-      <!--选择输入框（可以选择输入的key，比如选择是想收集体重还是身高）-->
-      <select-input
-          v-else-if="item.type === 'selectInput'"
-          v-model="tempKeys[item.tempKey]"
-          :label-width="labelWidth"
-          :item-width="itemWidth"
-          :select-option="item.options||[]"
-          :placeholder="item.placeholder||t('r.pInput')"
-          :clearable="item.clearable!==false"
-          :disabled="Boolean(item.disabled) || disabled"
-          @on-change="onSelectInputChange"
-      />
-      <!--行政区域级联-->
-      <al-cascader-m-c
-          :style="itemStyle"
-          class="inlineBlock"
-          v-else-if="item.type === 'alCascader'"
-          v-model="valGroup[item.key]"
-          :level="(item.level||item.level ===0)?item.level:2"
-          :disabled="Boolean(item.disabled) || disabled"
-          :filterable="item.filterable!==false"
-          :placeholder="item.placeholder||t('r.pSelect')"
-          :change-on-select="Boolean(item.changeOnSelect)"
-          @on-name-change="alNameChange($event,item)"
-      />
-      <!--远程数据级联-->
-      <async-cascader
-          :style="itemStyle"
-          v-else-if="item.type === 'asyncCascader'"
-          v-model="valGroup[item.key]"
-          :url="item.url||mgrUrl + '/web/v1/umc/orgs'"
-          :option-val="item.optionVal||'id'"
-          :option-label="item.optionLabel||'name'"
-          :option-filter="item.optionFilter||null"
-          :only-last-val="item.onlyLastVal !== false"
-          :only-last-label="item.onlyLastLabel !== false"
-          :separator="item.separator || '/'"
-          :placeholder="item.placeholder || t('r.pSelect')"
-          :filterable="Boolean(item.filterable)"
-          :disabled="Boolean(item.disabled) || disabled"
-          @on-label-change="asyncLabelChange($event,item)"
-      />
-      <!--单选（不可取消选择）-->
-      <Radio
-          v-else-if="item.type === 'radio'"
-          v-model="valGroup[item.key]"
-          :disabled="Boolean(item.disabled) || disabled"
-          @on-change="reValidateAndChangeHandle($event,item)"
-      >{{item.label}}</Radio>
-      <!--单选组-->
-      <RadioGroup
-          :style="itemStyle"
-          v-else-if="item.type === 'radioGroup'"
-          @on-change="reValidateAndChangeHandle($event,item)"
-          :type="item.buttonType ? 'button': null"
-          v-model="tempKeys[item.tempKey]"
-      >
-        <Radio
-            v-for="radioItem of item.options"
-            :key="'radioItem'+radioItem.val"
-            :label="radioItem.val"
-            :border="Boolean(item.itemBorder)"
-            :disabled="Boolean(item.disabled) || disabled||radioItem.disabled"
-        >
-          <Icon v-if="radioItem.icon && (!item.buttonType)" :type="radioItem.icon"/>
-          <span>{{radioItem.label || radioItem.val}}</span>
-        </Radio>
-      </RadioGroup>
-      <!--单选（可取消选择）-->
-      <Checkbox
-          v-else-if="item.type === 'checkbox'"
-          v-model="valGroup[item.key]"
-          :disabled="!!item.disabled"
-          @on-change="reValidateAndChangeHandle($event,item)"
-      >{{item.label}}</Checkbox>
-      <!--多选组-->
-      <CheckboxGroup
-          :style="itemStyle"
-          v-else-if="item.type === 'checkboxGroup'"
-          v-model="tempKeys[item.tempKey]"
-          @on-change="reValidateAndChangeHandle($event,item)"
-      >
-        <Checkbox
-            v-for="checkItem of item.options"
-            :key="'checkItem'+checkItem.val"
-            :label="checkItem.val"
-            :disabled="Boolean(item.disabled) || disabled ||checkItem.disabled"
-        >
-          <Icon v-if="checkItem.icon" :type="checkItem.icon"/>
-          <span>{{checkItem.label||checkItem.val}}</span>
-        </Checkbox>
-      </CheckboxGroup>
-      <!--文本框-->
-      <Input
-          v-else-if="item.type === 'textarea'"
-          type="textarea"
-          v-model="tempKeys[item.tempKey]"
-          :autosize="{minRows: 2}"
-          :style="itemStyle"
-          :maxlength="item.maxLength||null"
-          :placeholder="item.placeholder || t('r.pInput')"
-          :disabled="Boolean(item.disabled) || disabled"
-          @on-blur="reValidateAndChangeHandle($event,item)"
-          :clearable="item.clearable!==false"
-      />
-      <!--上传组件-->
-      <upload-group
-          :style="itemStyle"
-          class="inlineBlock"
-          v-else-if="item.type === 'upload'"
-          v-model="valGroup[item.key]"
-          :url="item.url||uploadUrl"
-          :manual-upload="Boolean(item.manualUpload)"
-          :format="item.format||[]"
-          :data="item.data"
-          :max-size="item.maxSize||0"
-          :show-img="Boolean(item.showImg)"
-          :length="item.length||0"
-          :disabled="Boolean(item.disabled) || disabled"
-          :withCredentials="item.withCredentials!==false"
-          @on-file-id-change="reValidateAndChangeHandle($event,item)"
-      />
-      <!--日期选择器-->
-      <DatePicker
-          :style="itemStyle"
-          v-else-if="item.type === 'date'"
-          v-model="tempKeys[item.tempKey]"
-          :type="item.dateType"
-          :disabled="Boolean(item.disabled) || disabled"
-          placement="bottom-end"
-          :placeholder="item.placeholder||t('r.selectDate')"
-          :options="item.dateOptions||null"
-          :clearable="item.clearable!==false"
-          :editable="false"
-          transfer
-          @on-change="itemChange($event,item)"
-      />
-      <!--时间选择器-->
-      <TimePicker
-          :style="itemStyle"
-          v-else-if="item.type === 'time'"
-          v-model="tempKeys[item.tempKey]"
-          :type="item.dateType"
-          :disabled="Boolean(item.disabled) || disabled"
-          placement="bottom-end"
-          :placeholder="item.placeholder||t('r.selectTime')"
-          :steps="item.steps||[]"
-          :clearable="item.clearable!==false"
-          :editable="false"
-          :format="item.format||'HH:mm:ss'"
-          transfer
-          @on-change="itemChange($event,item)"
-      />
-      <!--富文本编辑器-->
-      <editor
-          class="inlineBlock"
-          :style="itemStyle"
-          v-else-if="item.type === 'editor'"
-          v-model="valGroup[item.key]"
-          :placeholder="item.placeholder || t('r.pInput')"
-          :disabled="Boolean(item.disabled) || disabled"
-          :uploadImgMaxSize="item.uploadImgMaxSize||(100 * 1024)"
-          :uploadImgMaxLength="item.uploadImgMaxLength||10"
-          :uploadImgShowBase64="item.uploadImgShowBase64!==false"
-          :showLinkImg="item.showLinkImg!==false"
-          :uploadImgServe="item.uploadImgServe"
-          :previewClass="item.previewClass||'r-editor-view'"
-          @on-change="reValidateAndChangeHandle($event,item)"
-      />
-      <!--富文本编辑器Pro-->
-      <editor-pro
-          class="inlineBlock"
-          :style="itemStyle"
-          v-else-if="item.type === 'editorPro'"
-          v-model="valGroup[item.key]"
-          :placeholder="item.placeholder || t('r.pInput')"
-          :disabled="Boolean(item.disabled) || disabled"
-          :toolbarConfig="item.toolbarConfig||{}"
-          :editorConfig="item.editorConfig||{}"
-          :mode="item.mode||'simple'"
-          :height="item.height||300"
-          @input="reValidateAndChangeHandle($event,item)"
-      />
-      <input-map
-          v-else-if="item.type === 'inputMap'"
-          v-model="tempKeys[item.tempKey]"
-          :style="itemStyle"
-          :placeholder="item.placeholder || t('r.search')"
-          :disabled="Boolean(item.disabled) || disabled"
-          :show-map="item.showMap!==false"
-          :height="item.mapHeight||'250px'"
-          @on-change="reValidateAndChangeHandle($event,item)"
-      />
-      <div
-          v-else-if="item.type === 'custom'"
-          class="inlineBlock"
-          :style="itemStyle"
-      >
-        <slot :name="item.slotName" :val-group="valGroup"/>
-      </div>
-      <!--表单项提示文字-->
-      <div v-if="Boolean(item.info)" class="formInfoTxtXN">{{item.info}}</div>
-      <!--表单项标题-->
-      <div v-if="Boolean(item.title)" class="formTitleTxtXN">{{item.title}}</div>
-    </FormItem>
+      <template :slot="s.slotName" v-for="s in getSlotFormData(formData)" slot-scope="{valGroup}">
+        <slot :name="s.slotName" :val-group="valGroup"/>
+      </template>
+    </item-r>
     <!--长提交按钮-->
     <FormItem v-if="showLongOkBt">
       <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{longOkBtTxt||t('r.confirm')}}</Button>
@@ -300,29 +52,17 @@
 <script>
   import moment from 'moment'
   import _ from 'lodash'
-  import {myTypeof, isValidValue, trimObj} from "../../methods/functionGroup"
+  import {myTypeof, isValidValue, trimObj, findCollection} from "../../methods/functionGroup"
   import $fetch from '../../methods/fetch'
-  import selectInput from '../selectInput/selectInput.vue'
-  import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
-  import asyncCascader from '../asyncCascader/asyncCascader.vue'
-  import uploadGroup from '../uploadGroup/uploadGroup.vue'
-  import editor from '../editor/editor.vue'
-  import editorPro from '../editorPro/editorPro.vue'
-  import inputMap from '../inputMap/inputMap.vue'
   import Locale from '../../mixins/locale'
   import {setTimeout} from '../../methods/timer'
+  import ItemR from "./itemR"
 
   export default {
     name: "formR",
     mixins: [Locale],
     components: {
-      selectInput,
-      alCascaderMC,
-      asyncCascader,
-      uploadGroup,
-      editor,
-      editorPro,
-      inputMap
+      ItemR
     },
     props: {
       formData: {
@@ -405,6 +145,11 @@
         /*是否去除提交数据中的字符串首尾空格*/
         type: Boolean,
         default: true
+      },
+      teamClass: {
+        /*分组表单-组容器class*/
+        type: String,
+        default: 'formTeamBox'
       }
     },
     data() {
@@ -412,7 +157,7 @@
         valGroup: {}, /*表单项值，对外公开，提交时传递到外层*/
         formDataT: [], /*表单结构数据*/
         tempKeys: {}, /*不对外暴露表单项值*/
-        unwatchGroup: []/*需要监听的事件集合*/,
+        watchGroup: []/*需要监听的事件集合*/,
         mgrUrl: window.g && window.g.mgrURL || null,
         selectInputKeys: [], /*selectInput的key没有写死在formData中（因为是动态的）,为了在showingKeys中能捕捉到这类组件的key,特声明此变量*/
         hiddenKeys: [], /*通过 setItemToValGroup 直接存入valGroup的字段*/
@@ -423,6 +168,9 @@
       }
     },
     computed: {
+      formTeam() {
+        return Array.isArray(_.head(this.formData))
+      },
       formStyle() {
         if (this.inline) {
           return {
@@ -440,52 +188,36 @@
         }
       },
       formRulesT() { /*计算规则*/
-        let temp = _.cloneDeep(this.formRules)
-        for (let key in temp) {
-          if (temp.hasOwnProperty(key)) {
-            if (myTypeof(temp[key]) === 'Array') {
-              for (let item of temp[key]) {
-                if (!(item.message || item.validator)) {
-                  item.message = this.t('r.required')
+        let t = _.cloneDeep(this.formRules)
+        for (let k in t) {
+          if (t.hasOwnProperty(k)) {
+            if (Array.isArray(t[k])) {
+              for (let e of t[k]) {
+                if (!(e.message || e.validator)) {
+                  e.message = this.t('r.required')
                 }
               }
             }
-            else if (myTypeof(temp[key]) === 'Object') {
-              if ((!temp[key].message || temp[key].validator)) {
-                temp[key].message = this.t('r.required')
+            else if (myTypeof(t[k]) === 'Object') {
+              if (!(t[k].message || t[k].validator)) {
+                t[k].message = this.t('r.required')
               }
             }
           }
         }
-        return temp
+        return t
       },
       showingKeys() { /*展示的key(需要提交的)*/
-        let temp = []
-        for (let item of this.formDataT) {
-          if (item.showing === true && item.key && item.type !== 'selectInput') {
-            temp.push(item.key)
-            if (item.key2) {
-              temp.push(item.key2)
-            }
-            if (item.collectLabel) {
-              if (_.isPlainObject(item.collectLabel) && item.collectLabel.key) {
-                temp.push(item.collectLabel.key)
-              }
-              else if (_.isArray(item.collectLabel)) {
-                for (let labelItem of item.collectLabel) {
-                  if (labelItem.key) {
-                    temp.push(labelItem.key)
-                  }
-                }
-              }
-            }
+        let t = []
+        if (this.formTeam) {
+          for (let e of this.formDataT) {
+            this.showingItems(e, t)
           }
         }
-        temp.push(...[
-          ...this.selectInputKeys,
-          ...this.hiddenKeys
-        ])
-        return temp
+        else {
+          this.showingItems(this.formDataT, t)
+        }
+        return t.concat(this.selectInputKeys, this.hiddenKeys)
       }
     },
     created() {
@@ -493,64 +225,91 @@
       this.initFormDataT()
     },
     methods: {
+      getSlotFormData(d) {/*私有，获取插槽数据*/
+        return d.filter(e => e.slotName)
+      },
+      /**
+       * 计算需要展示的key
+       * @param d 表单结构数据
+       * @param t 储存需要展示的key的对象
+       */
+      showingItems(d, t) {
+        for (let root of d) {
+          if (root.showing === true && root.key && root.type !== 'selectInput') {
+            t.push(root.key)
+            if (root.key2) {
+              t.push(root.key2)
+            }
+            if (root.collectLabel) {
+              if (myTypeof(root.collectLabel) === 'Object' && root.collectLabel.key) {
+                t.push(root.collectLabel.key)
+              }
+              else if (Array.isArray(root.collectLabel)) {
+                for (let l of root.collectLabel) {
+                  if (l.key) {
+                    t.push(l.key)
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       resetForm() { /*重置表单，会清空表单值并刷新表单dom，异步方法（公开）*/
-        return new Promise((resolve) => {
+        return new Promise(r => {
           this.clearForm()
           this.refreshFormDom().then(() => {
             this.$emit('on-reset')
-            resolve()
+            r()
           })
         })
       },
       reRenderForm() { /*重新渲染表单，异步方法（公开）*/
-        return new Promise(resolve => {
-          for (let item of this.unwatchGroup) {
-            item()
+        return new Promise(r => {
+          for (let f of this.watchGroup) {
+            f()
           }
           this.tempKeys = {}
           this.initValGroup()
           this.initFormDataT()
-          
+
           this.refreshFormDom().then(() => {
             this.$emit('on-re-render')
-            resolve()
+            r()
           })
         })
       },
       refreshFormDom() {/*刷新表单dom，异步方法（公开）*/
-        return new Promise(resolve => {
+        return new Promise(r => {
           this.formReRenderKey = Math.floor(Math.random() * 100000000 + 1000)
           /*刷新表单*/
           this.$nextTick(function () {
-            resolve()
+            r()
           })
         })
       },
       clearForm() { /*清空表单值（私有，不推荐直接调用，可以调用resetForm）*/
         let defaultV = this.getDefaultValues()
 
-        for (let key in this.valGroup) {
-          if (this.valGroup.hasOwnProperty(key)) {
-            if (isValidValue(defaultV[key])) {
-              this.$set(this.valGroup, key, defaultV[key])
+        for (let k in this.valGroup) {
+          if (this.valGroup.hasOwnProperty(k)) {
+            if (isValidValue(defaultV[k])) {
+              this.$set(this.valGroup, k, defaultV[k])
             }
             else {
-              if (myTypeof(this.valGroup[key]) === 'Array') {
-                this.$set(this.valGroup, key, [])
+              if (Array.isArray(this.valGroup[k])) {
+                this.$set(this.valGroup, k, [])
               }
-              else if (myTypeof(this.valGroup[key]) === 'Boolean') {
-                this.$set(this.valGroup, key, false)
+              else if (myTypeof(this.valGroup[k]) === 'Boolean') {
+                this.$set(this.valGroup, k, false)
               }
               else {
-                const formItem = _.find(this.formData, [
-                  'key',
-                  key
-                ])
+                const formItem = findCollection(this.formData, e => e.key === k)
                 if (formItem && (formItem.type === 'editor' || formItem.type === 'editorPro')) {
-                  this.$set(this.valGroup, key, '')
+                  this.$set(this.valGroup, k, '')
                 }
                 else {
-                  this.$set(this.valGroup, key, null)
+                  this.$set(this.valGroup, k, null)
                 }
               }
             }
@@ -559,104 +318,128 @@
         this.clearTempKeys(defaultV)
       },
       clearTempKeys(defaultV) { /*清空缓存表单值（私有，不推荐直接调用，可以调用resetForm）*/
-        for (let key in this.tempKeys) {
-          if (this.tempKeys.hasOwnProperty(key)) {
-            if (isValidValue(defaultV[key])) {
-              this.$set(this.tempKeys, key, defaultV[key])
+        for (let k in this.tempKeys) {
+          if (this.tempKeys.hasOwnProperty(k)) {
+            if (isValidValue(defaultV[k])) {
+              this.$set(this.tempKeys, k, defaultV[k])
             }
             else {
-              if (myTypeof(this.tempKeys[key]) === 'Array') {
-                this.$set(this.tempKeys, key, [])
+              if (Array.isArray(this.tempKeys[k])) {
+                this.$set(this.tempKeys, k, [])
               }
-              else if (myTypeof(this.tempKeys[key]) === 'Object' && this.tempKeys[key].hasOwnProperty('key') &&
-                this.tempKeys[key].hasOwnProperty('val')) {
+              else if (myTypeof(this.tempKeys[k]) === 'Object' && this.tempKeys[k].hasOwnProperty('key') &&
+                this.tempKeys[k].hasOwnProperty('val')) {
                 /*selectInput*/
-                this.$set(this.tempKeys[key], 'val', null)
+                this.$set(this.tempKeys[k], 'val', null)
               }
               else {
-                this.$set(this.tempKeys, key, null)
+                this.$set(this.tempKeys, k, null)
               }
             }
           }
         }
       },
-      clearTempKeyItem(key) { /*清空缓存表单项值（私有）*/
+      clearTempKeyItem(k) { /*清空缓存表单项值（私有）*/
         let defaultV = this.getDefaultValues()
-        if (isValidValue(defaultV[key])) {
-          this.$set(this.tempKeys, key, defaultV[key])
+        if (isValidValue(defaultV[k])) {
+          this.$set(this.tempKeys, k, defaultV[k])
         }
         else {
-          if (myTypeof(this.tempKeys) === 'Array') {
-            this.tempKeys[key] = []
+          if (Array.isArray(this.tempKeys)) {
+            this.tempKeys[k] = []
           }
           else {
-            this.tempKeys[key] = null
+            this.tempKeys[k] = null
           }
         }
       },
       getDefaultValues() {/*获取默认值（私有）*/
-        let temp = {}
-        for (let e of this.formDataT) {
-          if (e.tempKey && isValidValue(e.defaultVal)) {
-            if (e.booleanVal) {
-              temp[e.tempKey] = e.defaultVal ? 1 : 0
-            }
-            else {
-              temp[e.tempKey] = e.defaultVal
-            }
-          }
-          if (e.key && isValidValue(e.defaultVal)) {
-            temp[e.key] = e.defaultVal
-          }
-          if (e.key2 && isValidValue(e.defaultVal2)) {
-            temp[e.key2] = e.defaultVal2
+        let t = {}
+        if (this.formTeam) {
+          for (let e of this.formDataT) {
+            this.defaultValItems(e, t)
           }
         }
-        return temp
+        else {
+          this.defaultValItems(this.formDataT, t)
+        }
+        return t
       },
-      getFormItemIfVal(item) { /*判断是否展示表单项（私有，高频被调用方法，每次表单中有任何值更改，都会被调用formDataT长度次，而且还可能触发连锁反应）*/
-        if (item.show) {
-          if (myTypeof(item.show) === 'Object') {
-            return this.returnIfVal(item, this.dealIfItem(item.show))
-          }
-          else if (myTypeof(item.show) === 'Array') {
-            if (item.showOr) {
-              for (let itemX of item.show) {
-                if (this.dealIfItem(itemX) === true) {
-                  return this.returnIfVal(item, true)
-                }
-              }
-              return this.returnIfVal(item, false)
+      /**
+       * 从表单结构数据获取默认值
+       * @param d 表单结构数据
+       * @param a 储存默认值的对象
+       */
+      defaultValItems(d, a) {
+        for (let root of d) {
+          if (root.tempKey && isValidValue(root.defaultVal)) {
+            if (root.booleanVal) {
+              a[root.tempKey] = root.defaultVal ? 1 : 0
             }
             else {
-              for (let itemX of item.show) {
-                if (this.dealIfItem(itemX) === false) {
-                  return this.returnIfVal(item, false)
-                }
-              }
-              return this.returnIfVal(item, true)
+              a[root.tempKey] = root.defaultVal
             }
           }
-          else if (myTypeof(item.show) === 'Function') {
-            return this.returnIfVal(item, item.show(this.valGroup))
+          if (root.key && isValidValue(root.defaultVal)) {
+            a[root.key] = root.defaultVal
+          }
+          if (root.key2 && isValidValue(root.defaultVal2)) {
+            a[root.key2] = root.defaultVal2
           }
         }
-        else if (!item.showing) {
-          this.$set(item, 'showing', true)
+      },
+      /**
+       * 判断是否展示表单项（私有，高频被调用方法，每次表单中有任何值更改，都会被调用formDataT的长度<formDataT.length>次，而且还可能触发连锁反应）
+       * @param root 表单项结构数据
+       */
+      getFormItemIfVal(root) {
+        if (root.show) {
+          if (myTypeof(root.show) === 'Object') {
+            return this.returnIfVal(root, this.dealIfItem(root.show))
+          }
+          else if (Array.isArray(root.show)) {
+            if (root.showOr) {
+              for (let x of root.show) {
+                if (this.dealIfItem(x) === true) {
+                  return this.returnIfVal(root, true)
+                }
+              }
+              return this.returnIfVal(root, false)
+            }
+            else {
+              for (let x of root.show) {
+                if (this.dealIfItem(x) === false) {
+                  return this.returnIfVal(root, false)
+                }
+              }
+              return this.returnIfVal(root, true)
+            }
+          }
+          else if (myTypeof(root.show) === 'Function') {
+            return this.returnIfVal(root, root.show(this.valGroup))
+          }
+        }
+        else if (!root.showing) {
+          this.$set(root, 'showing', true)
         }
         return true
       },
-      dealIfItem(item) { /*处理展示表单项逻辑（私有）*/
-        if (item.reg && typeof item.reg.test === 'function') {
-          return item.reg.test(this.valGroup[item.key])
+      /**
+       * 判断表单项是否展示（私有）
+       * @param show 表单项的展示配置数据
+       * @returns {boolean}
+       */
+      dealIfItem(show) {
+        if (show.reg && typeof show.reg.test === 'function') {
+          return show.reg.test(this.valGroup[show.key])
         }
-        else if (myTypeof(item.val) === 'Array') {
-          for (let val of item.val) {
-            if ((this.valGroup[item.key] || this.valGroup[item.key] === 0 || this.valGroup[item.key] === false) &&
-              val === '.') {/*只要控制项有值及展示*/
+        else if (Array.isArray(show.val)) {
+          for (let v of show.val) {
+            if ((this.valGroup[show.key] || this.valGroup[show.key] === 0 || this.valGroup[show.key] === false) && v ===
+              '.') {/*只要控制项有值及展示*/
               return true
             }
-            else if (this.valGroup[item.key] === val) {
+            else if (this.valGroup[show.key] === v) {
               return true
             }
           }
@@ -666,23 +449,37 @@
           return false
         }
       },
-      returnIfVal(root, val) { /*处理表单项展示逻辑（私有）*/
+      /**
+       * 将是否展示的结果写入表单结构对象，同时处理默认值相关逻辑（私有）
+       * @param root 表单项结构数据
+       * @param {boolean}val 是否展示的结果
+       */
+      returnIfVal(root, val) {
         if (!root.showing && val && root.key) {
           this.$set(root, 'showing', val)
 
           if (root.defaultVal !== undefined) {/*对之前没展示且没值的表单项赋默认值*/
             if (root.tempKey) {
-              if (this.tempKeys[root.tempKey] === null ||
-                ((_.isPlainObject(this.tempKeys[root.tempKey]) || _.isArray(this.tempKeys[root.tempKey])) &&
-                  _.isEmpty(this.tempKeys[root.tempKey]))) {
+              if (this.tempKeys[root.tempKey] === null || this.tempKeys[root.tempKey] === undefined ||
+                (myTypeof(this.tempKeys[root.tempKey]) === 'Object' || Array.isArray(this.tempKeys[root.tempKey])) &&
+                _.isEmpty(this.tempKeys[root.tempKey])) {
                 if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
                   'select' || root.type === 'checkboxGroup') {
                   this.tempKeys[root.tempKey] = root.defaultVal
                 }
                 else if (root.type === 'inputMap') {
-                  this.tempKeys[root.tempKey] = {
-                    lng: root.defaultVal,
-                    lat: root.defaultVal2
+                  if (root.key3) {
+                    this.tempKeys[root.tempKey] = {
+                      lng: root.defaultVal,
+                      lat: root.defaultVal2,
+                      name: root.defaultVal3 || ''
+                    }
+                  }
+                  else {
+                    this.tempKeys[root.tempKey] = {
+                      lng: root.defaultVal,
+                      lat: root.defaultVal2
+                    }
                   }
                 }
                 else if (root.type === 'date' || root.type === 'time') {
@@ -692,7 +489,7 @@
                   }
                   else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
                     'timerange') {
-                    this.tempKeys[root.tempKey] = item.defaultVal && item.defaultVal2 && [
+                    this.tempKeys[root.tempKey] = root.defaultVal && root.defaultVal2 && [
                       root.defaultVal,
                       root.defaultVal2
                     ] || []
@@ -700,10 +497,11 @@
                 }
               }
             }
-            else if (this.valGroup[root.key] === null) {
+            else if (this.valGroup[root.key] === null || this.valGroup[root.key] === undefined) {
               this.$set(this.valGroup, root.key, root.defaultVal)
             }
-            if (root.key2 && root.deafultVal2 !== undefined && this.valGroup[root.key2] === null && root.type !==
+            if (root.key2 && root.deafultVal2 !== undefined &&
+              (this.valGroup[root.key2] === null || this.valGroup[root.key2] === undefined) && root.type !==
               'inputMap') {
               this.valGroup[root.key2] = root.defaultVal2
             }
@@ -718,33 +516,57 @@
         return val
       },
       initFormDataT() { /*初始化表单结构（私有）*/
-        let temp = _.cloneDeep(this.formData)
-        for (let item of temp) {
-          switch (item.type) {
+        let t = _.cloneDeep(this.formData)
+        if (this.formTeam) {
+          for (let box of t) {
+            this.initItems(box)
+          }
+        }
+        else {
+          this.initItems(t)
+        }
+        this.formDataT = t
+      },
+      initItems(d) {
+        for (let root of d) {
+          switch (root.type) {
             case 'selectInput':
               const tempKeyF = 'selectInput' + Math.floor(Math.random() * 100000000)
-              item.tempKey = tempKeyF
+              root.tempKey = tempKeyF
               this.$set(this.tempKeys, tempKeyF, {
-                key: item.key || null,
-                val: item.defaultVal || null
+                key: root.key || null,
+                val: root.defaultVal || null
               })
-              this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyF], after => {
-                this.tempKeysWatchHandle(after, item)
+              this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyF], after => {
+                this.tempKeysWatchHandle(after, root)
               }, {immediate: true}))
               break
             case 'inputMap':
               const tempKeyE = 'inputMap' + Math.floor(Math.random() * 100000000)
-              if (item.key) {
-                item.tempKey = tempKeyE
-                this.$set(this.tempKeys, tempKeyE, item.defaultVal !== undefined && item.defaultVal2 !== undefined ? {
-                  lng: item.defaultVal,
-                  lat: item.defaultVal2
-                } : {
-                  lng: null,
-                  lat: null
-                })
-                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyE], after => {
-                  this.tempKeysWatchHandle(after, item)
+              if (root.key) {
+                root.tempKey = tempKeyE
+                if (root.key3) {
+                  this.$set(this.tempKeys, tempKeyE, root.defaultVal !== undefined && root.defaultVal2 !== undefined ? {
+                    lng: root.defaultVal,
+                    lat: root.defaultVal2,
+                    name: root.defaultVal3 || ''
+                  } : {
+                    lng: null,
+                    lat: null,
+                    name: null
+                  })
+                }
+                else {
+                  this.$set(this.tempKeys, tempKeyE, root.defaultVal !== undefined && root.defaultVal2 !== undefined ? {
+                    lng: root.defaultVal,
+                    lat: root.defaultVal2
+                  } : {
+                    lng: null,
+                    lat: null
+                  })
+                }
+                this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyE], after => {
+                  this.tempKeysWatchHandle(after, root)
                 }, {immediate: true}))
               }
               break
@@ -752,84 +574,84 @@
             case 'inputNumber':
             case 'textarea':
               const tempKeyD = 'inputT' + Math.floor(Math.random() * 100000000)
-              if (item.key) {
-                item.tempKey = tempKeyD
-                this.$set(this.tempKeys, tempKeyD, item.defaultVal !== undefined ? item.defaultVal : null)
-                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyD], after => {
-                  this.tempKeysWatchHandle(after, item)
+              if (root.key) {
+                root.tempKey = tempKeyD
+                this.$set(this.tempKeys, tempKeyD, root.defaultVal !== undefined ? root.defaultVal : null)
+                this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyD], after => {
+                  this.tempKeysWatchHandle(after, root)
                 }, {immediate: true}))
               }
               break
             case 'select':
             case 'radioGroup':
             case 'checkboxGroup':
-              if (!item.options) {
-                item.options = []
+              if (!root.options) {
+                root.options = []
               }
-              if (item.asyncOption) { /*远程待选项*/
-                if (item.changeOption) { /*待选项会根据条件改变*/
-                  if (_.isPlainObject(item.changeOption)) {
-                    if (item.changeOption.valKey && item.changeOption.key) {
-                      this.unwatchGroup.push(this.$watch(() => this.valGroup[item.changeOption.valKey], after => {
-                        let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
-                        this.tempKeys[item.tempKey] = null
-                        
-                        if ((after || after === 0 || after === false) && item.optionUrl) {
-                          let urlTA = item.optionUrl.indexOf('?') !== -1 ? item.optionUrl : item.optionUrl + '?'
-                          this.initOption((urlTA + '&' + item.changeOption.key + '=' + after).replace(/\?&/, '?'), item,
-                            tempVal)
+              if (root.asyncOption) { /*远程待选项*/
+                if (root.changeOption) { /*待选项会根据条件改变*/
+                  if (myTypeof(root.changeOption) === 'Object') {
+                    if (root.changeOption.valKey && root.changeOption.key) {
+                      this.watchGroup.push(this.$watch(() => this.valGroup[root.changeOption.valKey], after => {
+                        let tV = _.cloneDeep(this.tempKeys[root.tempKey])
+                        this.tempKeys[root.tempKey] = null
+
+                        if ((after || after === 0 || after === false) && root.optionUrl) {
+                          let urlT = root.optionUrl.indexOf('?') !== -1 ? root.optionUrl : root.optionUrl + '?'
+                          this.initOption((urlT + '&' + root.changeOption.key + '=' + after).replace(/\?&/, '?'), root,
+                            tV)
                         }
                         else {
-                          item.options = []
-                          if (item.localOption) {
-                            item.options = [...item.localOption]
+                          root.options = []
+                          if (root.localOption) {
+                            root.options = [...root.localOption]
                           }
-                          if (isValidValue(tempVal)) {
-                            this.recoverVal(tempVal, item)
+                          if (isValidValue(tV)) {
+                            this.recoverVal(tV, root)
                           }
                         }
                       }, {immediate: true}))
                     }
                   }
-                  else if (_.isArray(item.changeOption)) {
-                    let continueInitOp = true
-                    for (let itemCO of item.changeOption) { /*检验changeOption参数是否可用*/
-                      if ((!itemCO.valKey) || (!itemCO.key)) {
-                        continueInitOp = false
+                  else if (Array.isArray(root.changeOption)) {
+                    let go = true
+                    for (let cp of root.changeOption) { /*检验changeOption参数是否可用*/
+                      if (!cp.valKey || !cp.key) {
+                        go = false
                         break
                       }
                     }
-                    if (continueInitOp) {
-                      this.unwatchGroup.push(this.$watch(() => {
-                        let tempParamUrl = ''
-                        for (let itemCOT of item.changeOption) {
-                          let valKeyTT = this.valGroup[itemCOT.valKey]
-                          if (valKeyTT || valKeyTT === 0 || valKeyTT === false) {
+                    if (go) {
+                      this.watchGroup.push(this.$watch(() => {
+                        let tUrl = ''
+                        for (let cp of root.changeOption) {
+                          let vT = this.valGroup[cp.valKey]
+                          if (vT || vT === 0 || vT === false) {
                             /*如果条件有有效值，则拉取待选项*/
-                            tempParamUrl += ('&' + itemCOT.key + '=' + valKeyTT)
+                            tUrl += ('&' + cp.key + '=' + vT)
                           }
-                          else if (!itemCOT.notRequired) {
+                          else if (!cp.notRequired) {
                             /*条件为必填（notRequired!==true,默认必填），且没有有效值，则不拉取待选项*/
                             return false
                           }
                         }
-                        return tempParamUrl
+                        return tUrl
                       }, after => {
-                        let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
-                        this.tempKeys[item.tempKey] = null
-                        
-                        if (after && item.optionUrl) {
-                          let urlTA = item.optionUrl.indexOf('?') !== -1 ? item.optionUrl : item.optionUrl + '?'
-                          this.initOption((urlTA + after).replace(/\?&/, '?'), item, tempVal)
+                        let tV = _.cloneDeep(this.tempKeys[root.tempKey])
+                        this.tempKeys[root.tempKey] = null
+
+                        if (after && root.optionUrl) {
+                          let urlT = root.optionUrl.indexOf('?') !== -1 ? root.optionUrl : root.optionUrl + '?'
+                          this.initOption((urlT + after).replace(/\?&/, '?'), root, tV)
                         }
                         else {
-                          item.options = []
-                          if (item.localOption) {
-                            item.options = [...item.localOption]
+                          root.options = []
+                          if (root.localOption) {
+                            root.options = [...root.localOption]
                           }
-                          
-                          if (isValidValue(tempVal)) {
-                            this.recoverVal(tempVal, item)
+
+                          if (isValidValue(tV)) {
+                            this.recoverVal(tV, root)
                           }
                         }
                       }, {
@@ -837,59 +659,60 @@
                       }))
                     }
                     else {
-                      item.options = []
-                      if (item.localOption) {
-                        item.options = [...item.localOption]
+                      root.options = []
+                      if (root.localOption) {
+                        root.options = [...root.localOption]
                       }
                     }
                   }
-                  else if (_.isBoolean(item.changeOption)) {  /*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
-                    this.unwatchGroup.push(this.$watch(() => this.formData[_.indexOf(temp, item)].optionUrl, after => {
-                      let tempVal = _.cloneDeep(this.tempKeys[item.tempKey])
-                      this.tempKeys[item.tempKey] = null
-                      
-                      if (after) {
-                        this.initOption(after, item, tempVal)
-                      }
-                      else {
-                        item.options = []
-                        if (item.localOption) {
-                          item.options = [...item.localOption]
+                  else if (myTypeof(root.changeOption) === 'Boolean') {  /*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
+                    this.watchGroup.push(
+                      this.$watch(() => findCollection(this.formData, e => e.key === root.key).optionUrl, after => {
+                        let tV = _.cloneDeep(this.tempKeys[root.tempKey])
+                        this.tempKeys[root.tempKey] = null
+
+                        if (after) {
+                          this.initOption(after, root, tV)
                         }
-                        
-                        if (isValidValue(tempVal)) {
-                          this.recoverVal(tempVal, item)
+                        else {
+                          root.options = []
+                          if (root.localOption) {
+                            root.options = [...root.localOption]
+                          }
+
+                          if (isValidValue(tV)) {
+                            this.recoverVal(tV, root)
+                          }
                         }
-                      }
-                    }, {
-                      immediate: true
-                    }))
+                      }, {
+                        immediate: true
+                      }))
                   }
                 }
                 else {
-                  this.initOption(item.optionUrl, item)
+                  this.initOption(root.optionUrl, root)
                 }
               }
-              else if (myTypeof(item.borrowOption) === 'String') {/*借用待选项*/
-                item.options = _.find(temp, {key: item.borrowOption}).options
+              else if (myTypeof(root.borrowOption) === 'String') {/*借用待选项*/
+                root.options = findCollection(this.formDataT, e => e.key === root.borrowOption).options
               }
 
               const tempKeyC = 'opEle' + Math.floor(Math.random() * 100000000)
-              if (item.key) {
-                item.tempKey = tempKeyC
-                if (item.type === 'select' && item.multiple || item.type === 'checkboxGroup') {
-                  this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : [])
+              if (root.key) {
+                root.tempKey = tempKeyC
+                if (root.type === 'select' && root.multiple || root.type === 'checkboxGroup') {
+                  this.$set(this.tempKeys, tempKeyC, root.defaultVal !== undefined ? root.defaultVal : [])
                 }
-                else if (item.booleanVal) {
+                else if (root.booleanVal) {
                   this.$set(this.tempKeys, tempKeyC,
-                    item.defaultVal !== undefined ? (Boolean(item.defaultVal) ? 1 : 0) : null)
+                    root.defaultVal !== undefined ? (Boolean(root.defaultVal) ? 1 : 0) : null)
                 }
                 else {
-                  this.$set(this.tempKeys, tempKeyC, item.defaultVal !== undefined ? item.defaultVal : null)
+                  this.$set(this.tempKeys, tempKeyC, root.defaultVal !== undefined ? root.defaultVal : null)
                 }
 
-                this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyC], after => {
-                  this.tempKeysWatchHandle(after, item)
+                this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyC], after => {
+                  this.tempKeysWatchHandle(after, root)
                 }, {
                   immediate: true
                 }))
@@ -898,115 +721,121 @@
             case 'date':
             case 'time':
               const tempKeyB = 'date' + Math.floor(Math.random() * 100000000)
-              item.tempKey = tempKeyB
-              if (item.dateType === 'date' || item.dateType === 'datetime' || item.dateType === 'time' ||
-                item.dateType === 'year' || item.dateType === 'month') {
-                this.$set(this.tempKeys, tempKeyB, item.defaultVal || null)
+              root.tempKey = tempKeyB
+              if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
+                root.dateType === 'year' || root.dateType === 'month') {
+                this.$set(this.tempKeys, tempKeyB, root.defaultVal || null)
               }
-              else if (item.dateType === 'daterange' || item.dateType === 'datetimerange' || item.dateType ===
+              else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
                 'timerange') {
-                this.$set(this.tempKeys, tempKeyB, item.defaultVal && item.defaultVal2 && [
-                  item.defaultVal,
-                  item.defaultVal2
+                this.$set(this.tempKeys, tempKeyB, root.defaultVal && root.defaultVal2 && [
+                  root.defaultVal,
+                  root.defaultVal2
                 ] || [])
               }
-              this.unwatchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
-                this.tempKeysWatchHandle(after, item)
+              this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
+                this.tempKeysWatchHandle(after, root)
               }))
               break
           }
         }
-        this.formDataT = temp
       },
-      initOption(url, item, val) { /*初始化表单项的选项，如下拉选项，多选、单选组选项（私有）*/
+      /**
+       * 初始化表单项的选项，如下拉选项，多选、单选组选项（私有）
+       * @param url 远程选项接口地址
+       * @param root 表单项结构数据对象
+       * @param itemVal 缓存的表单项旧值
+       */
+      initOption(url, root, itemVal) {
         $fetch.get(url)
           .then(r => {
-            let tempOption = (r && r.data && r.data.records) || (r && r.data) || r || []
-            if (myTypeof(tempOption) === 'Array') {
-              if (myTypeof(item.optionFilter) === 'Function') {
-                tempOption = item.optionFilter(tempOption)
+            let tOption = (r && r.data && r.data.records) || (r && r.data) || r || []
+            if (Array.isArray(tOption)) {
+              if (myTypeof(root.optionFilter) === 'Function') {
+                tOption = root.optionFilter(tOption)
               }
-              if (item.optionLabel && item.optionVal) {
-                let opLabelType = myTypeof(item.optionLabel)
-                item.options.length = 0
-                item.options.push(...tempOption.map(tItem => {
-                  let opItemT = {}
-                  if (opLabelType === 'Array') {
-                    let labelTT = ''
-                    item.optionLabel.forEach((lVal, lIndexZ) => {
-                      let lTT = String(tItem[lVal])
-                      if (lIndexZ === 1) {
-                        labelTT += ('（' + lTT)
+              if (root.optionLabel && root.optionVal) {
+                /*label由多个字段组合成*/
+                const arrLabel = Array.isArray(root.optionLabel)
+                root.options.length = 0
+                root.options.push(...tOption.map(eP => {
+                  let rP = {}
+                  if (arrLabel) {
+                    /*组合成的label*/
+                    let rL = ''
+                    root.optionLabel.forEach((v, i) => {
+                      /*需要在label中显示的字段的值*/
+                      let lVal = String(eP[v])
+                      if (i === 1) {
+                        rL += ('（' + lVal)
                       }
-                      else if (lIndexZ > 1) {
-                        labelTT += ('、' + lTT)
+                      else if (i > 1) {
+                        rL += ('、' + lVal)
                       }
                       else {
-                        labelTT += lTT
+                        rL += lVal
                       }
                     })
-                    opItemT = {
-                      label: labelTT + '）',
-                      val: tItem[item.optionVal]
+                    rP = {
+                      label: rL + '）',
+                      val: eP[root.optionVal]
                     }
                   }
                   else {
-                    opItemT = {
-                      label: tItem[item.optionLabel],
-                      val: tItem[item.optionVal]
+                    rP = {
+                      label: eP[root.optionLabel],
+                      val: eP[root.optionVal]
                     }
                   }
                   /*除了要收集绑定值，还要一并收集其他字段,则将其他字段加入到待选列表项*/
-                  if (item.collectLabel) {
-                    if (_.isPlainObject(item.collectLabel)) {
-                      if (item.collectLabel.valKey && item.collectLabel.valKey !== 'label') {
-                        opItemT[item.collectLabel.valKey] = tItem[item.collectLabel.valKey]
+                  if (root.collectLabel) {
+                    if (myTypeof(root.collectLabel) === 'Object') {
+                      if (root.collectLabel.valKey && root.collectLabel.valKey !== 'label') {
+                        rP[root.collectLabel.valKey] = eP[root.collectLabel.valKey]
                       }
                     }
-                    else if (_.isArray(item.collectLabel)) {
-                      for (let labelItem of item.collectLabel) {
-                        if (labelItem.valKey && labelItem.valKey !== 'label') {
-                          opItemT[labelItem.valKey] = tItem[labelItem.valKey]
+                    else if (Array.isArray(root.collectLabel)) {
+                      for (let tC of root.collectLabel) {
+                        if (tC.valKey && tC.valKey !== 'label') {
+                          rP[tC.valKey] = eP[tC.valKey]
                         }
                       }
                     }
                   }
-                  if (opItemT.val !== null && opItemT.val !== undefined) {
-                    return opItemT
+                  if (rP.val !== null && rP.val !== undefined) {
+                    return rP
                   }
                 }))
               }
               else {
-                item.options.length = 0
-                item.options.push(...tempOption)
+                root.options.length = 0
+                root.options.push(...tOption)
               }
             }
             else {
-              item.options.length = 0
+              root.options.length = 0
             }
-            if (item.localOption) {
-              item.options.unshift(...item.localOption)
+            if (root.localOption) {
+              root.options.unshift(...root.localOption)
             }
-            if (isValidValue(val)) {
-              this.recoverVal(val, item)
+            if (isValidValue(itemVal)) {
+              this.recoverVal(itemVal, root)
             }
 
             /*待选项禁用*/
-            if (item.disableOptionByOthers) {
-              if (_.isString(item.disableOptionByOthers)) {
-                this.unwatchGroup.push(this.$watch(() => {
-                  return this.valGroup[item.disableOptionByOthers]
-                }, (after) => {
-                  this.clearTempKeyItem(item.tempKey)
-                  for (let iM of item.options) {
-                    if (iM.disabled) {
-                      this.$set(iM, 'disabled', false)
+            if (root.disableOptionByOthers) {
+              if (myTypeof(root.disableOptionByOthers) === 'String') {
+                this.watchGroup.push(this.$watch(() => this.valGroup[root.disableOptionByOthers], (after) => {
+                  this.clearTempKeyItem(root.tempKey)
+                  for (let iP of root.options) {
+                    if (iP.disabled) {
+                      this.$set(iP, 'disabled', false)
                     }
                   }
                   if (after || after === 0 || after === false) {
-                    for (let iM of item.options) {
-                      if (iM.val === after) {
-                        this.$set(iM, 'disabled', true)
+                    for (let iP of root.options) {
+                      if (iP.val === after) {
+                        this.$set(iP, 'disabled', true)
                       }
                     }
                   }
@@ -1014,28 +843,22 @@
                   immediate: true
                 }))
               }
-              else if (_.isArray(item.disableOptionByOthers)) {
-                this.unwatchGroup.push(this.$watch(() => {
-                  let teKI = []
-                  for (let ikL of item.disableOptionByOthers) {
-                    if (ikL) {
-                      teKI.push(this.valGroup[ikL])
-                    }
-                  }
-                  return teKI
-                }, (after) => {
-                  this.clearTempKeyItem(item.tempKey)
-                  for (let IKL of item.options) {
-                    if (IKL.disabled) {
-                      this.$set(IKL, 'disabled', false)
+              else if (Array.isArray(root.disableOptionByOthers)) {
+                this.watchGroup.push(this.$watch(() => {
+                  return root.disableOptionByOthers.filter(e => e).map(e => this.valGroup[e])
+                }, after => {
+                  this.clearTempKeyItem(root.tempKey)
+                  for (let iP of root.options) {
+                    if (iP.disabled) {
+                      this.$set(iP, 'disabled', false)
                     }
                   }
                   if (after) {
-                    for (let iM of item.options) {
-                      for (let OPL = 0; OPL < after.length; OPL++) {
-                        if (iM.val === after[OPL]) {
-                          this.$set(iM, 'disabled', true)
-                          after.splice(OPL, 1)
+                    for (let iP of root.options) {
+                      for (let i = 0; i < after.length; i++) {
+                        if (iP.val === after[i]) {
+                          this.$set(iP, 'disabled', true)
+                          after.splice(i, 1)
                           break
                         }
                       }
@@ -1048,31 +871,50 @@
             }
           })
       },
-      recoverVal(val, root) {/*如果待选项options中存在val,则为组件恢复之前因待选项改变而清除的值（私有）*/
-        if (_.isArray(root.options)) {
-          if (_.findIndex(root.options, {val: val}) !== -1) {
-            this.tempKeys[root.tempKey] = val
+      /**
+       * 如果options中选项的值和缓存的表单项旧值相等,则为表单项恢复之前因待选项改变而清除的值（私有）
+       * @param itemVal 缓存的旧值
+       * @param root 表单项结构数据对象
+       */
+      recoverVal(itemVal, root) {
+        if (Array.isArray(root.options)) {
+          if (_.findIndex(root.options, {val: itemVal}) !== -1) {
+            this.tempKeys[root.tempKey] = itemVal
           }
         }
       },
       initValGroup() { /*初始化表单项值（私有）*/
         this.valGroup = {}
-        for (let item of this.formData) {
-          if (item.key) {
-            if (item.type === 'checkboxGroup' || (item.type === 'select' && item.multiple)) {
-              this.$set(this.valGroup, item.key,
-                item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : [])
+        if (this.formTeam) {
+          for (let e of this.formData) {
+            this.initValItems(e)
+          }
+        }
+        else {
+          this.initValItems(this.formData)
+        }
+      },
+      /**
+       * 根据表单结构数据，初始化valGroup
+       * @param d 表单结构数据
+       */
+      initValItems(d) {
+        for (let root of d) {
+          if (root.key) {
+            if (root.type === 'checkboxGroup' || root.type === 'select' && root.multiple) {
+              this.$set(this.valGroup, root.key,
+                root.defaultVal !== undefined && root.show === undefined ? root.defaultVal : [])
             }
-            else if (item.type === 'editor' || item.type === 'editorPro') {
-              this.$set(this.valGroup, item.key,
-                item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : '')
+            else if (root.type === 'editor' || root.type === 'editorPro') {
+              this.$set(this.valGroup, root.key,
+                root.defaultVal !== undefined && root.show === undefined ? root.defaultVal : '')
             }
             else {
-              this.$set(this.valGroup, item.key,
-                item.defaultVal !== undefined && item.show === undefined ? item.defaultVal : null)
-              if (item.key2) {
-                this.$set(this.valGroup, item.key2,
-                  item.defaultVal2 !== undefined && item.show === undefined ? item.defaultVal2 : null)
+              this.$set(this.valGroup, root.key,
+                root.defaultVal !== undefined && root.show === undefined ? root.defaultVal : null)
+              if (root.key2) {
+                this.$set(this.valGroup, root.key2,
+                  root.defaultVal2 !== undefined && root.show === undefined ? root.defaultVal2 : null)
               }
             }
           }
@@ -1093,10 +935,16 @@
               if (after) {
                 this.valGroup[root.key] = after.lng
                 this.valGroup[root.key2] = after.lat
+                if (root.key3) {
+                  this.valGroup[root.key3] = after.name
+                }
               }
               else {
                 this.valGroup[root.key] = null
                 this.valGroup[root.key2] = null
+                if (root.key3) {
+                  this.valGroup[root.key3] = null
+                }
               }
               break
             case 'input':
@@ -1132,9 +980,9 @@
               if (root.collectLabel) {
                 const targetOption = this.findOptions(root, after)
 
-                if (_.isPlainObject(root.collectLabel)) {
+                if (myTypeof(root.collectLabel) === 'Object') {
                   if (root.collectLabel.key && root.collectLabel.valKey) {
-                    if (_.isArray(targetOption)) {
+                    if (Array.isArray(targetOption)) {
                       this.$set(this.valGroup, root.collectLabel.key,
                         targetOption.map(e => e[root.collectLabel.valKey]))
                     }
@@ -1146,29 +994,29 @@
                       this.$set(this.valGroup, root.collectLabel.key, t)
                     }
 
-                    let sameKeyCom = _.find(this.formDataT, {key: root.collectLabel.key})
+                    let sameKeyCom = findCollection(this.formDataT, e => e.key === root.collectLabel.key)
                     if (sameKeyCom && sameKeyCom.tempKey) {
                       this.tempKeys[sameKeyCom.tempKey] = this.valGroup[root.collectLabel.key]
                     }
                   }
                 }
-                else if (_.isArray(root.collectLabel)) {
-                  for (let item of root.collectLabel) {
-                    if (item.key && item.valKey) {
-                      if (_.isArray(targetOption)) {
-                        this.$set(this.valGroup, item.key, targetOption.map(e => e[item.valKey]))
+                else if (Array.isArray(root.collectLabel)) {
+                  for (let l of root.collectLabel) {
+                    if (l.key && l.valKey) {
+                      if (Array.isArray(targetOption)) {
+                        this.$set(this.valGroup, l.key, targetOption.map(e => e[l.valKey]))
                       }
                       else {
                         let t = null
-                        if (targetOption && isValidValue(targetOption[item.valKey])) {
-                          t = targetOption[item.valKey]
+                        if (targetOption && isValidValue(targetOption[l.valKey])) {
+                          t = targetOption[l.valKey]
                         }
-                        this.$set(this.valGroup, item.key, t)
+                        this.$set(this.valGroup, l.key, t)
                       }
 
-                      let sameKeyCom = _.find(this.formDataT, {key: item.key})
+                      let sameKeyCom = findCollection(this.formDataT, e => e.key === l.key)
                       if (sameKeyCom && sameKeyCom.tempKey) {
-                        this.tempKeys[sameKeyCom.tempKey] = this.valGroup[item.key]
+                        this.tempKeys[sameKeyCom.tempKey] = this.valGroup[l.key]
                       }
                     }
                   }
@@ -1230,7 +1078,7 @@
       },
       findOptions(root, after) {/*collectLabel时找出选中的选项（私有）*/
         if (root.multiple || root.type === 'checkboxGroup') {
-          if(after){
+          if (after) {
             let t = []
             for (let e of root.options) {
               if (after.indexOf(e.val) !== -1) {
@@ -1253,14 +1101,14 @@
         }
       },
       setItemToValGroup(data, notClearOthers) { /*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，公开）*/
-        let temp = {}
-        for (let key in this.valGroup) {
-          if (this.valGroup.hasOwnProperty(key) && data[key] !== undefined) {
-            temp[key] = data[key]
-            delete data[key]
+        let t = {}
+        for (let k in this.valGroup) {
+          if (this.valGroup.hasOwnProperty(k) && data[k] !== undefined) {
+            t[k] = data[k]
+            delete data[k]
           }
         }
-        this.updateValGroup(temp, notClearOthers)
+        this.updateValGroup(t, notClearOthers)
         for (let kk in data) {  /*用Object.assign出错，只有第一次能正常合并*/
           if (data.hasOwnProperty(kk)) {
             if (this.hiddenKeys.indexOf(kk) < 0) {
@@ -1270,92 +1118,169 @@
           }
         }
       },
-      updateValGroup(data, notClearOthers) { /*更新表单项的值（只能更新已有字段，公开）*/
+      /**
+       * 获取需要校验的表单项的key（私有）
+       * @param d 更新的数据对象
+       */
+      getValidateKeys(d) {
+        let t = _.cloneDeep(d)
+        if (this.formTeam) {
+          let r = []
+          for (let e of this.formData) {
+            r.push(...this.getValidateItems(e, t))
+          }
+          return r
+        }
+        return this.getValidateItems(this.formData, t)
+      },
+      /**
+       * 获取需要校验的表单项的key（私有）
+       * @param a 表单结构数据
+       * @param d 更新的数据对象
+       */
+      getValidateItems(a, d) {
+        return a.filter(e => {
+          for (let k of Object.keys(d)) {
+            if (e.key === k) {
+              delete d[k]
+              return true
+            }
+          }
+          return false
+        }).map(e => e.key)
+      },
+      /**
+       * 更新表单项的值（只能更新已有字段，公开）
+       * @param data 新数据
+       * @param notClearOthers 是否清空其他表单项，默认清空
+       */
+      updateValGroup(data, notClearOthers = false) {
+        let t = _.cloneDeep(data)
         this.updateTempKeys(data, notClearOthers)
         /*先更新tempKeys再更新valGroup 避免更新同key的tempKeys元素清空valGroup元素*/
-        for (let key in this.valGroup) {
-          if (this.valGroup.hasOwnProperty(key) && data[key] !== undefined && data[key] !== '--') {
-            if (myTypeof(data[key]) === 'Array') {
-              data[key] = data[key].filter(e => e !== '--')
+        for (let k in this.valGroup) {
+          if (this.valGroup.hasOwnProperty(k) && data[k] !== undefined && data[k] !== '--') {
+            if (Array.isArray(data[k])) {
+              data[k] = data[k].filter(e => e !== '--')
             }
-            else if (myTypeof(data[key]) === 'Object') {
-              for (let keyN in data[key]) {
-                if (data[key].hasOwnProperty(keyN) && data[key][keyN] === '--') {
-                  data[key][keyN] = null
+            else if (myTypeof(data[k]) === 'Object') {
+              for (let n in data[k]) {
+                if (data[k].hasOwnProperty(n) && data[k][n] === '--') {
+                  data[k][n] = null
                 }
               }
             }
-            this.valGroup[key] = data[key]
+            this.valGroup[k] = data[k]
           }
           else if (!notClearOthers) {
-            this.valGroup[key] = (myTypeof(this.valGroup[key]) === 'Array' ? [] : null)
+            this.valGroup[k] = Array.isArray(this.valGroup[k]) ? [] : null
           }
         }
+        this.validateFields(this.getValidateKeys(t))
       },
-      updateTempKeys(data, notClearOthers) { /*更新未暴露表单项值（私有）*/
-        for (let item of this.formDataT) {
-          if ((notClearOthers && (data[item.key] !== undefined || data[item.key2] !== undefined) || !notClearOthers) &&
-            item.tempKey) {
-            switch (item.type) {
+      /**
+       * 更新未暴露表单项值（私有）
+       * @param data 新数据
+       * @param notClearOthers 是否清空其他表单项，默认清空
+       */
+      updateTempKeys(data, notClearOthers = false) {
+        if (this.formTeam) {
+          for (let t of this.formDataT) {
+            this.updateTempKeyItem(t, data, notClearOthers)
+          }
+        }
+        else {
+          this.updateTempKeyItem(this.formDataT, data, notClearOthers)
+        }
+      },
+      /**
+       * 更新tampKey
+       * @param a 表单结构数据
+       * @param d 新数据
+       * @param notClearOthers 是否清空其他表单项，默认清空
+       */
+      updateTempKeyItem(a, d, notClearOthers = false) {
+        for (let root of a) {
+          if ((notClearOthers && (d[root.key] !== undefined || d[root.key2] !== undefined) || !notClearOthers) &&
+            root.tempKey) {
+            switch (root.type) {
               case 'inputMap':
-                if (_.isNumber(data[item.key]) && _.isNumber(data[item.key2])) {
-                  this.tempKeys[item.tempKey] = {
-                    lng: data[item.key],
-                    lat: data[item.key2]
+                if (myTypeof(d[root.key]) === 'Number' && myTypeof(d[root.key2] === 'Number')) {
+                  if (root.key3) {
+                    this.tempKeys[root.tempKey] = {
+                      lng: d[root.key],
+                      lat: d[root.key2],
+                      name: d[root.key3]
+                    }
+                  }
+                  else {
+                    this.tempKeys[root.tempKey] = {
+                      lng: d[root.key],
+                      lat: d[root.key2]
+                    }
                   }
                 }
                 else {
-                  this.tempKeys[item.tempKey] = {
-                    lng: null,
-                    lat: null
+                  if (root.key3) {
+                    this.tempKeys[root.tempKey] = {
+                      lng: null,
+                      lat: null,
+                      name: null
+                    }
+                  }
+                  else {
+                    this.tempKeys[root.tempKey] = {
+                      lng: null,
+                      lat: null
+                    }
                   }
                 }
                 break
               case 'input':
               case 'inputNumber':
               case 'textarea':
-                if (data[item.key] && data[item.key] !== '--' || data[item.key] === 0) {
-                  this.tempKeys[item.tempKey] = data[item.key]
+                if (d[root.key] && d[root.key] !== '--' || d[root.key] === 0) {
+                  this.tempKeys[root.tempKey] = d[root.key]
                 }
                 else {
-                  this.tempKeys[item.tempKey] = null
+                  this.tempKeys[root.tempKey] = null
                 }
                 break
               case 'select':
               case 'radioGroup':
               case 'checkboxGroup':
-                if (data[item.key] && data[item.key] !== '--' || data[item.key] === 0 || data[item.key] === false) {
-                  if (item.multiple || item.type === 'checkboxGroup') {
-                    this.$set(this.tempKeys, item.tempKey, [...data[item.key]])
+                if (d[root.key] && d[root.key] !== '--' || d[root.key] === 0 || d[root.key] === false) {
+                  if (root.multiple || root.type === 'checkboxGroup') {
+                    this.$set(this.tempKeys, root.tempKey, [...d[root.key]])
                   }
-                  else if (item.booleanVal) {
-                    this.$set(this.tempKeys, item.tempKey, Boolean(data[item.key]) ? 1 : 0)
+                  else if (root.booleanVal) {
+                    this.$set(this.tempKeys, root.tempKey, Boolean(d[root.key]) ? 1 : 0)
                   }
                   else {
-                    this.$set(this.tempKeys, item.tempKey, data[item.key])
+                    this.$set(this.tempKeys, root.tempKey, d[root.key])
                   }
                 }
                 else {
-                  if (item.multiple || item.type === 'checkboxGroup') {/*当notClearOthers为false时用来清空*/
-                    this.$set(this.tempKeys, item.tempKey, [])
+                  if (root.multiple || root.type === 'checkboxGroup') {/*当notClearOthers为false时用来清空*/
+                    this.$set(this.tempKeys, root.tempKey, [])
                   }
                   else {
-                    this.$set(this.tempKeys, item.tempKey, null)
+                    this.$set(this.tempKeys, root.tempKey, null)
                   }
                 }
                 break
               case 'date':
               case 'time':
-                if (item.dateType === 'date' || item.dateType === 'datetime' || item.dateType === 'year' ||
-                  item.dateType === 'month' || item.dateType === 'time') {
-                  this.tempKeys[item.tempKey] = data[item.key] && data[item.key] !== '--' ? data[item.key] : null
+                if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'year' ||
+                  root.dateType === 'month' || root.dateType === 'time') {
+                  this.tempKeys[root.tempKey] = d[root.key] && d[root.key] !== '--' ? d[root.key] : null
                 }
-                else if (item.dateType === 'daterange' || item.dateType === 'datetimerange' || item.dateType ===
+                else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
                   'timerange') {
-                  this.tempKeys[item.tempKey] =
-                    data[item.key] && data[item.key] !== '--' && data[item.key2] && data[item.key2] !== '--' && [
-                      data[item.key],
-                      data[item.key2]
+                  this.tempKeys[root.tempKey] =
+                    d[root.key] && d[root.key] !== '--' && d[root.key2] && d[root.key2] !== '--' && [
+                      d[root.key],
+                      d[root.key2]
                     ] || []
                 }
                 break
@@ -1363,9 +1288,14 @@
           }
         }
       },
-      updateFormDataT(d) { /*更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值（公开）；
-       d为对象（改变单个）或数组（改变多个），支持的属性：index-必填-需要改变的formData项的索引值、需要改变的属性，如要改变第二个表单组件的label和title,则为:{index:1,label:XXX,title:XXX}*/
-        if (myTypeof(d) === 'Array') {
+      /**
+       * 更新表单结构，例如设置或取消禁用,或者给type为txt的表单项（没有key）赋值（公开）；
+       * @param {Object|Array} d 为对象（改变单个）或数组（改变多个），支持的属性：index（必填）-需要改变的formData项的索引值、
+       * indexB-当表单为`分组表单`时必填（表示表单项的二位数组索引第二位）、需要改变的属性，如要改变第二个表单组件的label和title,
+       * 则为:{index:1,label:XXX,title:XXX}
+       */
+      updateFormDataT(d) {
+        if (Array.isArray(d)) {
           for (let e of d) {
             this.changeDataHandle(e)
           }
@@ -1374,96 +1304,160 @@
           this.changeDataHandle(d)
         }
       },
-      changeDataHandle(d) {/*改变表单结构（私有）*/
-        let {index, key, val} = d
-        if (index || index === 0) {
-          if (key && (val || val !== undefined)) {
-            this.$set(this.formDataT[index], key, val)
+      /**
+       * 改变表单结构（私有）
+       * @param d 同updateFormDataT的 d
+       */
+      changeDataHandle(d) {
+        const {index, indexB, key, val} = d
+        if (this.formTeam) {
+          if ((index || index === 0) && (indexB || indexB === 0)) {
+            if (key && (val || val !== undefined)) {
+              this.$set(this.formDataT[index][indexB], key, val)
+            }
+            else {
+              for (let k of Object.keys(d)) {
+                if (k !== 'index' && key !== 'indexB') {
+                  this.$set(this.formDataT[index][indexB], k, d[k])
+                }
+              }
+            }
           }
-          else {
-            for (let k of Object.keys(d)) {
-              if (k !== 'index') {
-                this.$set(this.formDataT[index], k, d[k])
+        }
+        else {
+          if (index || index === 0) {
+            if (key && (val || val !== undefined)) {
+              this.$set(this.formDataT[index], key, val)
+            }
+            else {
+              for (let k of Object.keys(d)) {
+                if (k !== 'index') {
+                  this.$set(this.formDataT[index], k, d[k])
+                }
               }
             }
           }
         }
       },
-      reValidate(prop) { /*手动验证表单项（公开）*/
-        setTimeout(() => {
-          this.$refs.formGroupXRef.validateField(prop, () => {
-          })
-        }, 1)
-      },
-      asyncLabelChange(label, root) { /*更新远程数据级联名称（私有）*/
+      asyncLabelChange({label, root}) { /*更新远程数据级联名称（私有）*/
         if (root.key2) {
           this.$set(this.valGroup, root.key2, label)
         }
-        this.itemChange(label, root)
+        this.itemChange({
+          e: label,
+          root
+        })
       },
-      onSelectInputChange(data) { /*更新选择输入框值（私有）*/
-        if (data.beforeKey) {
-          _.remove(this.selectInputKeys, o => o === data.beforeKey)
+      onSelectInputChange(d) { /*更新选择输入框值（私有）*/
+        if (d.beforeKey) {
+          _.remove(this.selectInputKeys, o => o === d.beforeKey)
         }
-        if (data.key) {
-          if (this.selectInputKeys.indexOf(data.key) === -1) {
-            this.selectInputKeys.push(data.key)
+        if (d.key) {
+          if (this.selectInputKeys.indexOf(d.key) === -1) {
+            this.selectInputKeys.push(d.key)
           }
-          this.itemChange(null, data)
+          this.itemChange({
+            e: null,
+            root: d
+          })
         }
       },
-      alNameChange(name, root) { /*更新行政区域名称（私有）*/
+      alNameChange({name, root}) { /*更新行政区域名称（私有）*/
         if (root.key2) {
           this.valGroup[root.key2] = name
         }
-        this.itemChange(name, root)
+        this.itemChange({
+          e: name,
+          root
+        })
       },
-      reValidateAndChangeHandle(val, root) {/*重新校验（私有）*/
-        this.itemChange(val, root)
+      /**
+       * 重新校验（私有）
+       * @param e 事件的$event对象，一般是组件change事件的值
+       * @param root 表单项结构数据
+       */
+      reValidateAndChangeHandle({e, root}) {
+        this.itemChange({
+          e: e,
+          root
+        })
         this.$nextTick(function () {
           this.$refs.formGroupXRef.validateField(root.key)
         })
       },
-      itemChange(e, root) { /*表单项值更新（私有）*/
+      /**
+       * 表单项值更新（私有）
+       * @param e 事件的$event对象，一般是组件change事件的值
+       * @param root 表单项结构数据
+       */
+      itemChange({e, root}) {
         setTimeout(() => {
-          let data = {
+          let d = {
             event: e
           }
           if (root.key) {
-            data[root.key] = this.valGroup[root.key]
+            d[root.key] = this.valGroup[root.key]
           }
           if (root.key2) {
-            data[root.key2] = this.valGroup[root.key2]
+            d[root.key2] = this.valGroup[root.key2]
           }
           if (root.collectLabel && root.collectLabel.key) {
-            data[root.collectLabel.key] = this.valGroup[root.collectLabel.key]
+            d[root.collectLabel.key] = this.valGroup[root.collectLabel.key]
           }
-          else if (_.isArray(root.collectLabel)) {
-            for (let item of root.collectLabel) {
-              data[item.key] = this.valGroup[item.key]
+          else if (Array.isArray(root.collectLabel)) {
+            for (let l of root.collectLabel) {
+              d[l.key] = this.valGroup[l.key]
             }
           }
-          this.$emit('on-item-change', data)
+          this.$emit('on-item-change', d)
         }, 500)
       },
-      getValGroup() {/*生成valGroup(私有)*/
-        let temp = {}
-        for (let item of this.showingKeys) {
-          temp[item] = this.valGroup[item]
+      /**
+       * 获取需要提交的数据(私有)
+       * @return {{}}submit的值
+       */
+      getValGroup() {
+        let t = {}
+        for (let e of this.showingKeys) {
+          t[e] = this.valGroup[e]
         }
         if (this.trim) {
-          temp = trimObj(temp)
+          t = trimObj(t)
         }
-        return temp
+        return t
       },
       validate() {/*主动验证整个表单（公开）*/
         this.$refs.formGroupXRef.validate()
       },
-      changeLoading(val) {/*主动改变表单按钮loading状态（在开启btnLoading的前提下，公开）*/
-        if (val === undefined) {
+      /**
+       * 手动验证表单项（公开）
+       * @param prop 需要校验的表单项(rules中对应的key)
+       */
+      reValidate(prop) {
+        setTimeout(() => {
+          this.$refs.formGroupXRef.validateField(prop, () => {
+          })
+        }, 10)
+      },
+      /**
+       * 批量校验部分表单
+       * @param {Array}props 需要校验的表单prop集合
+       */
+      validateFields(props) {
+        setTimeout(() => {
+          if (Array.isArray(props)) {
+            for (let e of props) {
+              this.$refs.formGroupXRef.validateField(e, () => {
+              })
+            }
+          }
+        }, 10)
+      },
+      changeLoading(v) {/*主动改变表单按钮loading状态（在开启btnLoading的前提下，公开）*/
+        if (v === undefined) {
           return
         }
-        this.showLoading = Boolean(val)
+        this.showLoading = Boolean(v)
       },
       submit() {/*触发提交事件（一般不需要调用，会通过插件内部提交按钮触发，公开）*/
         if (this.disabled) {

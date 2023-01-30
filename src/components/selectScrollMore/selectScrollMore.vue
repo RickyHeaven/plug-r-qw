@@ -286,7 +286,7 @@
                 if (!_.isEmpty(temp)) {
                   temp = temp.map((e, i) => {
                     let label = this.t('r.optionLabel') + i
-                    if (_.isArray(this.optionsLabelKey)) {
+                    if (Array.isArray(this.optionsLabelKey)) {
                       let labelT = []
                       for (let j = 1, len = this.optionsLabelKey.length; j < len; j++) {
                         labelT.push(e[this.optionsLabelKey[j]])

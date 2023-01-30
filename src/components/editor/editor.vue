@@ -283,8 +283,8 @@
         ])
       }
 
-      this.editor.config.onchange = (html) => {
-        let text = this.editor.txt.text()
+      this.editor.config.onchange = html => {
+        let text = this.editor && this.editor.txt.text() || ''
         let htmlT = this.xssP.process(html)
         this.valueT = this.valueType === 'html' ? htmlT : text
         if (this.value === this.valueT) {

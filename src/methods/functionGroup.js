@@ -300,7 +300,7 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
           }
         }
       }
-      else if (_.isArray(group)) {
+      else if (Array.isArray(group)) {
         for (let item of group) {
           let temp = _.cloneDeep(path)
           if (condition(item)) {
@@ -333,7 +333,7 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
         }
       }
     }
-    else if (_.isArray(group)) {
+    else if (Array.isArray(group)) {
       //条件为常量，集合为数组，这种情况只会有一种业务场景：在一维数组中查找某个常量在数组中第一次出现的index
       for (let item of group) {
         let temp = _.cloneDeep(path)
@@ -355,7 +355,7 @@ export function findPath({group, condition, pathKey, childKey = 'children', path
  * @param {Boolean} getPath 是否返回路径，默认为：false，返回找到的元素
  * @returns {*}
  */
-export function findCollection(group, condition, getPath) {
+export function findCollection(group, condition, getPath = false) {
   if (!group || !condition) {
     return false
   }
@@ -537,12 +537,17 @@ export function getColumnsKeys(sKey, columns, returnArray = false) {
   return temp
 }
 
+/**
+ * 判断一个值是否为有效值，有效值：不为空即为有效
+ * @param val 需要判断的值
+ * @returns {boolean}
+ */
 export function isValidValue(val) {
   return val !== undefined && val !== null && val !== ''
 }
 
 export function isNumberValue(val) {
-  let reg = /^-?\d+(.\d+)?$/
+  const reg = /^-?\d+(.\d+)?$/
   return reg.test(val)
 }
 
@@ -628,7 +633,7 @@ export function isEmptyValue(data) {
     }
     return true
   }
-  else if (_.isArray(data)) {
+  else if (Array.isArray(data)) {
     for (let item of data) {
       if (isValidValue(item)) {
         return false
@@ -780,10 +785,10 @@ export function stopBubbling(e) {
 /*过滤对象或数组中无效值*/
 export function removeEmptyValue(data) {
   let temp
-  if (_.isArray(data)) {
+  if (Array.isArray(data)) {
     temp = []
     for (let item of data) {
-      if (_.isArray(item) || _.isPlainObject(item)) {
+      if (Array.isArray(item) || _.isPlainObject(item)) {
         temp.push(removeEmptyValue(item))
       }
       else if (isValidValue(item)) {
@@ -795,7 +800,7 @@ export function removeEmptyValue(data) {
     temp = {}
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        if (_.isArray(data[key] || _.isPlainObject(data[key]))) {
+        if (Array.isArray(data[key] || _.isPlainObject(data[key]))) {
           temp[key] = removeEmptyValue(data[key])
         }
         else if (isValidValue(data[key])) {

@@ -201,7 +201,11 @@
             asyncOption: true, /*远程待选项*/
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
-            optionVal: 'tel'
+            optionVal: 'tel',
+            show: {
+              key: 'recommend',
+              val: [true]
+            }
           },
           {
             type: 'inputNumber', /*数字输入框，输出值是数字*/
@@ -344,8 +348,7 @@
             type: 'input',
             label: '回调函数',
             key: 'major4',
-            defaultVal:'abc',
-            /*条件为回调函数*/
+            defaultVal: 'abc', /*条件为回调函数*/
             show: valGroup => valGroup.education > 3
           },
           {
@@ -387,7 +390,17 @@
             optionUrl: location.pathname + "testData/formR/people.json",
             optionLabel: 'name',
             optionVal: 'tel',
-            disableOptionByOthers: 'friend'/*待选项禁用，‘原语名称’已选的，原语名称2将不能选*/
+            disableOptionByOthers: 'friend'/*待选项禁用，‘联系人’已选的，联系人D将不能选*/
+          },
+          {
+            type: 'select',
+            label: '联系人G（多字段禁用）',
+            key: 'friendG',
+            asyncOption: true, /*远程待选项*/
+            optionUrl: location.pathname + "testData/formR/people.json",
+            optionLabel: 'name',
+            optionVal: 'tel',
+            disableOptionByOthers: ['friend','friendD']/*待选项禁用，‘联系人’和‘联系人D’已选的，联系人G将不能选*/
           },
           {
             type: 'select',
@@ -625,6 +638,9 @@
           }
         ],
         rules5: {
+          logo: {
+            required: true
+          },
           name: {
             required: true
           },
@@ -716,7 +732,7 @@
     },
     mounted() {
       this.setTimeout(() => {
-        this.data5[window._.findIndex(this.data5, e => e.key === 'friendN')].optionUrl =
+        this.findCollection(this.data5, e => e.key === 'friendN').optionUrl =
           location.pathname + "testData/formR/people.json"
       }, 10000)
     },

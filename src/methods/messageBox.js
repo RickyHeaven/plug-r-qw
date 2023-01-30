@@ -2,7 +2,7 @@
  *  @author ricky email:zhangqingcq@foxmail.com
  */
 
-import {Modal} from 'view-design'
+import {Modal} from '@zhangqingcq/view-design-r'
 import {myTypeof} from './functionGroup.js'
 import {t} from '../locale/index'
 

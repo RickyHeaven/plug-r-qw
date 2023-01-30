@@ -8,10 +8,11 @@
 .formXN {
   .inlineFormBtXN {
     margin-top: 13px;
-    &.okBtnXN {
-      margin-right: 3px;
-      width: 100px;
-    }
+  }
+
+  .okBtnXN {
+    width: 100px;
+    margin-right: 3px;
   }
 
   .inlineFormItemXN {
@@ -20,6 +21,9 @@
   }
 
   .ivu-form-item-error {
+    .ivu-checkbox-group{
+      display: inline-block;
+    }
     .ivu-radio-inner {
       border-color: @errorColor;
     }
@@ -44,7 +48,7 @@
     }
   }
 
-  .ivu-cascader{
+  .ivu-cascader {
     width: 100%;
   }
 
@@ -79,6 +83,22 @@
         position: relative;
         top: 1px;
         margin-right: 6px;
+      }
+    }
+  }
+
+  .ivu-form-item.slotInput {
+    .ivu-form-item-content {
+      display: flex;
+      flex-wrap: wrap;
+
+      .ivu-input-group {
+        margin-right: 4px;
+      }
+
+      .ivu-form-item-error-tip {
+        padding-top: 0;
+        line-height: 32px;
       }
     }
   }

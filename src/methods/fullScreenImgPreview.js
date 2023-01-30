@@ -4,7 +4,7 @@
  *  注意：不能全局调整Modal弹框尺寸，否则预览图片可能不居中，推荐使用另一个插件fullScreenImgByDom
  */
 
-import {Modal} from 'view-design'
+import {Modal} from '@zhangqingcq/view-design-r'
 import {t} from '../locale/index'
 
 export default function (src) {

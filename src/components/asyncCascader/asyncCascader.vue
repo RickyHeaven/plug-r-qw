@@ -91,7 +91,7 @@
       val: {
         get() {
           let valProp = this.valProp
-          if (_.isArray(valProp)) {
+          if (Array.isArray(valProp)) {
             return [].concat(valProp)
           }
           else if (_.isNumber(valProp)) {

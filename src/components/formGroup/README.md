@@ -14,6 +14,8 @@
 
 * itemWidth 数字，组件内表单项内容宽度(用于行内表单)，默认：`200`
 
+* teamClass 字符串，分组表单-组容器的class，用于布局和样式控制，默认：`formTeamBox`
+
 * showOkBt 布尔对象，是否展确定按钮，默认：`true`
 
 * okBtTxt 字符串，组件底部确认按钮内容，默认：`'确定'`

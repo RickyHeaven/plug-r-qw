@@ -375,7 +375,7 @@
       },
       clearSelect() {/*清空选择（公开）*/
         if (this.radio) {
-          if (this.selectedKeys.length > 0) {
+          if (this.selectedKeys.length > 0 && this.dataS.length > 0) {
             let i = this.selectedKeys[0].split('-')[1]
             this.$set(this.dataS[i], 'btChecked', false)
           }
