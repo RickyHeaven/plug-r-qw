@@ -137,6 +137,8 @@
 * <a name='addTime'>addTime</a> 布尔对象，DatePicker不选择时间（只选日期）时，但提交时需要带上时间，给该字段赋值`true`,会自动加上
 `00:00:00`，如果是区间，开始时间加`00:00:00`，结束时间加`23:59:59`，默认:`false`
 
+* <a name='append'>append</a> 字符串，type为input的表单项输入框头部内容。
+
 * <a name='asyncOption'>asyncOption</a> 布尔对象，有选项的表单项的待选项数据来源于接口，需配合[optionUrl](#optionUrl)使用，默认:`false`
 
 * <a name='autosize'>autosize</a> 对象，自适应内容高度，仅在 textarea 类型下有效，可传入对象，如 { minRows: 2, maxRows: 6 }，默认:`{minRows:2}`
@@ -283,6 +285,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='prefix'>prefix</a> 字符串，输入框头部图标
 
+* <a name='prepend'>prepend</a> 字符串，type为input的表单项输入框尾部内容。
+
 * <a name='readonly'>readonly</a> 布尔对象，InputNumber（数字输入框）只读，和disabled效果类似，样式不一样，默认：`false`
 
 * <a name='separator'>separator</a> 字符串，label分隔符，默认：`'/'`
@@ -392,6 +396,10 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
 * [password](#password) 布尔对象，是否显示切换密码图标，默认：`false`
+
+* [prepend](#prepend) 字符串，输入框头部内容
+
+* [append](#append) 字符串，输入框尾部内容
 
 * [icon](#icon) 字符串，输入框尾部图标
 

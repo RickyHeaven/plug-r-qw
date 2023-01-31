@@ -37,8 +37,14 @@
         @on-blur="itemChange($event,item)"
         :clearable="item.clearable!==false"
     >
-      <template :slot="item.slotPosition">
+      <template v-if="item.slotPosition&&item.slotName" :slot="item.slotPosition">
         <slot :name="item.slotName"/>
+      </template>
+      <template v-if="item.slotPosition!=='prepend'&&item.prepend" slot="prepend">
+        <span>{{item.prepend}}</span>
+      </template>
+      <template v-if="item.slotPosition!=='append'&&item.append" slot="append">
+        <span>{{item.append}}</span>
       </template>
     </Input>
     <!--下拉框-->
@@ -283,7 +289,7 @@
   export default {
     name: "itemR",
     mixins: [Locale],
-    components:{
+    components: {
       selectInput,
       alCascaderMC,
       asyncCascader,

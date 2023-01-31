@@ -15,12 +15,6 @@
         <Icon type="md-briefcase"/>
         应聘信息
       </template>
-      <template slot="age">
-        <span>岁</span>
-      </template>
-      <template slot="pay">
-        <span>元</span>
-      </template>
       <template slot="serviceYear">
         <span>年</span>
       </template>
@@ -75,8 +69,7 @@
               type: 'input',
               key: 'age',
               label: '年龄',
-              slotName: 'age',
-              slotPosition: 'append',
+              append: '岁',
               numberVal: true,
               placeholder: '请输入数字'
             },
@@ -147,8 +140,7 @@
               type: 'input',
               key: 'pay',
               label: '期望薪资',
-              slotName: 'pay',
-              slotPosition: 'append',
+              append: '元',
               numberVal: true,
               placeholder: '请输入数字'
             },

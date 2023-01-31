@@ -23,13 +23,13 @@
       }
     },
     mounted() {
-      /*this.setTimeout(() => {
+      this.setTimeout(() => {
         this.value = {
           lat:39.992213,
           lng:116.315839,
           name:"北京大学东门"
         }
-      }, 8000)*/
+      }, 8000)
     }
   }
 </script>
