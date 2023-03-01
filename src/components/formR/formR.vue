@@ -373,12 +373,8 @@
       defaultValItems(d, a) {
         for (let root of d) {
           if (root.tempKey && isValidValue(root.defaultVal)) {
-            if (root.booleanVal) {
-              a[root.tempKey] = root.defaultVal ? 1 : 0
-            }
-            else {
-              a[root.tempKey] = root.defaultVal
-            }
+            /*将默认值转换为表单项绑定值对应的格式*/
+            this.getTempKeyDefaultVal(root, a)
           }
           if (root.key && isValidValue(root.defaultVal)) {
             a[root.key] = root.defaultVal
@@ -463,38 +459,7 @@
               if (this.tempKeys[root.tempKey] === null || this.tempKeys[root.tempKey] === undefined ||
                 (myTypeof(this.tempKeys[root.tempKey]) === 'Object' || Array.isArray(this.tempKeys[root.tempKey])) &&
                 _.isEmpty(this.tempKeys[root.tempKey])) {
-                if (root.type === 'input' || root.type === 'inputNumber' || root.type === 'textarea' || root.type ===
-                  'select' || root.type === 'checkboxGroup') {
-                  this.tempKeys[root.tempKey] = root.defaultVal
-                }
-                else if (root.type === 'inputMap') {
-                  if (root.key3) {
-                    this.tempKeys[root.tempKey] = {
-                      lng: root.defaultVal,
-                      lat: root.defaultVal2,
-                      name: root.defaultVal3 || ''
-                    }
-                  }
-                  else {
-                    this.tempKeys[root.tempKey] = {
-                      lng: root.defaultVal,
-                      lat: root.defaultVal2
-                    }
-                  }
-                }
-                else if (root.type === 'date' || root.type === 'time') {
-                  if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
-                    root.dateType === 'year' || root.dateType === 'month') {
-                    this.tempKeys[root.tempKey] = root.defaultVal
-                  }
-                  else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
-                    'timerange') {
-                    this.tempKeys[root.tempKey] = root.defaultVal && root.defaultVal2 && [
-                      root.defaultVal,
-                      root.defaultVal2
-                    ] || []
-                  }
-                }
+                this.getTempKeyDefaultVal(root, this.tempKeys)
               }
             }
             else if (this.valGroup[root.key] === null || this.valGroup[root.key] === undefined) {
@@ -514,6 +479,65 @@
           this.$set(root, 'showing', val)
         }
         return val
+      },
+      /**
+       * 将使用tempKey的表单项的默认值赋转换成对应格式并储存(私有)
+       * @param root 表单项结构数据
+       * @param a 储存默认值的容器
+       */
+      getTempKeyDefaultVal(root, a) {
+        switch (root.type) {
+          case 'selectInput':
+            a[root.tempKey] = {
+              key: root.key,
+              val: root.defaultVal
+            }
+            break
+          case 'inputMap':
+            if (root.key3) {
+              a[root.tempKey] = {
+                lng: root.defaultVal || 0,
+                lat: root.defaultVal2 || 0,
+                name: root.defaultVal3 || ''
+              }
+            }
+            else {
+              a[root.tempKey] = {
+                lng: root.defaultVal || 0,
+                lat: root.defaultVal2 || 0
+              }
+            }
+            break
+          case 'input':
+          case 'inputNumber':
+          case 'textarea':
+            a[root.tempKey] = root.defaultVal
+            break
+          case 'radioGroup':
+          case 'select':
+          case 'checkboxGroup':
+            if (root.booleanVal) {
+              a[root.tempKey] = Boolean(root.defaultVal)
+            }
+            else {
+              a[root.tempKey] = root.defaultVal
+            }
+            break
+          case 'date':
+          case 'time':
+            if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
+              root.dateType === 'year' || root.dateType === 'month') {
+              a[root.tempKey] = root.defaultVal
+            }
+            else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
+              'timerange') {
+              a[root.tempKey] = root.defaultVal && root.defaultVal2 && [
+                root.defaultVal,
+                root.defaultVal2
+              ] || []
+            }
+            break
+        }
       },
       initFormDataT() { /*初始化表单结构（私有）*/
         let t = _.cloneDeep(this.formData)
@@ -1141,7 +1165,9 @@
       getValidateItems(a, d) {
         return a.filter(e => {
           for (let k of Object.keys(d)) {
-            if (e.key === k) {
+            /*需要校验的表单项满足条件：1.在更新队列；2.没有处于隐藏状态；3.不能是手动置空的表单项；*/
+            if (e.key === k && this.showingKeys.indexOf(k) > -1 &&
+              !(d[k] === null || (Array.isArray(d[k]) || myTypeof(d[k]) === 'Object') && _.isEmpty(d[k]))) {
               delete d[k]
               return true
             }

@@ -59,9 +59,43 @@
             ]
           },
           {
+            type: 'select',
+            label: '学历1',
+            key: 'education1',
+            multiple: true,
+            options: [
+              {
+                label: '高中',
+                val: 1
+              },
+              {
+                label: '专科',
+                val: 2
+              },
+              {
+                label: '本科',
+                val: 3
+              },
+              {
+                label: '研究生',
+                val: 4
+              },
+              {
+                label: '博士',
+                val: 5,
+                disabled: true
+              }
+            ],
+            defaultVal: [
+              2,
+              3
+            ]
+          },
+          {
             type: 'input',
             label: '专业',
-            key: 'major'
+            key: 'major',
+            show: v => v.education && v.education !== 1
           },
           {
             type: 'date',
@@ -108,6 +142,9 @@
           },
           signature: {
             required: true
+          },
+          education1: {
+            required: true
           }
         }
       }
@@ -117,9 +154,10 @@
         this.$refs.formGroup.updateValGroup({
           lng: 106.499401,
           lat: 29.616077,
-          detailAddress:'光电园(地铁站)'
+          detailAddress: '光电园(地铁站)'
         }, true)
       }, 5000)
+
     },
     methods: {
       submit(data) {
