@@ -3,7 +3,7 @@
 
 <template>
   <div class="tableBtnsG" :class="{disabled:disabled}" v-has="has" @click="onClick" :title="title||t('r.button')">
-    <Icon :type="icon" :size="size"></Icon>
+    <Icon :type="icon" :size="size"/>
   </div>
 </template>
 

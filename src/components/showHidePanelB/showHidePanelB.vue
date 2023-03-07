@@ -5,7 +5,7 @@
 <template>
   <div :style="getBg">
     <div v-show="showX" class="contentZ">
-      <slot></slot>
+      <slot/>
     </div>
   </div>
 </template>

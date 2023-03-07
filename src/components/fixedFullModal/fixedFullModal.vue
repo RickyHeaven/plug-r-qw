@@ -10,7 +10,7 @@
       <span>{{title}}</span>
       <Icon class="closeIcoR" type="ios-close" size="40" title="close" @click="close"/>
     </div>
-    <slot></slot>
+    <slot/>
   </Modal>
 </template>
 

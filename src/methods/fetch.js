@@ -30,7 +30,7 @@ service.interceptors.request.use(q => {
 
 function logoutHandle() {
   if (service.store) {
-    service.store.dispatch("logout");
+    service.store.dispatch("logout")
   }
   else {
     notInitYet()
@@ -155,11 +155,11 @@ function handleRequest(method, url, data, msg, rPath, config, isUrlData) {
 }
 
 /**
- * 请求主体
- * @param method
- * @param url
- * @param data
- * @param msg 提示信息
+ * 检查请求传入的各个参数
+ * @param method 请求方法
+ * @param url 地址
+ * @param data 餐宿
+ * @param msg 错误信息
  * @param rPath 返回数据路径（提取）
  * @param config 请求配置
  * @param isUrlData delete方法传参模式 true:params,false:data
@@ -237,54 +237,45 @@ function checkRequest(method, url, data, msg, rPath, config = {}, isUrlData) {
 }
 
 /**
- * 使用this.$fetch时直接调用以下方法，例如：this.$fetch.get("/getData",{id:1})
- * @param url 请求地址
- * @param data 请求数据
- * @param msg 错误处理信息，如不需在控制台输出特定错误信息可不传，错误处理可根据返回结果false以及其他预定数据进行,例如：
- * this.$fetch.post("/getDataB",{name:'ricky'},"获取数据B失败")
- * @param rPath 请求结果按路径过滤，如：[data,list]表示data.list,如不需过滤可不传，例如：
- * this.$fetch.get("/getData",{id:1},null,['result','list'])
- *  .then(r=>{
- *      console.log(r)
- *      r相当于:data.result.list,data是网络请求结果
- *  })
- *  注意：
- *      请求最多支持5个入参，最少一个(url)，依次为：url,data,msg,rPath,config。如果要传靠后的入参，但不想传前面的，应该这样传：
- *      this.$fetch.post("/setData",{},null,[],{
- *               headers: {
- *                   'Content-Type': 'multipart/form-data'
- *                 },
- *                 spin:true
- *             }
- *        )
- * @param config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
- * @param isUrlData delete方法传参模式 true:params,false:data
- * @returns {Promise<*>}
- * @returns all 并发请求 例如：
- * this.$fetch.all(
- *  [
- *    this.$fetch.get("/getData"),
- *    this.$fetch.post("/getDataB",{name:'ricky'})
- *  ]
- * )
- * @returns spread 并发请求结果分离 例如：
- * this.$fetch.all(
- *  [
- *    this.$fetch.get("/getData"),
- *    this.$fetch.post("/getDataB",{name:'ricky'})
- *  ]
- * )
- *  .then(
- *    this.$fetch.spread(result1,result2){
- *        console.log(result1,result2)
- *    }
- *   )
+ * @description 基于axios封装的请求插件，引入库时使用this.$fetch时直接调用以下方法，例如：this.$fetch.get("/getData",{id:1})，
+ * 单独引入时遵循Es Modules规范即可
+ * @class
  */
 export default {
+  /**
+   * @description 初始化该请求插件，单独引入的话调用一次后，方可实现spin等功能，默认在该库安装时已自动化初始化了该请求插件
+   * @function
+   * @param {object} store 项目中vuex的store
+   */
   init(store) {
     service.store = store
   },
-  
+  /**
+   * post 请求
+   * @function
+   * @param {string} url 请求地址
+   * @param {object} data 请求数据
+   * @param {string} msg 错误信息，在控制台输出，方便调试，不用可以不传，例如：
+   * @example this.$fetch.post("/getDataB",{name:'ricky'},"获取数据B失败")
+   * @param {Array.<string>} rPath 请求结果提取路径，如：[data,list]表示data.list,如不需过滤可不传
+   * @param {object} config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
+   * @return {Promise<object>}
+   * @example this.$fetch.post("/getData",{id:1},null,['result','list'])
+   *  .then(r=>{
+   *      console.log(r)
+   *      r相当于:data.result.list,data是网络请求结果
+   *  })
+   *
+   * 注意：
+   *  请求最多支持5个入参，最少一个(url)，依次为：url,data,msg,rPath,config。如果要传靠后的入参，但不想传前面的，应该这样传：
+   *  this.$fetch.post("/setData",{},null,[],{
+   *     headers: {
+   *         'Content-Type': 'multipart/form-data'
+   *       },
+   *       spin:true
+   *   }
+   *  )
+   */
   post(url, data = {}, msg, rPath, config) {
     return new Promise((s, j) => {
       checkRequest('post', url, data, msg, rPath, config).then(r => {
@@ -294,7 +285,15 @@ export default {
       })
     })
   },
-  
+  /**
+   * put请求
+   * @param {string} url 请求地址
+   * @param {object} data 请求数据
+   * @param {string} msg 错误信息，在控制台输出，方便调试，不用可以不传
+   * @param {Array.<string>} rPath 请求结果提取路径
+   * @param {object} config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
+   * @return {Promise<unknown>}
+   */
   put(url, data = {}, msg, rPath, config) {
     return new Promise((s, j) => {
       checkRequest('put', url, data, msg, rPath, config).then(r => {
@@ -305,8 +304,15 @@ export default {
     })
   },
   /**
-   * get请求时(delete请求同理)，可以把请求写在url里，也可以写在data里，注意写在data里时，data是对象
-   * 以请求devices,找到id=2,name='meter'举例：
+   * get请求
+   * @param {string} url 请求地址
+   * @param {object} data 请求数据
+   * @param {string} msg 错误信息，在控制台输出，方便调试，不用可以不传
+   * @param {Array.<string>} rPath 请求结果提取路径
+   * @param {object} config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
+   * @return {Promise<unknown>}
+   * PS: get请求时(delete请求同理)，可以把请求参数写在url里，也可以写在data里，注意写在data里时，data是对象
+   * 以请求'/devices',找到id=2,name='meter'举例：
    *  只传url时，url = '/devices?id=2&name=meter'
    *  url和data都传时,url = '/devices',data={id:2,name:'meter'}
    */
@@ -319,7 +325,16 @@ export default {
       })
     })
   },
-  
+  /**
+   * delete 请求
+   * @param {string} url 请求地址
+   * @param {object} data 请求数据
+   * @param {string} msg 错误信息，在控制台输出，方便调试，不用可以不传
+   * @param {Array.<string>} rPath 请求结果提取路径
+   * @param {object} config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
+   * @param isUrlData 传参模式 true:params,false:data
+   * @return {Promise<unknown>}
+   */
   delete(url, data = {}, msg, rPath, config, isUrlData = true) {
     return new Promise((s, j) => {
       checkRequest('delete', url, data, msg, rPath, config, isUrlData).then(r => {
@@ -329,8 +344,33 @@ export default {
       })
     })
   },
-  
+  /**
+   * 并发请求   例如：
+   * @example this.$fetch.all(
+   *  [
+   *    this.$fetch.get("/getData"),
+   *    this.$fetch.post("/getDataB",{name:'ricky'})
+   *  ]
+   * )
+   */
   all: axios.all,
+  /**
+   * 并发请求结果分离 例如：
+   * @example this.$fetch.all(
+   *  [
+   *    this.$fetch.get("/getData"),
+   *    this.$fetch.post("/getDataB",{name:'ricky'})
+   *  ]
+   * )
+   *  .then(
+   *    this.$fetch.spread((result1,result2)=>{
+   *        console.log(result1,result2)
+   *    })
+   *   )
+   */
   spread: axios.spread,
+  /**
+   * 该请求插件暴露给外界的配置对象，为axios.create创建的实例对象，使用方法见axios官方网站
+   */
   config: service
 }

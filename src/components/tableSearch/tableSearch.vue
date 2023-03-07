@@ -11,7 +11,7 @@
     </slot>
     <span class="sbt" @click="openX=!openX" v-show="showBtn" :style="{color:btnColor}"><icon
         :type="iconL" :color="btnColor"
-    ></icon>{{t('r.adSearch')}}</span>
+    />{{t('r.adSearch')}}</span>
   </div>
 </template>
 

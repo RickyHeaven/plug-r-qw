@@ -58,21 +58,22 @@ export function trimObj(obj) {
   return obj
 }
 
-// 清空集合
+/**
+ * 清空集合
+ * @param {T} val 被清空的集合
+ * @param {Array.<string>} ignoreList 不需要清理的字段集合
+ * @return {T}
+ */
 export function clearObj(val, ignoreList = []) {
   if (myTypeof(val) === 'Array') {
     val.forEach((item, index) => {
       switch (myTypeof(item)) {
-        case 'String':
-        case 'Number':
-        case 'Boolean':
-        case 'Date':
-          val[index] = null
-          break
         case 'Array':
         case 'Object':
           clearObj(item)
           break
+        default:
+          val[index] = null
       }
     })
     return val
@@ -89,16 +90,12 @@ export function clearObj(val, ignoreList = []) {
         }
         if (go) {
           switch (myTypeof(val[key])) {
-            case 'String':
-            case 'Number':
-            case 'Boolean':
-            case 'Date':
-              val[key] = null
-              break
             case 'Array':
             case 'Object':
               clearObj(val[key])
               break
+            default:
+              val[key] = null
           }
         }
       }
@@ -163,59 +160,32 @@ export function getFileTypeIconByName(name) {
   let type = 'ios-document-outline'
   
   if ([
-    'gif',
-    'jpg',
-    'jpeg',
-    'png',
-    'bmp',
-    'webp'
+    'gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'
   ].indexOf(format) > -1) {
     type = 'ios-image'
   }
   else if ([
-    'mp4',
-    'm3u8',
-    'rmvb',
-    'avi',
-    'swf',
-    '3gp',
-    'mkv',
-    'flv'
+    'mp4', 'm3u8', 'rmvb', 'avi', 'swf', '3gp', 'mkv', 'flv'
   ].indexOf(format) > -1) {
     type = 'ios-film'
   }
   else if ([
-    'mp3',
-    'wav',
-    'wma',
-    'ogg',
-    'aac',
-    'flac'
+    'mp3', 'wav', 'wma', 'ogg', 'aac', 'flac'
   ].indexOf(format) > -1) {
     type = 'ios-musical-notes'
   }
   else if ([
-    'doc',
-    'txt',
-    'docx',
-    'pages',
-    'epub',
-    'pdf'
+    'doc', 'txt', 'docx', 'pages', 'epub', 'pdf'
   ].indexOf(format) > -1) {
     type = 'md-document'
   }
   else if ([
-    'numbers',
-    'csv',
-    'xls',
-    'xlsx'
+    'numbers', 'csv', 'xls', 'xlsx'
   ].indexOf(format) > -1) {
     type = 'ios-stats'
   }
   else if ([
-    'keynote',
-    'ppt',
-    'pptx'
+    'keynote', 'ppt', 'pptx'
   ].indexOf(format) > -1) {
     type = 'ios-videocam'
   }
@@ -379,8 +349,7 @@ export function findCollection(group, condition, getPath = false) {
           let r = deepSearch(e, condition)
           if (r !== undefined) {
             return [
-              group.indexOf(e),
-              ...r
+              group.indexOf(e), ...r
             ]
           }
         }
@@ -404,8 +373,7 @@ export function findCollection(group, condition, getPath = false) {
             let r = deepSearch(group[key], condition)
             if (r !== undefined) {
               return [
-                key,
-                ...r
+                key, ...r
               ]
             }
           }
@@ -430,7 +398,12 @@ export function oneOf(value, validList) {
   return false
 }
 
-/*小数位数限制，超出会返回被去掉后的值*/
+/**
+ * 小数位数限制，超出会返回被去掉后的值
+ * @param val 原来的值
+ * @param num 小数点后的位数，默认：2
+ * @return {number|*}
+ */
 export function decimalDigitsLimit(val, num = 2) {
   let expStr = new RegExp("(^-?\d+.\d{" + num + "})(\d+$)")
   let valStr = val && String(val) || ''
@@ -553,10 +526,10 @@ export function isNumberValue(val) {
 
 /**
  * 手动tooltip(table 的 column 的tooltip失效的情况下用)
- * @param {String/Array/Function} contentKey -
- *   要设置tooltip的column的key或者key组成的数组（内容按数组中key对应的内容先后拼接），或获取值的自定义逻辑（Function回调，会传入params）
- * @param {boolean} dash - 在内容为空时是否以'--'代替显示
- * @param {String} jointMark - 在内容为多个字段拼接时，各字段间连接符，默认没有
+ * @param {String/Array/Function} contentKey 要设置tooltip的column的key或者key组成的数组（内容按数组中key对应的内容先后拼接），
+ * 或获取值的自定义逻辑（Function回调，会传入params）
+ * @param {boolean} dash 在内容为空时是否以'--'代替显示
+ * @param {String} jointMark 在内容为多个字段拼接时，各字段间连接符，默认没有
  * @returns {function(...[*]=)}
  */
 export function tooltipManual(contentKey, dash = false, jointMark = '') {
@@ -623,7 +596,7 @@ export function getStringWidth(str, fontSize = 12) {
   return 0
 }
 
-/*判断数组或对象每个元素或单个变量是否是有效值*/
+/*判断集合（数组或对象）每个元素或单个变量是否是有效值*/
 export function isEmptyValue(data) {
   if (_.isPlainObject(data)) {
     for (let key in data) {

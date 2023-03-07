@@ -5,7 +5,7 @@
 <template>
   <div :style="getBg">
     <div v-show="show" class="contentX">
-      <slot></slot>
+      <slot/>
     </div>
     <div class="arrowA">
       <div class="btA" @click="show=!show">

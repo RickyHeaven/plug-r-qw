@@ -5,7 +5,7 @@
   <Tree
       :id="id" class="checkboxTreeGA" v-if="initTree" :data="dataT" :render="renderContent"
       @on-check-change="updateVal" @on-toggle-expand="changeStyle" show-checkbox
-  ></Tree>
+  />
 </template>
 <script>
   import {myTypeof, setValByOption} from "../../methods/functionGroup"

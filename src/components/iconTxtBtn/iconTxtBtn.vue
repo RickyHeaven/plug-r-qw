@@ -3,7 +3,7 @@
 
 <template>
   <div class="tabTopBtnsT" @click="click" v-has="has" :class="{disabled:disabled}" :style="{'font-size': txtSize}">
-    <Icon :type="icon" :size="size"></Icon>
+    <Icon :type="icon" :size="size"/>
     {{name||t('r.button')}}
   </div>
 </template>

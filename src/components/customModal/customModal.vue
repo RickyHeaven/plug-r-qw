@@ -9,7 +9,7 @@
       :mask-closable="false"
       @on-visible-change="showHide"
   >
-    <slot></slot>
+    <slot/>
     <template slot="footer">
       <slot name="footer">
         <Button class="modal-save-btn" :loading="btnLoading&&loading" @click="handleSub">

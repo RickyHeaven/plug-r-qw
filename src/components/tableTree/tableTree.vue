@@ -12,7 +12,7 @@
       :data="dataX"
       :key="updateDomKey"
       :highlight-row="highlightRow"
-  ></Table>
+  />
 </template>
 
 <script>
