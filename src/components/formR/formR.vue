@@ -7,7 +7,7 @@
       :inline="inline" :show-message="showMessage" class="formXN" :key="formReRenderKey"
   >
     <!--解决form只有一个input时enter触发页面刷新的问题-->
-    <FormItem style="display: none"><input type="text"/></FormItem>
+    <FormItem style="display: none"><input type="text" /></FormItem>
     <div v-for="(box,n) of formDataT" v-if="formTeam" :class="[teamClass,'formTeamBox'+n]" :key="'formTeamBox'+n">
       <item-r
           v-for="(item,i) of box" :key="'formItem'+i" :item="item" v-if="getFormItemIfVal(item)" :style="formStyle"
@@ -18,7 +18,7 @@
           @async-label-change="asyncLabelChange"
       >
         <template :slot="s.slotName" v-for="s in getSlotFormData(box)" slot-scope="{valGroup}">
-          <slot :name="s.slotName" :val-group="valGroup"/>
+          <slot :name="s.slotName" :val-group="valGroup" />
         </template>
       </item-r>
     </div>
@@ -30,7 +30,7 @@
         @select-input-change="onSelectInputChange" @al-name-change="alNameChange" @async-label-change="asyncLabelChange"
     >
       <template :slot="s.slotName" v-for="s in getSlotFormData(formData)" slot-scope="{valGroup}">
-        <slot :name="s.slotName" :val-group="valGroup"/>
+        <slot :name="s.slotName" :val-group="valGroup" />
       </template>
     </item-r>
     <!--长提交按钮-->
@@ -517,7 +517,7 @@
           case 'select':
           case 'checkboxGroup':
             if (root.booleanVal) {
-              a[root.tempKey] = Boolean(root.defaultVal)
+              a[root.tempKey] = Boolean(root.defaultVal) ? 1 : 0
             }
             else {
               a[root.tempKey] = root.defaultVal
@@ -532,8 +532,7 @@
             else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
               'timerange') {
               a[root.tempKey] = root.defaultVal && root.defaultVal2 && [
-                root.defaultVal,
-                root.defaultVal2
+                root.defaultVal, root.defaultVal2
               ] || []
             }
             break
@@ -753,8 +752,7 @@
               else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
                 'timerange') {
                 this.$set(this.tempKeys, tempKeyB, root.defaultVal && root.defaultVal2 && [
-                  root.defaultVal,
-                  root.defaultVal2
+                  root.defaultVal, root.defaultVal2
                 ] || [])
               }
               this.watchGroup.push(this.$watch(() => this.tempKeys[tempKeyB], after => {
@@ -1305,8 +1303,7 @@
                   'timerange') {
                   this.tempKeys[root.tempKey] =
                     d[root.key] && d[root.key] !== '--' && d[root.key2] && d[root.key2] !== '--' && [
-                      d[root.key],
-                      d[root.key2]
+                      d[root.key], d[root.key2]
                     ] || []
                 }
                 break

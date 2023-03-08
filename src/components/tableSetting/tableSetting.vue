@@ -20,7 +20,7 @@
         <Checkbox
             v-for="(itemT,index) in groupX" class="setItem" :label="itemT&&itemT.label" :key="'tabSet_'+sKey+index"
             :disabled="itemT&&itemT.disabled"
-        ></Checkbox>
+        />
       </CheckboxGroup>
     </div>
   </div>

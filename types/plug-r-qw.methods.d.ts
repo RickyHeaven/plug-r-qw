@@ -3,7 +3,7 @@
  * created at 20203.03.03
  * @author Ricky email:zhangqingcq@foxmail.com
  */
-import Vue, {VNode} from "vue"
+import {VNode} from "vue"
 
 export declare class MessageBoxConfig {
   /*content:弹框内容，同iView的content*/
@@ -92,7 +92,7 @@ export declare class SetValByOptionConfig {
 
 declare module "vue/types/vue" {
   interface Vue {
-    $swal: (option: string | object, text: string, icon: string) => Promise<any>
+    $swal: (option: string | object | false, text?: string | VNode | HTMLElement, icon?: string) => Promise<any>
     messageBox: ({}: MessageBoxConfig) => void
     myTypeof: (v: string) => string
     $fetch: FetchConfig

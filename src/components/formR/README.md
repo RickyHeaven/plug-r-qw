@@ -256,7 +256,7 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 * <a name='onlyLastLabel'>onlyLastLabel</a> 布尔对象，只显示最后一级的label，表单项特殊配置，如远程数据级联，具体见后面的'type说明'，
 默认：`true`
 
-* <a name='options'>options</a> 对象，有待选项的表单项，待选项数据存放在该字段下，[详细说明](#optionsDetail)，如：
+* <a name='options'>options</a> 数组，有待选项的表单项，待选项数据存放在该字段下，[详细说明](#optionsDetail)，如：
 `{type:'select',key:'sex',options:[{label:'男',val:1},{label:'女',val:0}]}`
 
 * <a name='optionFilter'>optionFilter</a> Function，筛选待选项的方法，入参是接口请求回来的待选项数据（不包含本地选项），返回处理后的

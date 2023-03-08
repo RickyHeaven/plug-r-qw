@@ -7,3 +7,11 @@
 import Vue from "vue"
 
 export {IconTxtBtn} from "./icon-txt-btn"
+
+export {AlCascaderMcD} from "./al-cascader-mc"
+
+export {AsyncCascader} from "./async-cascader"
+
+export {BtTablePage, TableColumnR} from "./bt-table-page"
+
+export {FormR, FormItem, Option} from "./form-r"

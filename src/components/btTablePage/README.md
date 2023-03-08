@@ -8,7 +8,8 @@
 
 * search-data: 对象，拉取表格数据时所有的参数全都放这里面（日常拉取或者条件查询）如：`{useStatus: 1}`
 
-* columns: 数组，格式同iView的columns,但需要表格前多选时，直接设置selection属性，不用在这里添加列；align默认值`'center'`，如需内容居中可不传。
+* columns: 数组，格式同iView的columns,但需要表格前多选时，直接设置selection属性，不用在这里添加列；align默认值`'center'`，如需内容居中可不传，
+配合`tableSetting`使用时，需按需设置`showSettingCheck`字段，详见`tableSetting`的说明文档。
 
 * dataHandler: Function，接口数据处理方法，入参为接口返回数据，返回处理后的数据，格式须为`{data:[...],total:xx}`
 
