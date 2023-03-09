@@ -7,6 +7,8 @@ import messageBox from './messageBox.js'
 import _ from 'lodash'
 import {t} from '../locale/index'
 
+import {counts} from './spin'
+
 const host = window.location.origin
 
 // 创建自定义对象
@@ -64,12 +66,7 @@ service.interceptors.response.use(r => {
  */
 function checkResult(r, msg, rPath, config) {
   if (config && config.spin) {
-    if (service.store) {
-      service.store.commit('MINUS_FETCH_COUNT')
-    }
-    else {
-      notInitYet()
-    }
+    counts(false)
   }
   let y = true
   let d = r && r.data
@@ -169,12 +166,7 @@ function checkRequest(method, url, data, msg, rPath, config = {}, isUrlData) {
   return new Promise((s, j) => {
     if (url) {
       if (config && config.spin) {
-        if (service.store) {
-          service.store.commit('ADD_FETCH_COUNT')
-        }
-        else {
-          notInitYet()
-        }
+        counts(true)
       }
       let url_ = url
       if (window && window.g) {

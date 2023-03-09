@@ -6,18 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    fetchCount: 0,
     show404: false,
     windowInnerH: window.innerHeight,
     locale: localStorage.getItem('locale') || 'zh'
   },
   mutations: {
-    ADD_FETCH_COUNT(state) {
-      state.fetchCount++
-    },
-    MINUS_FETCH_COUNT(state) {
-      state.fetchCount--
-    },
     SET_WINDOW_INNER_HEIGHT(state, data) {
       state.windowInnerH = data
     },
