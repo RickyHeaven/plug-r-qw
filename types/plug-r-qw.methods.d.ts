@@ -108,7 +108,7 @@ declare module "vue/types/vue" {
     tooltipManual: (contentKey: string | string[] | TooltipManualFunc, dash: boolean, jiontMark: string) => any
     stringLength: (str: string) => number
     decimalDigitsLimit: (/*原值*/val: number | string,/*要限制的小数位数*/ num: number) => number | string
-    downloadFileByFormSubmit: (url: string, data: object, method: string) => viod
+    downloadFileByFormSubmit: (url: string, data: object, method: string) => void
     $swalConfirm: (title: string, text: string, icon: string, onOk: Func) => Promise<any>
     setValByOption: ({}: SetValByOptionConfig) => void
     hasPermission: (value: string) => boolean
@@ -117,7 +117,7 @@ declare module "vue/types/vue" {
     setTimeout: (fn: Func, time: number) => number
     setInterval: (fn: Func, time: number) => number
     toLine: (name: string) => string
-    fileExport: (url: string, data?: object, method?: string) => viod
+    fileExport: (url: string, data?: object, method?: string) => void
     getColumnsKeys: (sKey: string, columns: any[], returnArray?: boolean) => string[]
     removeEmptyValue: <T>(data: T) => T
     findCollection: (group: any[] | object, condition: string | number | boolean | Func, getPath: boolean) => any
