@@ -103,7 +103,7 @@ export interface ProtoFunc {
 
   trimObj<T>(obj: T): T
 
-  clearObj<T>(obj: T, ignoreList: string[]): T
+  clearObj<T>(obj: T, ignoreList?: string[]): T
 
   formDataHeadConfig: object
 
@@ -125,7 +125,7 @@ export interface ProtoFunc {
 
   decimalDigitsLimit(/*原值*/val: number | string,/*要限制的小数位数*/ num: number): number | string
 
-  downloadFileByFormSubmit(url: string, data: object, method: string): void
+  downloadFileByFormSubmit(url: string, data?: object, method?: string): void
 
   $swalConfirm(title: string, text: string, icon: string, onOk: Func): Promise<any>
 
@@ -149,7 +149,7 @@ export interface ProtoFunc {
 
   removeEmptyValue<T>(data: T): T
 
-  findCollection(group: any[] | object, condition: string | number | boolean | Func, getPath: boolean): any
+  findCollection(group: any[] | object, condition: string | number | boolean | Func, getPath?: boolean): any
 
   htmlPrint(data: any): void
 
@@ -184,7 +184,7 @@ export interface SingleReferenceFunc {
 
   fakeALinkClick(obj: object): void
 
-  findPath({}: { group: object | any[], condition: (item: any) => boolean, pathKey: string, childKey?: string, path?: any[] }): any[]
+  findPath({}: { group: object | any[], condition: (item: any) => boolean, pathKey?: string, childKey?: string, path?: any[] }): any[]
 
   getStringWidth(str: string, fontsize?: number): number
 
