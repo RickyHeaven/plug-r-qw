@@ -108,11 +108,11 @@ export function clearObj(val, ignoreList = []) {
 }
 
 /*用浏览器内部转换器实现html转码*/
-export function htmlEncode(html) {
+export function htmlEncode(text) {
   //1.首先动态创建一个容器标签元素，如DIV
   let temp = document.createElement("div")
   //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
-  temp.textContent !== undefined ? (temp.textContent = html) : (temp.innerText = html)
+  temp.textContent !== undefined ? (temp.textContent = text) : (temp.innerText = text)
   //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
   let output = temp.innerHTML
   temp = null
@@ -120,11 +120,11 @@ export function htmlEncode(html) {
 }
 
 /*用浏览器内部转换器实现html解码*/
-export function htmlDecode(text) {
+export function htmlDecode(html) {
   //1.首先动态创建一个容器标签元素，如DIV
   let temp = document.createElement("div")
   //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
-  temp.innerHTML = text
+  temp.innerHTML = html
   //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
   let output = temp.innerText || temp.textContent
   temp = null

@@ -1,6 +1,6 @@
 /** created 2019.07.05
  *  @author ricky email:zhangqingcq@foxmail.com
- *  @param src - img src
+ *  @param {string}src - img src
  *  注意：不能全局调整Modal弹框尺寸，否则预览图片可能不居中，推荐使用另一个插件fullScreenImgByDom
  */
 
@@ -16,8 +16,7 @@ export default function (src) {
   Modal.info({
     closable: false,
     'transition-names': [
-      'linear',
-      'fade'
+      'linear', 'fade'
     ],
     render: (h) => {
       return h('div', {
@@ -34,13 +33,12 @@ export default function (src) {
               src: src,
               alt: fullImg
             }
-          }),
-          h('Icon', {
+          }), h('Icon', {
             props: {
               type: 'md-close',
               size: 20
             },
-            domProps:{
+            domProps: {
               title: close
             },
             class: 'previewModalDelete',

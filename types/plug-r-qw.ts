@@ -4,10 +4,13 @@
  * @author Ricky email:zhangqingcq@foxmail.com
  */
 
-import {PluginFunction} from 'vue'
+import {PluginObject} from 'vue'
+import {ProtoFunc, SingleReferenceFunc} from './plug-r-qw.methods'
 
-interface PlugRQw extends PluginFunction<any> {}
+interface PlugRQw extends PluginObject<any>, ProtoFunc, SingleReferenceFunc {
+  version: string
+}
 
-declare const plugRQw:PlugRQw
+declare const plugRQw: PlugRQw
 
 export default plugRQw

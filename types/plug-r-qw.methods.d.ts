@@ -90,38 +90,105 @@ export declare class SetValByOptionConfig {
   childKey?: string
 }
 
+/*这些是挂在Vue.prototype下的方法，使用时可以直接用this.XXX方式调用*/
+
+export interface ProtoFunc {
+  $swal(option: string | object | false, text?: string | VNode | HTMLElement, icon?: string): Promise<any>
+
+  messageBox({}: MessageBoxConfig): void
+
+  myTypeof(v: string): string
+
+  $fetch: FetchConfig
+
+  trimObj<T>(obj: T): T
+
+  clearObj<T>(obj: T, ignoreList: string[]): T
+
+  formDataHeadConfig: object
+
+  toFormData(data: object): object
+
+  oneOf(value: any, validList: any[]): boolean
+
+  fullScreenImgByDom(src: string): void
+
+  isValidValue(val: any): boolean
+
+  isNumberValue(val: any): boolean
+
+  isEmptyValue(data: object | any[]): boolean
+
+  tooltipManual(contentKey: string | string[] | TooltipManualFunc, dash: boolean, jiontMark: string): any
+
+  stringLength(str: string): number
+
+  decimalDigitsLimit(/*原值*/val: number | string,/*要限制的小数位数*/ num: number): number | string
+
+  downloadFileByFormSubmit(url: string, data: object, method: string): void
+
+  $swalConfirm(title: string, text: string, icon: string, onOk: Func): Promise<any>
+
+  setValByOption({}: SetValByOptionConfig): void
+
+  hasPermission(value: string): boolean
+
+  isNaN(v: any): boolean
+
+  dataFilterOrToUrl(data: object, toUrl?: boolean, keepEmptyVal?: boolean): object | string
+
+  setTimeout(fn: Func, time: number): number
+
+  setInterval(fn: Func, time: number): number
+
+  toLine(name: string): string
+
+  fileExport(url: string, data?: object, method?: string): void
+
+  getColumnsKeys(sKey: string, columns: any[], returnArray?: boolean): string[]
+
+  removeEmptyValue<T>(data: T): T
+
+  findCollection(group: any[] | object, condition: string | number | boolean | Func, getPath: boolean): any
+
+  htmlPrint(data: any): void
+
+  siblingElems(elem: HTMLElement): HTMLElement
+}
+
+
 declare module "vue/types/vue" {
-  interface Vue {
-    $swal: (option: string | object | false, text?: string | VNode | HTMLElement, icon?: string) => Promise<any>
-    messageBox: ({}: MessageBoxConfig) => void
-    myTypeof: (v: string) => string
-    $fetch: FetchConfig
-    trimObj: <T>(obj: T) => T
-    clearObj: <T>(obj: T, ignoreList: string[]) => T
-    formDataHeadConfig: object
-    toFormData: (data: object) => object
-    oneOf: (value: any, validList: any[]) => boolean
-    fullScreenImgByDom: (src: string) => void
-    isValidValue: (val: any) => boolean
-    isNumberValue: (val: any) => boolean
-    isEmptyValue: (data: object | any[]) => boolean
-    tooltipManual: (contentKey: string | string[] | TooltipManualFunc, dash: boolean, jiontMark: string) => any
-    stringLength: (str: string) => number
-    decimalDigitsLimit: (/*原值*/val: number | string,/*要限制的小数位数*/ num: number) => number | string
-    downloadFileByFormSubmit: (url: string, data: object, method: string) => void
-    $swalConfirm: (title: string, text: string, icon: string, onOk: Func) => Promise<any>
-    setValByOption: ({}: SetValByOptionConfig) => void
-    hasPermission: (value: string) => boolean
-    isNaN: (v: any) => boolean
-    dataFilterOrToUrl: (data: object, toUrl?: boolean, keepEmptyVal?: boolean) => object | string
-    setTimeout: (fn: Func, time: number) => number
-    setInterval: (fn: Func, time: number) => number
-    toLine: (name: string) => string
-    fileExport: (url: string, data?: object, method?: string) => void
-    getColumnsKeys: (sKey: string, columns: any[], returnArray?: boolean) => string[]
-    removeEmptyValue: <T>(data: T) => T
-    findCollection: (group: any[] | object, condition: string | number | boolean | Func, getPath: boolean) => any
-    htmlPrint: (data: any) => void
-    siblingElems: (elem: HTMLElement) => HTMLElement
+  interface Vue extends ProtoFunc {
   }
+}
+
+/*下面是需要单独引用的库内方法*/
+export interface SingleReferenceFunc {
+  fullScreenImgPreview(src: string): void
+
+  toHump(name: string): string
+
+  htmlEncode(text: string): HTMLElement | string
+
+  htmlDecode(html: HTMLElement | string): string
+
+  getFileSrc(file: any): any
+
+  getFileTypeByName(name: string): string
+
+  isImgByFile(type: string): boolean
+
+  getFileTypeIconByName(name: string): string
+
+  downloadFileReaderFile(name: string | number, href: string): void
+
+  fakeALinkClick(obj: object): void
+
+  findPath({}: { group: object | any[], condition: (item: any) => boolean, pathKey: string, childKey?: string, path?: any[] }): any[]
+
+  getStringWidth(str: string, fontsize?: number): number
+
+  emptyInput(val: any): any
+
+  stopBubbling(e: any): void
 }
