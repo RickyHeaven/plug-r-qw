@@ -162,33 +162,89 @@ declare module "vue/types/vue" {
   }
 }
 
+type FullScreenImgPreview = (src: string) => void
+
+type ToHump = (name: string) => string
+
+type HtmlEncode = (text: string) => HTMLElement | string
+
+type HtmlDecode = (html: HTMLElement | string) => string
+
+type GetFileSrc = (file: any) => any
+
+type GetFileTypeByName = (name: string) => string
+
+type IsImgByFile = (type: string) => boolean
+
+type GetFileTypeIconByName = (name: string) => string
+
+type DownloadFileReaderFile = (name: string | number, href: string) => viod
+
+type FakeALinkClick = (obj: object) => void
+
+type FindPath = ({}: { group: object | any[], condition: (item: any) => boolean, pathKey?: string, childKey?: string, path?: any[] }) => any[]
+
+type GetStringWidth = (str: string, fontsize?: number) => number
+
+type EmptyInput = (val: any) => any
+
+type StopBubbling = (e: any) => void
+
 /*下面是需要单独引用的库内方法*/
 export interface SingleReferenceFunc {
-  fullScreenImgPreview(src: string): void
+  fullScreenImgPreview: FullScreenImgPreview
 
-  toHump(name: string): string
+  toHump: ToHump
 
-  htmlEncode(text: string): HTMLElement | string
+  htmlEncode: HtmlEncode
 
-  htmlDecode(html: HTMLElement | string): string
+  htmlDecode: HtmlDecode
 
-  getFileSrc(file: any): any
+  getFileSrc: GetFileSrc
 
-  getFileTypeByName(name: string): string
+  getFileTypeByName: GetFileTypeByName
 
-  isImgByFile(type: string): boolean
+  isImgByFile: IsImgByFile
 
-  getFileTypeIconByName(name: string): string
+  getFileTypeIconByName: GetFileTypeIconByName
 
-  downloadFileReaderFile(name: string | number, href: string): void
+  downloadFileReaderFile: DownloadFileReaderFile
 
-  fakeALinkClick(obj: object): void
+  fakeALinkClick: FakeALinkClick
 
-  findPath({}: { group: object | any[], condition: (item: any) => boolean, pathKey?: string, childKey?: string, path?: any[] }): any[]
+  findPath: FindPath
 
-  getStringWidth(str: string, fontsize?: number): number
+  getStringWidth: GetStringWidth
 
-  emptyInput(val: any): any
+  emptyInput: EmptyInput
 
-  stopBubbling(e: any): void
+  stopBubbling: StopBubbling
 }
+
+export const fullScreenImgPreview: FullScreenImgPreview
+
+export const toHump: ToHump
+
+export const htmlEncode: HtmlEncode
+
+export const htmlDecode: HtmlDecode
+
+export const getFileSrc: GetFileSrc
+
+export const getFileTypeByName: GetFileTypeByName
+
+export const isImgByFile: IsImgByFile
+
+export const getFileTypeIconByName: GetFileTypeIconByName
+
+export const downloadFileReaderFile: DownloadFileReaderFile
+
+export const fakeALinkClick: FakeALinkClick
+
+export const findPath: FindPath
+
+export const getStringWidth: GetStringWidth
+
+export const emptyInput: EmptyInput
+
+export const stopBubbling: StopBubbling
