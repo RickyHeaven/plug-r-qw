@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -18,7 +19,7 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "examples/*"
       ]
     },
     "lib": [
@@ -32,9 +33,7 @@
     "types/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"

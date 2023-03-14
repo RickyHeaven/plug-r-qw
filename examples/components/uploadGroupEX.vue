@@ -34,7 +34,8 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapState} from 'pinia'
+  import {useStore} from "../store"
 
   export default {
     name: "uploadGroupEX",
@@ -47,11 +48,9 @@
       }
     },
     computed: {
-      ...mapState({
-        envK:state=>state.user.envR
-      }),
+      ...mapState(useStore,['envR']),
       url(){
-        if(this.envK === 'umc'){
+        if(this.envR === 'umc'){
           return window.g.umcURL + '/admin/maintaince/file'
         }else{
           return window.g.mgrURL + '/fsc/file'

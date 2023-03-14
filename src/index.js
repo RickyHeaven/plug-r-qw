@@ -42,11 +42,43 @@ import JsonView from 'vue-json-viewer'
 import loaders from './components/loaders/loaders.vue'
 import echartMap from './components/echartMap/echartMap.vue'
 import {
-  myTypeof, toHump, toLine, trimObj, clearObj, htmlEncode, htmlDecode, getFileSrc, getFileTypeByName, isImgByFile,
-  getFileTypeIconByName, downloadFileReaderFile, fakeALinkClick, formDataHeadConfig, toFormData, findPath, oneOf,
-  decimalDigitsLimit, downloadFileByFormSubmit, isValidValue, isNumberValue, tooltipManual, getStringWidth,
-  isEmptyValue, stringLength, setValByOption, hasPermission, emptyInput, isNaN, dataFilterOrToUrl, stopBubbling,
-  fileExport, getColumnsKeys, removeEmptyValue, findCollection, htmlPrint, siblingElems
+  myTypeof,
+  toHump,
+  toLine,
+  trimObj,
+  clearObj,
+  htmlEncode,
+  htmlDecode,
+  getFileSrc,
+  getFileTypeByName,
+  isImgByFile,
+  getFileTypeIconByName,
+  downloadFileReaderFile,
+  fakeALinkClick,
+  formDataHeadConfig,
+  toFormData,
+  findPath,
+  oneOf,
+  decimalDigitsLimit,
+  downloadFileByFormSubmit,
+  isValidValue,
+  isNumberValue,
+  tooltipManual,
+  getStringWidth,
+  isEmptyValue,
+  stringLength,
+  setValByOption,
+  hasPermission,
+  emptyInput,
+  isNaN,
+  dataFilterOrToUrl,
+  stopBubbling,
+  fileExport,
+  getColumnsKeys,
+  removeEmptyValue,
+  findCollection,
+  htmlPrint,
+  siblingElems
 } from "./methods/functionGroup.js"
 import locale from './locale/index'
 import timer, {setTimeout, setInterval} from './methods/timer'
@@ -149,7 +181,7 @@ const install = function (Vue, opts = {}) {
     return
   }
   locale.i18n(opts.i18n)
-  $fetch.init(opts.store)
+  $fetch.init(opts.useStore || opts.store)
   timer.init(opts.router)
   
   if (!Vue) {

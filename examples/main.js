@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import {createPinia, PiniaVuePlugin} from "pinia"
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import {useStore} from './store'
 import VueI18n from 'vue-i18n'
 import en from './lang/en-US'
 import zh from './lang/zh-CN'
@@ -10,9 +11,8 @@ import '@zhangqingcq/view-design-r/dist/styles/iview.css'
 import enI from '@zhangqingcq/view-design-r/dist/locale/en-US'
 import zhI from '@zhangqingcq/view-design-r/dist/locale/zh-CN'
 import './global/iViewTheme.less'
-import _ from "lodash"
 import VueAMap from 'vue-amap'
-import plugRQw from '../src/index.js'
+import plugRQw from '../src'
 import '../src/style/index.less'
 import enR from '../src/locale/lang/en-US'
 import zhR from '../src/locale/lang/zh-CN'
@@ -20,17 +20,17 @@ import zhR from '../src/locale/lang/zh-CN'
 // import '../lib/plugRQw.min.css'
 // import enR from '../lib/lang/en-US'
 // import zhR from '../lib/lang/zh-CN'
-import './global/init.js'
+
+import init from './global/init'
 import dataV from '@jiaminghi/data-view'
 
 
 Vue.config.productionTip = false
 
-Vue.use(VueI18n)
-Vue.use(dataV)
+Vue.use(PiniaVuePlugin)
+const pinia = createPinia()
 
-Vue.locale = () => {
-}
+Vue.use(VueI18n)
 
 const messages = {
   en: {...en, ...enI, ...enR},
@@ -49,39 +49,39 @@ Vue.use(ViewUI, {
 })
 Vue.use(VueAMap)
 Vue.use(plugRQw, {
-  store,
+  useStore,
   router,
   i18n(path, options) {
     return i18n.t(path, options) || ''
   }
 })
 
-window._ = _
+Vue.use(dataV)
 
 Vue.prototype.pageSizes = [
-  10,
-  20,
-  50,
-  100
+  10, 20, 50, 100
 ]
 
 window._AMapSecurityConfig = {
-  securityJsCode:'1e77836c15c172e8cda4249f26d64326',
+  securityJsCode: '1e77836c15c172e8cda4249f26d64326',
 }
 
 VueAMap.initAMapApiLoader({
   key: 'd1e34acab7c1eae8614e0a12bfafc99d',
   plugin: [
-    'AMap.Autocomplete',
-    'AMap.Geocoder'
+    'AMap.Autocomplete', 'AMap.Geocoder'
   ], // 默认高德 sdk 版本为 1.4.4
   v: '1.4.4'
 })
 
+Vue.prototype.setTimeout(()=>{
+  init()
+},2000)
+
 new Vue({
   i18n,
   router,
-  store,
+  pinia,
   render: h => h(App)
 }).$mount('#app')
 

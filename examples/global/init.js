@@ -1,24 +1,28 @@
 import Vue from 'vue'
+import Cookies from "js-cookie"
+import _ from 'lodash'
+
 import toHome from '../components/toHome.vue'
 import showReadMe from '../components/showReadMe.vue'
-import store from '../store'
-import Cookies from "js-cookie"
+import {useStore} from '../store'
 
-(function () {
+window._ = _
+
+export default function init () {
   let user = localStorage.getItem('userC')
-  if(user){
-    user = JSON.parse(user)
-    store.commit('SET_USER',user)
+  let store = useStore()
+  if (user) {
+    store.user = JSON.parse(user)
   }
   let isLogin
-  if (store.state.user.envR === 'mgr') {
+  if (store.envR === 'mgr') {
     isLogin = Cookies.get("isFirst") && JSON.parse(Cookies.get("isFirst"))
   }
   else {
     isLogin = Cookies.get("isLoginR") && JSON.parse(Cookies.get("isLoginR"))
   }
-  store.commit('SET_IS_LOGIN', Boolean(isLogin))
-})()
+  store.isLogin = Boolean(isLogin)
+}
 
 Vue.component('toHome', toHome)
 Vue.component('showReadMe', showReadMe)

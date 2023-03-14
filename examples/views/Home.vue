@@ -6,7 +6,7 @@
         <span slot="open">ENG</span>
         <span slot="close">CN</span>
       </i-switch>
-      <!--当前env：{{envK}}
+      <!--当前env：{{envR}}
       <span @click="loginH">{{isLogin?'登出':'登录'}}</span>-->
     </div>
     <img class="brandK" alt="Vue logo" src="../assets/logo.png">
@@ -49,7 +49,8 @@
 
 <script>
   // @ is an alias to /examples
-  import {mapState, mapMutations, mapActions} from 'vuex'
+  import {mapState,mapWritableState } from 'pinia'
+  import {useStore} from "../store"
   import TestHouse from "../components/testHouse"
 
   export default {
@@ -62,17 +63,14 @@
       }
     },
     computed: {
-      ...mapState({
-        isLogin: state => state.user.isLogin,
-        envK: state => state.user.envR,
-        locale: state => state.locale
-      }),
+      ...mapState(useStore,['isLogin','envR']),
+      ...mapWritableState(useStore,['locale']),
       localeT: {
         get() {
           return this.locale === 'en'
         },
         set(val) {
-          this.SET_LOCALE(val ? 'en' : 'zh')
+          this.locale = val ? 'en' : 'zh'
         }
       }
     },
@@ -84,14 +82,10 @@
       })
     },
     methods: {
-      ...mapMutations([
-        'SET_LOCALE'
-      ]), ...mapActions({
-        logoutA: 'logout'
-      }),
       loginH() {
         if (this.isLogin) {
-          this.logoutA()
+          const store = useStore()
+          store.logout()
         }
         else {
           this.$router.push('login')

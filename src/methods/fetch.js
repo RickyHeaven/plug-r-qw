@@ -18,7 +18,7 @@ let service = axios.create({
 })
 
 function notInitYet() {
-  console.info('store为空，请在安装插件时传入store实例：Vue.use(plugRQw,{store:store})')
+  console.info('store为空，请在安装插件时传入store实例：Vue.use(plugRQw,{store:store})，Pinia传{store:useStore}')
 }
 
 /**
@@ -32,7 +32,14 @@ service.interceptors.request.use(q => {
 
 function logoutHandle() {
   if (service.store) {
-    service.store.dispatch("logout")
+    if(typeof service.store === "function"){
+      const store = service.store()
+      if(store.logout){
+        store.logout()
+      }
+    }else {
+      service.store.dispatch("logout")
+    }
   }
   else {
     notInitYet()
@@ -240,6 +247,7 @@ export default {
    * @param {object} store 项目中vuex的store
    */
   init(store) {
+    console.log(store)
     service.store = store
   },
   /**

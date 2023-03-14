@@ -2,8 +2,8 @@
   <div class="fullHeightLK">
     <div class="loginEnv">
       <RadioGroup size="small" v-model="envK" type="button">
-        <Radio label="umc"></Radio>
-        <Radio label="mgr"></Radio>
+        <Radio label="umc"/>
+        <Radio label="mgr"/>
       </RadioGroup>
     </div>
     <div class="loginFormBox">
@@ -13,7 +13,7 @@
       <Form
           ref="loginForm"
           autocomplete="on"
-          :model="loginForm"
+          :model="user"
           :rules="loginRules"
           :disabled="isLogin"
       >
@@ -24,11 +24,11 @@
           </div>
           <Input
               type="text"
-              v-model="loginForm.tenantCode"
+              v-model="user.tenantCode"
               placeholder="请输入单位代码"
               autocomplete="on"
               @on-enter="handleLogin()"
-          ></Input>
+          />
         </Form-item>
         <Form-item prop="username">
           <div class="pubWords">
@@ -37,7 +37,7 @@
           </div>
           <Input
               type="text"
-              v-model="loginForm.username"
+              v-model="user.username"
               placeholder="请输入用户名"
               autocomplete="on"
           >
@@ -50,7 +50,7 @@
           </div>
           <Input
               type="password"
-              v-model="loginForm.password"
+              v-model="user.password"
               placeholder="请输入密码"
               @on-enter="handleLogin()"
           >
@@ -73,8 +73,9 @@
 </template>
 
 <script>
-  import {mapState, mapMutations, mapActions} from 'vuex'
-
+  import {mapWritableState} from 'pinia'
+  import {useStore} from "../store"
+//todo 添加接口 改写登录 本地模拟
   export default {
     name: "login",
     data() {
@@ -98,59 +99,39 @@
             trigger: "blur"
           }
         }
-      };
+      }
     },
     computed: {
-      ...mapState({
-        envR: store => store.user.envR,
-        loginFormK: store => store.user.user,
-        isLogin: store => store.user.isLogin
-      }),
+      ...mapWritableState(useStore,['envR','isLogin','user']),
       envK: {
         get() {
           return this.envR
         },
         set(val) {
-          this.SET_ENV_R(val)
-          this.getIsLogin(val)
-          this.getUser(val)
-        }
-      },
-      loginForm: {
-        get() {
-          return this.loginFormK
-        },
-        set(val) {
-          this.SET_USER(val)
+          const store = useStore()
+          this.envR = val
+          store.getIsLogin()
+          store.getUser()
         }
       }
     },
     methods: {
-      ...mapMutations([
-        'SET_IS_LOGIN',
-        'SET_ENV_R',
-        'SET_USER'
-      ]),
-      ...mapActions({
-        logoutA:'logout',
-        getIsLogin:'GET_IS_LOGIN',
-        getUser:'GET_USER',
-      }),
       handleLogin() {
         if (this.isLogin) {
-          this.logoutA()
+          const store = useStore()
+          store.logout
         }
         else {
           this.$refs.loginForm.validate(valid => {
             if (valid) {
               this.loading = true;
               let temp = new FormData()
-              temp.append('username', this.loginForm.username)
-              temp.append('password', this.loginForm.password)
+              temp.append('username', this.user.username)
+              temp.append('password', this.user.password)
               let url = "/umc/login"
               if (this.envK === 'mgr') {
                 url = '/mgr/login'
-                temp.append('tenantCode', this.loginForm.tenantCode)
+                temp.append('tenantCode', this.user.tenantCode)
               }
               this.$fetch.post(url, temp, null, [], {
                 headers: {
@@ -159,8 +140,7 @@
               })
                 .then(res => {
                   if (res && res.code === 0) {
-                    this.SET_IS_LOGIN(true);
-                    this.SET_USER(this.loginForm)
+                    this.isLogin = true
 
                     this.$nextTick(function () {
                       this.loading = false

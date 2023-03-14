@@ -17,49 +17,80 @@
 1. npm i @zhangqingcq/plug-r-qw
 
 2. 在main.js中添加：
-```
- import Vue from 'vue'
- import store from './store'
- import router from './router'
- import plugRQw from '@zhangqingcq/plug-r-qw'
- import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
- 
- Vue.use(plugRQw,{store,router})
-```
-国际化版本：
-```
- import Vue from 'vue'
- import store from './store'
- import router from './router'
- import VueI18n from "vue-i18n"
- import plugRQw from '@zhangqingcq/plug-r-qw'
- import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
- import enR from '@zhangqingcq/plug-r-qw/lib/lang/en-US'
- import zhR from '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
- 
- Vue.use(VueI18n)
+    ```
+     import Vue from 'vue'
+     import store from './store'
+     import router from './router'
+     import plugRQw from '@zhangqingcq/plug-r-qw'
+     import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
+     
+     Vue.use(plugRQw,{store,router})
+    ```
+    国际化版本：
+    ```
+     import Vue from 'vue'
+     import store from './store'
+     import router from './router'
+     import VueI18n from "vue-i18n"
+     import plugRQw from '@zhangqingcq/plug-r-qw'
+     import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'
+     import enR from '@zhangqingcq/plug-r-qw/lib/lang/en-US'
+     import zhR from '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
+     
+     Vue.use(VueI18n)
+    
+     Vue.locale = () => {}
+     const messages = {
+       en: {hello:'Hello', ...enR},
+       zh: {hello:'你好', ...zhR}
+     }
+      
+     const i18n = new VueI18n(({
+       locale: 'zh',
+       messages
+     }))
+     
+     Vue.use(plugRQw,{
+      store,
+      router,
+      i18n(path, options) {
+        return i18n.t(path, options) || ''
+      }
+     })
+     
+     new Vue({ i18n,store }).$mount('#app')
+    ```
 
- Vue.locale = () => {}
- const messages = {
-   en: {hello:'Hello', ...enR},
-   zh: {hello:'你好', ...zhR}
- }
-  
- const i18n = new VueI18n(({
-   locale: 'zh',
-   messages
- }))
- 
- Vue.use(plugRQw,{
-  store,
-  router,
-  i18n(path, options) {
-    return i18n.t(path, options) || ''
-  }
- })
- 
- new Vue({ i18n,store }).$mount('#app')
-```
+    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
+`JS + Vue`的项目大同小异，除了下面列出的不同，其他都相同。
+    >> 国际化版本，需要在`shims-vue.d.ts`文件中声明国际化文件(plug-r-qw和view-design都要)，如：
+      ```
+        declare module '@zhangqingcq/plug-r-qw/lib/lang/en-US'
+        declare module '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
+      
+        declare module '@zhangqingcq/view-design-r/dist/locale/en-US'
+        declare module '@zhangqingcq/view-design-r/dist/locale/zh-CN'
+      ```
+    >> 国际化版本在main.js安装plug-r-qw时国际化配置方法要定义参数类型，如：
+      ```
+        Vue.use(plugRQw,{
+          ...,
+          i18n(path:string,options:object){...}
+        })
+      ```
+    >> 如果用了echarts等第三方库功能，也需要在`shims-vue.d.ts`文件中声明相关模块，如：
+      ```
+        declare module 'lodash'
+        declare module 'js-cookie'
+        declare module 'echarts'
+      ```
+    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`Pinia`（Vuex的升级版），就是用`Pinia`的`useStore`替换之前`Vuex` 的`store`，用法如下：
+    ```
+      import {useStore} from './stores/main'
+      
+      Vue.use(plugRQw,{useStore,xxx})
+    ```
+
 3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
 也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
 
@@ -98,6 +129,23 @@
   @import "~@zhangqingcq/view-design-r/src/styles/index.less";
 
   具体可参考本库示例项目examples中的使用方法
+```
+
+* 该库自`@zhangqingcq/plug-r-qw@1.3.0`版本开始，使用了`less@4.0.0`，如项目有less语法报错，可以在`vue.config.js`中加上配置，如:
+```
+module.exports = defineConfig({
+  ...
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true
+        }
+      }
+    }
+  }
+})
+
 ```
 
 * 该库自`@zhangqingcq/plug-r-qw@1.1.35`版本开始，弃用`iview-area`，改用本人改良的`ar-cascader`，所以升级到该版本及以后，如果你项目中之前有直接使用iview-area，替换成ar-cascader即可。（在没有直接使用iview-area，而是使用库中alCascader及formR相关组件,则无需做任何改变）
