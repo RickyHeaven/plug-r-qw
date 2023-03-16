@@ -2,40 +2,20 @@
 .monthRangeBoxR {
   position: relative;
 
-  .ivu-date-picker:last-child {
-    position: absolute;
-    min-width: 50px;
-    height: @heightMR;
-    left: 0;
-    top: 0;
+  .ivu-date-picker {
+    width: 100%;
 
     .bRoot {
-      position: relative;
       height: @heightMR;
     }
   }
 
-  .aRoot {
-    &.showR {
-      .ivu-input-suffix {
-        display: block;
-      }
-
-      display: block;
-
-      &:hover {
-        .ivu-input-suffix .ivu-icon {
-          display: block;
-        }
-      }
-    }
-
-    .ivu-input-suffix {
-      display: none;
-    }
-
-    .ivu-icon {
-      display: none;
-    }
+  .ivu-date-picker:first-child {
+    position: absolute;
+    width: 100%;
+    height: @heightMR;
+    left: 0;
+    top: 0;
+    z-index: -1;
   }
 }

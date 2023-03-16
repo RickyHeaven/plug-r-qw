@@ -525,12 +525,13 @@
             break
           case 'date':
           case 'time':
+          case 'monthRange':
             if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
               root.dateType === 'year' || root.dateType === 'month') {
               a[root.tempKey] = root.defaultVal
             }
             else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
-              'timerange') {
+              'timerange' || root.type === 'monthRange') {
               a[root.tempKey] = root.defaultVal && root.defaultVal2 && [
                 root.defaultVal, root.defaultVal2
               ] || []
@@ -743,6 +744,7 @@
               break
             case 'date':
             case 'time':
+            case 'monthRange':
               const tempKeyB = 'date' + Math.floor(Math.random() * 100000000)
               root.tempKey = tempKeyB
               if (root.dateType === 'date' || root.dateType === 'datetime' || root.dateType === 'time' ||
@@ -750,7 +752,7 @@
                 this.$set(this.tempKeys, tempKeyB, root.defaultVal || null)
               }
               else if (root.dateType === 'daterange' || root.dateType === 'datetimerange' || root.dateType ===
-                'timerange') {
+                'timerange' || root.type === 'monthRange') {
                 this.$set(this.tempKeys, tempKeyB, root.defaultVal && root.defaultVal2 && [
                   root.defaultVal, root.defaultVal2
                 ] || [])
@@ -1047,6 +1049,7 @@
               break
             case 'date':
             case 'time':
+            case'monthRange':
               let tp = root.dateType
 
               const fm = {
@@ -1074,11 +1077,16 @@
                   this.valGroup[root.key] = null
                 }
               }
-              else if (tp === 'daterange' || tp === 'datetimerange' || tp === 'timerange') {
+              else if (root.type === 'monthRange' || tp === 'daterange' || tp === 'datetimerange' || tp ===
+                'timerange') {
                 if (after && after[0] && after[1]) {
                   if (tp === 'timerange') {
                     this.valGroup[root.key] = after[0]
                     this.valGroup[root.key2] = after[1]
+                  }
+                  else if (root.type === 'monthRange') {
+                    this.valGroup[root.key] = root.format && moment(after[0]).format(root.format) || after[0]
+                    this.valGroup[root.key2] = root.format && moment(after[1]).format(root.format) || after[1]
                   }
                   else {
                     this.valGroup[root.key] = moment(after[0]).format(root.format || fm[tp])

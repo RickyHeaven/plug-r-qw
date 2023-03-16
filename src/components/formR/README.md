@@ -319,7 +319,7 @@ name为Ricky或Tom时显示该表单项；如果有多个条件，用数组装�
 * <a name='toolbarConfig'>toolbarConfig</a> 对象，工具栏配置，参考[wangEditor5 工具栏配置](https://www.wangeditor.com/v5/toolbar-config.html)
 
 * <a name='type'>type</a> 字符串，表单项类型，支持：txt、input、inputNumber、select、selectInput、alCascader、asyncCascader、radio、
-radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor、editorPro、inputMap、custom
+radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、monthRange、editor、editorPro、inputMap、custom
 
 * <a name='url'>url</a> 字符串，数据接口地址，表单项特殊配置，如远程数据级联，文件上传时为上传文件的服务器接口地址，具体见后面的'type说明'
 
@@ -857,6 +857,36 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、editor
 * [placeholder](#placeholder) 占位符，默认：`'请选择'`
 
 * [clearable](#clearable) 表单项是否可单独清空，为true且输入框有值时，光标移动到输入框尾部会有小叉，点击清空，默认：`true`
+
+* [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
+
+* [show](#show) 显示条件
+
+* [showOr](#showOr) 显示条件间关系，设置true时为或运算，默认：`false`
+
+* [info](#info) 表单项的提示文字，位于表单项下面
+
+* [title](#title) 表单项的标题，位于表单项左上方
+
+* [class](#class) 单个表单项的自定义样式类名
+
+
+#### monthRange 月份区间选择器
+* [label](#label) 标签
+
+* [key](#key) 表单项收集的数据在提交时所在字段
+
+* [defaultVal](#defaultVal) 默认值,开始时间默认值
+
+* [defaultVal2](#defaultVal2) 默认值2，结束时间默认值
+
+* [format](#formatC) 时间格式（控制返回值的格式和操作界面维度），不传时使用默认格式，默认值：`'yyyy-MM'`
+
+* [dateOptions1](#dateOptions) 开始月份DatePicker选择器额外配置，比如不可选日期与快捷选项
+
+* [dateOptions2](#dateOptions) 结束月份DatePicker选择器额外配置，比如不可选日期与快捷选项
+
+* [placeholder](#placeholder) 占位符，默认：`'请选择日期'`
 
 * [disabled](#disabled) 禁用该表单项，非响应式，可用updateFormDataT方法更改，默认：`false`
 

@@ -38,7 +38,7 @@
         :clearable="item.clearable!==false"
     >
       <template v-if="item.slotPosition&&item.slotName" :slot="item.slotPosition">
-        <slot :name="item.slotName"/>
+        <slot :name="item.slotName" />
       </template>
       <template v-if="item.slotPosition!=='prepend'&&item.prepend" slot="prepend">
         <span>{{item.prepend}}</span>
@@ -132,7 +132,7 @@
           :border="Boolean(item.itemBorder)"
           :disabled="Boolean(item.disabled) || disabled||radioItem.disabled"
       >
-        <Icon v-if="radioItem.icon && (!item.buttonType)" :type="radioItem.icon"/>
+        <Icon v-if="radioItem.icon && (!item.buttonType)" :type="radioItem.icon" />
         <span>{{radioItem.label || radioItem.val}}</span>
       </Radio>
     </RadioGroup>
@@ -156,7 +156,7 @@
           :label="checkItem.val"
           :disabled="Boolean(item.disabled) || disabled ||checkItem.disabled"
       >
-        <Icon v-if="checkItem.icon" :type="checkItem.icon"/>
+        <Icon v-if="checkItem.icon" :type="checkItem.icon" />
         <span>{{checkItem.label||checkItem.val}}</span>
       </Checkbox>
     </CheckboxGroup>
@@ -222,6 +222,18 @@
         transfer
         @on-change="itemChange($event,item)"
     />
+    <!--月份区间选择-->
+    <month-range
+        :style="itemStyle"
+        v-else-if="item.type === 'monthRange'"
+        v-model="tempKeys[item.tempKey]"
+        :disabled="Boolean(item.disabled) || disabled"
+        placement="bottom-end"
+        :placeholder="item.placeholder || t('r.selectDate')"
+        :options1="item.dateOptions1||null"
+        :options2="item.dateOptions2||null"
+        @on-change="itemChange($event,item)"
+    />
     <!--富文本编辑器-->
     <editor
         class="inlineBlock"
@@ -267,7 +279,7 @@
         class="inlineBlock"
         :style="itemStyle"
     >
-      <slot :name="item.slotName" :val-group="valGroup"/>
+      <slot :name="item.slotName" :val-group="valGroup" />
     </div>
     <!--表单项提示文字-->
     <div v-if="Boolean(item.info)" class="formInfoTxtXN">{{item.info}}</div>
@@ -285,6 +297,7 @@
   import editor from '../editor/editor.vue'
   import editorPro from '../editorPro/editorPro.vue'
   import inputMap from '../inputMap/inputMap.vue'
+  import monthRange from "../monthRange/monthRange"
 
   export default {
     name: "itemR",
@@ -296,7 +309,8 @@
       uploadGroup,
       editor,
       editorPro,
-      inputMap
+      inputMap,
+      monthRange
     },
     props: {
       item: Object,

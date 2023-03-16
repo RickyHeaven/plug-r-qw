@@ -2,7 +2,7 @@
   <div class="examplePageL vh100">
     <showReadMe />
     <toHome />
-    <div>
+    <div style="width: 250px">
       <month-range v-model="value" />
     </div>
   </div>
