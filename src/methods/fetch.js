@@ -247,7 +247,6 @@ export default {
    * @param {object} store 项目中vuex的store
    */
   init(store) {
-    console.log(store)
     service.store = store
   },
   /**

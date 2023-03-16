@@ -141,7 +141,7 @@ export default new VueRouter({
           meta: {
             title: '方法：提示框',
             icon: 'icon-swal',
-            bg: 'linear-gradient(to right, #6dd5ed, #2193b0)',
+            bg: 'linear-gradient(to right, #6dd5ed, #00bacd)',
             cls: 'clockwise vertical'
           }
         },
@@ -152,7 +152,7 @@ export default new VueRouter({
           meta: {
             title: '方法：对话框',
             icon: 'icon-shejiao-duihuakuang',
-            bg: 'linear-gradient(to right, #6dd5ed, #2193b0)',
+            bg: 'linear-gradient(to right, #55c0ff, #2193b0)',
             cls: 'clockwise vertical'
           }
         },
@@ -163,7 +163,7 @@ export default new VueRouter({
           meta: {
             title: '方法：全屏预览，Modal实现',
             icon: 'icon-quanping2',
-            bg: 'linear-gradient(to right, #6dd5ed, #2193b0)',
+            bg: 'linear-gradient(to right, #6deddb, #2193b0)',
             cls: 'clockwise vertical'
           }
         },
@@ -174,7 +174,7 @@ export default new VueRouter({
           meta: {
             title: '方法：全屏预览，原生实现',
             icon: 'icon-quanping',
-            bg: 'linear-gradient(to right, #6dd5ed, #2193b0)',
+            bg: 'linear-gradient(to right, #09b3db, #2193b0)',
             cls: 'clockwise vertical'
           }
         },
@@ -184,7 +184,7 @@ export default new VueRouter({
           component: () => import('./components/fixedFullModalEX.vue'),
           meta: {
             title: '组件：全屏弹框，顶部露出下层（如菜单）',
-            bg: 'linear-gradient(to right, #6dd5ed, #2193b0)',
+            bg: 'linear-gradient(to right, #47bfdb, #137187)',
             icon: 'icon-fullScreenEnter',
             cls: 'clockwise vertical'
           }
@@ -202,7 +202,7 @@ export default new VueRouter({
           component: () => import('./components/fetchEX.vue'),
           meta: {
             title: '方法：网络请求',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #7d3e97, #9b66b1, #5d2574)',
             icon: 'icon-aJax',
             cls: 'clockwise both'
           }
@@ -220,7 +220,7 @@ export default new VueRouter({
           component: () => import('./components/showHidePanelEX.vue'),
           meta: {
             title: '组件：收展卡',
-            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            bg: 'linear-gradient(to right, #24243e, #302b63, #391a85)',
             icon: 'icon-fold',
             cls: 'counterclockwise horizontal'
           }
@@ -231,7 +231,7 @@ export default new VueRouter({
           component: () => import('./components/showHidePanelBEX.vue'),
           meta: {
             title: '组件：收展卡B',
-            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            bg: 'linear-gradient(to right, #382a62, #644bb1, #0f0c29)',
             icon: 'icon-fold',
             cls: 'counterclockwise horizontal'
           }
@@ -242,7 +242,7 @@ export default new VueRouter({
           component: () => import('./components/fullScreenPopEX.vue'),
           meta: {
             title: '组件：弹框（撑满父元素）',
-            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            bg: 'linear-gradient(to right, #50507e, #302b63, #0f0c29)',
             icon: 'icon-mainMenu',
             cls: 'counterclockwise horizontal'
           }
@@ -253,7 +253,7 @@ export default new VueRouter({
           component: () => import('./components/sideMenuEX.vue'),
           meta: {
             title: '组件：侧边菜单',
-            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            bg: 'linear-gradient(to right, #252566, #5136a7, #170f56)',
             icon: 'icon-leftMenu',
             cls: 'counterclockwise horizontal'
           }
@@ -264,7 +264,7 @@ export default new VueRouter({
           component: () => import('./components/page404EX.vue'),
           meta: {
             title: '组件：404页面',
-            bg: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)',
+            bg: 'linear-gradient(to right, #454589, #302b63, #0f0c29)',
             icon: 'icon-notPage',
             cls: 'counterclockwise horizontal'
           }
@@ -315,7 +315,7 @@ export default new VueRouter({
           component: () => import('./components/tableTreeEX.vue'),
           meta: {
             title: '组件：树形表格',
-            bg: 'linear-gradient(to right, #2a0845, #6441A5)',
+            bg: 'linear-gradient(to right, #4c1776, #6441A5)',
             icon: 'icon-tree3',
             cls: 'counterclockwise vertical'
           }
@@ -333,7 +333,7 @@ export default new VueRouter({
           component: () => import('./components/formREX.vue'),
           meta: {
             title: '组件：表单核心组件',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #4b4ec1, #24278d, #0F2027)',
             icon: 'icon-formR',
             cls: 'counterclockwise both'
           }
@@ -344,7 +344,7 @@ export default new VueRouter({
           component: () => import('./components/btTablePageEX.vue'),
           meta: {
             title: '组件：顶部按钮、表格、页签集合',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #445dbb, #233989, #0F2027)',
             icon: 'icon-table',
             cls: 'counterclockwise both'
           }
@@ -355,7 +355,7 @@ export default new VueRouter({
           component: () => import('./components/formModalEX.vue'),
           meta: {
             title: '组件：表单弹框',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #227ea7, #203A43, #0F2027)',
             icon: 'icon-formModal',
             cls: 'counterclockwise both'
           }
@@ -366,7 +366,7 @@ export default new VueRouter({
           component: () => import('./components/customModalEX.vue'),
           meta: {
             title: '组件：表单弹框',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #5493af, #357a99, #0F2027)',
             icon: 'icon-formModal',
             cls: 'counterclockwise both'
           }
@@ -377,7 +377,7 @@ export default new VueRouter({
           component: () => import('./components/searchFormEX.vue'),
           meta: {
             title: '组件：搜索表单',
-            bg: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+            bg: 'linear-gradient(to right, #41829f, #36a0eb, #176b7e)',
             icon: 'icon-searchForm',
             cls: 'counterclockwise both'
           }
@@ -388,7 +388,7 @@ export default new VueRouter({
           component: () => import('./components/formGroupEX.vue'),
           meta: {
             title: '组件：表单组',
-            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            bg: 'linear-gradient(to right, #15c170, #1f4037)',
             icon: 'icon-formGroup',
             cls: 'counterclockwise both'
           }
@@ -399,7 +399,7 @@ export default new VueRouter({
           component: () => import('./components/tableSearchEX.vue'),
           meta: {
             title: '组件：带高级查询按钮的快捷搜索组件',
-            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            bg: 'linear-gradient(to right, #43cf8d, #1b7048)',
             icon: 'icon-searchForm',
             cls: 'counterclockwise both'
           }
@@ -410,8 +410,19 @@ export default new VueRouter({
           component: () => import('./components/formTeamEX.vue'),
           meta: {
             title: '组件：单个表单内部带分组（便于布局和样式控制）',
-            bg: 'linear-gradient(to right, #99f2c8, #1f4037)',
+            bg: 'linear-gradient(to right, #89f7c2, #268557)',
             icon: 'icon-formR',
+            cls: 'counterclockwise both'
+          }
+        },
+        {
+          path: '/monthRange',
+          name: 'monthRange',
+          component: () => import('./components/monthRangeEX.vue'),
+          meta: {
+            title: '组件：月份区间选择',
+            bg: 'linear-gradient(to right, #ff7858, #f857e6)',
+            icon: 'icon-monthRange',
             cls: 'counterclockwise both'
           }
         },
@@ -454,7 +465,7 @@ export default new VueRouter({
           component: () => import('./components/tableIconBtnEX.vue'),
           meta: {
             title: '组件：表格图标按钮',
-            bg: 'linear-gradient(to right, #ff5858, #f857a6)',
+            bg: 'linear-gradient(to right, #f05858, #f8a7a6)',
             icon: 'icon-button',
             cls: 'counterclockwise both'
           }
@@ -476,7 +487,7 @@ export default new VueRouter({
           component: () => import('./components/selectInputEX.vue'),
           meta: {
             title: '组件：可选title输入框',
-            bg: 'linear-gradient(to right, #182848, #4b6cb7)',
+            bg: 'linear-gradient(to right, #2d4574, #4b6cb7)',
             icon: 'icon-selectInput',
             cls: 'counterclockwise both'
           }
@@ -487,7 +498,7 @@ export default new VueRouter({
           component: () => import('./components/asyncCascaderEX.vue'),
           meta: {
             title: '组件：远程级联',
-            bg: 'linear-gradient(to right, #727a17, #414d0b)',
+            bg: 'linear-gradient(to right, #63b128, #41cd0b)',
             icon: 'icon-sync',
             cls: 'counterclockwise both'
           }
@@ -498,7 +509,7 @@ export default new VueRouter({
           component: () => import('./components/editorEX.vue'),
           meta: {
             title: '组件：富文本编辑器',
-            bg: 'linear-gradient(to right, #727a17, #414d0b)',
+            bg: 'linear-gradient(to right, #32ab89, #1e542f)',
             icon: 'icon-editor',
             cls: 'counterclockwise both'
           }
@@ -509,7 +520,7 @@ export default new VueRouter({
           component: () => import('./components/editorProEX.vue'),
           meta: {
             title: '组件：富文本编辑器Pro',
-            bg: 'linear-gradient(to right, #727a17, #414d0b)',
+            bg: 'linear-gradient(to right, #698544, #4b6811)',
             icon: 'icon-editor',
             cls: 'counterclockwise both'
           }

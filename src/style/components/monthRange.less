@@ -1,0 +1,41 @@
+@heightMR: 32px;
+.monthRangeBoxR {
+  position: relative;
+
+  .ivu-date-picker:last-child {
+    position: absolute;
+    min-width: 50px;
+    height: @heightMR;
+    left: 0;
+    top: 0;
+
+    .bRoot {
+      position: relative;
+      height: @heightMR;
+    }
+  }
+
+  .aRoot {
+    &.showR {
+      .ivu-input-suffix {
+        display: block;
+      }
+
+      display: block;
+
+      &:hover {
+        .ivu-input-suffix .ivu-icon {
+          display: block;
+        }
+      }
+    }
+
+    .ivu-input-suffix {
+      display: none;
+    }
+
+    .ivu-icon {
+      display: none;
+    }
+  }
+}

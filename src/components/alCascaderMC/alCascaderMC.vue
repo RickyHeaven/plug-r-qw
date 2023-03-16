@@ -32,9 +32,7 @@
       value: {
         /*组件绑定的值（v-model）*/
         type: [
-          String,
-          Number,
-          Array
+          String, Number, Array
         ],
         default() {
           return null
@@ -43,13 +41,10 @@
       level: {
         /*精确至几级行政区域（0：省级，1：市级，2：县级）*/
         type: [
-          Number,
-          String
+          Number, String
         ],
         validator: val => oneOf(String(val), [
-          '0',
-          '1',
-          '2'
+          '0', '1', '2'
         ]),
         default() {
           return 2
@@ -96,28 +91,20 @@
 
             let regP = /^\d*$/
             if (regP.test(temp)) {
-              let reg = /000000$/
-              let regCQ = /^5002/
-              let lv1 = temp.substr(0, 2) + '0000'
-              let lv2 = temp.substr(0, 4) + '00'
-              let lv3 = temp.substr(0, 6)
-              if (regCQ.test(temp)) {
-                lv2 = '500100'
-              }
-              if (reg.test(temp)) {
-                return [
-                  lv1,
-                  lv2,
-                  lv3
-                ]
-              }
 
-              return [
-                lv1,
-                lv2,
-                lv3,
-                temp
-              ]
+              let lv1 = temp.substr(0, 2) + '0000'
+              let lv2
+              let lv3 = this.getLastCode(temp)
+              if (lv3.length < 7) {
+                lv2 = temp.substr(0, 4) + '00'
+              }
+              else {
+                lv2 = temp.substr(0, 6)
+              }
+              if (/^8\d+$/.test(temp)) {
+                return [lv1, lv3]
+              }
+              return [lv1, lv2, lv3]
             }
 
             if (temp.indexOf(this.separator) !== -1) {
@@ -151,7 +138,11 @@
               code = last.code
             }
             if (code && code.length < 12) {
-              code += '000000'
+              let t = [...code]
+              while (t.length < 12) {
+                t.push(0)
+              }
+              code = t.join('')
             }
             if (Array.isArray(val)) {
               name = val.map(item => {
@@ -170,6 +161,15 @@
             }
           }
         }
+      }
+    },
+    methods: {
+      getLastCode(d) {
+        let t = [...d]
+        while (t[t.length - 1] === '0') {
+          t.pop()
+        }
+        return t.join('')
       }
     }
   }
