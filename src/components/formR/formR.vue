@@ -219,7 +219,7 @@
         }
         return t.concat(this.selectInputKeys, this.hiddenKeys)
       },
-      showingKeys(){
+      showingKeys() {
         let t = []
         if (this.formTeam) {
           for (let e of this.formDataT) {
@@ -1030,16 +1030,23 @@
 
                 if (myTypeof(root.collectLabel) === 'Object') {
                   if (root.collectLabel.key && root.collectLabel.valKey) {
+                    const collectTempKey = this.findTempKey(root.collectLabel.key)
+                    let t = null
                     if (Array.isArray(targetOption)) {
-                      this.$set(this.valGroup, root.collectLabel.key,
-                        targetOption.map(e => e[root.collectLabel.valKey]))
+                      t = targetOption.map(e => e[root.collectLabel.valKey])
+                      this.$set(this.valGroup, root.collectLabel.key, t)
+                      if (collectTempKey) {
+                        this.$set(this.tempKeys, collectTempKey, t)
+                      }
                     }
                     else {
-                      let t = null
                       if (targetOption && isValidValue(targetOption[root.collectLabel.valKey])) {
                         t = targetOption[root.collectLabel.valKey]
                       }
                       this.$set(this.valGroup, root.collectLabel.key, t)
+                      if (collectTempKey) {
+                        this.$set(this.tempKeys, collectTempKey, t)
+                      }
                     }
 
                     let sameKeyCom = findCollection(this.formDataT, e => e.key === root.collectLabel.key)
@@ -1051,15 +1058,24 @@
                 else if (Array.isArray(root.collectLabel)) {
                   for (let l of root.collectLabel) {
                     if (l.key && l.valKey) {
+                      const collectTempKey = this.findTempKey(l.key)
+                      let t = null
+
                       if (Array.isArray(targetOption)) {
-                        this.$set(this.valGroup, l.key, targetOption.map(e => e[l.valKey]))
+                        t = targetOption.map(e => e[l.valKey])
+                        this.$set(this.valGroup, l.key, t)
+                        if (collectTempKey) {
+                          this.$set(this.tempKeys, collectTempKey, t)
+                        }
                       }
                       else {
-                        let t = null
                         if (targetOption && isValidValue(targetOption[l.valKey])) {
                           t = targetOption[l.valKey]
                         }
                         this.$set(this.valGroup, l.key, t)
+                        if (collectTempKey) {
+                          this.$set(this.tempKeys, collectTempKey, t)
+                        }
                       }
 
                       let sameKeyCom = findCollection(this.formDataT, e => e.key === l.key)
@@ -1153,6 +1169,26 @@
           }
           return false
         }
+      },
+      findTempKey(k) {
+        if (this.formTeam) {
+          for (let e of this.formDataT) {
+            const t = this.findTempKeyItem(e, k)
+            if (t) {
+              return t
+            }
+          }
+          return false
+        }
+        return this.findTempKeyItem(this.formDataT, k)
+      },
+      findTempKeyItem(d, k) {
+        for (let root of d) {
+          if (root.key === k) {
+            return root.tempKey
+          }
+        }
+        return false
       },
       setItemToValGroup(data, notClearOthers) { /*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，公开）*/
         let t = {}
