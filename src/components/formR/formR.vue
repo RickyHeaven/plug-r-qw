@@ -207,7 +207,19 @@
         }
         return t
       },
-      showingKeys() { /*展示的key(需要提交的)*/
+      submitKeys() { /*展示的key(需要提交的)*/
+        let t = []
+        if (this.formTeam) {
+          for (let e of this.formDataT) {
+            this.submitItems(e, t)
+          }
+        }
+        else {
+          this.submitItems(this.formDataT, t)
+        }
+        return t.concat(this.selectInputKeys, this.hiddenKeys)
+      },
+      showingKeys(){
         let t = []
         if (this.formTeam) {
           for (let e of this.formDataT) {
@@ -217,7 +229,7 @@
         else {
           this.showingItems(this.formDataT, t)
         }
-        return t.concat(this.selectInputKeys, this.hiddenKeys)
+        return t
       }
     },
     created() {
@@ -229,11 +241,11 @@
         return d.filter(e => e.slotName)
       },
       /**
-       * 计算需要展示的key
+       * 计算需要提交的key
        * @param d 表单结构数据
-       * @param t 储存需要展示的key的对象
+       * @param t 储存需要提交的key的对象
        */
-      showingItems(d, t) {
+      submitItems(d, t) {
         for (let root of d) {
           if (root.showing === true && root.key && root.type !== 'selectInput') {
             t.push(root.key)
@@ -252,6 +264,18 @@
                 }
               }
             }
+          }
+        }
+      },
+      /**
+       * 计算需要展示的key
+       * @param d 表单结构数据
+       * @param t 储存需要展示的key的对象
+       */
+      showingItems(d, t) {
+        for (let root of d) {
+          if (root.showing === true && root.key && root.type !== 'selectInput') {
+            t.push(root.key)
           }
         }
       },
@@ -1449,7 +1473,7 @@
        */
       getValGroup() {
         let t = {}
-        for (let e of this.showingKeys) {
+        for (let e of this.submitKeys) {
           t[e] = this.valGroup[e]
         }
         if (this.trim) {

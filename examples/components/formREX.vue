@@ -83,7 +83,7 @@
             class: 'myInputHG bigKZ'/*该formItem自定义样式类名*/
           }, {
             type: 'radioGroup',
-            key: 'sexB',
+            key: 'sex',
             label: '性别',
             options: [
               {

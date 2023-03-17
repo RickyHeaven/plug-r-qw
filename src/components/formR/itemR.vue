@@ -121,7 +121,7 @@
     <RadioGroup
         :style="itemStyle"
         v-else-if="item.type === 'radioGroup'"
-        @on-change="itemChange($event,item)"
+        @on-change="reValidateAndChangeHandle($event,item)"
         :type="item.buttonType ? 'button': null"
         v-model="tempKeys[item.tempKey]"
     >
@@ -148,7 +148,7 @@
         :style="itemStyle"
         v-else-if="item.type === 'checkboxGroup'"
         v-model="tempKeys[item.tempKey]"
-        @on-change="itemChange($event,item)"
+        @on-change="reValidateAndChangeHandle($event,item)"
     >
       <Checkbox
           v-for="checkItem of item.options"
