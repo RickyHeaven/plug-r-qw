@@ -5,9 +5,7 @@
       <i-switch size="large" v-model="localeT" style="margin-right: 10px">
         <span slot="open">ENG</span>
         <span slot="close">CN</span>
-      </i-switch>
-      <!--当前env：{{envR}}
-      <span @click="loginH">{{isLogin?'登出':'登录'}}</span>-->
+      </i-switch><span @click="loginH">{{isLogin?'登出':'登录'}}</span>
     </div>
     <img class="brandK" alt="Vue logo" src="../assets/logo.png">
     <div class="brandBox">
@@ -63,7 +61,7 @@
       }
     },
     computed: {
-      ...mapState(useStore,['isLogin','envR']),
+      ...mapState(useStore,['isLogin']),
       ...mapWritableState(useStore,['locale']),
       localeT: {
         get() {

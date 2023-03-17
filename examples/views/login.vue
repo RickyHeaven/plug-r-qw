@@ -1,11 +1,5 @@
 <template>
   <div class="fullHeightLK">
-    <div class="loginEnv">
-      <RadioGroup size="small" v-model="envK" type="button">
-        <Radio label="umc"/>
-        <Radio label="mgr"/>
-      </RadioGroup>
-    </div>
     <div class="loginFormBox">
       <div class="titleLK">
         PLUG-R-QW 示例系统
@@ -13,23 +7,10 @@
       <Form
           ref="loginForm"
           autocomplete="on"
-          :model="user"
+          :model="loginForm"
           :rules="loginRules"
           :disabled="isLogin"
       >
-        <Form-item prop="tenantCode" v-if="envK === 'mgr'">
-          <div class="pubWords">
-            单位代码
-            <span>Code</span>
-          </div>
-          <Input
-              type="text"
-              v-model="user.tenantCode"
-              placeholder="请输入单位代码"
-              autocomplete="on"
-              @on-enter="handleLogin()"
-          />
-        </Form-item>
         <Form-item prop="username">
           <div class="pubWords">
             用户名
@@ -37,7 +18,7 @@
           </div>
           <Input
               type="text"
-              v-model="user.username"
+              v-model="loginForm.username"
               placeholder="请输入用户名"
               autocomplete="on"
           >
@@ -50,7 +31,7 @@
           </div>
           <Input
               type="password"
-              v-model="user.password"
+              v-model="loginForm.password"
               placeholder="请输入密码"
               @on-enter="handleLogin()"
           >
@@ -67,7 +48,7 @@
         <span v-if="!loading">{{isLogin?'登出':'登录'}}</span>
         <span v-else>Loading...</span>
       </Button>
-      <div class="tips">提示：登录是为了拉取后端接口数据，否则可直接在地址栏输入"/index"</div>
+      <div class="tips">提示：登录为了演示$fetch拦截器，如403，否则地址栏输入"/index"访问示例页</div>
     </div>
   </div>
 </template>
@@ -75,19 +56,17 @@
 <script>
   import {mapWritableState} from 'pinia'
   import {useStore} from "../store"
-//todo 添加接口 改写登录 本地模拟
   export default {
     name: "login",
     data() {
       return {
         loading: false,
         isShow: false,
+        loginForm: {
+          username: null,
+          password: null
+        },
         loginRules: {
-          tenantCode: {
-            required: true,
-            message: "该项为必填项",
-            trigger: "blur"
-          },
           username: {
             required: true,
             message: "该项为必填项",
@@ -102,18 +81,7 @@
       }
     },
     computed: {
-      ...mapWritableState(useStore,['envR','isLogin','user']),
-      envK: {
-        get() {
-          return this.envR
-        },
-        set(val) {
-          const store = useStore()
-          this.envR = val
-          store.getIsLogin()
-          store.getUser()
-        }
-      }
+      ...mapWritableState(useStore, ['isLogin'])
     },
     methods: {
       handleLogin() {
@@ -124,22 +92,17 @@
         else {
           this.$refs.loginForm.validate(valid => {
             if (valid) {
-              this.loading = true;
+              this.loading = true
               let temp = new FormData()
-              temp.append('username', this.user.username)
-              temp.append('password', this.user.password)
-              let url = "/umc/login"
-              if (this.envK === 'mgr') {
-                url = '/mgr/login'
-                temp.append('tenantCode', this.user.tenantCode)
-              }
-              this.$fetch.post(url, temp, null, [], {
+              temp.append('username', this.loginForm.username)
+              temp.append('password', this.loginForm.password)
+              this.$fetch.post("/node-serve/login", temp, null, [], {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
               })
-                .then(res => {
-                  if (res && res.code === 0) {
+                .then(r => {
+                  if (r && r.code === 0) {
                     this.isLogin = true
 
                     this.$nextTick(function () {
@@ -148,19 +111,19 @@
                     this.$router.push('index')
                   }
                   else {
-                    this.$swal(res.message);
-                    this.loading = false;
+                    this.$swal(r.message)
+                    this.loading = false
                   }
-                });
+                })
             }
             else {
-              return false;
+              return false
             }
           })
         }
       }
     }
-  };
+  }
 </script>
 <style scoped>
   .loginEnv {

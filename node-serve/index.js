@@ -127,6 +127,25 @@ server.on('request', function (req, res) {
           message: '登录超时'
         })
         break
+      case '/login':
+        _send({
+          code: 0,
+          message: '登录成功'
+        })
+        break
+      case '/logout':
+        _send({
+          code: 0,
+          message: '退出登录成功'
+        })
+        break
+      case '/upload':
+        //todo 在这里写上返回文件信息的逻辑
+        _send({
+          code: 0,
+          message: '上传成功'
+        })
+        break
       case '/':
       default:
         let action = pathname.substr(1)

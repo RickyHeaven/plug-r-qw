@@ -8,20 +8,9 @@ import {useStore} from '../store'
 
 window._ = _
 
-export default function init () {
-  let user = localStorage.getItem('userC')
+export default function init() {
   let store = useStore()
-  if (user) {
-    store.user = JSON.parse(user)
-  }
-  let isLogin
-  if (store.envR === 'mgr') {
-    isLogin = Cookies.get("isFirst") && JSON.parse(Cookies.get("isFirst"))
-  }
-  else {
-    isLogin = Cookies.get("isLoginR") && JSON.parse(Cookies.get("isLoginR"))
-  }
-  store.isLogin = Boolean(isLogin)
+  store.isLogin = Boolean(Cookies.get("isLoginR") && JSON.parse(Cookies.get("isLoginR")))
 }
 
 Vue.component('toHome', toHome)
