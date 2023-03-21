@@ -21,6 +21,7 @@
               :url="leftTableUrl"
               :search-data="leftTableSearchData"
               @on-selection-change="lSelectionChange"
+              @on-data-change="dataChangeL"
               :init-data="Boolean(isEmpty(constSearchDataLeft)&&leftTableUrl)"
               get-data-loading
               selection
@@ -30,17 +31,17 @@
     </div>
 
     <div class="middleBoxLLL">
-      <Button class="middleBtLLL" size="large" type="default" @click="removeAll">{{t('r.removeAll')}}
-        <Icon type="ios-arrow-forward"/>
+      <Button class="middleBtLLL" size="large" type="default" @click="removeAll" :disabled="delAllDis">{{t('r.removeAll')}}
+        <Icon type="ios-arrow-forward" />
       </Button>
       <Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis">{{t('r.remove')}}
-        <Icon type="ios-arrow-forward"/>
+        <Icon type="ios-arrow-forward" />
       </Button>
       <Button class="middleBtLLL" size="large" type="primary" @click="add" :disabled="addDis">
-        <Icon type="ios-arrow-back"/>
+        <Icon type="ios-arrow-back" />
         {{t('r.add')}}</Button>
-      <Button class="middleBtLLL" size="large" type="primary" @click="addAll">
-        <Icon type="ios-arrow-back"/>
+      <Button class="middleBtLLL" size="large" type="primary" @click="addAll" :disabled="addAllDis">
+        <Icon type="ios-arrow-back" />
         {{t('r.addAll')}}</Button>
     </div>
 
@@ -63,6 +64,7 @@
               :url="rightTableUrl"
               :search-data="rightTableSearchData"
               @on-selection-change="rSelectionChange"
+              @on-data-change="dataChangeR"
               :init-data="Boolean(isEmpty(constSearchDataRight)&&rightTableUrl)"
               get-data-loading
               selection
@@ -206,7 +208,9 @@
         searchDataLeft: {},
         searchDataRight: {},
         lSelection: [],
-        rSelection: []
+        rSelection: [],
+        leftTotal: 0,
+        rightTotal: 0
       }
     },
     computed: {
@@ -216,11 +220,17 @@
       rightTableSearchData() {
         return {...this.constSearchDataRight, ...this.searchDataRight}
       },
+      delAllDis() {
+        return this.leftTotal < 1
+      },
       deleteDis() {
         return this.lSelection.length < 1
       },
       addDis() {
         return this.rSelection.length < 1
+      },
+      addAllDis() {
+        return this.rightTotal < 1
       }
     },
     methods: {
@@ -246,6 +256,12 @@
       },
       rSelectionChange(s) {/*私有*/
         this.rSelection = s
+      },
+      dataChangeL(d, a) {/*私有*/
+        this.leftTotal = d && d.total || 0
+      },
+      dataChangeR(d, a) {/*私有*/
+        this.rightTotal = d && d.total || 0
       },
       searchLeft(d) {/*私有*/
         this.searchDataLeft = d

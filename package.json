@@ -13,7 +13,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib --name plugRQw --dest lib src/index.js && gulp",
-    "node-serve": "node node-serve/index.js"
+    "node-serve": "node node-serve/index.js",
+    "node-serve-dev": "nodemon node-serve/index.js"
   },
   "repository": {
     "type": "git",
