@@ -213,13 +213,20 @@
             type: 'upload', /*上传组件*/
             label: '头像',
             key: 'logo',
+            url: '/node-serve/file',
             format: [
               'jpg', 'png'
             ],
-            manualUpload: true,
-            maxSize: 100,
+            maxSize: 500,
             showImg: true,
             length: 1
+          }, {
+            type: 'upload', /*上传组件*/
+            label: '附件（本地上传）',
+            key: 'attachment',
+            manualUpload: true,
+            maxSize: 2000,
+            length: 5
           }, {
             type: 'select',
             label: '最高学历',
