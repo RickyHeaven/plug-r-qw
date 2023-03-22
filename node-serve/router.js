@@ -8,7 +8,7 @@ const express = require('express')
 const formRData = require('./data/formR')
 const {_save, _delete, _get, _edit} = require('./database')
 
-let router = express.Router()
+const router = express.Router()
 
 router.get('/people', function (req, res) {
   const q = req.query
@@ -104,19 +104,19 @@ router.get('/transfer-box-not-added', function (req, res) {
   pageSelect('bt-table-page', req, res)
 })
 
-router.post('/transfer-box-added', function (req, res) {
+router.post('/transfer-box-added', express.json(), function (req, res) {
   transferApi(req.body, 'transfer-box-added', 'bt-table-page', res)
 })
 
-router.delete('/transfer-box-not-added', function (req, res) {
+router.delete('/transfer-box-not-added', express.json(), function (req, res) {
   transferApi(req.body, 'bt-table-page', 'transfer-box-added', res)
 })
 
-router.post('/transfer-box-added-all', function (req, res) {
+router.post('/transfer-box-added-all', express.json(), function (req, res) {
   transferMove('bt-table-page', 'transfer-box-added', req.body, res)
 })
 
-router.delete('/transfer-box-not-added-all', function (req, res) {
+router.delete('/transfer-box-not-added-all', express.json(), function (req, res) {
   transferMove('transfer-box-added', 'bt-table-page', req.body, res)
 })
 
@@ -200,14 +200,12 @@ function tableManage(req, res) {
   }
 }
 
-router.get('*', tableManage)
+router.get('*', express.json(), tableManage)
 
-router.post('*', tableManage)
+router.post('*', express.json(), tableManage)
 
-router.put('*', tableManage)
+router.put('*', express.json(), tableManage)
 
-router.delete('*', tableManage)
-
-//todo upload
+router.delete('*', express.json(), tableManage)
 
 module.exports = router

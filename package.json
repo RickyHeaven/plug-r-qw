@@ -65,11 +65,14 @@
     "gulp-rename": "^2.0.0",
     "less": "^4.0.0",
     "less-loader": "^8.0.0",
+    "multer": "^1.4.5-lts.1",
+    "pinia": "^2.0.33",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
     "typescript": "~4.5.5",
     "vue-markdown-loader": "^2.4.1",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "vuex-class": "^0.3.2"
   },
   "dependencies": {
     "@jiaminghi/data-view": "^2.10.0",
@@ -84,7 +87,6 @@
     "js-cookie": "2.1.4",
     "lodash": "^4.17.21",
     "moment": "^2.22.2",
-    "pinia": "^2.0.33",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.14",
     "vue-amap": "^0.5.10",
@@ -93,7 +95,6 @@
     "vue-json-viewer": "^2.2.16",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1",
-    "vuex-class": "^0.3.2",
     "wangeditor": "^4.6.10",
     "xss": "^1.0.8"
   },
