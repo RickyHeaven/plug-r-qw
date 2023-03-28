@@ -4,7 +4,10 @@
       :class="itemClass(item)"
   >
     <!--纯文本,也可以不传label和val,单纯用来布局占位-->
-    <span v-if="item.type === 'txt'" :class="{likeInputX:item.likeInput}">{{item.valKey?valGroup[item.valKey]||'无':item.val}}</span>
+    <div
+        v-if="item.type === 'txt'"
+        :style="itemStyle" style="display: inline-block" :class="{likeInputX:item.likeInput}"
+    >{{item.valKey?valGroup[item.valKey]||'无':item.val}}</div>
     <!--数字输入框-->
     <InputNumber
         :style="itemStyle"

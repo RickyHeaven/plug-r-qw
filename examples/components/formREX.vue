@@ -436,7 +436,8 @@
           }, {
             type: 'txt',
             label: '原语代码',
-            valKey: 'protocolAtomicActionCode'
+            valKey: 'protocolAtomicActionCode',
+            likeInput: true
           }, {
             type: 'select',
             label: '待选项名字拼接示例',
