@@ -113,7 +113,7 @@ export declare interface FormItem {
 
   options?: Option[]
 
-  optionFilter?: (d: object[]) => boolean
+  optionFilter?:<T> (d: T) => T
 
   optionLabel?: string | string[]
 
