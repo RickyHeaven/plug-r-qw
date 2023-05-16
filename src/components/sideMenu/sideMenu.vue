@@ -1,7 +1,7 @@
 <template>
   <div ref="menuRefRJ" class="menuBoxRP">
     <div class="menuListR" v-show="menuDisplay">
-      <side-menu-group :data="data" :pathName="pathName"/>
+      <side-menu-group :data="data" :pathName="pathName" />
     </div>
     <Icon
         :type="typeIco"
@@ -71,6 +71,7 @@
       showHideMenu() {
         this.menuDisplay = !this.menuDisplay
         localStorage.setItem('menuDisplayR', JSON.stringify(this.menuDisplay))
+        this.$emit('on-change', this.menuDisplay)
       },
       addOpen() {
         let t = this.$refs.menuRefRJ.querySelectorAll('.dropItemRP')
