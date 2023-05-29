@@ -157,7 +157,6 @@
           detailAddress: '光电园(地铁站)'
         }, true)
       }, 5000)
-
     },
     methods: {
       submit(data) {

@@ -293,6 +293,7 @@
           for (let f of this.watchGroup) {
             f()
           }
+          this.watchGroup = []
           this.tempKeys = {}
           this.initValGroup()
           this.initFormDataT()
