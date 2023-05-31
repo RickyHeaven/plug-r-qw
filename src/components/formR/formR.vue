@@ -35,16 +35,20 @@
     </item-r>
     <!--长提交按钮-->
     <FormItem v-if="showLongOkBt">
-      <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{longOkBtTxt||t('r.confirm')}}</Button>
+      <Button @click="submit" :style="itemStyle" type="primary" :loading="btnLoading&&showLoading" :disabled="disabled">{{
+          longOkBtTxt || t('r.confirm')
+        }}</Button>
     </FormItem>
     <div class="inlineBlock">
       <!--短提交按钮（查询）-->
       <Button
           v-if="showInlineOkBt" type="primary" :class="{inlineFormBtXN:inline,okBtnXN:true}" @click="submit"
           :loading="btnLoading&&showLoading" :disabled="disabled"
-      >{{inlineOkBtTxt||t('r.confirm')}}</Button>
+      >{{ inlineOkBtTxt || t('r.confirm') }}</Button>
       <!--取消按钮（清除）-->
-      <Button v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed">{{inlineClearBtTxt||t('r.clear')}}</Button>
+      <Button
+          v-if="showInlineClearBt" @click="resetForm" :class="{inlineFormBtXN:inline}" type="dashed"
+      >{{ inlineClearBtTxt || t('r.clear') }}</Button>
     </div>
   </Form>
 </template>
@@ -918,7 +922,9 @@
                 }))
               }
             }
-          })
+          }).catch(e => {
+          console.warn('拉取选项出错')
+        })
       },
       /**
        * 如果options中选项的值和缓存的表单项旧值相等,则为表单项恢复之前因待选项改变而清除的值（私有）
@@ -1401,7 +1407,12 @@
        * @param d 同updateFormDataT的 d
        */
       changeDataHandle(d) {
-        const {index, indexB, key, val} = d
+        const {
+          index,
+          indexB,
+          key,
+          val
+        } = d
         if (this.formTeam) {
           if ((index || index === 0) && (indexB || indexB === 0)) {
             if (key && (val || val !== undefined)) {
@@ -1431,7 +1442,10 @@
           }
         }
       },
-      asyncLabelChange({label, root}) { /*更新远程数据级联名称（私有）*/
+      asyncLabelChange({
+        label,
+        root
+      }) { /*更新远程数据级联名称（私有）*/
         if (root.key2) {
           this.$set(this.valGroup, root.key2, label)
         }
@@ -1454,7 +1468,10 @@
           })
         }
       },
-      alNameChange({name, root}) { /*更新行政区域名称（私有）*/
+      alNameChange({
+        name,
+        root
+      }) { /*更新行政区域名称（私有）*/
         if (root.key2) {
           this.valGroup[root.key2] = name
         }
@@ -1468,7 +1485,10 @@
        * @param e 事件的$event对象，一般是组件change事件的值
        * @param root 表单项结构数据
        */
-      reValidateAndChangeHandle({e, root}) {
+      reValidateAndChangeHandle({
+        e,
+        root
+      }) {
         this.itemChange({
           e: e,
           root
@@ -1482,7 +1502,10 @@
        * @param e 事件的$event对象，一般是组件change事件的值
        * @param root 表单项结构数据
        */
-      itemChange({e, root}) {
+      itemChange({
+        e,
+        root
+      }) {
         setTimeout(() => {
           let d = {
             event: e
