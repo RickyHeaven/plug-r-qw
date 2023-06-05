@@ -4,6 +4,14 @@
 
 /*覆写view-design样式*/
 body {
+  .ivu-input[disabled],
+  fieldset[disabled] .ivu-input,
+  .ivu-input-number-input[disabled],
+  .ivu-select-disabled .ivu-select-selection,
+  .ivu-checkbox-disabled + span {
+    color: @disabledColor;
+  }
+
   button.ivu-btn {
     padding-top: 0;
     padding-bottom: 0;
@@ -20,7 +28,7 @@ body {
       width: 100% !important;
       margin-bottom: 0;
 
-      .ivu-tabs-nav-container .ivu-tabs-nav .ivu-tabs-tab{
+      .ivu-tabs-nav-container .ivu-tabs-nav .ivu-tabs-tab {
         padding: 11px 16px;
       }
     }
@@ -54,6 +62,12 @@ body {
     padding-left: 7px;
     height: 32px;
     border-radius: 4px;
+
+    &.disabled {
+      background-color: #f3f3f3;
+      color: @disabledColor;
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -160,6 +174,7 @@ img {
 /*$swal弹框*/
 .swalBoxX {
   will-change: unset !important; /*避免弹框在chrome变模糊*/
+
   .swal-footer {
     text-align: center;
 
@@ -220,6 +235,7 @@ img {
       padding: 5px 16px;
       overflow: auto;
       height: calc(~"100% - 80px");
+
       .msgBoxConO {
         margin-top: 6px;
         font-size: 14px;
@@ -246,10 +262,12 @@ img {
           background-color: #fff;
           border-color: @primary;
         }
+
         .ivu-load-loop.ivu-icon-ios-loading {
           display: none;
           margin-right: 6px;
         }
+
         &.ivu-btn-loading {
           .ivu-load-loop.ivu-icon-ios-loading {
             display: inline-block;
@@ -321,6 +339,7 @@ img {
 
   .previewInner {
     position: relative;
+
     > img {
       max-width: 95vw;
       max-height: 95vh;
@@ -334,6 +353,7 @@ img {
       color: #fff;
       font-size: @closeTimesW;
       background-color: @closeTimesBg;
+
       &:hover {
         color: @warningColor;
       }

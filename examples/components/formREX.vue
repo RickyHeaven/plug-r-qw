@@ -26,7 +26,8 @@
     <div class="eBoxA baseUA">
       <wellCard title="禁用表单">
         <template #bts>
-          <headerBt :icon="disabled4?'md-unlock':'md-lock'" @click="disabled4=!disabled4">{{disabled4?'解禁':'禁用'}}
+          <headerBt :icon="disabled4?'md-unlock':'md-lock'" @click="disabled4=!disabled4">
+            {{ disabled4 ? '解禁' : '禁用' }}
           </headerBt>
         </template>
         <div class="inPage">
@@ -50,7 +51,8 @@
       <wellCard title="详细示例">
         <div class="inPage">
           <formR
-              ref="formRef" :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true" @on-submit="submitB"
+              ref="formRef" :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true"
+              @on-submit="submitB"
           >
             <template #switchLJ="{valGroup}">
               <i-switch v-model="valGroup.switchStatus" />

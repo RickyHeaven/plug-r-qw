@@ -6,7 +6,7 @@
     <!--纯文本,也可以不传label和val,单纯用来布局占位-->
     <div
         v-if="item.type === 'txt'"
-        :style="itemStyle" style="display: inline-block" :class="{likeInputX:item.likeInput}"
+        :style="itemStyle" style="display: inline-block" :class="{likeInputX:item.likeInput,disabled:Boolean(item.disabled) || disabled}"
     >{{item.valKey?valGroup[item.valKey]||'无':item.val}}</div>
     <!--数字输入框-->
     <InputNumber
