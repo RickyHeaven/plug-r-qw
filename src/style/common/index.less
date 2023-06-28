@@ -5,11 +5,17 @@
 /*覆写view-design样式*/
 body {
   .ivu-input[disabled],
+  .ivu-select-input[disabled],
   fieldset[disabled] .ivu-input,
   .ivu-input-number-input[disabled],
   .ivu-select-disabled .ivu-select-selection,
   .ivu-checkbox-disabled + span {
     color: @disabledColor;
+    -webkit-text-fill-color: @disabledColor;
+  }
+
+  .ivu-input-number-disabled .ivu-input-number-input {
+    opacity: 1;
   }
 
   button.ivu-btn {

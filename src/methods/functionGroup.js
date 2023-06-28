@@ -405,7 +405,7 @@ export function oneOf(value, validList) {
  * @return {number|*}
  */
 export function decimalDigitsLimit(val, num = 2) {
-  let expStr = new RegExp("(^-?\d+.\d{" + num + "})(\d+$)")
+  let expStr = new RegExp(`(^-?\\d+\\.\\d{${num}})(\\d+$)`)
   let valStr = val && String(val) || ''
   if (expStr.test(valStr)) {
     return Number(valStr
