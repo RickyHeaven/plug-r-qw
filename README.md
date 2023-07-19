@@ -6,6 +6,13 @@
 
 * 安装该库后，可以用简单的几行代码实现较复杂的业务需求；对经验丰富的开发者来说，大大提高开发速度、代码质量、可读性、和可维护性；对萌新来说，将入门门槛进一步降低，让你更快上手。
 
+## vue3: @zhangqingcq/plug-r-qw@2.X.X, vue2: @zhangqingcq/plug-r-qw@1.x.x
+
+### vue3 version README file is coming soon
+* [@zhangqingcq/plug-r-qw@2.x.x](https://github.com/RickyHeaven/plug-r-qw-core.git) git repository
+
+## vue2 version README file is here:
+
 * [组件](https://github.com/RickyHeaven/plug-r-qw/tree/master/src/components)和[方法](https://github.com/RickyHeaven/plug-r-qw/tree/master/src/methods)都有各自详细的markdown格式说明文档，可直接在[GitHub](https://github.com/RickyHeaven/plug-r-qw.git)查看，也可将项目拉到本地直接查看，或者将示例项目运行起来在示例页面查看。
 
 ### 推荐环境
@@ -26,7 +33,7 @@
      
      Vue.use(plugRQw,{store,router})
     ```
-    国际化版本：
+   国际化版本：
     ```
      import Vue from 'vue'
      import store from './store'
@@ -61,9 +68,9 @@
      new Vue({ i18n,store }).$mount('#app')
     ```
 
-    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
-`JS + Vue`的项目大同小异，除了下面列出的不同，其他都相同。
-    >> 国际化版本，需要在`shims-vue.d.ts`文件中声明国际化文件(plug-r-qw和view-design都要)，如：
+   > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
+   `JS + Vue`的项目大同小异，除了下面列出的不同，其他都相同。
+   >> 国际化版本，需要在`shims-vue.d.ts`文件中声明国际化文件(plug-r-qw和view-design都要)，如：
       ```
         declare module '@zhangqingcq/plug-r-qw/lib/lang/en-US'
         declare module '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
@@ -71,20 +78,20 @@
         declare module '@zhangqingcq/view-design-r/dist/locale/en-US'
         declare module '@zhangqingcq/view-design-r/dist/locale/zh-CN'
       ```
-    >> 国际化版本在main.js安装plug-r-qw时国际化配置方法要定义参数类型，如：
+   >> 国际化版本在main.js安装plug-r-qw时国际化配置方法要定义参数类型，如：
       ```
         Vue.use(plugRQw,{
           ...,
           i18n(path:string,options:object){...}
         })
       ```
-    >> 如果用了echarts等第三方库功能，也需要在`shims-vue.d.ts`文件中声明相关模块，如：
+   >> 如果用了echarts等第三方库功能，也需要在`shims-vue.d.ts`文件中声明相关模块，如：
       ```
         declare module 'lodash'
         declare module 'js-cookie'
         declare module 'echarts'
       ```
-    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`Pinia`（Vuex的升级版），就是用`Pinia`的`useStore`替换之前`Vuex` 的`store`，用法如下：
+   > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`Pinia`（Vuex的升级版），就是用`Pinia`的`useStore`替换之前`Vuex` 的`store`，用法如下：
     ```
       import {useStore} from './stores/main'
       
@@ -92,7 +99,7 @@
     ```
 
 3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
-也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'` 
+   也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'`
 
 4. 没有挂在在Vue实例下的方法（使用频率较低），在需要的地方单独引用即可
 
@@ -181,3 +188,4 @@ module.exports = defineConfig({
 * has 通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`的内联样式，以此来实现元素的权限控制。
 
 * loadmore 在容器滚动到底部时调用传入指令的值（回调函数），可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
+
