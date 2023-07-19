@@ -55,7 +55,7 @@
 
 <script>
   //自定义主题、特殊场景、二次渲染或者反复设置动态值时才建议引入echarts，通常的图表数据不需要再手动引入依赖
-  import echarts from "echarts"
+  import * as echarts from "echarts"
 
   export default {
     name: "echartBarEX",
