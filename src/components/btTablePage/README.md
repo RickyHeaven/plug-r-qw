@@ -49,6 +49,12 @@
 
 * showTopRow: 布尔对象，展示顶行（列表设置、批量操作按钮、导出等按钮、统计信:息等）,各项子内容通过slot接入，默认：`false`
 
+* lightHead: 布尔对象，浅色背景表头，避免和headerBar菜单紧邻时页面局部颜色不平衡，默认：`false`
+
+* pageComponentSize: 字符串，page的大小，默认：`default`
+
+* noElevator: 布尔对象，page不带电梯，默认：`false`
+
 ### 事件：
 注意：view-design 的 Table 组件的所有事件都可监听
 

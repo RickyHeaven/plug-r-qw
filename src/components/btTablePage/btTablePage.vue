@@ -41,6 +41,7 @@
           :page-size="pageSizeT"
           show-sizer
           show-total
+          :showElevator="!noElevator"
           :size="pageComponentSize"
           @on-change="changePage"
           @on-page-size-change="pageSizeChange"
@@ -191,6 +192,10 @@
       pageComponentSize: {
         type: String,
         default: 'default'
+      },
+      noElevator: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
