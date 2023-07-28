@@ -48,7 +48,7 @@ export default function messageBox({height, width = 416, title, content, onOk, o
           }, [
             h('span', title || T('r.info.title')),
             h('Button', {
-              class: 'fr closeN',
+              class: 'fr closeN ivu-btn ivu-btn-text',
               props: {
                 type: 'text'
               },
@@ -88,7 +88,7 @@ export default function messageBox({height, width = 416, title, content, onOk, o
             }
           }, [
             h('Button', {
-              class: 'okBtN',
+              class: 'okBtN ivu-btn ivu-btn-default',
               on: {
                 click() {
                   Modal.remove()
@@ -105,7 +105,7 @@ export default function messageBox({height, width = 416, title, content, onOk, o
             ]),
             h('Button', {
               class: [
-                'cancelBtN',
+                'cancelBtN ivu-btn ivu-btn-default',
                 cancelBt === false && 'hide'
               ],
               on: {

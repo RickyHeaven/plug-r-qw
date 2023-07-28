@@ -6,7 +6,7 @@
 
 import Vue from "vue"
 
-export declare class IconTxtBtn extends Vue{
+export class IconTxtBtn extends Vue{
   name?:string
 
   icon:string

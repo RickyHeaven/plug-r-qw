@@ -6,7 +6,7 @@
 
 import Vue from "vue"
 
-export declare class AsyncCascader extends Vue {
+export class AsyncCascader extends Vue {
   valProp?: any[] | number | string
 
   url?: string

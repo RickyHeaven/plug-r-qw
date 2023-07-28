@@ -28,7 +28,8 @@ module.exports = defineConfig({
     loaderOptions: {
       less: {
         lessOptions: {
-          javascriptEnabled: true
+          javascriptEnabled: true,
+          rewriteUrls: 'all'
         }
       }
     }
@@ -61,9 +62,9 @@ module.exports = defineConfig({
           },
           '@zhangqingcq/view-design-r': {
             root: 'ViewUI',
-            commonjs: 'view-design',
-            commonjs2: 'view-design',
-            amd: 'view-design'
+            commonjs: '@zhangqingcq/view-design-r',
+            commonjs2: '@zhangqingcq/view-design-r',
+            amd: '@zhangqingcq/view-design-r'
           },
           'ar-cascader': {
             root: 'ar-cascader',

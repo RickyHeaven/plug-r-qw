@@ -6,9 +6,11 @@
 
 * 安装该库后，可以用简单的几行代码实现较复杂的业务需求；对经验丰富的开发者来说，大大提高开发速度、代码质量、可读性、和可维护性；对萌新来说，将入门门槛进一步降低，让你更快上手。
 
-## vue3: @zhangqingcq/plug-r-qw@2.X.X, vue2: @zhangqingcq/plug-r-qw@1.x.x
+## vue3: @zhangqingcq/plug-r-qw@2.x.x
+## vue2: @zhangqingcq/plug-r-qw@1.x.x
 
 ### vue3 version README file is coming soon
+#### vue3版本目前还在努力开发中，现在已经完成了所有公共方法的开发，还有部分UI组件的开发，已完成的部分可以正常使用了，具体哪些组件可以使用可以查看vue3版本代码仓库
 * [@zhangqingcq/plug-r-qw@2.x.x](https://github.com/RickyHeaven/plug-r-qw-core.git) git repository
 
 ## vue2 version README file is here:
@@ -21,10 +23,12 @@
 * npm `6.14.17`
 
 ### 用法
-1. npm i @zhangqingcq/plug-r-qw
+1. `npm i @zhangqingcq/plug-r-qw` or `pnpm add @zhangqingcq/plug-r-qw`
 
 2. 在main.js中添加：
     ```
+     // main.js or main.ts
+   
      import Vue from 'vue'
      import store from './store'
      import router from './router'
@@ -35,6 +39,8 @@
     ```
    国际化版本：
     ```
+     // main.js or main.ts
+   
      import Vue from 'vue'
      import store from './store'
      import router from './router'
@@ -68,49 +74,131 @@
      new Vue({ i18n,store }).$mount('#app')
     ```
 
-   > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
+   >该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
    `JS + Vue`的项目大同小异，除了下面列出的不同，其他都相同。
-   >> 国际化版本，需要在`shims-vue.d.ts`文件中声明国际化文件(plug-r-qw和view-design都要)，如：
-      ```
-        declare module '@zhangqingcq/plug-r-qw/lib/lang/en-US'
-        declare module '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
-      
-        declare module '@zhangqingcq/view-design-r/dist/locale/en-US'
-        declare module '@zhangqingcq/view-design-r/dist/locale/zh-CN'
-      ```
-   >> 国际化版本在main.js安装plug-r-qw时国际化配置方法要定义参数类型，如：
-      ```
-        Vue.use(plugRQw,{
-          ...,
-          i18n(path:string,options:object){...}
-        })
-      ```
-   >> 如果用了echarts等第三方库功能，也需要在`shims-vue.d.ts`文件中声明相关模块，如：
-      ```
-        declare module 'lodash'
-        declare module 'js-cookie'
-        declare module 'echarts'
-      ```
+   >
+   >为了更好的支持Typescript类型检查，我们需要在Vue接口[模块补充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
+   >该库的全局方法，这样可以避免使用`this.xxx`或`proxy.xxx`(proxy为vue@2.7.14的`getCurrentInstance().proxy`)时提示`xxx不存在于this或proxy`，
+   >而且能在使用这些方法时获得IDE提示或能方便的查看对应方法的声明代码，模块补充方法如下：
+   > ```
+   > // types/xxx.d.ts
+   > 
+   > // 1. 确保在声明补充的类型之前导入 'vue'
+   > import Vue from 'vue'
+   > import type {ProtoFunc} from '@zhangqingcq/plug-r-qw/types'
+   >
+   > declare module 'vue/types/vue'{
+   >   interface Vue extends ProtoFunc{}
+   > }
+   > 
+   > // 并将该文件包含在你的项目，如在tsconfig.json的include中添加该文件
+   > 
+   > // tsconfig.json
+   > {
+   >   "include":["types/xxx.d.ts"]
+   > }
+   > ```
+   >国际化版本，需要在`shims-vue.d.ts`文件(或任何被包含在tsconfig.json的include中的[非模块](https://www.typescriptlang.org/docs/handbook/modules.html)
+   > xxx.d.ts文件)中声明国际化文件(plug-r-qw和view-design都要)，如：
+   >```
+   > // shims-vue.d.ts or xxx.d.ts include in tsconfig.json
+   >
+   > declare module '@zhangqingcq/plug-r-qw/lib/lang/en-US'
+   > declare module '@zhangqingcq/plug-r-qw/lib/lang/zh-CN'
+   >
+   > declare module '@zhangqingcq/view-design-r/dist/locale/en-US'
+   > declare module '@zhangqingcq/view-design-r/dist/locale/zh-CN'
+   >```
+   >国际化版本在main.js安装plug-r-qw时国际化配置方法要定义参数类型，如：
+   >```
+   > // main.ts
+   >
+   > Vue.use(plugRQw,{
+   >   ...,
+   >   i18n(path:string,options:Record<string,any>){...}
+   > })
+   >```
+   > 如果用了lodash等自身没有声明文件的第三方库，也需要在`shims-vue.d.ts`文件中声明相关模块(如果安装对应第三方声明依赖
+   > 如`@types/lodash`，则不用)，如：
+   >```
+   > // shims-vue.d.ts or xxx.d.ts include in tsconfig.json
+   >
+   > declare module 'lodash'
+   > declare module 'js-cookie'
+   > ```
    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`Pinia`（Vuex的升级版），就是用`Pinia`的`useStore`替换之前`Vuex` 的`store`，用法如下：
-    ```
-      import {useStore} from './stores/main'
-      
-      Vue.use(plugRQw,{useStore,xxx})
-    ```
+   >```
+   > // main.ts
+   >
+   > import {useStore} from './stores/main'
+   >
+   > Vue.use(plugRQw,{useStore,...})
+   >```
 
-3. 挂载在Vue实例下的方法，在vue单文件里用`this.XXX`调用（template里不用加this），在其他js文件里，引入vue后使用`Vue.prototype.XXX`调用，
-   也可以单独引用：`import {XXX} from '@zhangqingcq/plug-r-qw'`
+3. 挂载在Vue实例下的方法的使用：
+   ```
+   // vue2 SFC script
 
-4. 没有挂在在Vue实例下的方法（使用频率较低），在需要的地方单独引用即可
+   this.xxx()
+   ```
+   ```
+   // vue2 SFC template
+   
+   xxx()
+   ```
+   ```
+   // vue2.7.14 SFC setup
+   // or in *.js or *.ts file
+   
+   import plugRQw from '@zhangqingcq/plug-r-qw'
+   
+   plugRQw.xxx()
+   ```
+   ```
+   // vue2.7.14 SFC setup
+   // or in *.js or *.ts file
+
+   
+   import {xxx} from '@zhangqingcq/plug-r-qw'
+   
+   xxx()
+   ```
+   ```
+   // vue2.7.14 SFC setup
+   
+   import {getCurrentInstance} from 'vue'
+   
+   const proxy = getCurrentInstance()!.proxy
+   
+   proxy.xxx()
+   ```
+
+4. 没有挂在在Vue实例下的方法（使用频率较低）:
+   ```
+   // *.js or *.ts
+   
+   import plugRQw from '@zhangqingcq/plug-r-qw'
+   
+   plugRQw.xxx()
+   ```
+   ```
+   // *.js or *.ts
+   
+   import {xxx} from '@zhangqingcq/plug-r-qw'
+   
+   xxx()
+   ```
 
 5. 所有UI组件均被库注册为了全局组件，所以在需要的地方直接使用即可，如：
-```
-<iconTxtBtn icon="ios-trash" name="批量删除"/>
-```
+   ```
+    <iconTxtBtn icon="ios-trash" name="批量删除"/>
+   ```
 ### 注意
 * 要看例子，需要下载[github上项目](https://github.com/RickyHeaven/plug-r-qw.git)，然后`npm i`安装依赖，然后`npm run serve`把项目跑起来，就可以在`/index`查看各个组件或方法的示例了。
 
-* 安装依赖推荐使用*npm*加*淘宝镜像*的组合（*cnpm*在安装一些有自己脚本的依赖时很大机率会报错；*淘宝镜像*更新速度较慢，有时要隔一天才会拉到新的资源，所以在使用*淘宝镜像*有问题时，可以切回*官方镜像*继续安装），实在是无法安装成功，可清空npm缓存后使用*npm*加*官方镜像*进行安装，如果还是无法成功，那很有可能是你的网络或环境有问题（如node不是稳定版，可降低node版本再尝试；依赖不需要一个一个装，不管哪种工具都直接全部安装）
+* 推荐使用[pnpm](https://pnpm.io/zh/motivation)作为你项目的包管理器，但请注意，和使用npm不同，库使用了的依赖如`lodash`，你项目在安装库后，想直接使用那些依赖提示“没有该模块”时，需要在你的项目安装该依赖（不能像使用npm时那样偷懒）。
+
+* 如果你的网络环境较差，安装依赖推荐使用*npm*加*淘宝镜像*的组合（*cnpm*在安装一些有自己脚本的依赖时很大机率会报错；*淘宝镜像*更新速度较慢，有时要隔一天才会拉到新的资源，所以在使用*淘宝镜像*有问题时，可以切回*官方镜像*继续安装），实在是无法安装成功，可清空npm缓存后使用*npm*加*官方镜像*进行安装，如果还是无法成功，那很有可能是你的网络或环境有问题（如node不是稳定版，可降低node版本再尝试；依赖不需要一个一个装，不管哪种工具都直接全部安装）
 
 * 部分示例有需要请求接口的组件，所以需要在项目目录下新开一个命令窗口运行：`npm run node-serve` 将该项目配置好的nodeJs服务器启动起来，那些需要请求nodeJs服务器的组件才有数据
 

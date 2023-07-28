@@ -6,7 +6,7 @@
 
 import Vue from "vue"
 
-export declare class AlCascaderMcD extends Vue {
+export class AlCascaderMcD extends Vue {
   value?: string | number | any[]
 
   level?: number | string

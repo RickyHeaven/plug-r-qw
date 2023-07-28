@@ -4,8 +4,6 @@
  * @author Ricky email:zhangqingcq@foxmail.com
  */
 
-import Vue from "vue"
-
 export {IconTxtBtn} from "./icon-txt-btn"
 
 export {AlCascaderMcD} from "./al-cascader-mc"

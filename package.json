@@ -2,13 +2,24 @@
   "name": "@zhangqingcq/plug-r-qw",
   "version": "1.4.3",
   "description": "A JS lib base on Vue and View-design, you can achieve some complex functions with simple code after install this lib.",
-  "main": "/lib/plugRQw.umd.min.js",
-  "typings": "types/index.d.ts",
   "files": [
     "lib",
     "src",
     "types"
   ],
+  "main": "/lib/plugRQw.umd.min.js",
+  "module": "./lib/plugRQw.umd.min.js",
+  "typings": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/plugRQw.umd.min.js",
+      "require": "./lib/plugRQw.common.js",
+      "types": "./types/index.d.ts"
+    },
+    "./lib/plugRQw.min.css": "./lib/plugRQw.min.css",
+    "./lib/**/*.js": "./lib/**/*.js",
+    "./*": "./*"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -72,7 +83,7 @@
     "sass-loader": "^12.0.0",
     "typescript": "~4.5.5",
     "vue-markdown-loader": "^2.4.1",
-    "vue-template-compiler": "2.6.14",
+    "vue-template-compiler": "^2.6.14",
     "vuex-class": "^0.3.2"
   },
   "dependencies": {
@@ -89,7 +100,7 @@
     "lodash": "^4.17.21",
     "moment": "2.29.4",
     "sweetalert": "^2.1.2",
-    "vue": "2.6.14",
+    "vue": "^2.6.14",
     "vue-amap": "^0.5.10",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.27.2",

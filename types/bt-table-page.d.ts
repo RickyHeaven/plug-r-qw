@@ -6,15 +6,15 @@
 
 import Vue from "vue"
 
-import {TableColumn} from '@zhangqingcq/view-design-r/types'
+import type {TableColumn} from '@zhangqingcq/view-design-r/types'
 
-export declare class TableColumnR extends TableColumn {
+export class TableColumnR extends TableColumn {
   showSettingCheck?: boolean
 
   disableShowSetting?: boolean
 }
 
-export declare class BtTablePage extends Vue {
+export class BtTablePage extends Vue {
   url?: string
 
   searchData?: object

@@ -6,7 +6,7 @@
 
 import Vue from "vue"
 
-export declare interface Option {
+export interface Option {
   label?: string
 
   val?: string | number
@@ -20,7 +20,7 @@ export declare interface Option {
 
 type showFunc = (valGroup: object) => boolean
 
-export declare interface FormItem {
+export interface FormItem {
   activeChange?: boolean
 
   addTime?: boolean
@@ -127,8 +127,6 @@ export declare interface FormItem {
 
   precision?: number
 
-  precision?: number
-
   prefix?: string
 
   prepend?: string
@@ -182,7 +180,7 @@ export declare interface FormItem {
   [x: string]: any
 }
 
-export declare class FormR extends Vue {
+export class FormR extends Vue {
   formData?: FormItem[] | FormItem[][]
 
   formRules?: object

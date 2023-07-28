@@ -3,11 +3,10 @@
  * created at 20203.03.03
  * @author Ricky email:zhangqingcq@foxmail.com
  */
-
-import plugRQw from "./plug-r-qw"
-
+export * from "./plug-r-qw.components"
+export * from './needImportFunc'
+export * from './protoFunc'
+export * from './plug-r-qw.methods'
+import {plugRQw} from "./plug-r-qw"
 export default plugRQw
 export as namespace plugRQw
-
-export * from './plug-r-qw.methods'
-export * from "./plug-r-qw.components"
