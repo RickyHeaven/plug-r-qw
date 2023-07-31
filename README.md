@@ -6,12 +6,11 @@
 
 * 安装该库后，可以用简单的几行代码实现较复杂的业务需求；对经验丰富的开发者来说，大大提高开发速度、代码质量、可读性、和可维护性；对萌新来说，将入门门槛进一步降低，让你更快上手。
 
-## vue3: @zhangqingcq/plug-r-qw@2.x.x
-## vue2: @zhangqingcq/plug-r-qw@1.x.x
+## vue3: [@zhangqingcq/plug-r-qw@2.x.x](https://github.com/RickyHeaven/plug-r-qw-core.git)
+## vue2: [@zhangqingcq/plug-r-qw@1.x.x](https://github.com/RickyHeaven/plug-r-qw.git)
 
 ### vue3 version README file is coming soon
-#### vue3版本目前还在努力开发中，现在已经完成了所有公共方法的开发，还有部分UI组件的开发，已完成的部分可以正常使用了，具体哪些组件可以使用可以查看vue3版本代码仓库
-* [@zhangqingcq/plug-r-qw@2.x.x](https://github.com/RickyHeaven/plug-r-qw-core.git) git repository
+##### vue3版本目前还在努力开发中，现在已经完成了所有公共方法的开发，还有部分UI组件的开发，已完成的部分可以正常使用了，具体哪些组件可以使用可以查看vue3版本代码仓库
 
 ## vue2 version README file is here:
 
@@ -211,7 +210,7 @@
 
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
-* 本库主要依赖有`vue、vue-router、vuex、@zhangqingcq/view-design-r、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex`需要在使用vue-cli脚手架搭建项目时安装（选上），如果你的项目是国际化版本,`vue-i18n`需要手动安装，其他依赖在项目安装该库后，可直接在项目中使用，无需再次将它们安装至你的项目，但其中`@zhangqingcq/view-design-r、vue-amap`需要在你的项目手动初始化，可以参考对应的官网(`@zhangqingcq/view-design-r`初始化方法和用法跟`view-design`一样)或npm网站页面或本项目examples目录里的初始化方法
+* 本库主要依赖有`vue、vue-router、pinia、@zhangqingcq/view-design-r、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex(如果用了)`需要在使用vue-cli脚手架搭建项目时安装（选上），如果你的项目是国际化版本,`vue-i18n`需要手动安装，其他依赖在项目安装该库后，可直接在项目中使用，无需再次将它们安装至你的项目，但其中`@zhangqingcq/view-design-r、vue-amap`需要在你的项目手动初始化，可以参考对应的官网(`@zhangqingcq/view-design-r`初始化方法和用法跟`view-design`一样)或npm网站页面或本项目examples目录里的初始化方法
 
 * 该库自`@zhangqingcq/plug-r-qw@1.3.0`版本开始，弃用`view-design`，改用本人改良的`@zhangqingcq/view-design-r`（这么做的原因是view-design@4x版本自2021年11月以后不再被作者维护，一些问题无望解决），`@zhangqingcq/view-design-r`基于`view-design@4.7.0`创建，主要改动是修复了使用中发现的一些view-design的bug和自己的一些定制化。`@zhangqingcq/view-design-r`初始化方法和原view-design一样，只需将原项目中`view-design`全部替换成`@zhangqingcq/view-design-r`，如：
 ```
