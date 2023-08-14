@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import {h} from 'vue'
   export default {
     name: "messageBoxEX",
     methods: {
@@ -22,7 +23,6 @@
       },
       confirmHandleB() {
         this.messageBox({
-          onOkPromise: true,
           onOk: () => {
             return new Promise(r => {
               console.log('确定按钮被点击')

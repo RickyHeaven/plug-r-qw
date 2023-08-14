@@ -1,7 +1,9 @@
 ## messageBox
+
 对话框，支持确认按钮回调，支持按钮配置，支持宽高定制，挂在vue原型上，组件内使用this调用
 
 ### 唯一参数，对象类型，支持属性如下
+
 * title 字符串，对话框的title，可不传
 
 * content 字符串/DOM node，提示框内容，可不传
@@ -25,25 +27,43 @@
 * cancelBt 布尔对象，是否展示取消按钮，可不传，为`false`时隐藏，默认值：`true`
 
 ### 注意
+
 * 如果想嵌套使用该方法，从第二层弹框开始都需放在定时器里执行，例如：
-```
-  this.messageBox({
-    content: '第一层',
-    onOk: () => {
-      this.setTimeout(() => {
-        this.messageBox({
-          content: '第二层',
-          onOk: () => {
-            this.setTimeout(() => {
-              this.messageBox({
-                content: '第三层'
-              })
-            }, 1000)
-          }
-        })
-      }, 1000)
-    }
-  })
   
-  ps:this.setTimeout也是该库内方法，可以自动销毁，使用方法和window.setTimeout一样
-```
+  ```
+    this.messageBox({
+      content: '第一层',
+      onOk: () => {
+        this.setTimeout(() => {
+          this.messageBox({
+            content: '第二层',
+            onOk: () => {
+              this.setTimeout(() => {
+                this.messageBox({
+                  content: '第三层'
+                })
+              }, 1000)
+            }
+          })
+        }, 1000)
+      }
+    })
+    
+    ps:this.setTimeout也是该库内方法，可以自动销毁，使用方法和window.setTimeout一样
+  ```
+
+- onOk高级用法：返回Promise,在Promise `resolve` 或 `reject` 之前，弹框所有按钮不可点击，弹框不可关闭，‘确定’按钮为loading状态，其他按钮为disabled状态;`resolve`或`reject`后，弹框自动关闭。
+  ```
+    messageBox({
+      content: 'content',
+      onOk() {
+        return new Promise((r) => {
+          console.log('ok 按钮被点击，模拟请求开始')
+          setTimeout(() => {
+            console.log('模拟请求完成')
+            r()
+          }, 3000)
+        })
+      }
+    })
+  ```
