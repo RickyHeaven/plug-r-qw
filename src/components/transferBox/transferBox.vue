@@ -6,7 +6,7 @@
     <div class="leftBoxLLL">
       <div class="fullHeight flexColumnBox">
         <div class="notGrow">
-          <div class="titleLLL">{{titleLeft||t('r.added')}}</div>
+          <div class="titleLLL">{{ titleLeft || t('r.added') }}</div>
           <show-hide-panel>
             <search-form
                 ref="leftFormRef" :form-data="formDataLeft" :form-rules="formRulesLeft" @on-search="searchLeft"
@@ -31,24 +31,26 @@
     </div>
 
     <div class="middleBoxLLL">
-      <Button class="middleBtLLL" size="large" type="default" @click="removeAll" :disabled="delAllDis">{{t('r.removeAll')}}
+      <Button class="middleBtLLL" size="large" type="default" @click="removeAll" :disabled="delAllDis">{{
+          t('r.removeAll')
+        }}
         <Icon type="ios-arrow-forward" />
       </Button>
-      <Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis">{{t('r.remove')}}
+      <Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis">{{ t('r.remove') }}
         <Icon type="ios-arrow-forward" />
       </Button>
       <Button class="middleBtLLL" size="large" type="primary" @click="add" :disabled="addDis">
         <Icon type="ios-arrow-back" />
-        {{t('r.add')}}</Button>
+        {{ t('r.add') }}</Button>
       <Button class="middleBtLLL" size="large" type="primary" @click="addAll" :disabled="addAllDis">
         <Icon type="ios-arrow-back" />
-        {{t('r.addAll')}}</Button>
+        {{ t('r.addAll') }}</Button>
     </div>
 
     <div class="rightBoxLLL">
       <div class="fullHeight flexColumnBox">
         <div class="notGrow">
-          <div class="titleLLL">{{titleRight||t('r.notAdded')}}</div>
+          <div class="titleLLL">{{ titleRight || t('r.notAdded') }}</div>
 
           <show-hide-panel>
             <search-form
@@ -258,10 +260,12 @@
         this.rSelection = s
       },
       dataChangeL(d, a) {/*私有*/
-        this.leftTotal = d && d.total || 0
+        this.leftTotal =
+            d && (d.data.page && d.data.page.total || d.data.data && d.data.data.total || d.data.total || d.total) || 0
       },
       dataChangeR(d, a) {/*私有*/
-        this.rightTotal = d && d.total || 0
+        this.rightTotal =
+            d && (d.data.page && d.data.page.total || d.data.data && d.data.data.total || d.data.total || d.total) || 0
       },
       searchLeft(d) {/*私有*/
         this.searchDataLeft = d
@@ -314,24 +318,24 @@
         }
         if (url) {
           this.$fetch[method](url, data, null, [], {spin: true}, false)
-            .then(r => {
-              if (r && r.code === 0) {
-                this.$swal(msg + this.t('r.success'), r && r.message || '', 'success')
-                if (this.$refs.lTabRef) {
-                  this.$refs.lTabRef.getTableData()
+              .then(r => {
+                if (r && r.code === 0) {
+                  this.$swal(msg + this.t('r.success'), r && r.message || '', 'success')
+                  if (this.$refs.lTabRef) {
+                    this.$refs.lTabRef.getTableData()
+                  }
+                  if (this.$refs.rTabRef) {
+                    this.$refs.rTabRef.getTableData()
+                  }
+                  this.$emit('transferred')
                 }
-                if (this.$refs.rTabRef) {
-                  this.$refs.rTabRef.getTableData()
+                else {
+                  this.$swal(msg + this.t('r.failed'), r && r.message || '', 'error')
                 }
-                this.$emit('transferred')
-              }
-              else {
-                this.$swal(msg + this.t('r.failed'), r && r.message || '', 'error')
-              }
-            })
-            .catch(() => {
-              this.$swal(msg + this.t('r.error'), '', 'error')
-            })
+              })
+              .catch(() => {
+                this.$swal(msg + this.t('r.error'), '', 'error')
+              })
         }
       }
     }
