@@ -246,6 +246,11 @@ const install = function (Vue, opts = {}) {
       }
     })
   }
+  
+  Vue.prototype.searchFormLabelWidth = 84
+  Vue.prototype.formModalLabelWidth = 140
+  Vue.prototype.formGroupLabelWidth = 160
+  Vue.prototype.iconTxtBtnIconSize = 17
 }
 
 // auto install

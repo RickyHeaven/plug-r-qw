@@ -248,7 +248,7 @@
               temp.append('files', item)
             }
             $fetch.post(configS.url, temp, null, [], {
-              spain: true,
+              spin: true,
               headers: {
                 "Content-Type": "multipart/form-data"
               }

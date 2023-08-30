@@ -374,7 +374,7 @@
           this.$set(this.tempKeys, k, defaultV[k])
         }
         else {
-          if (Array.isArray(this.tempKeys)) {
+          if (Array.isArray(this.tempKeys[k])) {
             this.tempKeys[k] = []
           }
           else {

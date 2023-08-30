@@ -69,7 +69,9 @@
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default: 140
+        default() {
+          return this.formModalLabelWidth
+        }
       },
       okBtTxt: {
         /*确定按钮内容*/

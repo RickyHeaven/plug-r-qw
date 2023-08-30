@@ -204,71 +204,81 @@
 * 因为这个库里面包含UI组件，所以需要在*main.js*引用*lab/plugRQw.min.css*才能正常显示样式，如：`import '@zhangqingcq/plug-r-qw/lib/plugRQw.min.css'`
 
 * 如果需要定制化样式（例如主题色），则需要创建一个*less*文件（如`plugRQwTheme.less`，注意：这种情况下不再需要引入*plugRQw.min.css*）,在该文件中顶部引入*src/style/index.less* (如：`@import "~@zhangqingcq/plug-r-qw/src/style/index.less";`),然后在后面写上想要覆盖的变量名，并给出想要的值，如：`@primary: #46be87;`[默认颜色列表](/src/style/common/color.less)，[默认尺寸列表](/src/style/common/size.less)
->注意：
->1. 请不要随意改变这些变量，除非你很清楚改变后会带来的影响，他们在整个库中被多次使用。
->2. 因为该库是基于view-design封装的，所以很多样式继承了view-design，要定制那些样式，直接定制view-design即可。
+  >注意：
+  >1. 请不要随意改变这些变量，除非你很清楚改变后会带来的影响，他们在整个库中被多次使用。
+  >2. 因为该库是基于view-design封装的，所以很多样式继承了view-design，要定制那些样式，直接定制view-design即可。
+
+* 自@zhangqingcq/plug-r-qw@1.4.8开始，新增了部分全局变量用于控制样式，挂在Vue.prototype下，直接在main.js or main.ts中给对应变量赋值即可定制对应样式：
+  ```js
+    //main.js or main.ts
+  
+    Vue.prototype.searchFormLabelWidth = 100
+  
+    //已支持的全局变量有：searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize
+  ```
+  
 
 * 因为有些方法使用频率较低，所以没有挂载在Vue原型或者window上，使用时需要单独引用，如：`improt {fullScreenImgPreview} from '@zhangqingcq/plug-r-qw'`
 
 * 本库主要依赖有`vue、vue-router、pinia、@zhangqingcq/view-design-r、sweetalert、lodash、axios、echarts、moment、wangeditor、xss、js-cookie、ar-cascader、vue-amap、vue-json-viewer`，其中`vue、vue-router、vuex(如果用了)`需要在使用vue-cli脚手架搭建项目时安装（选上），如果你的项目是国际化版本,`vue-i18n`需要手动安装，其他依赖在项目安装该库后，可直接在项目中使用，无需再次将它们安装至你的项目，但其中`@zhangqingcq/view-design-r、vue-amap`需要在你的项目手动初始化，可以参考对应的官网(`@zhangqingcq/view-design-r`初始化方法和用法跟`view-design`一样)或npm网站页面或本项目examples目录里的初始化方法
 
 * 该库自`@zhangqingcq/plug-r-qw@1.3.0`版本开始，弃用`view-design`，改用本人改良的`@zhangqingcq/view-design-r`（这么做的原因是view-design@4x版本自2021年11月以后不再被作者维护，一些问题无望解决），`@zhangqingcq/view-design-r`基于`view-design@4.7.0`创建，主要改动是修复了使用中发现的一些view-design的bug和自己的一些定制化。`@zhangqingcq/view-design-r`初始化方法和原view-design一样，只需将原项目中`view-design`全部替换成`@zhangqingcq/view-design-r`，如：
-```
-  import ViewUI from '@zhangqingcq/view-design-r'
-  import '@zhangqingcq/view-design-r/dist/styles/iview.css'
-  import enI from '@zhangqingcq/view-design-r/dist/locale/en-US'
-  import zhI from '@zhangqingcq/view-design-r/dist/locale/zh-CN'
-
-  样式定制化文件顶部改为：
-  @import "~@zhangqingcq/view-design-r/src/styles/index.less";
-
-  具体可参考本库示例项目examples中的使用方法
-```
+  ```
+    import ViewUI from '@zhangqingcq/view-design-r'
+    import '@zhangqingcq/view-design-r/dist/styles/iview.css'
+    import enI from '@zhangqingcq/view-design-r/dist/locale/en-US'
+    import zhI from '@zhangqingcq/view-design-r/dist/locale/zh-CN'
+  
+    样式定制化文件顶部改为：
+    @import "~@zhangqingcq/view-design-r/src/styles/index.less";
+  
+    具体可参考本库示例项目examples中的使用方法
+  ```
 
 * 该库自`@zhangqingcq/plug-r-qw@1.3.0`版本开始，使用了`less@4.0.0`，如项目有less语法报错，可以在`vue.config.js`中加上配置，如:
-```
-module.exports = defineConfig({
-  ...
-  css: {
-    loaderOptions: {
-      less: {
-        lessOptions: {
-          javascriptEnabled: true
+  ```
+  module.exports = defineConfig({
+    ...
+    css: {
+      loaderOptions: {
+        less: {
+          lessOptions: {
+            javascriptEnabled: true
+          }
         }
       }
     }
-  }
-})
-
-```
+  })
+  
+  ```
 
 * 该库自`@zhangqingcq/plug-r-qw@1.1.35`版本开始，弃用`iview-area`，改用本人改良的`ar-cascader`，所以升级到该版本及以后，如果你项目中之前有直接使用iview-area，替换成ar-cascader即可。（在没有直接使用iview-area，而是使用库中alCascader及formR相关组件,则无需做任何改变）
 
 * 有地图的功能是用的高德地图，要在项目初始化才能使用库中地图功能，初始化方法参考该项目的examples中main.js或高德官方文档
 
 * 本库采用@vue/cli3 脚手架搭建，用@vue/cli3或者更高版本搭建的项目引用不会有兼容问题，低于@vue/cli3版本或其他脚手架搭建的项目引用可能会有兼容问题，表现就是报错有不认识的语法或功能异常（目前已知$fetch可能会因为兼容问题无响应），解决方法：
-```
-  在webpack中添加loader处理库的输出文件，如@vue/cli2搭建的项目中（由于@vue/cli2脚手架过于老旧，建议更换成较新的cli版本搭建的框架，项目只是更换框架工作量其实并不大，获得的收益比较高），找到webpack.base.conf.js,在module-->rules下添加
-  
-  {
-    test: /(index\.js|plugRQw\.umd(\.min){0,1}\.js)$/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          'env',
-          "stage-2"
-        ]
-      }
-    },
-    include: [path.resolve(__dirname,'../node_modules/@zhangqingcq/plug-r-qw')]
-  }
-  
-  注意：
-    1. 这个loader会用到'path'、'core-js'、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目报错没有这些npm依赖，请安装它们
-    2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
-    3. 如果添加了该loader还是有兼容问题，那么将main.js中 import plugRQw from '@zhangqingcq/plug-r-qw' 换成 import plugRQw from '@zhangqingcq/plug-r-qw/lib/plugRQw.umd.js'
-```
+  ```
+    在webpack中添加loader处理库的输出文件，如@vue/cli2搭建的项目中（由于@vue/cli2脚手架过于老旧，建议更换成较新的cli版本搭建的框架，项目只是更换框架工作量其实并不大，获得的收益比较高），找到webpack.base.conf.js,在module-->rules下添加
+    
+    {
+      test: /(index\.js|plugRQw\.umd(\.min){0,1}\.js)$/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            'env',
+            "stage-2"
+          ]
+        }
+      },
+      include: [path.resolve(__dirname,'../node_modules/@zhangqingcq/plug-r-qw')]
+    }
+    
+    注意：
+      1. 这个loader会用到'path'、'core-js'、'babel-loader'、'babel-core'、'babel-preset-env'、'babel-preset-stage-2'、'webpack'，如果项目报错没有这些npm依赖，请安装它们
+      2. include的路径是该库相对于webpack.base.conf.js文件的相对路径
+      3. 如果添加了该loader还是有兼容问题，那么将main.js中 import plugRQw from '@zhangqingcq/plug-r-qw' 换成 import plugRQw from '@zhangqingcq/plug-r-qw/lib/plugRQw.umd.js'
+  ```
 
 ### 本库自带自定义指令
 

@@ -18,7 +18,7 @@
       @on-submit="onSubmit"
   >
     <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
-      <slot :name="item.slotName" :val-group="valGroup"/>
+      <slot :name="item.slotName" :val-group="valGroup" />
     </template>
   </form-r>
 </template>
@@ -45,7 +45,9 @@
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default: 84
+        default() {
+          return this.searchFormLabelWidth
+        }
       },
       itemWidth: {
         /*表单项内容宽度,用于行内表单*/
@@ -68,9 +70,9 @@
         return myTypeof(this.formData[0]) === 'Array'
       },
       formDataC() {
-        if(this.formTeam){
+        if (this.formTeam) {
           let t = []
-          for(let f of this.formData){
+          for (let f of this.formData) {
             t = t.concat(f.filter(e => e.type === 'custom'))
           }
           return t
@@ -82,25 +84,25 @@
       resetForm() { /*重置表单，会清空表单值并刷新表单dom，异步方法，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.resetForm()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       refreshFormDom() {/*刷新表单dom，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.refreshFormDom()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       reRenderForm() {/*重新渲染表单，异步方法（公开）*/
         return new Promise(resolve => {
           this.$refs.formRRef.reRenderForm()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       clear() {/*私有，可使用resetForm代替*/
@@ -124,7 +126,7 @@
       changeLoading(val) {/*改变弹框loading状态，私有*/
         this.$refs.formRRef.changeLoading(val === undefined ? false : val)
       },
-      getValGroup(){/*获取用户已填数据，公开*/
+      getValGroup() {/*获取用户已填数据，公开*/
         return this.$refs.formRRef.getValGroup()
       },
       onSubmit(data) { /*响应提交事件提交数据，私有*/

@@ -57,7 +57,9 @@
       labelWidth: {
         /*表单项标签宽度*/
         type: Number,
-        default: 160
+        default() {
+          return this.formGroupLabelWidth
+        }
       },
       contentWidth: {
         /*表单项内容宽度，默认70%*/

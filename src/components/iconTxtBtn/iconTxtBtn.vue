@@ -24,7 +24,9 @@
       },
       size: {
         type: Number,
-        default: 17
+        default() {
+          return this.iconTxtBtnIconSize
+        }
       },
       disabled: {
         type: Boolean,
