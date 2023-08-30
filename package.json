@@ -1,6 +1,6 @@
 {
   "name": "@zhangqingcq/plug-r-qw",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "A JS lib base on Vue and View-design, you can achieve some complex functions with simple code after install this lib.",
   "files": [
     "lib",
