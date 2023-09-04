@@ -9,7 +9,8 @@
           <div class="titleLLL">{{ titleLeft || t('r.added') }}</div>
           <show-hide-panel>
             <search-form
-                ref="leftFormRef" :form-data="formDataLeft" :form-rules="formRulesLeft" @on-search="searchLeft"
+                ref="leftFormRef" :form-data="formDataLeft" :form-rules="formRulesLeft"
+                :label-width="searchFormLabelWith" @on-search="searchLeft"
             />
           </show-hide-panel>
         </div>
@@ -54,7 +55,8 @@
 
           <show-hide-panel>
             <search-form
-                ref="rightFormRef" :form-data="formDataRight" :form-rules="formRulesRight" @on-search="searchRight"
+                ref="rightFormRef" :form-data="formDataRight" :form-rules="formRulesRight"
+                :label-width="searchFormLabelWith" @on-search="searchRight"
             />
           </show-hide-panel>
         </div>
@@ -203,6 +205,9 @@
       deleteAllMethod: {
         type: String,
         default: 'delete'
+      },
+      searchFormLabelWith: {
+        type: Number
       }
     },
     data() {

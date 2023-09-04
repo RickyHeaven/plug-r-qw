@@ -51,6 +51,8 @@
 
 * deleteAllMethod: 字符串，全部移除接口请求方式，默认：`'delete'`
 
+* searchFormLabelWith: 数字，搜索表单label的width
+
 ### 事件：
 
 * transferred: 进行了穿梭，用于给外层组件判断是否需要刷新，如穿梭后改变了外层table的数据，那么发生过穿梭行为后，关闭穿梭框进入table时就需要刷新
