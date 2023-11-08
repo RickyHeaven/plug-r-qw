@@ -34,8 +34,24 @@
       }
     }
 
+    &.previewLoading{
+      min-width: 100px;
+    }
+
     > img {
       height: 100%;
+    }
+
+    .imgLoading{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0,0,0,.1);
     }
 
     .deleteModal {
@@ -80,6 +96,16 @@
 
       .upNameT {
         color: @primary;
+      }
+    }
+
+    .listLoading{
+      height: 15px;
+      display: flex;
+      align-items: center;
+      [data-loader='circle-side']{
+        width: 15px;
+        height: 15px;
       }
     }
 

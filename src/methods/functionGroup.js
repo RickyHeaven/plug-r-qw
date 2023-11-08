@@ -144,7 +144,7 @@ export function getFileSrc(file) {
 
 /*获取后缀名*/
 export function getFileTypeByName(name) {
-  return (name.split('.')
+  return (name?.split('.')
     .pop()
     .toLocaleLowerCase() || '')
 }

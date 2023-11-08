@@ -13,18 +13,24 @@
       <Button
           icon="ios-cloud-upload-outline"
           :class="{disabledR:length > 0 && fileList.length >= length||Boolean(disabled)}"
-      >{{t('r.selectFile')}}</Button>
+      >{{ t('r.selectFile') }}</Button>
     </Upload>
-    <div class="previewBoxM" v-show="previewType === 'img' && fileIdList.length>0">
-      <div class="previewImg" v-if="!manualUpload && item !== null" v-for="item of fileIdList" :key="item">
-        <img :src="url+'/'+item+'/download?preview=true'" :alt="item">
-        <div class="deleteModal">
+    <div class="previewBoxM" v-show="previewType === 'img' && fileDefaultList.length>0">
+      <div
+          class="previewImg" :class="{previewLoading:item.mimeType === 'loading'}"
+          v-if="!manualUpload && item?.id !== null" v-for="item of fileDefaultList" :key="item?.id"
+      >
+        <div class="imgLoading" v-show="item.mimeType === 'loading'">
+          <div data-loader="circle-side" class="loader-div" />
+        </div>
+        <img :src="url+'/'+item.id+'/download?preview=true'" :alt="item.name" v-show="item.mimeType!=='loading'">
+        <div class="deleteModal" v-show="item.mimeType!=='loading'">
           <Icon
               type="ios-expand" size="40" class="previewExpand" :title="t('r.fView')"
-              @click="fullScreenImgByDom(url+'/'+item+'/download?preview=true')"
+              @click="fullScreenImgByDom(url+'/'+item.id+'/download?preview=true')"
           />
           <Icon
-              type="ios-trash-outline" size="40" class="previewDelete" @click="deleteById($event,item)"
+              type="ios-trash-outline" size="40" class="previewDelete" @click="deleteById($event,item.id)"
               :title="t('r.delete')"
           />
         </div>
@@ -52,32 +58,40 @@
           class="customFileListItem" v-if="manualUpload && item !== null" v-for="(item,index) of fileList"
           :key="'manualItem'+index"
       >
-        <Icon v-if="item.name" :type="getFileTypeIconByName(item.name)"/>
-        <span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{getName(item)}}</span>
+        <Icon v-if="item.name" :type="getFileTypeIconByName(item.name)" />
+        <span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{ getName(item) }}</span>
         <span class="btBoxJ">
           <Icon
               v-if="showPreview(item)" type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)"
               :title="t('r.fView')"
           />
-          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
+          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
         </span>
       </p>
     </div>
     <div class="customFileListM" v-show="previewType === 'list' && fileDefaultList.length>0">
-      <p
+      <div
           class="customFileListItem" v-if="!manualUpload && item !== null" v-for="(item,index) of fileDefaultList"
           :key="'defaultItem'+index"
       >
-        <Icon :type="getFileTypeIconByName(item.name)"/>
-        <span class="upNameT" @click="downloadDefaultFile(item)" :title="t('r.download')">{{item.name||t('r.file')+(index+1)}}</span>
-        <span class="btBoxJ">
+        <div class="listLoading" v-show="item.mimeType==='loading'">
+          <div data-loader="circle-side" class="loader-div" />
+        </div>
+        <Icon :type="getFileTypeIconByName(item.name)" v-show="item.mimeType!=='loading'" />
+        <span
+            class="upNameT" @click="downloadDefaultFile(item)" :title="t('r.download')"
+            v-show="item.mimeType!=='loading'"
+        >{{
+            item.name || t('r.file') + (index + 1)
+          }}</span>
+        <span class="btBoxJ" v-show="item.mimeType!=='loading'">
           <Icon
               v-if="showPreview(item)" type="md-qr-scanner" size="14" class="listBtH" @click="listExpand(item)"
               :title="t('r.fView')"
           />
-          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')"/>
+          <Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
         </span>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -85,10 +99,10 @@
 <script>
   import {
     myTypeof, getFileSrc, getFileTypeByName, isImgByFile, getFileTypeIconByName, downloadFileReaderFile
-  } from '../../methods/functionGroup.js'
-  import $fetch from '../../methods/fetch.js'
-  import fullScreenImgByDom from '../../methods/fullScreenImgByDom.js'
-  import $swal from '../../methods/swal.js'
+  } from '../../methods/functionGroup'
+  import $fetch from '../../methods/fetch'
+  import fullScreenImgByDom from '../../methods/fullScreenImgByDom'
+  import $swal from '../../methods/swal'
   import Locale from '../../mixins/locale'
   import _ from 'lodash'
 
@@ -102,10 +116,7 @@
     props: {
       fileIdListProp: {
         type: [
-          Array,
-          Number,
-          String,
-          File
+          Array, Number, String, File
         ],
         default() {
           return []
@@ -115,7 +126,7 @@
         /*文件上传的地址*/
         type: String,
         default() {
-          if (window.g && window.g.mgrURL) {
+          if (window.g?.mgrURL) {
             return window.g.mgrURL + '/web/v1/fsc/file'
           }
           return ''
@@ -209,19 +220,7 @@
             return this.fileIdList
           }
           else {
-            let temp = []
-            for (let item of this.fileIdList) {
-              temp.push({
-                response: {
-                  data: [
-                    {
-                      id: item
-                    }
-                  ]
-                }
-              })
-            }
-            return temp
+            return this.fileIdList.map(e => ({id: e}))
           }
         },
         set(val) {
@@ -229,14 +228,7 @@
             this.fileIdList = val
           }
           else {
-            let temp = []
-            for (let item of val) {
-              if (item.response && item.response.data && item.response.data[0] &&
-                (item.response.data[0].id || item.response.data[0].id === 0)) {
-                temp.push(item.response.data[0].id)
-              }
-            }
-            this.fileIdList = temp
+            this.fileIdList = val.map(e => e.id)
           }
         }
       },
@@ -284,12 +276,12 @@
         for (let item of temp) {
           let type
           if (this.manualUpload) {
-            type = item && item.type
+            type = item?.type
           }
           else {
-            type = item && item.mimeType
+            type = item?.mimeType
           }
-          if (!type || type && !isImgByFile(type)) {
+          if (!type || type && !(isImgByFile(type) || type === 'loading')) {
             return false
           }
         }
@@ -308,31 +300,36 @@
             }
           }
           else if (after && after.length > 0 && this.previewType !== 'localList') {
-            let temp = []
-            for (let item of after) {
-              if (item.name === undefined) {
-                if (item.response && item.response.data && item.response.data[0] && item.response.data[0].id) {
-                  $fetch.get(this.url + '/' + item.response.data[0].id)
-                    .then(r => {
-                      let itemT = _.cloneDeep(item)
-                      itemT.name =
-                        r && r.data && r.data.returnValue && r.data.returnValue[0] && r.data.returnValue[0].name ||
-                        this.t('r.file') + _.indexOf(after, item)
-                      itemT.mimeType =
-                        r && r.data && r.data.returnValue && r.data.returnValue[0] && r.data.returnValue[0].mimeType ||
-                        'unknown'
-                      temp.push(itemT)
-                    })
-                    .catch(() => {
-                      temp.push({name: this.t('r.file') + _.indexOf(after, item)})
-                    })
+            let temp = _.cloneDeep(after)
+            const _fileDefaultList = _.cloneDeep(this.fileDefaultList)
+            for (let item of temp) {
+              if (item?.name === undefined) {
+                //根据id获取文件名字
+                if (item.id) {
+                  const fileT = _.find(_fileDefaultList, e => e.id === item.id)
+                  if (fileT) {
+                    //本地有名字，在本地拿
+                    item.name = fileT.name
+                    item.mimeType = fileT.mimeType
+                  }
+                  else {
+                    //本地没有，去服务器拿
+                    item.mimeType = 'loading'
+                    $fetch.get(this.url + '/' + item.id)
+                        .then(r => {
+                          item.name = r?.data?.returnValue && r.data.returnValue[0]?.name || this.t('r.file') +
+                              _.indexOf(temp, item)
+                          this.$set(item, 'mimeType',
+                              r?.data?.returnValue && r.data.returnValue[0]?.mimeType || 'unknown')
+                        })
+                        .catch(() => {
+                          item.name = this.t('r.file') + _.indexOf(temp, item)
+                        })
+                  }
                 }
                 else {
-                  temp.push({name: this.t('r.unknown')})
+                  item.name = this.t('r.unknown')
                 }
-              }
-              else {
-                temp.push(item)
               }
             }
             this.fileDefaultList = temp
@@ -350,7 +347,7 @@
         this.fileList = []
       },
       getName(item) {
-        return item.name || item.split && _.last(item.split('/')) || item
+        return item?.name || item?.split && _.last(item.split('/')) || item
       },
       async getFileSrcList(data) {
         let temp = []
@@ -368,27 +365,29 @@
         }
       },
       downloadDefaultFile(item) {
-        if (item && item.response && item.response.data && item.response.data[0] && item.response.data[0].id) {
-          window.open(this.url + '/' + item.response.data[0].id + '/download')
+        if (item?.id) {
+          window.open(this.url + '/' + item.id + '/download')
         }
       },
       showPreview(file) {
         if (this.manualUpload) {
-          return file.type && isImgByFile(file.type)
+          return file?.type && isImgByFile(file.type)
         }
-        return file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id &&
-          file.mimeType && isImgByFile(file.mimeType)
+        return file?.id && file.mimeType && isImgByFile(file.mimeType)
       },
       listExpand(file) {//列表图片预览
         if (this.manualUpload) {
+          if (!file) {
+            return
+          }
           getFileSrc(file)
-            .then(r => {
-              //图片的 base64 格式, 可以直接当成 img 的 src 属性值
-              fullScreenImgByDom(r)
-            })
+              .then(r => {
+                //图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                fullScreenImgByDom(r)
+              })
         }
-        else {
-          fullScreenImgByDom(this.url + '/' + file.response.data[0].id + '/download?preview=true')
+        else if (file?.id) {
+          fullScreenImgByDom(this.url + '/' + file.id + '/download?preview=true')
         }
       },
       downloadManualFile(file) {
@@ -397,9 +396,9 @@
         }
         else if (myTypeof(file) === 'File') {
           getFileSrc(file)
-            .then(r => {
-              downloadFileReaderFile(file.name, r)
-            })
+              .then(r => {
+                downloadFileReaderFile(file.name, r)
+              })
         }
       },
       handelManualUpload(file) {
@@ -408,8 +407,8 @@
             let type = getFileTypeByName(file.name)
             if (this.format.length > 0 && this.format.indexOf(type) < 0) {
               $swal(this.t('r.wrongFileType'),
-                this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')),
-                "warning")
+                  this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')),
+                  "warning")
               return false
             }
             if (this.maxSize && file.size > this.maxSize * 1024) {
@@ -431,13 +430,16 @@
         $swal(this.t('r.uploadError'), "", "error")
       },
       uploadSuccess(response, file, fileList) {
-        if (response && response.code === 0) {
+        if (response?.code === 0) {
           let temp = this.fileList
+          file.id = response.data && response.data[0]?.id
+          file.name = response.data && response.data[0]?.name
+          file.mimeType = response.data && response.data[0]?.mimeType
           temp.push(file)
           this.fileList = temp
         }
         else {
-          $swal(this.t('r.uploadFail'), response && response.message || '', 'error')
+          $swal(this.t('r.uploadFail'), response?.message || '', 'error')
         }
       },
       overSize(file, fileList) {
@@ -445,12 +447,11 @@
       },
       onFormatError(file, fileList) {
         $swal(this.t('r.wrongFileType'),
-          this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
+            this.t('r.supportType') + (this.format.length > 0 && String(this.format) || this.t('r.none')), "warning")
       },
       onPreview(file) {
-        let id = file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id
-        let type = file && file.response && file.response.data && file.response.data[0] &&
-          file.response.data[0].mimeType
+        let id = file?.id
+        let type = file?.mimeType
         if (id) {
           if (myTypeof(type) === 'String' && type.indexOf('image') > -1) {
             fullScreenImgByDom(this.url + '/' + id + '/download?preview=true')
@@ -461,10 +462,13 @@
         }
       },
       onRemove(file, fileList) {
-        let id = file && file.response && file.response.data && file.response.data[0] && file.response.data[0].id
+        let id = file?.response?.data && file.response.data[0]?.id
         this.deleteById(null, id)
       },
       deleteById(e, id) {
+        if (!id && id !== 0) {
+          return
+        }
         if (!this.disabled && this.fileIdList.indexOf(id) !== -1) {
           const fileIdList = this.fileIdList
           let temp = this.fileList
