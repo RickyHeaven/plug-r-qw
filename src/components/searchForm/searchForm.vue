@@ -80,6 +80,14 @@
         return this.formData.filter(e => e.type === 'custom')
       }
     },
+    mounted() {
+      this.$refs.formRRef.$el.parentNode.addEventListener('keyup',(e)=>{
+        if(e.keyCode === 13){
+          //回车
+          this.submit()
+        }
+      })
+    },
     methods: {
       resetForm() { /*重置表单，会清空表单值并刷新表单dom，异步方法，公开*/
         return new Promise(resolve => {

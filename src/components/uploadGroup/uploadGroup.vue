@@ -317,10 +317,10 @@
                     item.mimeType = 'loading'
                     $fetch.get(this.url + '/' + item.id)
                         .then(r => {
-                          item.name = r?.data?.returnValue && r.data.returnValue[0]?.name || this.t('r.file') +
+                          item.name = r?.data?.returnValue?.[0]?.name || this.t('r.file') +
                               _.indexOf(temp, item)
                           this.$set(item, 'mimeType',
-                              r?.data?.returnValue && r.data.returnValue[0]?.mimeType || 'unknown')
+                              r?.data?.returnValue?.[0]?.mimeType || 'unknown')
                         })
                         .catch(() => {
                           item.name = this.t('r.file') + _.indexOf(temp, item)
@@ -432,9 +432,9 @@
       uploadSuccess(response, file, fileList) {
         if (response?.code === 0) {
           let temp = this.fileList
-          file.id = response.data && response.data[0]?.id
-          file.name = response.data && response.data[0]?.name
-          file.mimeType = response.data && response.data[0]?.mimeType
+          file.id = response.data?.[0]?.id
+          file.name = response.data?.[0]?.name
+          file.mimeType = response.data?.[0]?.mimeType
           temp.push(file)
           this.fileList = temp
         }
@@ -462,7 +462,7 @@
         }
       },
       onRemove(file, fileList) {
-        let id = file?.response?.data && file.response.data[0]?.id
+        let id = file?.response?.data?.[0]?.id
         this.deleteById(null, id)
       },
       deleteById(e, id) {
