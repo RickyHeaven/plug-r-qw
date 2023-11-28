@@ -1415,7 +1415,7 @@
         } = d
         if (this.formTeam) {
           if ((index || index === 0) && (indexB || indexB === 0)) {
-            if (key && (val || val !== undefined)) {
+            if (key && d.hasOwnProperty('val')) {
               this.$set(this.formDataT[index][indexB], key, val)
             }
             else {
@@ -1429,7 +1429,7 @@
         }
         else {
           if (index || index === 0) {
-            if (key && (val || val !== undefined)) {
+            if (key && d.hasOwnProperty('val')) {
               this.$set(this.formDataT[index], key, val)
             }
             else {
