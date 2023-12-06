@@ -232,8 +232,8 @@
 * has  通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`
   的内联样式，以此来实现元素的权限控制。
 
-* loadmore  在容器滚动到底部时调用传入指令的值（回调函数），可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`
-  ,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
+* loadmore  在容器滚动到底部时调用传入指令的值（回调函数），指令在绑定对象mounted时生效，可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`
+  ,boxN的意思为document下class为boxN的首个元素,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
 
 ## vue2 version README file is start from here:
 
@@ -446,11 +446,11 @@
 
 * 如果需要定制化样式（例如主题色），则需要创建一个*less*文件（如`plugRQwTheme.less`，注意：这种情况下不再需要引入
   *plugRQw.min.css*）,在该文件中顶部引入*src/style/index.less* (
-  如：`@import "~@zhangqingcq/plug-r-qw/src/style/index.less";`)
+  如：`@import "@zhangqingcq/plug-r-qw/src/style/index.less";`)
   ,然后在后面写上想要覆盖的变量名，并给出想要的值，如：`@primary: #46be87;`[默认颜色列表](/src/style/common/color.less)，[默认尺寸列表](/src/style/common/size.less)
   > 注意：
   >1. 请不要随意改变这些变量，除非你很清楚改变后会带来的影响，他们在整个库中被多次使用。
-  >2. 因为该库是基于view-design封装的，所以很多样式继承了view-design，要定制那些样式，直接定制view-design即可。
+  >2. 因为该库是基于view-ui-plus封装的，所以很多样式继承了view-ui-plus，要定制那些样式，直接定制view-design即可。
 
 * 自@zhangqingcq/plug-r-qw@1.4.8开始，新增了部分全局变量用于控制样式，挂在Vue.prototype下，直接在main.js or
   main.ts中给对应变量赋值即可定制对应样式：
