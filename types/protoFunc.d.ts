@@ -24,10 +24,12 @@ export interface MessageBoxConfig {
    * @default 416
    */
   width?: number
-  /*确定按钮回调函数*/
+  /*确定按钮点击回调函数*/
   onOk?: () => void
-  /*取消按钮回调函数*/
+  /*取消按钮点击回调函数*/
   onCancel?: () => void
+  /*关闭按钮（右上角叉叉）点击回调函数*/
+  onClose?: () => void
   /**
    * 确定按钮文字
    * @default 确定
