@@ -12,7 +12,7 @@
 
 ## vue3 version README file is start from here:
 
-##### vue3版本目前还在努力开发中，现在已经完成了所有公共方法的开发，还有部分UI组件的开发，已完成的部分可以正常使用了，具体哪些组件可以使用可以查看vue3版本代码仓库
+##### vue3版本开发基本完成，所有公共方法、UI组件已可以使用（vue3版本弃用了少数几个组件），说明文档已更新，使用示例项目还在开发中，后续会慢慢更新。
 
 * [组件](https://github.com/RickyHeaven/plug-r-qw-core/tree/master/src/components)
   和[方法](https://github.com/RickyHeaven/plug-r-qw-core/tree/master/src/methods)
