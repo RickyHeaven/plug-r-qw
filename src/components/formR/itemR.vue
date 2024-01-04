@@ -6,8 +6,10 @@
     <!--纯文本,也可以不传label和val,单纯用来布局占位-->
     <div
         v-if="item.type === 'txt'"
-        :style="itemStyle" style="display: inline-block" :class="{likeInputX:item.likeInput,disabled:Boolean(item.disabled) || disabled}"
-    >{{item.valKey?valGroup[item.valKey]||'无':item.val}}</div>
+        :style="itemStyle" style="display: inline-block"
+        :class="{likeInputX:item.likeInput,disabled:Boolean(item.disabled) || disabled}"
+    >{{ item.valKey ? valGroup[item.valKey] || "无" : item.val }}
+    </div>
     <!--数字输入框-->
     <InputNumber
         :style="itemStyle"
@@ -30,6 +32,7 @@
         :style="itemStyle"
         v-else-if="item.type === 'input'"
         v-model="tempKeys[item.tempKey]"
+        :type="item.inputType ?item.inputType: (item.password ? 'password' : 'text')"
         :maxlength="item.maxLength||null"
         :password="Boolean(item.password)"
         :icon="item.icon"
@@ -38,16 +41,16 @@
         :placeholder="item.placeholder||t('r.pInput')"
         :disabled="Boolean(item.disabled) || disabled"
         @on-blur="itemChange($event,item)"
-        :clearable="item.clearable!==false"
+        :clearable="!item.password && item.inputType==='text' && item.clearable !== false"
     >
       <template v-if="item.slotPosition&&item.slotName" :slot="item.slotPosition">
         <slot :name="item.slotName" />
       </template>
       <template v-if="item.slotPosition!=='prepend'&&item.prepend" slot="prepend">
-        <span>{{item.prepend}}</span>
+        <span>{{ item.prepend }}</span>
       </template>
       <template v-if="item.slotPosition!=='append'&&item.append" slot="append">
-        <span>{{item.append}}</span>
+        <span>{{ item.append }}</span>
       </template>
     </Input>
     <!--下拉框-->
@@ -119,7 +122,7 @@
         v-model="valGroup[item.key]"
         :disabled="Boolean(item.disabled) || disabled"
         @on-change="itemChange($event,item)"
-    >{{item.label}}</Radio>
+    >{{ item.label }}</Radio>
     <!--单选组-->
     <RadioGroup
         :style="itemStyle"
@@ -136,7 +139,7 @@
           :disabled="Boolean(item.disabled) || disabled||radioItem.disabled"
       >
         <Icon v-if="radioItem.icon && (!item.buttonType)" :type="radioItem.icon" />
-        <span>{{radioItem.label || radioItem.val}}</span>
+        <span>{{ radioItem.label || radioItem.val }}</span>
       </Radio>
     </RadioGroup>
     <!--单选（可取消选择）-->
@@ -145,7 +148,7 @@
         v-model="valGroup[item.key]"
         :disabled="!!item.disabled"
         @on-change="itemChange($event,item)"
-    >{{item.label}}</Checkbox>
+    >{{ item.label }}</Checkbox>
     <!--多选组-->
     <CheckboxGroup
         :style="itemStyle"
@@ -160,7 +163,7 @@
           :disabled="Boolean(item.disabled) || disabled ||checkItem.disabled"
       >
         <Icon v-if="checkItem.icon" :type="checkItem.icon" />
-        <span>{{checkItem.label||checkItem.val}}</span>
+        <span>{{ checkItem.label || checkItem.val }}</span>
       </Checkbox>
     </CheckboxGroup>
     <!--文本框-->
@@ -285,21 +288,21 @@
       <slot :name="item.slotName" :val-group="valGroup" />
     </div>
     <!--表单项提示文字-->
-    <div v-if="Boolean(item.info)" class="formInfoTxtXN">{{item.info}}</div>
+    <div v-if="Boolean(item.info)" class="formInfoTxtXN">{{ item.info }}</div>
     <!--表单项标题-->
-    <div v-if="Boolean(item.title)" class="formTitleTxtXN">{{item.title}}</div>
+    <div v-if="Boolean(item.title)" class="formTitleTxtXN">{{ item.title }}</div>
   </FormItem>
 </template>
 
 <script>
   import Locale from "../../mixins/locale"
-  import selectInput from '../selectInput/selectInput.vue'
-  import alCascaderMC from '../alCascaderMC/alCascaderMC.vue'
-  import asyncCascader from '../asyncCascader/asyncCascader.vue'
-  import uploadGroup from '../uploadGroup/uploadGroup.vue'
-  import editor from '../editor/editor.vue'
-  import editorPro from '../editorPro/editorPro.vue'
-  import inputMap from '../inputMap/inputMap.vue'
+  import selectInput from "../selectInput/selectInput.vue"
+  import alCascaderMC from "../alCascaderMC/alCascaderMC.vue"
+  import asyncCascader from "../asyncCascader/asyncCascader.vue"
+  import uploadGroup from "../uploadGroup/uploadGroup.vue"
+  import editor from "../editor/editor.vue"
+  import editorPro from "../editorPro/editorPro.vue"
+  import inputMap from "../inputMap/inputMap.vue"
   import monthRange from "../monthRange/monthRange"
 
   export default {
@@ -333,34 +336,34 @@
           withInfo: Boolean(root.info),
           withTitle: Boolean(root.title),
           inlineFormItemXN: this.inline,
-          noLabel: root.type === 'selectInput',
+          noLabel: root.type === "selectInput",
           [root.class]: root.class,
           slotInput: root.slotPosition
         }
       },
       itemChange(e, root) {
-        this.$emit('item-change', {
+        this.$emit("item-change", {
           e,
           root
         })
       },
       reValidateAndChangeHandle(e, root) {
-        this.$emit('re-validate', {
+        this.$emit("re-validate", {
           e,
           root
         })
       },
       onSelectInputChange(d) {
-        this.$emit('select-input-change', d)
+        this.$emit("select-input-change", d)
       },
       alNameChange(name, root) {
-        this.$emit('al-name-change', {
+        this.$emit("al-name-change", {
           name,
           root
         })
       },
       asyncLabelChange(label, root) {
-        this.$emit('async-label-change', {
+        this.$emit("async-label-change", {
           label,
           root
         })

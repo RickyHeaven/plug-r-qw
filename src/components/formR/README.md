@@ -214,6 +214,8 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='info'>info</a> 字符串，表单项的提示文字，位于表单项下面，一般为蓝色（在没自定义对应主题颜色时）
 
+* <a name='inputType'>inputType</a> 字符串，表单项type=input时，可指定输入框类型(开启password=true时，inputType自动变为password)，可选值同h5原生input的type，以页面实际表现为准，不同值使用可靠性需自己验证，默认值：`'text'`
+
 * <a name='itemBorder'>itemBorder</a> 布尔对象，RadioGroup选项是否带边框，默认：`false`
 
 * <a name='key'>key</a> 字符串，表单被提交时该项收集的数据所在字段，如：`{type:'input',key:'name'}`,用户输入`'Ricky'`，提交时返回
@@ -277,7 +279,7 @@ key为fruit，目标表单项（如这里的fruit）待选项和当前表单项�
 
 * <a name='optionVal'>optionVal</a> 字符串，有待选项的表单项，待选项数据从接口拉取时，待选项val对应接口数据的字段名，如：`optionVal:'id'`
 
-* <a name='password'>password</a> 布尔对象，是否显示切换密码图标，仅input支持，默认：`false`
+* <a name='password'>password</a> 布尔对象，是否显示切换密码图标，仅input支持，开启该属性输入框clearable自动变为false，默认：`false`
 
 * <a name='placeholder'>placeholder</a> 字符串，表单项占位符，不是所有类型都支持该字段，具体见后面的'type说明'
 
@@ -394,6 +396,8 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、monthR
 * [maxLength](#maxLength) 最大长度限制，不限制则不设置
 
 * [placeholder](#placeholder) 占位符，默认：`'请输入'`
+
+* [inputType](#inputType) 字符串，表单项type=input时，可指定输入框类型(开启password=true时，inputType自动变为password)，默认值：`'text'`
 
 * [password](#password) 布尔对象，是否显示切换密码图标，默认：`false`
 
