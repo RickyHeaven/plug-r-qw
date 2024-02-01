@@ -1275,7 +1275,9 @@
             this.valGroup[k] = Array.isArray(this.valGroup[k]) ? [] : null
           }
         }
-        this.validateFields(this.getValidateKeys(t))
+        this.$nextTick(function (){
+          this.validateFields(this.getValidateKeys(t))
+        })
       },
       /**
        * 更新未暴露表单项值（私有）
