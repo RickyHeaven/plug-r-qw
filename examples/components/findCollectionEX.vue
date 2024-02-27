@@ -12,8 +12,8 @@
         <wellCard :title="'多维'+exName[Math.ceil(n/2)-1]+(n%2===1?'直接':'按条件')+'查找，返回'+(switchV[n-1]?'路径':'元素')">
           <template #bts>
             <i-switch v-model="switchV[n-1]" size="large" style="margin-right: 6px;">
-              <span slot="open">路径</span>
-              <span slot="close">元素</span>
+              <template #open><span>路径</span></template>
+              <template #close><span>元素</span></template>
             </i-switch>
           </template>
           <div class="wellInnerK">
@@ -24,7 +24,7 @@
             <div class="outBoxS">
               <Input v-model.number="valA[n]" placeholder="YYY" style="width: 39%;" v-if="n%2===0"/>
               <Input v-model.number="valV[n-1]" placeholder="XXX" :style="{width: n%2===0?'60%':'100%'}"><Button
-                  slot="append" @click="find(n)"
+                  #append @click="find(n)"
               >测试</Button></Input>
             </div>
             <div class="rsB">

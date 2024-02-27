@@ -17,10 +17,9 @@
         <Input
             class="aRoot" v-model="valueT" readonly :placeholder="placeholder || t('r.selectDate')" :disabled="disabled"
         >
-          <Icon
-              :type="mouseOver&&(this.valueA||this.valueB)&&!disabled?'ios-close-circle':'ios-calendar-outline'"
-              slot="suffix"
-          />
+          <template #suffix>
+            <Icon :type="mouseOver&&(valueA||valueB)&&!disabled?'ios-close-circle':'ios-calendar-outline'" />
+          </template>
         </Input>
       </div>
     </DatePicker>
@@ -59,7 +58,7 @@
         type: Object
       },
       disabled: {
-        /*整表禁用，仅展示*/
+        /*整张表禁用，仅展示*/
         type: Boolean,
         default: false
       }

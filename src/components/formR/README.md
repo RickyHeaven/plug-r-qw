@@ -1021,7 +1021,7 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、monthR
 * 注意：有时候自定义组件不靠formR组件收集值（仅展示或有独立的采集值的逻辑），则不需要设置key，也不支持defaultVal，如：
 ```
   <formR>
-    <template slot='myFormItem2'>
+    <template #myFormItem2>
       <Table :columns='columns' :data='data'/>
     </template>
   </formR>

@@ -17,7 +17,7 @@
           @select-input-change="onSelectInputChange" @al-name-change="alNameChange"
           @async-label-change="asyncLabelChange"
       >
-        <template :slot="s.slotName" v-for="s in getSlotFormData(box)" slot-scope="{valGroup}">
+        <template #[s.slotName]="{valGroup}" v-for="s in getSlotFormData(box)">
           <slot :name="s.slotName" :val-group="valGroup" />
         </template>
       </item-r>
@@ -29,7 +29,7 @@
         @item-change="itemChange" @re-validate="reValidateAndChangeHandle" @clear-temp-key-item="clearTempKeyItem"
         @select-input-change="onSelectInputChange" @al-name-change="alNameChange" @async-label-change="asyncLabelChange"
     >
-      <template :slot="s.slotName" v-for="s in getSlotFormData(formData)" slot-scope="{valGroup}">
+      <template #[s.slotName]="{valGroup}" v-for="s in getSlotFormData(formData)" >
         <slot :name="s.slotName" :val-group="valGroup" />
       </template>
     </item-r>

@@ -21,16 +21,16 @@
         :btnLoading="btnLoading"
         @on-submit="onSubmit"
     >
-      <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
+      <template #[item.slotName]="{valGroup}" v-for="item in formDataC" >
         <slot :name="item.slotName" :val-group="valGroup" />
       </template>
     </form-r>
-    <div slot="footer">
+    <template #footer>
       <Button
           @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading"
       >{{okBtTxt||t('r.confirm')}}</Button>
       <Button @click="close" class="modal-cancel-btn" v-if="!hideCancelBt">{{cancelBtTxt||t('r.cancel')}}</Button>
-    </div>
+    </template>
   </Modal>
 </template>
 

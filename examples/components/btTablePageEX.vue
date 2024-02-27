@@ -16,16 +16,16 @@
           :draggable="true"
           @on-drag-drop="dragDrop"
       >
-        <template slot="topMsg">共有：{{total}} 条数据。</template>
-        <template slot="topBtnGroup">
+        <template #topMsg>共有：{{total}} 条数据。</template>
+        <template #topBtnGroup>
           <div class="topBoxKAQ">
             <RadioGroup v-model="selectMode" style="margin-right: 20px;" @on-change="clearSelect">
               <Radio label="radio">单选</Radio>
               <Radio label="checkbox">多选</Radio>
             </RadioGroup>
             <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
-            <Button @click="getS">get select</Button>
-            <Button @click="handleNew">新增</Button>
+            <icon-txt-btn name="get select" icon="ios-checkbox" @click="getS"/>
+            <icon-txt-btn name="新增" icon="md-add" @click="handleNew"/>
           </div>
         </template>
       </bt-table-page>

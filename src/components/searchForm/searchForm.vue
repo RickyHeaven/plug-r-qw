@@ -17,7 +17,7 @@
       :show-message="false"
       @on-submit="onSubmit"
   >
-    <template :slot="item.slotName" v-for="item in formDataC" slot-scope="{valGroup}">
+    <template #[item.slotName]="{valGroup}" v-for="item in formDataC" >
       <slot :name="item.slotName" :val-group="valGroup" />
     </template>
   </form-r>

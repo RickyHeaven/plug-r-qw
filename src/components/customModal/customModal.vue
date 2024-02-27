@@ -10,7 +10,7 @@
       @on-visible-change="showHide"
   >
     <slot/>
-    <template slot="footer">
+    <template #footer>
       <slot name="footer">
         <Button class="modal-save-btn" :loading="btnLoading&&loading" @click="handleSub">
           <span v-if="btnLoading&&loading">Loading...</span>

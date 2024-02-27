@@ -43,13 +43,13 @@
         @on-blur="itemChange($event,item)"
         :clearable="!item.password && item.inputType==='text' && item.clearable !== false"
     >
-      <template v-if="item.slotPosition&&item.slotName" :slot="item.slotPosition">
+      <template v-if="item.slotPosition&&item.slotName" #[item.slotPosition]>
         <slot :name="item.slotName" />
       </template>
-      <template v-if="item.slotPosition!=='prepend'&&item.prepend" slot="prepend">
+      <template v-if="item.slotPosition!=='prepend'&&item.prepend" #prepend>
         <span>{{ item.prepend }}</span>
       </template>
-      <template v-if="item.slotPosition!=='append'&&item.append" slot="append">
+      <template v-if="item.slotPosition!=='append'&&item.append" #append>
         <span>{{ item.append }}</span>
       </template>
     </Input>

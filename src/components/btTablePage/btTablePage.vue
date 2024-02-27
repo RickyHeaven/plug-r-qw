@@ -2,18 +2,15 @@
 <!--author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
-  <div class="btTablePage fullHeight" ref="tableBox">
+  <div class="btTablePage fullHeight flexColumnBox" ref="tableBox">
     <div class="topBtn" v-show="showTopRow">
-      <slot name="tableSetting"/>
+      <slot name="tableSetting" />
 
-      <slot name="topMsg"/>
+      <slot name="topMsg" />
 
-      <slot name="topBtnGroup"/>
+      <slot name="topBtnGroup" />
     </div>
-    <div
-        class="tableContainer fullHeight"
-        :class="{noTop: !showTopRow,noPage: noPage}"
-    >
+    <div class="tableContainer growFlexItem">
       <div class="fullHeight relativeBox">
         <div ref="tableContainerLOI" class="fullFlowContent">
           <Table
@@ -96,9 +93,7 @@
       selectionFixed: {
         /*每列开头选择框固定*/
         validator: val => oneOf(val, [
-          'left',
-          'right',
-          false
+          'left', 'right', false
         ]),
         default: false
       },
@@ -122,8 +117,7 @@
       sortable: {
         /*排序模式*/
         validator: val => oneOf(val, [
-          'custom',
-          ''
+          'custom', ''
         ]),
         default: ''
       },
@@ -169,8 +163,7 @@
       },
       orderKeyFormat: {
         validator: val => oneOf(val, [
-          'underline',
-          'camelcase'
+          'underline', 'camelcase'
         ]),
         default: 'underline'
       },
@@ -201,10 +194,7 @@
     data() {
       return {
         pageSizes: this.pageSizes || [
-          10,
-          20,
-          30,
-          40
+          10, 20, 30, 40
         ],
         dataT: this.data,
         pageSizeT: localStorage.getItem('btPageSize') && Number(localStorage.getItem('btPageSize')) || this.pageSize,
@@ -408,19 +398,19 @@
       getDataAndClickRow(clickCurrentRow, order, orderKey) { /*单选模式时（非单选模式只拉数据不点击），拉取表格数据并且点击行，如果传true，则点击当前行，不传则点击 rowClickNum 指定行（公开）*/
         if (this.radio && (clickCurrentRow || this.rowClickNum !== -1)) {
           this.getTableData(order, orderKey, clickCurrentRow)
-            .then(() => {
-              //点击对应行
-              if (this.dataT.length > 0) {
-                setTimeout(() => {
-                  if (clickCurrentRow) {
-                    this.$refs.TableXXX.clickCurrentRow(this.currentIndex || 0)
-                  }
-                  else {
-                    this.$refs.TableXXX.clickCurrentRow(this.rowClickNum)
-                  }
-                }, 10)
-              }
-            })
+              .then(() => {
+                //点击对应行
+                if (this.dataT.length > 0) {
+                  setTimeout(() => {
+                    if (clickCurrentRow) {
+                      this.$refs.TableXXX.clickCurrentRow(this.currentIndex || 0)
+                    }
+                    else {
+                      this.$refs.TableXXX.clickCurrentRow(this.rowClickNum)
+                    }
+                  }, 10)
+                }
+              })
         }
         else {
           this.getTableData()
@@ -465,7 +455,10 @@
           this.getDataAndClickRow()
         }
       },
-      onSortChange({key, order}) {/*私有*/
+      onSortChange({
+        key,
+        order
+      }) {/*私有*/
         //表头排序
         if (order === 'normal') {
           /*恢复到默认页面排序*/
@@ -489,63 +482,63 @@
           }
           if (this.url && this.url !== '') {
             $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
-              .then(d => {
-                let r
-                if (!keepSelect) {
-                  this.clearSelect()
-                }
-                if (myTypeof(this.dataHandler) === 'Function') {
-                  r = this.dataHandler(d)
-                }
-                else {
-                  r = d
-                }
-                if (r.data) {
-                  /*接口返回数据为空时可能是用null表示，所以有下面逻辑*/
-                  if (r.data.records || r.data.records === null) {
-                    this.dataT = r.data.records || []
+                .then(d => {
+                  let r
+                  if (!keepSelect) {
+                    this.clearSelect()
                   }
-                  else if (r.data.page) {
-                    if (r.data.page.records || r.data.page.records === null) {
-                      this.dataT = r.data.page.records || []
-                    }
-                  }
-                  else if (r.data.data) {
-                    if (r.data.data.records || r.data.data.records === null) {
-                      this.dataT = r.data.data.records || []
-                    }
+                  if (myTypeof(this.dataHandler) === 'Function') {
+                    r = this.dataHandler(d)
                   }
                   else {
-                    this.dataT = r.data
+                    r = d
                   }
-                  this.total =
-                    r.data.page && r.data.page.total || r.data.data && r.data.data.total || r.data.total || r.total || 0
-                  if (this.total === 0 && this.current > 1 && this.dataT && this.dataT.length === 0) {
-                    /*如果没有数据，将当前页置为1*/
-                    this.current = 1
+                  if (r.data) {
+                    /*接口返回数据为空时可能是用null表示，所以有下面逻辑*/
+                    if (r.data.records || r.data.records === null) {
+                      this.dataT = r.data.records || []
+                    }
+                    else if (r.data.page) {
+                      if (r.data.page.records || r.data.page.records === null) {
+                        this.dataT = r.data.page.records || []
+                      }
+                    }
+                    else if (r.data.data) {
+                      if (r.data.data.records || r.data.data.records === null) {
+                        this.dataT = r.data.data.records || []
+                      }
+                    }
+                    else {
+                      this.dataT = r.data
+                    }
+                    this.total = r.data.page && r.data.page.total || r.data.data && r.data.data.total || r.data.total ||
+                        r.total || 0
+                    if (this.total === 0 && this.current > 1 && this.dataT && this.dataT.length === 0) {
+                      /*如果没有数据，将当前页置为1*/
+                      this.current = 1
+                    }
+                    else if (this.current > 1 && this.total <= (this.current - 1) * this.pageSizeT) {
+                      /*当前页并没有数据，自动拉取前一页数据*/
+                      this.current--
+                      this.$nextTick(function () {
+                        this.getTableData(order, orderKey)
+                      })
+                    }
+                    this.$emit('on-data-change', r)
+                    resolve(r)
                   }
-                  else if (this.current > 1 && this.total <= (this.current - 1) * this.pageSizeT) {
-                    /*当前页并没有数据，自动拉取前一页数据*/
-                    this.current--
-                    this.$nextTick(function () {
-                      this.getTableData(order, orderKey)
-                    })
+                  else {
+                    console.warn('请求返回数据有误，无法使用')
+                    this.clearTableData()
+                    this.$emit('on-data-change', r)
                   }
-                  this.$emit('on-data-change', r)
-                  resolve(r)
-                }
-                else {
-                  console.warn('请求返回数据有误，无法使用')
+                })
+                .catch(e => {
+                  console.warn(e)
+                  this.clearSelect()
                   this.clearTableData()
-                  this.$emit('on-data-change', r)
-                }
-              })
-              .catch(e => {
-                console.warn(e)
-                this.clearSelect()
-                this.clearTableData()
-                this.$emit('on-data-change', e)
-              })
+                  this.$emit('on-data-change', e)
+                })
           }
           else {
             console.warn('没有有效的请求地址，无法获取表格数据')

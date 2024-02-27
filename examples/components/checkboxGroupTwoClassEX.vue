@@ -4,7 +4,7 @@
     <toHome/>
     <div class="exBox">
       <well-card title="简单用法">
-        <template slot="bts">
+        <template #bts>
           <headerBt icon="ios-trash" @click="value=[]">清空</headerBt>
           <headerBt :icon="disabled?'md-unlock':'md-lock'" @click="disabled=!disabled">
             {{disabled?'解禁':'禁用'}}
@@ -23,7 +23,7 @@
 
     <div class="exBox">
       <well-card title="收集多个字段">
-        <template slot="bts">
+        <template #bts>
           <headerBt icon="ios-trash" @click="value2=[]">清空</headerBt>
           <headerBt :icon="disabled2?'md-unlock':'md-lock'" @click="disabled2=!disabled2">
             {{disabled2?'解禁':'禁用'}}
@@ -42,7 +42,7 @@
 
     <div class="exBox">
       <well-card title="全部收集模式">
-        <template slot="bts">
+        <template #bts>
           <headerBt icon="ios-trash" @click="value3=[]">清空</headerBt>
         </template>
         <div class="boxJA">
@@ -58,7 +58,7 @@
 
     <div class="exBox">
       <well-card title="全部收集模式-多字段收集">
-        <template slot="bts">
+        <template #bts>
           <headerBt icon="ios-trash" @click="value4=[]">清空</headerBt>
         </template>
         <div class="boxJA">

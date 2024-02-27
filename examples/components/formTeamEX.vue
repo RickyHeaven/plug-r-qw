@@ -7,15 +7,15 @@
         ref="formRef" :form-data="formData" :form-rules="formRules" showInlineOkBt showInlineClearBt @on-submit="submit"
         @on-item-change="itemChange"
     >
-      <template slot="boxTitle0">
+      <template #boxTitle0>
         <Icon type="md-person"/>
         基本信息
       </template>
-      <template slot="boxTitle1">
+      <template #boxTitle1>
         <Icon type="md-briefcase"/>
         应聘信息
       </template>
-      <template slot="serviceYear">
+      <template #serviceYear>
         <span>年</span>
       </template>
     </formR>

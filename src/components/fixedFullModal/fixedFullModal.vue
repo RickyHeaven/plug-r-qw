@@ -3,14 +3,16 @@
 
 <template>
   <Modal
-      v-bind="$attrs" v-on="$listeners" v-model="isOpen" class="fixedFullModalR" :mask-closable="false" :styles="{top: top}"
-      fullscreen footer-hide :closable="false"
+      v-bind="$attrs" v-on="$listeners" v-model="isOpen" class="fixedFullModalR" :mask-closable="false"
+      :styles="{top: top}" fullscreen footer-hide :closable="false"
   >
-    <div slot="header" class="headerR">
-      <span>{{title}}</span>
-      <Icon class="closeIcoR" type="ios-close" size="40" title="close" @click="close"/>
-    </div>
-    <slot/>
+    <template #header>
+      <div class="headerR">
+        <span>{{ title }}</span>
+        <Icon class="closeIcoR" type="ios-close" size="40" title="close" @click="close" />
+      </div>
+    </template>
+    <slot />
   </Modal>
 </template>
 

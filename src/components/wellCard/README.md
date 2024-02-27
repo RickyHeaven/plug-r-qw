@@ -18,7 +18,7 @@
 ```
 * 顶部按钮通过slot引入，插槽名为*bts*，如：
 ```$xslt
-<template slot="bts">
+<template #bts>
     <div class="fullHeight tr">
         <Button class="headerBt withIcoL" type="text" @click="handleClick" size="small" ghost>
             <icon type="md-add"/>新增

@@ -4,8 +4,10 @@
     <toHome/>
     <header class="headerKH">
       <span style="margin-right: 14px;color: #fff;">面 板：</span>
-      <i-switch v-model="open"><span slot="open">开</span>
-        <span slot="close">关</span></i-switch>
+      <i-switch v-model="open">
+        <template #open><span>开</span></template>
+        <template #close><span>关</span></template>
+      </i-switch>
     </header>
     <showHidePanelB v-model="open">
       <p>我是内容~~~~~</p>
