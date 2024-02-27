@@ -177,6 +177,12 @@ img {
   border: none !important;
 }
 
+.withBtn,
+.withHeader,
+.withPage{
+  height: calc(~'100% - @{headerH}') !important;
+}
+
 /*$swal弹框*/
 .swalBoxX {
   will-change: unset !important; /*避免弹框在chrome变模糊*/
