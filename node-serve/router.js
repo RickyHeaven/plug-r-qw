@@ -6,7 +6,12 @@
 
 const express = require('express')
 const formRData = require('./data/formR')
-const {_save, _delete, _get, _edit} = require('./database')
+const {
+  _save,
+  _delete,
+  _get,
+  _edit
+} = require('./database')
 
 const router = express.Router()
 
@@ -27,21 +32,31 @@ router.get('/people', function (req, res) {
 })
 
 function pageSelect(action, req, res) {
-  const {current, size, ...others} = req.query
+  const {
+    current,
+    size,
+    ...others
+  } = req.query
   const _current = current && Number(current) || 1
   const _size = size && Number(size) || 10
   let t = {}
   let r
-  if (Object.keys(others).length > 0) {
+  let msg = ''
+  const _o = Object.keys(others)
+  if (_o.length > 0) {
     r = _get(action, _current, _size, e => {
       for (let k in others) {
-        if (others.hasOwnProperty(k) && e[k].indexOf(others[k]) === -1) {
+        if (others.hasOwnProperty(k) && e?.[k]?.indexOf(others[k]) === -1) {
           return false
         }
       }
       
       return true
     })
+    
+    if (_o.indexOf('asc') > -1 || _o.indexOf('desc') > -1) {
+      msg = '接口暂未开发排序功能，返回数据按数据插入时间降序'
+    }
   }
   else {
     r = _get(action, _current, _size)
@@ -50,6 +65,9 @@ function pageSelect(action, req, res) {
   t.total = r.total
   t.size = _size
   t.pages = t.total && Math.ceil(t.total / _size) || 0
+  if(msg){
+    t.message = msg
+  }
   res.send(t)
 }
 

@@ -62,6 +62,11 @@
         type: String,
         default: ''
       },
+      method: {
+        /*表格拉取数据的接口的请求类型,get、post*/
+        type: String,
+        default: 'get'
+      },
       searchData: {
         /*表格条件查询数据*/
         type: Object,
@@ -326,6 +331,12 @@
           this.search()
         },
         deep: true
+      },
+      orderKey(after) {
+        this.key = after
+      },
+      orderDefault(after) {
+        this.order = after
       }
     },
     methods: {
@@ -481,7 +492,7 @@
             this.key = orderKey
           }
           if (this.url && this.url !== '') {
-            $fetch.get(this.url, this.queryData, null, [], {spin: this.getDataLoading})
+            $fetch[this.method](this.url, this.queryData, null, [], {spin: this.getDataLoading})
                 .then(d => {
                   let r
                   if (!keepSelect) {

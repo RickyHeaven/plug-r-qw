@@ -6,6 +6,8 @@
 
 * url: 字符串，表格数据接口地址（不带参数）,如：`'/dcc/gas-iccids'`
 
+* method: 字符串，表格数据接口请求类型,可选值：`'get'`、`'post'`,默认值：`'get'`
+
 * search-data: 对象，拉取表格数据时所有的参数全都放这里面（日常拉取或者条件查询）如：`{useStatus: 1}`
 
 * columns: 数组，格式同iView的columns,但需要表格前多选时，直接设置selection属性，不用在这里添加列；align默认值`'center'`，如需内容居中可不传，
@@ -39,9 +41,9 @@
 
 * noPage: 布尔对象，不带页签，默认：`false`
 
-* orderDefault: `'asc'/'desc'`二选一或不传，默认排序方式，默认：`'desc'`
+* orderDefault: `'asc'/'desc'`二选一或不传，默认排序方式，响应式属性，默认：`'desc'`
 
-* orderKey: 字符串，排序字段的key，默认：`'id'`
+* orderKey: 字符串，排序字段的key，响应式属性，默认：`'id'`
 
 * orderKeyFormat: 下划线`‘underline’`和驼峰`‘camelcase’`二选一或不传，排序字段key的格式，默认：`‘underline’`
 

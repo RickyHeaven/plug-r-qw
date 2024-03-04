@@ -275,7 +275,6 @@
   }
 
   .topBoxKAQ {
-    display: inline-block;
     float: right;
   }
 </style>
