@@ -266,11 +266,11 @@
       },
       dataChangeL(d) {/*私有*/
         this.leftTotal = d?.data?.page?.total || d?.data?.data?.total || d?.data?.total || d?.total || 0
-        this.$emit('onDataChangeL', d)
+        this.$emit('on-data-change-l', d)
       },
       dataChangeR(d) {/*私有*/
         this.rightTotal = d?.data?.page?.total || d?.data?.data?.total || d?.data?.total || d?.total || 0
-        this.$emit('onDataChangeR', d)
+        this.$emit('on-data-change-r', d)
       },
       searchLeft(d) {/*私有*/
         this.searchDataLeft = d

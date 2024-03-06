@@ -17,7 +17,7 @@
         delete-all-url="/node-serve/transfer-box-not-added-all"
         :add-params-handle="e=>e"
         :delete-params-handle="e=>e"
-        @onDataChangeL="onChangeL"
+        @on-data-change-l="onChangeL"
     />
   </div>
 </template>
