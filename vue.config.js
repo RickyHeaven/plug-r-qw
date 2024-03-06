@@ -29,7 +29,8 @@ module.exports = defineConfig({
       less: {
         lessOptions: {
           javascriptEnabled: true,
-          rewriteUrls: 'all'
+          rewriteUrls: 'all',
+          math: 'always'
         }
       }
     }

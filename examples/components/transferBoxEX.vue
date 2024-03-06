@@ -17,6 +17,7 @@
         delete-all-url="/node-serve/transfer-box-not-added-all"
         :add-params-handle="e=>e"
         :delete-params-handle="e=>e"
+        @onDataChangeL="onChangeL"
     />
   </div>
 </template>
@@ -82,7 +83,11 @@
         ]
       }
     },
-    methods: {}
+    methods: {
+      onChangeL(d){
+        console.log('左侧表格数据更新',d)
+      }
+    }
   }
 </script>
 

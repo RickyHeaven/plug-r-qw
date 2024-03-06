@@ -264,13 +264,13 @@
       rSelectionChange(s) {/*私有*/
         this.rSelection = s
       },
-      dataChangeL(d, a) {/*私有*/
-        this.leftTotal =
-            d && (d.data.page && d.data.page.total || d.data.data && d.data.data.total || d.data.total || d.total) || 0
+      dataChangeL(d) {/*私有*/
+        this.leftTotal = d?.data?.page?.total || d?.data?.data?.total || d?.data?.total || d?.total || 0
+        this.$emit('onDataChangeL', d)
       },
-      dataChangeR(d, a) {/*私有*/
-        this.rightTotal =
-            d && (d.data.page && d.data.page.total || d.data.data && d.data.data.total || d.data.total || d.total) || 0
+      dataChangeR(d) {/*私有*/
+        this.rightTotal = d?.data?.page?.total || d?.data?.data?.total || d?.data?.total || d?.total || 0
+        this.$emit('onDataChangeR', d)
       },
       searchLeft(d) {/*私有*/
         this.searchDataLeft = d
@@ -324,8 +324,8 @@
         if (url) {
           this.$fetch[method](url, data, null, [], {spin: true}, false)
               .then(r => {
-                if (r && r.code === 0) {
-                  this.$swal(msg + this.t('r.success'), r && r.message || '', 'success')
+                if (r?.code === 0) {
+                  this.$swal(msg + this.t('r.success'), r?.message || '', 'success')
                   if (this.$refs.lTabRef) {
                     this.$refs.lTabRef.getTableData()
                   }
@@ -335,7 +335,7 @@
                   this.$emit('transferred')
                 }
                 else {
-                  this.$swal(msg + this.t('r.failed'), r && r.message || '', 'error')
+                  this.$swal(msg + this.t('r.failed'), r?.message || '', 'error')
                 }
               })
               .catch(() => {
