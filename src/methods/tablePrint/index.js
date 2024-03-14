@@ -5,6 +5,7 @@
  */
 
 import _ from "lodash"
+import printModal from "./printModal.vue"
 
 let _router = null
 
@@ -22,7 +23,7 @@ function init(router) {
       router.addRoute({
         path: '/tablePrint:isFrom',
         name: 'tablePrint',
-        component: () => import('./printModal.vue')
+        component: printModal
       })
     }
     
