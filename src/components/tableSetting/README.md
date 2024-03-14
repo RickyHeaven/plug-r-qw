@@ -15,6 +15,8 @@
 * bg: 字符串，设置面板背景色，默认：`#ccc`
 
 * defaultCheck: 布尔类型，是否设置默认勾选（默认`false`，用于默认展示所有列），如果设为true（用于默认展示部分列）,则在v-model绑定的*columns*项里设置`showSettingCheck:true`
+
+* storage: 字符串，指定使用浏览器缓存类型，可选值`'localStorage'`、`'sessionStorage'`，默认：`localStorage`
 ### columns与配置相关字段
 * disableShowSetting 布尔对象，禁止该字段在设置界面被操作
 

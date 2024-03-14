@@ -1,0 +1,105 @@
+/**
+ * created 2024.03.12
+ * @author ricky zhangqingcq@foxmail.com
+ */
+
+.tablePrintWrapper {
+  display: inline-block;
+}
+
+.tablePrintModal {
+  padding: 45px 0 20px 20px;
+
+  &.printing {
+    padding: 0;
+    .a4Line{
+      border-color: transparent;
+      color: transparent;
+    }
+  }
+
+  .a4Line {
+    color: #ccc;
+    position: absolute;
+    top:45px;
+    width: 100px;
+    height: calc(100% - 45px);
+    padding:60px 0 0 3px;
+    border-left: 1px dashed #ddd;
+    z-index: 1;
+
+    &.aL{
+      left: calc(20px + 1075px);
+    }
+
+    &.bL{
+      left: calc(20px + 1562px);
+    }
+  }
+
+  .msgL {
+    padding-left: 40px;
+    font-size: 18px;
+    color: #2c3e50;
+  }
+
+  .topsL {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    z-index: 1000;
+
+
+    .topsLTitle {
+      font-size: 14px;
+      font-weight: bold;
+      padding-left: 15px;
+      float: left;
+    }
+
+    .topsLBtn {
+      float: right;
+      padding-right: 10px;
+
+      .tableBtnsG i {
+        line-height: 40px;
+      }
+    }
+
+    .topsLHelp {
+      position: absolute;
+      top: 40px;
+      right: 200px;
+      width: 300px;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255.9);
+      box-shadow: 0 0 6px 2px rgba(0, 0, 0, .2);
+      p{
+        line-height: 1.5rem;
+      }
+    }
+  }
+
+  .ivu-table-wrapper-with-border {
+    border-color: transparent;
+
+    > .ivu-table-border {
+      border-left: 1px solid #dcdee2;
+
+      &:after, &:before {
+        background-color: transparent;
+      }
+
+      > .ivu-table-header {
+        th {
+          border-top: 1px solid #dcdee2;
+        }
+      }
+    }
+  }
+}

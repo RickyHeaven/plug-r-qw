@@ -36,6 +36,7 @@ import $swal from './methods/swal.js'
 import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from "./methods/fetch.js"
+import tablePrint from './methods/tablePrint'
 import $swalConfirm from "./methods/swalConfirm.js"
 import arCascader from 'ar-cascader'
 import JsonView from 'vue-json-viewer'
@@ -175,7 +176,8 @@ const methodsR = {
   removeEmptyValue,
   findCollection,
   htmlPrint,
-  siblingElems
+  siblingElems,
+  tablePrint
 }
 
 const install = function (Vue, opts = {}) {
@@ -185,6 +187,8 @@ const install = function (Vue, opts = {}) {
   locale.i18n(opts.i18n)
   $fetch.init(opts.useStore || opts.store)
   timer.init(opts.router)
+  tablePrint.init(opts.router)
+  
   
   if (!Vue) {
     console.error('库安装失败，未获取到Vue对象')

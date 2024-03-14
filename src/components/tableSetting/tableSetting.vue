@@ -4,8 +4,8 @@
 <template>
   <div class="tabSetF">
     <div class="tabSetBt" @click="labelClick">
-      <Icon type="md-settings" size="17"/>
-      <span>{{t('r.tabSetting')}}</span>
+      <Icon type="md-settings" size="17" />
+      <span>{{ t('r.tabSetting') }}</span>
     </div>
     <div class="tabSetCard" v-show="show" :style="{top:top,right:right,width:width,backgroundColor:bg}">
       <div class="topCheck">
@@ -13,8 +13,8 @@
             :indeterminate="indeterminate"
             :value="checkAll"
             @click.prevent.native="handleCheckAll"
-        >{{t('r.all')}}</Checkbox>
-        <span style="cursor: pointer;float: right" @click="save">{{t('r.confirm')}}</span>
+        >{{ t('r.all') }}</Checkbox>
+        <span style="cursor: pointer;float: right" @click="save">{{ t('r.confirm') }}</span>
       </div>
       <CheckboxGroup v-model="checkAllGroup">
         <Checkbox
@@ -43,6 +43,7 @@
    */
   import _ from 'lodash'
   import Locale from '../../mixins/locale'
+  import {oneOf} from "../../methods/functionGroup"
 
   export default {
     name: "tableSetting",
@@ -81,6 +82,12 @@
       defaultCheck: {
         type: Boolean,
         default: false
+      },
+      storage: {
+        validator: val => oneOf(val, [
+          'localStorage', 'sessionStorage'
+        ]),
+        default: 'localStorage'
       }
     },
     data() {
@@ -139,10 +146,10 @@
       let unknown = this.t('r.unknown')
       let localStr
       if (this.locale) {
-        localStr = localStorage.getItem(this.sKey + '_' + this.locale)
+        localStr = window[this.storage].getItem(this.sKey + '_' + this.locale)
       }
       else {
-        localStr = localStorage.getItem(this.sKey)
+        localStr = window[this.storage].getItem(this.sKey)
       }
       if (localStr) {
         this.checkAllGroup = JSON.parse(decodeURI(localStr))
@@ -150,7 +157,7 @@
       else {
         if (this.defaultCheck) {
           this.checkAllGroup = this.value.filter(e => e.showSettingCheck)
-            .map(e => e && e.title || unknown)
+              .map(e => e && e.title || unknown)
         }
       }
     },
@@ -170,10 +177,10 @@
       },
       save() {
         if (this.locale) {
-          localStorage.setItem(this.sKey + '_' + this.locale, encodeURI(JSON.stringify(this.checkAllGroup)))
+          window[this.storage].setItem(this.sKey + '_' + this.locale, encodeURI(JSON.stringify(this.checkAllGroup)))
         }
         else {
-          localStorage.setItem(this.sKey, encodeURI(JSON.stringify(this.checkAllGroup)))
+          window[this.storage].setItem(this.sKey, encodeURI(JSON.stringify(this.checkAllGroup)))
         }
         this.show = false
         // this.$Message.success('显示设置已保存！')

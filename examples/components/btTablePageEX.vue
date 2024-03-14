@@ -1,7 +1,7 @@
 <template>
   <div class="exBox">
-    <showReadMe/>
-    <toHome/>
+    <showReadMe />
+    <toHome />
     <div class="tableLK">
       <bt-table-page
           ref="btTab"
@@ -9,14 +9,14 @@
           :url='url'
           :search-data="searchData"
           @on-row-click="onRowClick"
-          @on-data-change="setTotal"
+          @on-data-change="dataChangeHandle"
           show-top-row
           :radio="selectMode==='radio'"
           :selection="selectMode==='checkbox'"
           :draggable="true"
           @on-drag-drop="dragDrop"
       >
-        <template #topMsg>共有：{{total}} 条数据。</template>
+        <template #topMsg>共有：{{ total }} 条数据。</template>
         <template #topBtnGroup>
           <div class="topBoxKAQ">
             <RadioGroup v-model="selectMode" style="margin-right: 20px;" @on-change="clearSelect">
@@ -24,19 +24,24 @@
               <Radio label="checkbox">多选</Radio>
             </RadioGroup>
             <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
-            <icon-txt-btn name="get select" icon="ios-checkbox" @click="getS"/>
-            <icon-txt-btn name="新增" icon="md-add" @click="handleNew"/>
+            <icon-txt-btn name="get select" icon="ios-checkbox" @click="getS" />
+            <icon-txt-btn name="新增" icon="md-add" @click="handleNew" />
+            <!--            <table-print :columns="columns" :data="btData" />-->
+            <icon-txt-btn name="打印" icon="md-print" @click="handlePrint" />
           </div>
         </template>
       </bt-table-page>
     </div>
-    <form-modal :title="title" ref="formModalRef" :form-data="formData" :form-rules="formRules" @on-submit="handleSub"/>
+    <form-modal
+        :title="title" ref="formModalRef" :form-data="formData" :form-rules="formRules" @on-submit="handleSub"
+    />
   </div>
 </template>
 
 <script>
   import {downloadFileReaderFile} from '../../src/methods/functionGroup'
   import imgK from '../assets/testo.png'
+  import _ from 'lodash'
 
   export default {
     name: "btTablePageEX",
@@ -53,8 +58,7 @@
             title: 'ID',
             key: 'id',
             width: 80
-          },
-          {
+          }, {
             title: "文件名称",
             key: "name",
             minWidth: 250,
@@ -68,23 +72,19 @@
                 },
               }, params.row.name)
             }
-          },
-          {
+          }, {
             title: "文件类型",
             minWidth: 250,
             key: "mimeType"
-          },
-          {
+          }, {
             title: "文件大小",
             minWidth: 250,
             key: "size"
-          },
-          {
+          }, {
             title: "备注",
             minWidth: 250,
             key: "remark"
-          },
-          {
+          }, {
             title: '操作',
             width: 240,
             render: (h, params) => {
@@ -103,8 +103,7 @@
                       }
                     }
                   }
-                }, '编辑'),
-                h("Button", {
+                }, '编辑'), h("Button", {
                   on: {
                     click: () => {
                       this.messageBox({
@@ -140,24 +139,20 @@
             type: 'txt',
             val: '正常的文件系统应该是上传文件，我们这里只是演示btTablePage使用方法，手动填写这些字段就行',
             label: '说明'
-          },
-          {
+          }, {
             type: 'input',
             key: 'name',
             label: '文件名称'
-          },
-          {
+          }, {
             type: 'inputNumber',
             key: 'size',
             label: '文件大小',
             min: 0
-          },
-          {
+          }, {
             type: 'input',
             key: 'mimeType',
             label: '文件类型'
-          },
-          {
+          }, {
             type: 'textarea',
             key: 'remark',
             label: '备注'
@@ -194,7 +189,7 @@
         //提出a
         let t = d.splice(a, 1)
         //将a插到b后面
-        d.splice(b,0,...t)
+        d.splice(b, 0, ...t)
         this.$nextTick(function () {
           this.$refs.btTab.dataS = d
         })
@@ -248,8 +243,12 @@
       onRowClick(row, index) {
         console.log('row click-->', row, index)
       },
-      setTotal() {
-        this.total = this.$refs.btTab.total
+      handlePrint() {
+        this.tablePrint.print(this.columns, this.btData)
+      },
+      dataChangeHandle(d) {
+        this.total = d?.total || d?.data?.total || 0
+        this.btData = d?.data?.records || d?.data || []
       }
     }
   }
