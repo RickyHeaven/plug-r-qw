@@ -26,7 +26,6 @@
             <Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
             <icon-txt-btn name="get select" icon="ios-checkbox" @click="getS" />
             <icon-txt-btn name="新增" icon="md-add" @click="handleNew" />
-            <!--            <table-print :columns="columns" :data="btData" />-->
             <icon-txt-btn name="打印" icon="md-print" @click="handlePrint" />
           </div>
         </template>
@@ -61,7 +60,7 @@
           }, {
             title: "文件名称",
             key: "name",
-            minWidth: 250,
+            minWidth: 470,
             render: (h, params) => {
               return h("span", {
                 class: 'linkM',
@@ -74,11 +73,11 @@
             }
           }, {
             title: "文件类型",
-            minWidth: 250,
+            minWidth: 150,
             key: "mimeType"
           }, {
             title: "文件大小",
-            minWidth: 250,
+            minWidth: 100,
             key: "size"
           }, {
             title: "备注",
@@ -244,7 +243,7 @@
         console.log('row click-->', row, index)
       },
       handlePrint() {
-        this.tablePrint.print(this.columns, this.btData)
+        this.tablePrint.print(this.columns, this.btData, '表格打印示例', {autoPrint: true})
       },
       dataChangeHandle(d) {
         this.total = d?.total || d?.data?.total || 0

@@ -19,7 +19,7 @@ author ricky email:zhangqingcq@foxmail.com-->
       return {
         title: '',
         disabled: false,
-        printing: false,
+        autoPrint: false,
         help: false,
         isFrom: '',
         sKey: 'tablePrint_' + Date.now().toString(),
@@ -50,14 +50,20 @@ author ricky email:zhangqingcq@foxmail.com-->
         vm.$data.data = data
         vm.$data.title = title
         vm.$data.customClass = config?.customClass
+        vm.$data.autoPrint = config?.autoPrint || false
         document.title = (title || vm.$t('r.print')) + '_' + new Date().toLocaleString()
       })
     },
+    mounted() {
+      if(this.autoPrint){
+        let tc = window.setTimeout(() => {
+          window.clearTimeout(tc)
+          this.print()
+        }, 100)
+      }
+    },
     methods: {
       close() {
-        if (this.printing) {
-          this.printing = false
-        }
         if (this.isFrom) {
           window.sessionStorage.removeItem('print_' + this.isFrom)
         }
@@ -70,15 +76,10 @@ author ricky email:zhangqingcq@foxmail.com-->
         }
       },
       print() {
-        this.printing = true
         this.help = false
         let ta = window.setTimeout(() => {
           window.clearTimeout(ta)
           window.print()
-          let tc = setTimeout(() => {
-            window.clearTimeout(tc)
-            this.printing = false
-          }, 10)
         }, 100)
       }
     }
@@ -86,11 +87,17 @@ author ricky email:zhangqingcq@foxmail.com-->
 </script>
 
 <template>
-  <div class="tablePrintModal" :class="[{printing: printing},customClass]" @click="wallClick">
-    <div class="msgL" v-show="disabled">{{ t('r.printGuide.9') }}</div>
-    <div class="a4Line aL" v-show="!disabled">{{ t('r.printGuide.7') }}</div>
-    <div class="a4Line bL" v-show="!disabled">{{ t('r.printGuide.8') }}</div>
-    <div class="topsL" v-show="!printing&&!disabled">
+  <div class="tablePrintModal" :class="[customClass]" @click="wallClick">
+    <div class="msgL notPrint" v-show="disabled">{{ t('r.printGuide.9') }}</div>
+    <div class="a4Line aL notPrint" v-show="!disabled"><p>{{ t('r.printGuide.7') }}</p>
+      <p>{{ t('r.printGuide.5') }}</p></div>
+    <div class="a4Line aR notPrint" v-show="!disabled"><p>{{ t('r.printGuide.7') }}</p>
+      <p>{{ t('r.printGuide.6') }}</p></div>
+    <div class="a4Line bL notPrint" v-show="!disabled"><p>{{ t('r.printGuide.8') }}</p>
+      <p>{{ t('r.printGuide.5') }}</p></div>
+    <div class="a4Line bR notPrint" v-show="!disabled"><p>{{ t('r.printGuide.8') }}</p>
+      <p>{{ t('r.printGuide.6') }}</p></div>
+    <div class="topsL notPrint" v-show="!disabled">
       <div class="topsLTitle">{{ title || t('r.print') }}</div>
       <div class="topsLBtn">
         <icon-txt-btn icon="md-help-circle" :name="t('r.help')" @click.stop="help=!help" />
@@ -105,6 +112,6 @@ author ricky email:zhangqingcq@foxmail.com-->
         <p>{{ t('r.printGuide.4') }}</p>
       </div>
     </div>
-    <Table :columns="columns" :data="data" border v-show="!disabled" />
+    <Table class="tablePW" :columns="columns" :data="data" border v-show="!disabled" />
   </div>
 </template>

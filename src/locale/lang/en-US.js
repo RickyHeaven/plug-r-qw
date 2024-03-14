@@ -73,6 +73,8 @@ export default {
       2: '2. Click "Table setting" to select the column to be printed. Click the "OK" button after selection.',
       3: '3. This page has an A4 grey guide line. Adjust the right edge of the table to the guide line. By default print settings, the printer can align the table contents to A4 paper.',
       4:'4. Copy this page address to the browser address bar, and the open page will not be available.',
+      5:'Before this line, the content will not fill the paper',
+      6:'Content beyond this line will not be printed',
       7:'A4 vertical line',
       8:'A4 transverse line',
       9:'Copied pages cannot use this printing function.',
