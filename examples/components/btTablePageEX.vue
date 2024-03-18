@@ -51,7 +51,7 @@
         selectMode: 'radio',
         total: 0,
         searchData: {},
-        btData: [],
+        tabData: [],
         columns: [
           {
             title: 'ID',
@@ -243,11 +243,11 @@
         console.log('row click-->', row, index)
       },
       handlePrint() {
-        this.tablePrint.print(this.columns, this.btData, '表格打印示例', {autoPrint: true})
+        this.tablePrint.print(this.columns, this.tabData, '表格打印示例', {autoPrint: true})
       },
       dataChangeHandle(d) {
         this.total = d?.total || d?.data?.total || 0
-        this.btData = d?.data?.records || d?.data || []
+        this.tabData = d?.data?.records || d?.data || []
       }
     }
   }

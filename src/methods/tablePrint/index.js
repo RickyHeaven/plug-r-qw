@@ -1,7 +1,7 @@
 /**
  * created 2024.03.13
  * @author Ricky <zhangqingcq@foxmail.com>
- * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列
+ * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列，该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档
  */
 
 import _ from "lodash"
@@ -21,7 +21,7 @@ function init(router) {
     }
     if (add) {
       router.addRoute({
-        path: '/tablePrint:isFrom',
+        path: '/tablePrint/:isFrom',
         name: 'tablePrint',
         component: printModal
       })
@@ -61,7 +61,11 @@ function print(columns, data, title, config) {
       return item
     })
   }
-  window.sessionStorage.setItem('print_' + _router?.currentRoute?.fullPath, JSON.stringify({
+  let _p = _router?.currentRoute?.fullPath
+  if(_p){
+    _p = _p.replace('/', '_')
+  }
+  window.sessionStorage.setItem('print_' + _p, JSON.stringify({
     columns: columnsB,
     data,
     title,
@@ -69,7 +73,7 @@ function print(columns, data, title, config) {
   }))
   const r = _router.resolve({
     name: 'tablePrint',
-    params:{isFrom:_router?.currentRoute?.fullPath}
+    params:{isFrom:_p}
   })
   window.open(r.href, '_blank')
 }
