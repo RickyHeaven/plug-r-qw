@@ -1,15 +1,30 @@
 /**
  * created 2024.03.13
  * @author Ricky <zhangqingcq@foxmail.com>
- * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列，该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档
+ * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列
  * 注意：1.该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档；
- * 2.打印时会新开一个浏览器窗口，路由为'/tablePrint'，该路由页面需要铺满浏览器窗口，即该路由所在的router-view外部不会有任何dom元素渲染在页面上（隐藏的不影响打印）。
+ * 2.打印时会新开一个浏览器窗口，路由为'/tablePrint'，该路由页面需要铺满浏览器窗口，即该路由所在的router-view外部
+ * 不应有任何dom元素渲染在页面上（隐藏的多余dom元素不影响打印）;
+ * 3.由于内容较多时需要分页打印，所以需要在打印页面的html、body、#app上添加样式，该插件会自动添加这些样式，
+ * 如果页面这些dom节点已经存在类似样式，该插件会覆盖已存在的样式（只会影响打印页面，无需担心其他页面被污染）;
+ * ps:#app为vue项目根节点，因为vue2项目根节点没有特殊标识，不好识别，所以尽量使用'#app'作为根节点，
+ * 或者自行设置根节点样式，根节点不能限制高度，设成height:100%即可;
+ * 4.虽然插件有调节列宽的功能，但为了用户使用方便，开发人员应该在columns里设置好适合的列宽（minWidth或width）,
+ * 让打印页面打开时就具备较好的打印布局效果。
  */
 
 import _ from "lodash"
 import printModal from "./printModal.vue"
 
 let _router = null
+
+function addStyle() {
+  const root = document.documentElement
+  root.style.setProperty('overflow', 'auto')
+  const style = document.createElement('style')
+  style.innerHTML = `body,#app{height:100% !important}`
+  document.head.appendChild(style)
+}
 
 function init(router) {
   if (router?.addRoute) {
@@ -30,6 +45,16 @@ function init(router) {
     }
     
     _router = router
+    //新打开的浏览器窗口，进入时，该打印插件还未完成初始化，所以打印路由还没加上去，无法直接进入打印页面，在这里路由添加后重新进入打印页面
+    if (location.pathname.indexOf('tablePrint') > -1) {
+      //vue-router history模式
+      _router.push(location.pathname)
+      addStyle()
+    } else if (location.hash.indexOf('tablePrint') > -1) {
+      //vue-router hash模式
+      _router.push(location.hash.replace(/^#/, ''))
+      addStyle()
+    }
   }
 }
 

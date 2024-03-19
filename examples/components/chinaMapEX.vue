@@ -27,8 +27,6 @@
   //引入地图JSON文件，资源来自依赖包
   import {china,province} from 'china-map-data'
   //引入模拟后端返回的数据
-  import toolTipData from '../../public/testData/toolTipData.json'
-  import provinceData from '../../public/testData/provinceData.json'
   export default {
     name: "chinaMapEX",
     data() {
@@ -43,22 +41,28 @@
         }
       }
     },
-    mounted() {
+    created() {
       // 模拟后端返回的省份数据
-      this.toolTipData = toolTipData
+      this.$fetch.get('testData/toolTipData.json').then(r => {
+        this.toolTipData = r
+        for (let i = 0; i < this.toolTipData.length; i++) {
+          this.seriesData[i] = {}
+          this.seriesData[i].name = this.toolTipData[i].provinceName
+          this.seriesData[i].value = this.toolTipData[i].shopCount
+          this.seriesData[i].provinceKey = this.toolTipData[i].provinceKey
+        }
+      })
       // 模拟后端返回的市区县数据，请求省市数据
-      this.provinceData = provinceData
-      for (let i = 0; i < this.toolTipData.length; i++) {
-        this.seriesData[i] = {}
-        this.seriesData[i].name = this.toolTipData[i].provinceName
-        this.seriesData[i].value = this.toolTipData[i].shopCount
-        this.seriesData[i].provinceKey = this.toolTipData[i].provinceKey
-      }
-      for (let i = 0; i < this.provinceData.length; i++) {
-        this.seriesDataPro[i] = {}
-        this.seriesDataPro[i].name = this.provinceData[i].cityName
-        this.seriesDataPro[i].value = this.provinceData[i].shopCount
-      }
+      this.$fetch.get('testData/provinceData.json').then(r => {
+        this.provinceData = r
+        for (let i = 0; i < this.provinceData.length; i++) {
+          this.seriesDataPro[i] = {}
+          this.seriesDataPro[i].name = this.provinceData[i].cityName
+          this.seriesDataPro[i].value = this.provinceData[i].shopCount
+        }
+      })
+    },
+    mounted() {
       this.$nextTick(()=>{
         //注册地图，由示例页面来处理JSON数据
         this.regionName('china')
