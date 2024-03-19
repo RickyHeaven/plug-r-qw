@@ -65,7 +65,7 @@ function print(columns, data, title, config) {
   }
   let _p = _router?.currentRoute?.fullPath
   if(_p){
-    _p = _p.replace('/', '_')
+    _p = _p.replace(/\//g, '_')
   }
   window.sessionStorage.setItem('print_' + _p, JSON.stringify({
     columns: columnsB,
