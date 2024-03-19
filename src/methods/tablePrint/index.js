@@ -2,6 +2,8 @@
  * created 2024.03.13
  * @author Ricky <zhangqingcq@foxmail.com>
  * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列，该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档
+ * 注意：1.该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档；
+ * 2.打印时会新开一个浏览器窗口，路由为'/tablePrint'，该路由页面需要铺满浏览器窗口，即该路由所在的router-view外部不会有任何dom元素渲染在页面上（隐藏的不影响打印）。
  */
 
 import _ from "lodash"
