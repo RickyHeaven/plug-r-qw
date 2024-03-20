@@ -405,7 +405,9 @@ radioGroup、checkbox、checkboxGroup、textarea、upload、date、time、monthR
 
 * [append](#append) 字符串，输入框尾部内容
 
-* [slotName](#slotName) 插槽名字，自定义内容通过插槽接入输入框，如自定义单位等，使用方法参考view-design的input组件slot功能
+* [slotName](#slotName) 插槽名字，自定义内容通过插槽接入输入框，如自定义单位等，名字随意取，一个formData里不能有重复的slotName
+
+* [slotPosition](#slotPosition) 插槽位置，指定输入框插槽，如`'prepend','append'`等，相当于view-design的input组件slot名字，使用方法参考view-design的input混合型输入框文档
 
 * [icon](#icon) 字符串，输入框尾部图标
 
