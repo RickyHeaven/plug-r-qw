@@ -44,7 +44,7 @@
         :clearable="!item.password && item.inputType==='text' && item.clearable !== false"
     >
       <template v-if="item.slotPosition&&item.slotName" #[item.slotPosition]>
-        <slot :name="item.slotName" />
+        <slot :name="item.slotName" :valGroup="valGroup"/>
       </template>
       <template v-if="item.slotPosition!=='prepend'&&item.prepend" #prepend>
         <span>{{ item.prepend }}</span>
