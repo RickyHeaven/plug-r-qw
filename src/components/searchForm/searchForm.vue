@@ -73,11 +73,11 @@
         if (this.formTeam) {
           let t = []
           for (let f of this.formData) {
-            t = t.concat(f.filter(e => e.type === 'custom'))
+            t = t.concat(f.filter(e => e.type === 'custom' || e.type === 'input' && e.slotName && e.slotPosition))
           }
           return t
         }
-        return this.formData.filter(e => e.type === 'custom')
+        return this.formData.filter(e => e.type === 'custom' || e.type === 'input' && e.slotName && e.slotPosition)
       }
     },
     mounted() {

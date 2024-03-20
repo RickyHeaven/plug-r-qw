@@ -21,15 +21,15 @@
         :btnLoading="btnLoading"
         @on-submit="onSubmit"
     >
-      <template #[item.slotName]="{valGroup}" v-for="item in formDataC" >
+      <template #[item.slotName]="{valGroup}" v-for="item in formDataC">
         <slot :name="item.slotName" :val-group="valGroup" />
       </template>
     </form-r>
     <template #footer>
       <Button
           @click="submit" class="modal-save-btn" :loading="btnLoading&&showLoading"
-      >{{okBtTxt||t('r.confirm')}}</Button>
-      <Button @click="close" class="modal-cancel-btn" v-if="!hideCancelBt">{{cancelBtTxt||t('r.cancel')}}</Button>
+      >{{ okBtTxt || t('r.confirm') }}</Button>
+      <Button @click="close" class="modal-cancel-btn" v-if="!hideCancelBt">{{ cancelBtTxt || t('r.cancel') }}</Button>
     </template>
   </Modal>
 </template>
@@ -61,8 +61,7 @@
       width: {
         /*弹框宽度*/
         type: [
-          Number,
-          String
+          Number, String
         ],
         default: 520
       },
@@ -108,39 +107,39 @@
         return myTypeof(this.formData[0]) === 'Array'
       },
       formDataC() {
-        if(this.formTeam){
+        if (this.formTeam) {
           let t = []
-          for(let f of this.formData){
-            t = t.concat(f.filter(e => e.type === 'custom'))
+          for (let f of this.formData) {
+            t = t.concat(f.filter(e => e.type === 'custom' || e.type === 'input' && e.slotName && e.slotPosition))
           }
           return t
         }
-        return this.formData.filter(e => e.type === 'custom')
+        return this.formData.filter(e => e.type === 'custom' || e.type === 'input' && e.slotName && e.slotPosition)
       }
     },
     methods: {
       resetForm() { /*重置表单，会清空表单值并刷新表单dom，异步方法，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.resetForm()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       refreshFormDom() {/*刷新表单dom，公开*/
         return new Promise(resolve => {
           this.$refs.formRRef.refreshFormDom()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       reRenderForm() {/*重新渲染表单，异步方法（公开）*/
         return new Promise(resolve => {
           this.$refs.formRRef.reRenderForm()
-            .then(() => {
-              resolve()
-            })
+              .then(() => {
+                resolve()
+              })
         })
       },
       clearForm() {/*清空表单值(私有，不推荐直接调用，可以调用resetForm)*/
@@ -168,16 +167,17 @@
         this.showLoading = Boolean(val)
         this.$refs.formRRef.changeLoading(this.showLoading)
       },
-      getValGroup(){/*获取用户已填数据，公开*/
-        return  this.$refs.formRRef.getValGroup()
+      getValGroup() {/*获取用户已填数据，公开*/
+        return this.$refs.formRRef.getValGroup()
       },
       onSubmit() { /*响应提交事件提交数据，私有*/
         this.showLoading = true
       },
       submit() { /*触发提交事件，公开*/
-        if(this.hideCancelBt){
+        if (this.hideCancelBt) {
           this.close()
-        }else {
+        }
+        else {
           this.$refs.formRRef.submit()
         }
       },
