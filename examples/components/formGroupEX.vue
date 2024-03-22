@@ -105,6 +105,12 @@
             key2: 'timeEnter2'
           },
           {
+            type: 'date',
+            dateType: 'month',
+            label: '月份示例',
+            key: 'monthA',
+          },
+          {
             type: 'select',
             label: '联系人',
             key: 'friend',

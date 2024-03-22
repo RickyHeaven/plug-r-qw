@@ -1105,7 +1105,7 @@
                 datetime: 'YYYY-MM-DD HH:mm:ss',
                 datetimerange: 'YYYY-MM-DD HH:mm:ss',
                 year: 'YYYY',
-                month: 'MM'
+                month: 'YYYY-MM'
               }
 
               if (tp === 'date' || tp === 'datetime' || tp === 'time' || tp === 'year' || tp === 'month') {
