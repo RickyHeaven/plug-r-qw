@@ -1,89 +1,93 @@
 .spinModal {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  padding-top: calc(50vh - 15px);
-  background-color: rgba(0,0,0,.1);
-  z-index: 900000000;
-  display: none;
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	padding-top: calc(50vh - 15px);
+	background-color: rgba(0, 0, 0, 0.1);
+	z-index: 900000000;
+	display: none;
 
-  &.show{
-    display: block;
-  }
+	&.show {
+		display: block;
+	}
 
-  .loader{
-    width: 30px;
-    height: 30px;
-    position: relative;
-    margin: 0 auto;
-    .circular {
-      animation: rotate 2s linear infinite;
-      transform-origin: center center;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
+	.loader {
+		width: 30px;
+		height: 30px;
+		position: relative;
+		margin: 0 auto;
+		.circular {
+			animation: rotate 2s linear infinite;
+			transform-origin: center center;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
 
+			.path {
+				stroke-dasharray: 1, 200;
+				stroke-dashoffset: 0;
+				-webkit-animation:
+					dash 1.5s ease-in-out infinite,
+					color 6s ease-in-out infinite;
+				animation:
+					dash 1.5s ease-in-out infinite,
+					color 6s ease-in-out infinite;
+				stroke-linecap: round;
+			}
 
-      .path {
-        stroke-dasharray: 1, 200;
-        stroke-dashoffset: 0;
-        -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-        animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-        stroke-linecap: round;
-      }
+			@keyframes rotate {
+				to {
+					transform: rotate(1turn);
+				}
+			}
 
-      @keyframes rotate {
-        to {
-          transform: rotate(1turn)
-        }
-      }
+			@keyframes dash {
+				0% {
+					stroke-dasharray: 1, 200;
+					stroke-dashoffset: 0;
+				}
 
-      @keyframes dash {
-        0% {
-          stroke-dasharray: 1, 200;
-          stroke-dashoffset: 0
-        }
+				50% {
+					stroke-dasharray: 89, 200;
+					stroke-dashoffset: -35;
+				}
 
-        50% {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -35
-        }
+				to {
+					stroke-dasharray: 89, 200;
+					stroke-dashoffset: -124;
+				}
+			}
 
-        to {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -124
-        }
-      }
+			@keyframes color {
+				0%,
+				to {
+					stroke: #d62d20;
+				}
 
-      @keyframes color {
-        0%, to {
-          stroke: #d62d20
-        }
+				40% {
+					stroke: #0057e7;
+				}
 
-        40% {
-          stroke: #0057e7
-        }
+				66% {
+					stroke: #008744;
+				}
 
-        66% {
-          stroke: #008744
-        }
+				80%,
+				90% {
+					stroke: #ffa700;
+				}
+			}
 
-        80%, 90% {
-          stroke: #ffa700
-        }
-      }
-
-      svg:not(:root) {
-        overflow: hidden;
-      }
-    }
-  }
+			svg:not(:root) {
+				overflow: hidden;
+			}
+		}
+	}
 }
-

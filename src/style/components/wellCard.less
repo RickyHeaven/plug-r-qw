@@ -3,92 +3,92 @@
  * @author ricky zhangqingcq@foxmail.com
  */
 
-@import "../common/size";
-@import "../common/color";
+@import '../common/size';
+@import '../common/color';
 
 .wellCardR {
-  height: 100%;
-  border: 1px solid @titleBg;
-  border-top: none;
-  color: @textColor;
+	height: 100%;
+	border: 1px solid @titleBg;
+	border-top: none;
+	color: @textColor;
 
-  .panelHeader {
-    background-color: @titleBg;
-    overflow: hidden;
-    padding-left: 10px;
-    height: @headerH;
-    line-height: @headerH;
-    width: 100% !important;
-    box-sizing: border-box;
-    .btsF{
-      display: inline-block;
-      float: right;
-      height: @headerH;
-      line-height: @headerH;
+	.panelHeader {
+		background-color: @titleBg;
+		overflow: hidden;
+		padding-left: 10px;
+		height: @headerH;
+		line-height: @headerH;
+		width: 100% !important;
+		box-sizing: border-box;
+		.btsF {
+			display: inline-block;
+			float: right;
+			height: @headerH;
+			line-height: @headerH;
 
-      .popHeaderBt {
-        color: @textColor;
-        border-radius: 0;
-        font-weight: bold;
-        box-shadow: none !important;
+			.popHeaderBt {
+				color: @textColor;
+				border-radius: 0;
+				font-weight: bold;
+				box-shadow: none !important;
 
-        &:before {
-          content: '';
-          display: inline-block;
-          height: 100%;
-          width: 1px;
-          background-color: #fff;
-          left: 0;
-          top: 0;
-          opacity: 1;
-        }
-      }
+				&:before {
+					content: '';
+					display: inline-block;
+					height: 100%;
+					width: 1px;
+					background-color: #fff;
+					left: 0;
+					top: 0;
+					opacity: 1;
+				}
+			}
 
-      .headerBt {
-        border: none;
-        padding: 0 20px 0 20px;
-        box-sizing: border-box;
-        color: @textColor;
-        border-radius: 0;
-        font-weight: bold;
-        height: @headerH;
-        line-height: @headerH;
-        box-shadow: none !important;
-        overflow: hidden;
-        display: inline-block;
-        border-left: 1px solid #fff;
-        cursor: pointer;
+			.headerBt {
+				border: none;
+				padding: 0 20px 0 20px;
+				box-sizing: border-box;
+				color: @textColor;
+				border-radius: 0;
+				font-weight: bold;
+				height: @headerH;
+				line-height: @headerH;
+				box-shadow: none !important;
+				overflow: hidden;
+				display: inline-block;
+				border-left: 1px solid #fff;
+				cursor: pointer;
 
-        &:hover {
-          background-color: rgba(228, 228, 228, 0.3);
-        }
+				&:hover {
+					background-color: rgba(228, 228, 228, 0.3);
+				}
 
-        &.withIcoL {
-          padding-left: 16px;
-        }
+				&.withIcoL {
+					padding-left: 16px;
+				}
 
-        > span {
-          display: inline-block;
-          height: 27px;
-          line-height: inherit;
+				> span {
+					display: inline-block;
+					height: 27px;
+					line-height: inherit;
 
-          > i {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
+					> i {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+	}
 
-  .noBorderTable {
-    .ivu-table-header {
-      &:after {
-        background-color: @tableTheadBg;
-      }
+	.noBorderTable {
+		.ivu-table-header {
+			&:after {
+				background-color: @tableTheadBg;
+			}
 
-      th {
-        background-color: @tableTheadBg;
-      }
-    }
-  }
+			th {
+				background-color: @tableTheadBg;
+			}
+		}
+	}
 }

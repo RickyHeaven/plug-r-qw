@@ -1,5 +1,5 @@
 export default {
-  e:{
-    testTxt:'测试文字'
-  }
+	e: {
+		testTxt: '测试文字'
+	}
 }

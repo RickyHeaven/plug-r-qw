@@ -13,49 +13,49 @@
  * 让打印页面打开时就具备较好的打印布局效果。
  */
 
-import _ from "lodash"
-import printModal from "./printModal.vue"
+import _ from 'lodash'
+import printModal from './printModal.vue'
 
 let _router = null
 
 function addStyle() {
-  const root = document.documentElement
-  root.style.setProperty('overflow', 'auto')
-  const style = document.createElement('style')
-  style.innerHTML = `body,#app{height:100% !important}`
-  document.head.appendChild(style)
+	const root = document.documentElement
+	root.style.setProperty('overflow', 'auto')
+	const style = document.createElement('style')
+	style.innerHTML = `body,#app{height:100% !important}`
+	document.head.appendChild(style)
 }
 
 function init(router) {
-  if (router?.addRoute) {
-    const t = router.getRoutes()
-    let add = true
-    for (let e of t) {
-      if (e.name === 'tablePrint') {
-        add = false
-        break
-      }
-    }
-    if (add) {
-      router.addRoute({
-        path: '/tablePrint/:isFrom',
-        name: 'tablePrint',
-        component: printModal
-      })
-    }
-    
-    _router = router
-    //新打开的浏览器窗口，进入时，该打印插件还未完成初始化，所以打印路由还没加上去，无法直接进入打印页面，在这里路由添加后重新进入打印页面
-    if (location.pathname.indexOf('tablePrint') > -1) {
-      //vue-router history模式
-      _router.push(location.pathname)
-      addStyle()
-    } else if (location.hash.indexOf('tablePrint') > -1) {
-      //vue-router hash模式
-      _router.push(location.hash.replace(/^#/, ''))
-      addStyle()
-    }
-  }
+	if (router?.addRoute) {
+		const t = router.getRoutes()
+		let add = true
+		for (let e of t) {
+			if (e.name === 'tablePrint') {
+				add = false
+				break
+			}
+		}
+		if (add) {
+			router.addRoute({
+				path: '/tablePrint/:isFrom',
+				name: 'tablePrint',
+				component: printModal
+			})
+		}
+
+		_router = router
+		//新打开的浏览器窗口，进入时，该打印插件还未完成初始化，所以打印路由还没加上去，无法直接进入打印页面，在这里路由添加后重新进入打印页面
+		if (location.pathname.indexOf('tablePrint') > -1) {
+			//vue-router history模式
+			_router.push(location.pathname)
+			addStyle()
+		} else if (location.hash.indexOf('tablePrint') > -1) {
+			//vue-router hash模式
+			_router.push(location.hash.replace(/^#/, ''))
+			addStyle()
+		}
+	}
 }
 
 /**
@@ -66,46 +66,51 @@ function init(router) {
  * @param {Object} config 打印设置，目前支持：1.customClass,用于定制打印页面样式；2.autoPrint,是否直接打印
  */
 function print(columns, data, title, config) {
-  if (!_router) {
-    return
-  }
-  let _columns = _.cloneDeep(columns.filter(e => {
-    return e.key
-  }))
-  let columnsB
-  if (_columns[0].type === 'selection') {
-    _columns.shift()
-  }
-  if (!_columns.length) {
-    columnsB = []
-  }else {
-    columnsB = _columns.map(item => {
-      item.width = item.minWidth || 100
-      item.sortable = false
-      delete item.minWidth
-      delete item.__id
-      item.resizable = true
-      return item
-    })
-  }
-  let _p = _router?.currentRoute?.fullPath
-  if(_p){
-    _p = _p.replace(/\//g, '_')
-  }
-  window.sessionStorage.setItem('print_' + _p, JSON.stringify({
-    columns: columnsB,
-    data,
-    title,
-    config
-  }))
-  const r = _router.resolve({
-    name: 'tablePrint',
-    params:{isFrom:_p}
-  })
-  window.open(r.href, '_blank')
+	if (!_router) {
+		return
+	}
+	let _columns = _.cloneDeep(
+		columns.filter((e) => {
+			return e.key
+		})
+	)
+	let columnsB
+	if (_columns[0].type === 'selection') {
+		_columns.shift()
+	}
+	if (!_columns.length) {
+		columnsB = []
+	} else {
+		columnsB = _columns.map((item) => {
+			item.width = item.minWidth || 100
+			item.sortable = false
+			delete item.minWidth
+			delete item.__id
+			item.resizable = true
+			return item
+		})
+	}
+	let _p = _router?.currentRoute?.fullPath
+	if (_p) {
+		_p = _p.replace(/\//g, '_')
+	}
+	window.sessionStorage.setItem(
+		'print_' + _p,
+		JSON.stringify({
+			columns: columnsB,
+			data,
+			title,
+			config
+		})
+	)
+	const r = _router.resolve({
+		name: 'tablePrint',
+		params: { isFrom: _p }
+	})
+	window.open(r.href, '_blank')
 }
 
 export default {
-  init,
-  print
+	init,
+	print
 }

@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import {createPinia, PiniaVuePlugin} from "pinia"
+import { createPinia, PiniaVuePlugin } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import {useStore} from './store'
+import { useStore } from './store'
 import VueI18n from 'vue-i18n'
 import en from './lang/en-US'
 import zh from './lang/zh-CN'
@@ -23,7 +23,6 @@ import zhR from '../src/locale/lang/zh-CN'
 import init from './global/init'
 import dataV from '@jiaminghi/data-view'
 
-
 Vue.config.productionTip = false
 
 Vue.use(PiniaVuePlugin)
@@ -32,56 +31,52 @@ const pinia = createPinia()
 Vue.use(VueI18n)
 
 const messages = {
-  en: {...en, ...enI, ...enR},
-  zh: {...zh, ...zhI, ...zhR}
+	en: { ...en, ...enI, ...enR },
+	zh: { ...zh, ...zhI, ...zhR }
 }
 
 const i18n = new VueI18n({
-  locale: localStorage.getItem('locale') || 'zh',
-  messages
+	locale: localStorage.getItem('locale') || 'zh',
+	messages
 })
 
 Vue.use(ViewUI, {
-  i18n(path, options) {
-    return i18n.t(path, options) || ''
-  }
+	i18n(path, options) {
+		return i18n.t(path, options) || ''
+	}
 })
 Vue.use(VueAMap)
 Vue.use(plugRQw, {
-  useStore,
-  router,
-  i18n(path, options) {
-    return i18n.t(path, options) || ''
-  }
+	useStore,
+	router,
+	i18n(path, options) {
+		return i18n.t(path, options) || ''
+	}
 })
 
 Vue.use(dataV)
 
-Vue.prototype.pageSizes = [
-  10, 20, 50, 100
-]
+Vue.prototype.pageSizes = [10, 20, 50, 100]
 
 window._AMapSecurityConfig = {
-  securityJsCode: '1e77836c15c172e8cda4249f26d64326',
+	securityJsCode: '1e77836c15c172e8cda4249f26d64326'
 }
 
 VueAMap.initAMapApiLoader({
-  key: 'd1e34acab7c1eae8614e0a12bfafc99d',
-  plugin: [
-    'AMap.Autocomplete', 'AMap.Geocoder'
-  ], // 默认高德 sdk 版本为 1.4.4
-  v: '1.4.4'
+	key: 'd1e34acab7c1eae8614e0a12bfafc99d',
+	plugin: ['AMap.Autocomplete', 'AMap.Geocoder'], // 默认高德 sdk 版本为 1.4.4
+	v: '1.4.4'
 })
 
-Vue.prototype.setTimeout(()=>{
-  init()
-},2000)
+Vue.prototype.setTimeout(() => {
+	init()
+}, 2000)
 
 new Vue({
-  i18n,
-  router,
-  pinia,
-  render: h => h(App)
+	i18n,
+	router,
+	pinia,
+	render: (h) => h(App)
 }).$mount('#app')
 
 window.i18n = i18n

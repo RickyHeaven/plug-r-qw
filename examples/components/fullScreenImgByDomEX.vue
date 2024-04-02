@@ -1,22 +1,22 @@
 <template>
-  <div class="examplePageL tc">
-    <toHome/>
-    <div class="linkM inlineBlock" @click="confirmHandle" style="height: 15px;">
-      <img style="height: 100%" src="../assets/testo.png" alt="logo">
-      <div>点击全屏预览</div>
-    </div>
-  </div>
+	<div class="examplePageL tc">
+		<toHome />
+		<div class="linkM inlineBlock" @click="confirmHandle" style="height: 15px">
+			<img style="height: 100%" src="../assets/testo.png" alt="logo" />
+			<div>点击全屏预览</div>
+		</div>
+	</div>
 </template>
 
 <script>
-  import npm from '../assets/testo.png'
+	import npm from '../assets/testo.png'
 
-  export default {
-    name: "fullScreenImgByDomEX",
-    methods: {
-      confirmHandle() {
-        this.fullScreenImgByDom(npm)
-      }
-    }
-  }
+	export default {
+		name: 'fullScreenImgByDomEX',
+		methods: {
+			confirmHandle() {
+				this.fullScreenImgByDom(npm)
+			}
+		}
+	}
 </script>

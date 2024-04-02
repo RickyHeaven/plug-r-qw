@@ -3,57 +3,57 @@
  * @author ricky zhangqingcq@foxmail.com
  */
 
-@import "../common/size";
+@import '../common/size';
 
 .boxLPA {
-  border-left: 1px solid @CKGBorderColor;
-  border-top: 1px solid @CKGBorderColor;
+	border-left: 1px solid @CKGBorderColor;
+	border-top: 1px solid @CKGBorderColor;
 
-  .borderBoxAS{
-    border-bottom: 1px solid @CKGBorderColor;
-    border-right: 1px solid @CKGBorderColor;
-    padding-left: @CKGContentLeftPadding;
-    box-sizing: border-box;
-  }
+	.borderBoxAS {
+		border-bottom: 1px solid @CKGBorderColor;
+		border-right: 1px solid @CKGBorderColor;
+		padding-left: @CKGContentLeftPadding;
+		box-sizing: border-box;
+	}
 
-  .headerJ {
-    height: @headerH;
-    display: flex;
+	.headerJ {
+		height: @headerH;
+		display: flex;
 
-    >div{
-      line-height: @headerH;
-      font-size: 13px;
-      font-weight: bold;
-    }
+		> div {
+			line-height: @headerH;
+			font-size: 13px;
+			font-weight: bold;
+		}
 
-    .firstT {
-      width: @CKGFistW;
-    }
+		.firstT {
+			width: @CKGFistW;
+		}
 
-    .secondT {
-      width: calc(~"100% - @{CKGFistW}");
-    }
-  }
+		.secondT {
+			width: calc(100% - @CKGFistW);
+		}
+	}
 
-  .bodyJ {
-    display: flex;
+	.bodyJ {
+		display: flex;
 
-    .firstCol {
-      width: @CKGFistW;
-      display: flex;
-      align-items: center;
-    }
+		.firstCol {
+			width: @CKGFistW;
+			display: flex;
+			align-items: center;
+		}
 
-    .secondCol {
-      width: calc(~"100% - @{CKGFistW}");
-      display: flex;
-      flex-wrap: wrap;
+		.secondCol {
+			width: calc(100% - @CKGFistW);
+			display: flex;
+			flex-wrap: wrap;
 
-      .secItem {
-        padding-right: @CKGItemPadding;
-        line-height: @headerH*.7;
-        min-width: 160px;
-      }
-    }
-  }
+			.secItem {
+				padding-right: @CKGItemPadding;
+				line-height: @headerH*.7;
+				min-width: 160px;
+			}
+		}
+	}
 }

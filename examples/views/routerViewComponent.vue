@@ -1,9 +1,9 @@
 <template>
-  <router-view></router-view>
+	<router-view></router-view>
 </template>
 
 <script>
-  export default {
-    name: "routerViewComponent"
-  }
+	export default {
+		name: 'routerViewComponent'
+	}
 </script>

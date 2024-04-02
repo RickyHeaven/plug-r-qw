@@ -2,9 +2,9 @@
  *  @author ricky email:zhangqingcq@foxmail.com
  */
 
-import {Modal} from '@zhangqingcq/view-design-r'
-import {myTypeof} from './functionGroup.js'
-import {t} from '../locale/index'
+import { Modal } from '@zhangqingcq/view-design-r'
+import { myTypeof } from './functionGroup.js'
+import { t } from '../locale/index'
 
 let loading = false
 
@@ -27,131 +27,166 @@ let loading = false
  *                    })
  */
 export default function messageBox({
-  height,
-  width = 416,
-  title,
-  content,
-  onOk,
-  onCancel,
-  onClose,
-  okText,
-  cancelText,
-  noWarnIcon,
-  footerAlign,
-  cancelBt
+	height,
+	width = 416,
+	title,
+	content,
+	onOk,
+	onCancel,
+	onClose,
+	okText,
+	cancelText,
+	noWarnIcon,
+	footerAlign,
+	cancelBt
 }) {
-  const T = (...arg) => t.apply(this, arg)
-  
-  let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
-  let heightT = heightTemp || '100px'
-  content = content || T('r.info.text')
-  let stringContent = myTypeof(content) === 'String'
-  Modal.warning({
-    width: width,
-    render: (h) => {
-      return h('div', {
-        class: 'customMessageBox',
-        style: {
-          height: heightT
-        }
-      }, [
-        h('div', {
-          class: 'containerN'
-        }, [
-          h('div', {
-            class: 'titleN'
-          }, [
-            h('span', title || T('r.info.title')), h('Button', {
-              class: 'fr closeN ivu-btn ivu-btn-text',
-              props: {
-                type: 'text'
-              },
-              on: {
-                click() {
-                  Modal.remove()
-                  if (onClose && myTypeof(onClose) === 'Function') {
-                    onClose()
-                  }
-                }
-              }
-            }, [
-              h('i', {
-                class: 'ivu-icon ivu-icon-ios-close',
-                style: {
-                  fontSize: '30px'
-                }
-              })
-            ])
-          ]), h('div', {
-            class: 'contentN',
-            style: {
-              textAlign: stringContent ? 'center' : 'left'
-            }
-          }, [
-            h('i', {
-              class: stringContent && (noWarnIcon !== true) ? 'ivu-icon ivu-icon-ios-alert-outline' : 'hide',
-              style: {
-                fontSize: '60px',
-                color: '#f8bb86'
-              }
-            }), h('div', {class: 'msgBoxConO'}, content)
-          ]), h('div', {
-            class: 'footerN',
-            style: {
-              textAlign: footerAlign || 'center'
-            }
-          }, [
-            h('Button', {
-              class: 'okBtN ivu-btn ivu-btn-default',
-              on: {
-                click(e) {
-                  if (onOk && typeof onOk === 'function') {
-                    const p = onOk()
-                    if (p && myTypeof(p) === 'Promise') {
-                      loading = true
-                      const el = e && (e.currentTarget || e.target)
-                      if (el) {
-                        el.classList.add('ivu-btn-loading')
-                        el.nextSibling.setAttribute('disabled', 'disabled')
-                        const c = el.parentElement?.parentElement.querySelector('.titleN .closeN')
-                        c.classList.add('disabled')
-                      }
-                      Promise.resolve(p)
-                        .then(() => {
-                          loading = false
-                          Modal.remove()
-                        })
-                        .catch(() => {
-                          loading = false
-                          Modal.remove()
-                        })
-                    }
-                    else {
-                      Modal.remove()
-                    }
-                  }
-                }
-              }
-            }, [
-              h('i', {
-                class: 'ivu-load-loop ivu-icon ivu-icon-ios-loading'
-              }), h('span', okText || T('r.confirm'))
-            ]), h('Button', {
-              class: [
-                'cancelBtN ivu-btn ivu-btn-default', cancelBt === false && 'hide'
-              ],
-              on: {
-                click() {
-                  Modal.remove()
-                  if (myTypeof(onCancel) === 'Function') {
-                    onCancel()
-                  }
-                }
-              }
-            }, cancelText || T('r.cancel'))
-          ])
-        ])
-      ])
-    }
-  })
+	const T = (...arg) => t.apply(this, arg)
+
+	let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
+	let heightT = heightTemp || '100px'
+	content = content || T('r.info.text')
+	let stringContent = myTypeof(content) === 'String'
+	Modal.warning({
+		width: width,
+		render: (h) => {
+			return h(
+				'div',
+				{
+					class: 'customMessageBox',
+					style: {
+						height: heightT
+					}
+				},
+				[
+					h(
+						'div',
+						{
+							class: 'containerN'
+						},
+						[
+							h(
+								'div',
+								{
+									class: 'titleN'
+								},
+								[
+									h('span', title || T('r.info.title')),
+									h(
+										'Button',
+										{
+											class: 'fr closeN ivu-btn ivu-btn-text',
+											props: {
+												type: 'text'
+											},
+											on: {
+												click() {
+													Modal.remove()
+													if (onClose && myTypeof(onClose) === 'Function') {
+														onClose()
+													}
+												}
+											}
+										},
+										[
+											h('i', {
+												class: 'ivu-icon ivu-icon-ios-close',
+												style: {
+													fontSize: '30px'
+												}
+											})
+										]
+									)
+								]
+							),
+							h(
+								'div',
+								{
+									class: 'contentN',
+									style: {
+										textAlign: stringContent ? 'center' : 'left'
+									}
+								},
+								[
+									h('i', {
+										class: stringContent && noWarnIcon !== true ? 'ivu-icon ivu-icon-ios-alert-outline' : 'hide',
+										style: {
+											fontSize: '60px',
+											color: '#f8bb86'
+										}
+									}),
+									h('div', { class: 'msgBoxConO' }, content)
+								]
+							),
+							h(
+								'div',
+								{
+									class: 'footerN',
+									style: {
+										textAlign: footerAlign || 'center'
+									}
+								},
+								[
+									h(
+										'Button',
+										{
+											class: 'okBtN ivu-btn ivu-btn-default',
+											on: {
+												click(e) {
+													if (onOk && typeof onOk === 'function') {
+														const p = onOk()
+														if (p && myTypeof(p) === 'Promise') {
+															loading = true
+															const el = e?.currentTarget || e?.target
+															if (el) {
+																el.classList.add('ivu-btn-loading')
+																el.nextSibling.setAttribute('disabled', 'disabled')
+																const c = el.parentElement?.parentElement.querySelector('.titleN .closeN')
+																c.classList.add('disabled')
+															}
+															Promise.resolve(p)
+																.then(() => {
+																	loading = false
+																	Modal.remove()
+																})
+																.catch(() => {
+																	loading = false
+																	Modal.remove()
+																})
+														} else {
+															Modal.remove()
+														}
+													}
+												}
+											}
+										},
+										[
+											h('i', {
+												class: 'ivu-load-loop ivu-icon ivu-icon-ios-loading'
+											}),
+											h('span', okText || T('r.confirm'))
+										]
+									),
+									h(
+										'Button',
+										{
+											class: ['cancelBtN ivu-btn ivu-btn-default', cancelBt === false && 'hide'],
+											on: {
+												click() {
+													Modal.remove()
+													if (myTypeof(onCancel) === 'Function') {
+														onCancel()
+													}
+												}
+											}
+										},
+										cancelText || T('r.cancel')
+									)
+								]
+							)
+						]
+					)
+				]
+			)
+		}
+	})
 }

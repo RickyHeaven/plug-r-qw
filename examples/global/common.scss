@@ -1,18 +1,18 @@
-@import "variables.scss";
+@import 'variables.scss';
 
 .linkM {
-  color: $vueColor;
-  cursor: pointer;
+	color: $vueColor;
+	cursor: pointer;
 
-  &:hover {
-    opacity: .85;
-  }
+	&:hover {
+		opacity: 0.85;
+	}
 }
 
 .examplePageL {
-  padding: 40px 20px 20px 20px;
+	padding: 40px 20px 20px 20px;
 
-  mark {
-    color: $markColor;
-  }
+	mark {
+		color: $markColor;
+	}
 }

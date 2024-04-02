@@ -3,95 +3,96 @@
  * @author ricky zhangqingcq@foxmail.com
  */
 
-@import "../common/size";
-@import "../common/color";
+@import '../common/size';
+@import '../common/color';
 
 .btTablePage {
-  position: relative;
+	position: relative;
 
-  .lightHeadO .ivu-table th{
-    background-color: @tableTheadBg;
-  }
+	.lightHeadO .ivu-table th {
+		background-color: @tableTheadBg;
+	}
 
-  .topBtn {
-    height: @headerH;
-    line-height: @headerH;
+	.topBtn {
+		height: @headerH;
+		line-height: @headerH;
 
-    .btMTL {
-      margin: 0 0 0 4px;
-    }
+		.btMTL {
+			margin: 0 0 0 4px;
+		}
 
-    .btMTR {
-      margin: 0 4px 0 0;
-    }
-  }
+		.btMTR {
+			margin: 0 4px 0 0;
+		}
+	}
 
-  .tableContainer {
-    padding-top: 3px;
-  }
+	.tableContainer {
+		padding-top: 3px;
+	}
 
-  .pageContainer {
-    text-align: right;
-    padding: 3px 8px 6px 8px;
-    >ul{
-      >span,>div,>li{
-        margin-top: 3px;
-      }
-    }
-  }
+	.pageContainer {
+		text-align: right;
+		padding: 3px 8px 6px 8px;
+		> ul {
+			> span,
+			> div,
+			> li {
+				margin-top: 3px;
+			}
+		}
+	}
 }
 
 .fullHeightTable {
-  height: 100%;
+	height: 100%;
 
-  .ivu-table {
-    height: 100% !important;
-    display: flex;
-    flex-direction: column;
+	.ivu-table {
+		height: 100% !important;
+		display: flex;
+		flex-direction: column;
 
-    .ivu-table-body {
-      flex-grow: 1;
-      height: calc(~'100% - @{headerH}') !important;
-      overflow-y: auto;
-      box-sizing: border-box;
+		.ivu-table-body {
+			flex-grow: 1;
+			height: calc(100% - @headerH) !important;
+			overflow-y: auto;
+			box-sizing: border-box;
 
-      table {
-        width: 100% !important;
-      }
-    }
-  }
+			table {
+				width: 100% !important;
+			}
+		}
+	}
 }
 
-
 .noBorderTable {
-  border: none !important;
+	border: none !important;
 
-  .ivu-table:before {
-    display: none !important;
-  }
+	.ivu-table:before {
+		display: none !important;
+	}
 
-  &:not(.hasRightBorder) .ivu-table:after {
-    display: none !important;
-  }
+	&:not(.hasRightBorder) .ivu-table:after {
+		display: none !important;
+	}
 
-  .ivu-table-header {
-    position: relative;
+	.ivu-table-header {
+		position: relative;
 
-    &:after {
-      content: '';
-      display: inline-block;
-      height: 100%;
-      width: 1px;
-      background-color: @tableTheadBg;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			width: 1px;
+			background-color: @tableTheadBg;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
 }
 
 .noRightBorderTable {
-  .ivu-table:after {
-    display: none !important;
-  }
+	.ivu-table:after {
+		display: none !important;
+	}
 }

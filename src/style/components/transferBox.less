@@ -1,56 +1,56 @@
-@import "../common/color";
-@import "../common/size";
+@import '../common/color';
+@import '../common/size';
 
 .transferBoxRL {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
 
-  .leftBoxLLL,
-  .rightBoxLLL {
-    width: calc(~"50% - 60px");
-    height: 100%;
-    border: 1px solid @borderColor;
+	.leftBoxLLL,
+	.rightBoxLLL {
+		width: calc(50% - 60px);
+		height: 100%;
+		border: 1px solid @borderColor;
 
-    .titleLLL {
-      height: @headerH;
-      line-height: @headerH;
-      border-bottom: 1px solid @borderColor;
-      padding-left: 10px;
-      background-color: @tableTheadBg;
-      font-weight: bold;
-    }
-  }
+		.titleLLL {
+			height: @headerH;
+			line-height: @headerH;
+			border-bottom: 1px solid @borderColor;
+			padding-left: 10px;
+			background-color: @tableTheadBg;
+			font-weight: bold;
+		}
+	}
 
-  .middleBoxLLL {
-    width: 120px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	.middleBoxLLL {
+		width: 120px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 
-    .middleBtLLL {
-      width: 90%;
+		.middleBtLLL {
+			width: 90%;
 
-      &:not(:first-child) {
-        margin-top: 20px;
-        margin-left: 0;
-      }
+			&:not(:first-child) {
+				margin-top: 20px;
+				margin-left: 0;
+			}
 
-      &:not([disabled]) {
-        i.ivu-icon-ios-arrow-back {
-          color: #fff;
-        }
-      }
-    }
-  }
+			&:not([disabled]) {
+				i.ivu-icon-ios-arrow-back {
+					color: #fff;
+				}
+			}
+		}
+	}
 
-  .msgLoadingLOIM {
-    position: fixed;
-    top: calc(~"50% + 88px");
-    left: calc(~"50% - 110px");
-    font-size: 16px;
-  }
+	.msgLoadingLOIM {
+		position: fixed;
+		top: calc(50% + 88px);
+		left: calc(50% - 110px);
+		font-size: 16px;
+	}
 }
