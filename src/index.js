@@ -37,6 +37,7 @@ import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
 import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
 import $fetch from './methods/fetch.js'
 import tablePrint from './methods/tablePrint'
+import domPrint from './methods/domPrint'
 import $swalConfirm from './methods/swalConfirm.js'
 import arCascader from 'ar-cascader'
 import JsonView from 'vue-json-viewer'
@@ -177,7 +178,8 @@ const methodsR = {
 	findCollection,
 	htmlPrint,
 	siblingElems,
-	tablePrint
+	tablePrint,
+	domPrint
 }
 
 const install = function (Vue, opts = {}) {
@@ -249,10 +251,26 @@ const install = function (Vue, opts = {}) {
 		})
 	}
 
+	// 页签每页可选条数默认配置
+	Vue.prototype.pageSizes = [10, 20, 50, 100]
+	// 搜索表单默认label宽度
 	Vue.prototype.searchFormLabelWidth = 84
+	// 搜索表单默认表单项内容宽度
+	Vue.prototype.searchFormItemWidth = 202
+	// 弹框表单默认label宽度
 	Vue.prototype.formModalLabelWidth = 140
+	// 弹框表单默认宽度
+	Vue.prototype.formModalWidth = 520
+	// 页内表单默认label宽度
 	Vue.prototype.formGroupLabelWidth = 160
+	// 页内表单默认宽度
+	Vue.prototype.formGroupWidth = '100%'
+	// iconTxtBtn默认图标大小
 	Vue.prototype.iconTxtBtnIconSize = 17
+	// btTablePage是否使用pagePro组件作为页签
+	Vue.prototype.btTablePageUsePagePro = false
+	// tableSetting默认背景色
+	Vue.prototype.tableSettingBg = '#fff'
 }
 
 // auto install

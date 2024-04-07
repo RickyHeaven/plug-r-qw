@@ -117,6 +117,25 @@
 	.tablePW {
 		display: inline-block;
 	}
+
+  .domPrintSetting{
+    height: 30px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    display: flex;
+    justify-content:flex-end;
+    margin-bottom: 10px;
+    .settingLine{
+      width: 5px;
+      border-right: 1px solid #ccc;
+      cursor: col-resize;
+      &:hover{
+        border-color: #150a3d;
+      }
+    }
+  }
+  .domPrintContent{
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+  }
 }
 
 @media print {
@@ -128,5 +147,8 @@
 		.notPrint {
 			display: none;
 		}
+    .domPrintContent{
+      box-shadow: none;
+    }
 	}
 }

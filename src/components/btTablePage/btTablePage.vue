@@ -35,11 +35,22 @@
 			</div>
 		</div>
 		<div class="pageContainer" v-show="!noPage">
-			<Page
-				:page-size-opts="pageSizes"
+			<page-pro
+				v-if="usePagePro"
+				:modelValue="current"
 				:total="total"
-				:current.sync="current"
 				:page-size="pageSizeT"
+				:page-size-opts="pageSizes"
+				:size="pageComponentSize"
+				@on-change="changePage"
+				@on-page-size-change="pageSizeChange"
+			/>
+			<Page
+				v-else
+				:current.sync="current"
+				:total="total"
+				:page-size="pageSizeT"
+				:page-size-opts="pageSizes"
 				show-sizer
 				show-total
 				:showElevator="!noElevator"
@@ -57,9 +68,13 @@
 	import _ from 'lodash'
 	import { setTimeout } from '../../methods/timer'
 	import { myTypeof } from '../../methods/functionGroup'
+	import pagePro from '../pagePro/pagePro.vue'
 
 	export default {
 		name: 'btTablePage',
+		components: {
+			pagePro
+		},
 		props: {
 			url: {
 				/*表格拉取数据的接口地址*/
@@ -192,6 +207,13 @@
 			noElevator: {
 				type: Boolean,
 				default: false
+			},
+			usePagePro: {
+				/*是否使用pagePro组件作为页签*/
+				type: Boolean,
+				default() {
+					return this.btTablePageUsePagePro
+				}
 			}
 		},
 		data() {

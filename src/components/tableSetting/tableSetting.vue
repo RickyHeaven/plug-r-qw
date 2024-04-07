@@ -78,7 +78,9 @@
 			},
 			bg: {
 				type: String,
-				default: '#ccc'
+				default (){
+					return this.tableSettingBg
+				}
 			},
 			defaultCheck: {
 				type: Boolean,

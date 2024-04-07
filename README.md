@@ -190,7 +190,7 @@
   
     app.config.globalProperties.searchFormLabelWidth = 100
   
-    //已支持的全局变量有：searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize
+    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, tableSettingBg
   ```
 
 * 该库主要依赖有`vue、vue-router、pinia、view-ui-plus、sweetalert、lodash-es、axios、echarts、moment、@amap/amap-jsapi-loader、@wangeditor/editor、@wangeditor/editor-for-vue、js-cookie、ar-cascader、vue-json-viewer`
@@ -459,7 +459,7 @@
   
     Vue.prototype.searchFormLabelWidth = 100
   
-    //已支持的全局变量有：searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize
+    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, tableSettingBg
   ```
 
 

@@ -69,39 +69,46 @@ function print(columns, data, title, config) {
 	if (!_router) {
 		return
 	}
-	let _columns = _.cloneDeep(
-		columns.filter((e) => {
-			return e.key
-		})
-	)
+	
 	let columnsB
-	if (_columns[0].type === 'selection') {
-		_columns.shift()
+	if(!config.domPrint){
+		let _columns = _.cloneDeep(
+			columns.filter((e) => {
+				return e.key
+			})
+		)
+		if (_columns[0].type === 'selection') {
+			_columns.shift()
+		}
+		if (!_columns.length) {
+			columnsB = []
+		} else {
+			columnsB = _columns.map((item) => {
+				item.width = item.minWidth || 100
+				item.sortable = false
+				delete item.minWidth
+				delete item.__id
+				item.resizable = true
+				return item
+			})
+		}
 	}
-	if (!_columns.length) {
-		columnsB = []
-	} else {
-		columnsB = _columns.map((item) => {
-			item.width = item.minWidth || 100
-			item.sortable = false
-			delete item.minWidth
-			delete item.__id
-			item.resizable = true
-			return item
-		})
-	}
+	
 	let _p = _router?.currentRoute?.fullPath
 	if (_p) {
 		_p = _p.replace(/\//g, '_')
 	}
-	window.sessionStorage.setItem(
-		'print_' + _p,
-		JSON.stringify({
-			columns: columnsB,
+	let _d = {
 			data,
 			title,
 			config
-		})
+	}
+	if(!config.domPrint){
+		_d.columns = columnsB
+	}
+	window.sessionStorage.setItem(
+		'print_' + _p,
+		JSON.stringify(_d)
 	)
 	const r = _router.resolve({
 		name: 'tablePrint',

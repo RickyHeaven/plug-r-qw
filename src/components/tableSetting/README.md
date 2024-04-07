@@ -14,7 +14,7 @@
 
 - width: 字符串，设置面板宽度，默认：`150px`
 
-- bg: 字符串，设置面板背景色，默认：`#ccc`
+- bg: 字符串，设置面板背景色（面板有阴影），默认：`#fff`
 
 - defaultCheck: 布尔类型，是否设置默认勾选（默认`false`，用于默认展示所有列），如果设为 true（用于默认展示部分列）,则在 v-model 绑定的*columns*项里设置`showSettingCheck:true`
 

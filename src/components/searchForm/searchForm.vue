@@ -52,7 +52,9 @@
 			itemWidth: {
 				/*表单项内容宽度,用于行内表单*/
 				type: Number,
-				default: 202
+				default() {
+					return this.searchFormItemWidth
+				}
 			},
 			showInlineOkBt: {
 				/*显示搜索按钮*/

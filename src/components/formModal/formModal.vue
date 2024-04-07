@@ -61,7 +61,9 @@
 			width: {
 				/*弹框宽度*/
 				type: [Number, String],
-				default: 520
+				default() {
+					return this.formModalWidth
+				}
 			},
 			labelWidth: {
 				/*表单项标签宽度*/

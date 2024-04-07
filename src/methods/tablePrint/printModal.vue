@@ -19,13 +19,23 @@ author ricky email:zhangqingcq@foxmail.com-->
 			return {
 				title: '',
 				disabled: false,
+				domPrint: false,
 				autoPrint: false,
+				width: 715,
 				help: false,
 				isFrom: '',
 				sKey: 'tablePrint_' + Date.now().toString(),
 				customClass: '',
 				columns: [],
-				data: []
+				data: [],
+				isDrag: false
+			}
+		},
+		computed: {
+			domContainerStyle() {
+				return {
+					width: this.width + 'px'
+				}
 			}
 		},
 		beforeRouteEnter(to, from, next) {
@@ -45,7 +55,9 @@ author ricky email:zhangqingcq@foxmail.com-->
 				vm.$data.data = data
 				vm.$data.title = title
 				vm.$data.customClass = config?.customClass
+				vm.$data.domPrint = config?.domPrint || false
 				vm.$data.autoPrint = config?.autoPrint || false
+				vm.$data.width = config?.width || 715
 				document.title = (title || vm.$t('r.print')) + '_' + new Date().toLocaleString()
 			})
 		},
@@ -57,6 +69,8 @@ author ricky email:zhangqingcq@foxmail.com-->
 				}, 100)
 			}
 			document.addEventListener('click', this.wallClick)
+			document.addEventListener('mousemove', this.handleDrag)
+			document.addEventListener('mouseup', this.dragEnd)
 		},
 		methods: {
 			close() {
@@ -69,6 +83,19 @@ author ricky email:zhangqingcq@foxmail.com-->
 			wallClick() {
 				if (this.help) {
 					this.help = false
+				}
+			},
+			dragStart() {
+				this.isDrag = true
+			},
+			handleDrag(e) {
+				if (this.isDrag) {
+					this.width = e?.layerX - 20
+				}
+			},
+			dragEnd() {
+				if (this.isDrag) {
+					this.isDrag = false
 				}
 			},
 			print() {
@@ -106,16 +133,36 @@ author ricky email:zhangqingcq@foxmail.com-->
 			<div class="topsLBtn">
 				<icon-txt-btn icon="md-help-circle" :name="t('r.help')" @click.stop="help = !help" />
 				<icon-txt-btn icon="md-print" :name="t('r.preview')" @click="print" />
-				<table-setting v-model="columns" :s-key="sKey" storage="sessionStorage" />
+				<table-setting v-if="!domPrint" v-model="columns" :s-key="sKey" storage="sessionStorage" />
 				<tableIconBtn icon="md-close" @click="close" :title="t('r.close')" />
 			</div>
 			<div class="topsLHelp" v-show="help">
-				<p>{{ t('r.printGuide.1') }}</p>
-				<p>{{ t('r.printGuide.2') }}</p>
-				<p>{{ t('r.printGuide.3') }}</p>
-				<p>{{ t('r.printGuide.4') }}</p>
+				<p v-if="!domPrint">
+					<span>1. </span>
+					<span>{{ t('r.printGuide.1') }}</span>
+				</p>
+				<p v-if="!domPrint">
+					<span>2. </span>
+					<span>{{ t('r.printGuide.2') }}</span>
+				</p>
+				<p v-if="domPrint">
+					<span>1. </span>
+					<span>{{ t('r.printGuide.10') }}</span>
+				</p>
+				<p>
+					<span>{{ domPrint ? '2. ' : '3. ' }}</span>
+					<span>{{ t('r.printGuide.3') }}</span>
+				</p>
+				<p>
+					<span>{{ domPrint ? '3. ' : '4. ' }}</span>
+					<span>{{ t('r.printGuide.4') }}</span>
+				</p>
 			</div>
 		</div>
-		<Table class="tablePW" :columns="columns" :data="data" border v-show="!disabled" />
+		<div v-if="domPrint" class="domPrintSetting notPrint" :style="domContainerStyle">
+			<div class="settingLine" @mousedown.stop="dragStart"></div>
+		</div>
+		<div v-if="domPrint" class="domPrintContent" v-html="data" :style="domContainerStyle"></div>
+		<Table v-if="!domPrint" class="tablePW" :columns="columns" :data="data" border v-show="!disabled" />
 	</div>
 </template>

@@ -52,7 +52,9 @@
 			width: {
 				/*表单组宽度*/
 				type: String,
-				default: '100%'
+				default() {
+					return this.formGroupWidth
+				}
 			},
 			labelWidth: {
 				/*表单项标签宽度*/
