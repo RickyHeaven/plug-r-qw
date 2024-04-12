@@ -1,5 +1,6 @@
 import Hello from './components/hello.vue'
 import btTablePage from './components/btTablePage/btTablePage.vue'
+import pagePro from './components/pagePro/pagePro.vue'
 import wellCard from './components/wellCard/wellCard.vue'
 import tableTree from './components/tableTree/tableTree.vue'
 import uploadGroup from './components/uploadGroup/uploadGroup.vue'
@@ -91,6 +92,7 @@ import './methods/wangeditor5init'
 const components = {
 	HelloR: Hello,
 	btTablePage,
+	pagePro,
 	wellCard,
 	tableTree,
 	uploadGroup,
