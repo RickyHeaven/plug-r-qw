@@ -36,7 +36,9 @@ author ricky email:zhangqingcq@foxmail.com-->
 			pageSizeOpts: {
 				/*每页可选条数配置*/
 				type: Array,
-				default: () => [10, 20, 30, 40]
+				default() {
+					return this.pageSizes || [10, 20, 30, 40]
+				}
 			},
 			transfer: {
 				type: Boolean,
