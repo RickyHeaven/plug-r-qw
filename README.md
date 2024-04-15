@@ -183,6 +183,7 @@
   > 注意：
   >1. 请不要随意改变这些变量，除非你很清楚改变后会带来的影响，他们在整个库中被多次使用。
   >2. 因为该库是基于view-ui-plus封装的，所以很多样式继承于view-ui-plus，要定制那些样式，直接定制view-ui-plus即可。
+  >3. 如出现样式异常，请使用less@4.x.x版本，可以和库的less版本保持一致。
 
 * 该库有数个用于控制样式的全局变量，挂在app.config.globalProperties下，直接在main.js or main.ts中给对应变量赋值即可定制对应样式：
   ```js
@@ -451,6 +452,7 @@
   > 注意：
   >1. 请不要随意改变这些变量，除非你很清楚改变后会带来的影响，他们在整个库中被多次使用。
   >2. 因为该库是基于view-design封装的，所以很多样式继承了view-design，要定制那些样式，直接定制view-design即可。
+  >3. 如出现样式异常，请使用less@4.x.x版本，可以和库的less版本保持一致。
 
 * 自@zhangqingcq/plug-r-qw@1.4.8开始，新增了部分全局变量用于控制样式，挂在Vue.prototype下，直接在main.js or
   main.ts中给对应变量赋值即可定制对应样式：
@@ -497,7 +499,9 @@
       loaderOptions: {
         less: {
           lessOptions: {
-            javascriptEnabled: true
+            javascriptEnabled: true,
+            rewriteUrls: 'all',
+            math: 'always'
           }
         }
       }
