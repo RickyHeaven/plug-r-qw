@@ -4,13 +4,18 @@
 		<toHome />
 		<Button @click="confirmHandle">对话框</Button>
 		<Button @click="confirmHandleB">promise对话框</Button>
+		<Button @click="confirmHandleC">render函数对话框</Button>
 	</div>
 </template>
 
 <script>
-	import { h } from 'vue'
 	export default {
 		name: 'messageBoxEX',
+		data() {
+			return {
+				msg:''
+			}
+		},
 		methods: {
 			confirmHandle() {
 				this.messageBox({
@@ -31,6 +36,15 @@
 								r()
 							}, 4000)
 						})
+					}
+				})
+			},
+			confirmHandleC() {
+				this.messageBox({
+					title:'render函数示例',
+					content:(h)=>h('Input',{props:{value:this.msg,placeholder:'请输入内容'},on:{input:e=>this.msg=e}}),
+					onOk: () => {
+						this.$swal('您输入了下面内容',this.msg)
 					}
 				})
 			}
