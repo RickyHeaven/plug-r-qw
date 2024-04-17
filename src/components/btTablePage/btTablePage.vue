@@ -402,7 +402,7 @@
 			 * @param {Number|Array|Function} predicate 断言,选中的条件：
 			 * 1. Number:根据索引index选中行
 			 * 2. Array:根据索引index数组选中行(仅多选)
-			 * 3. Function:根据断言函数返回true的行选中
+			 * 3. Function:根据断言函数返回true的行选中，如：(row)=>row.id === 1
 			 */
 			selectRow(predicate) {
 				const _p = predicate
