@@ -6,7 +6,7 @@
 
 - title 字符串，对话框的 title，可不传
 
-- content 字符串/DOM node，提示框内容，可不传
+- content 字符串/Function，提示框内容，可不传，1.string,直接将文字插入对应位置；2.function,如：(h)=>h('div',{class:'my-class'},'123')
 
 - onOk Function，确定按钮被点击时的回调，可不传
 
