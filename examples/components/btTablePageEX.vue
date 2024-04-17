@@ -25,7 +25,9 @@
 							<Radio label="checkbox">多选</Radio>
 						</RadioGroup>
 						<Checkbox v-model="nodeServer" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
-						<icon-txt-btn name="get select" icon="ios-checkbox" @click="getS" />
+						<icon-txt-btn name="select row" icon="md-checkbox" @click="selectRow" />
+						<icon-txt-btn name="select function" icon="md-checkbox" @click="selectRowPredicate" />
+						<icon-txt-btn name="get selected" icon="md-list" @click="getS" />
 						<icon-txt-btn name="新增" icon="md-add" @click="handleNew" />
 						<icon-txt-btn name="打印" icon="md-print" @click="handlePrint" />
 					</div>
@@ -195,7 +197,9 @@
 					mimeType: {
 						required: true
 					}
-				}
+				},
+				tt: [],
+				tr: null
 			}
 		},
 		computed: {
@@ -253,6 +257,56 @@
 				this.$nextTick(function () {
 					this.$refs.btTab.getTableData()
 				})
+			},
+			selectRowPredicate() {
+				this.messageBox({
+					title: '按条件主动选择',
+					content: this.selectMode==='radio'?'将选中id为80的那一行':'将选中id大于79的行',
+					onOk: () => {
+						if (this.selectMode === 'radio') {
+							this.$refs.btTab.selectRow((row) => row.id === 80)
+						} else {
+							this.$refs.btTab.selectRow((row) => row.id > 79)
+						}
+					}
+				})
+			},
+			selectRow() {
+				this.messageBox({
+					title: '你想选中那些行',
+					content: this.messageRender,
+					onOk: () => {
+						if (this.selectMode === 'radio') {
+							this.$refs.btTab.selectRow(this.tr)
+						} else {
+							this.$refs.btTab.selectRow(this.tt)
+						}
+					}
+				})
+			},
+			messageRender(h) {
+				let _c = []
+				const _r = this.selectMode === 'radio'
+				for (let i = 0; i < this.tabData.length; i++) {
+					_c.push(h(_r ? 'Radio' : 'Checkbox', { props: { label: i } }, this.tabData[i].id))
+				}
+
+				return h(
+					_r ? 'RadioGroup' : 'CheckboxGroup',
+					{
+						props: { value: _r ? this.tr : this.tt },
+						on: {
+							'on-change': (v) => {
+								if (_r) {
+									this.tr = v
+								} else {
+									this.tt = v
+								}
+							}
+						}
+					},
+					_c
+				)
 			},
 			getS() {
 				console.log(this.$refs.btTab.getSelected())

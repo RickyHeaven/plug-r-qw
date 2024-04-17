@@ -397,6 +397,37 @@
 					this.$refs.TableXXX.clickCurrentRow(0)
 				}, 100)
 			},
+			/**
+			 * 主动选中行（公开）多选、单选模式皆可用
+			 * @param {Number|Array|Function} predicate 断言,选中的条件：
+			 * 1. Number:根据索引index选中行
+			 * 2. Array:根据索引index数组选中行(仅多选)
+			 * 3. Function:根据断言函数返回true的行选中
+			 */
+			selectRow(predicate) {
+				const _p = predicate
+				if (_.isNumber(_p)) {
+					this.clearSelect()
+					this.currentIndex = _p
+					this.currentKey = this.dataS[_p].btKey
+					this.$refs.TableXXX.clickCurrentRow(_p)
+				} else if (_.isArray(_p)) {
+					if (this.radio || !this.selection) {
+						return
+					}
+					this.clearSelect()
+					for (let i of _p) {
+						this.$refs.TableXXX.clickCurrentRow(i)
+					}
+				} else if (_.isFunction(_p)) {
+					for (let i = 0; i < this.dataS.length; i++) {
+						const e = this.dataS[i]
+						if (_p(e)) {
+							this.$refs.TableXXX.clickCurrentRow(i)
+						}
+					}
+				}
+			},
 			clearSelect() {
 				/*清空选择（公开）*/
 				if (this.radio) {

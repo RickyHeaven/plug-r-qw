@@ -10,15 +10,15 @@ let loading = false
 
 /**
  * config为一个对象，支持：
- * @param {string|html} content 弹框内容，同iView的content,
+ * @param {string|function} content 弹框内容，1.string,直接将文字插入对应位置；2.function,如：(h)=>h('div',{class:'my-class'},'123')
  * @param {number} height 弹框高度,默认值130,最小值130
  * @param {number} width 弹框宽度，默认值416,最小值416
- * @param {string|html} title 弹框标题内容，默认值“提示”
+ * @param {string} title 弹框标题内容，默认值“提示”
  * @param {callback} onOk 确定按钮回调函数
  * @param {callback} onCancel 取消按钮回调函数
  * @param {callback} onClose 关闭（右上角叉叉）按钮回调函数
- * @param {string|html} okText 确定按钮文字，默认值“确定”
- * @param {string|html} cancelText 取消按钮文字，默认值“取消”
+ * @param {string} okText 确定按钮文字，默认值“确定”
+ * @param {string} cancelText 取消按钮文字，默认值“取消”
  * @param {boolean} noWarnIcon 不展示内容开头的警告图标(非字符串内容默认不展示)，默认值“false”
  * @param {string} footerAlign 底部对齐方式，string，默认值“center”
  * @param {boolean} cancelBt 展示取消按钮，boolean，默认值“true”
@@ -42,10 +42,11 @@ export default function messageBox({
 }) {
 	const T = (...arg) => t.apply(this, arg)
 
-	let heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
-	let heightT = heightTemp || '100px'
+	const heightTemp = height && Number(height) - 90 > 100 ? Number(height) - 90 + 'px' : 0
+	const heightT = heightTemp || '100px'
 	content = content || T('r.info.text')
-	let stringContent = myTypeof(content) === 'String'
+	const stringContent = myTypeof(content) === 'String'
+	const functionContent = myTypeof(content) === 'Function'
 	Modal.warning({
 		width: width,
 		render: (h) => {
@@ -114,7 +115,7 @@ export default function messageBox({
 											color: '#f8bb86'
 										}
 									}),
-									h('div', { class: 'msgBoxConO' }, content)
+									h('div', { class: 'msgBoxConO' }, functionContent ? [content(h)] : content)
 								]
 							),
 							h(

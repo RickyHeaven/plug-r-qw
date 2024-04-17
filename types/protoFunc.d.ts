@@ -1,19 +1,21 @@
 /*这些是挂在Vue.prototype下的方法，使用时可以直接用this.XXX方式调用*/
 
-import {VNode} from "vue"
+import type {VNode,CreateElement} from "vue"
 
 export type Func = () => void
 
 export type TooltipManualFunc = (params: any) => void
 
+type RenderFunc = (h: CreateElement) => VNode
+
 export interface MessageBoxConfig {
-  /*content:弹框内容，同iView的content*/
-  content: string | VNode | HTMLElement
+	/*弹框内容，1.string,直接将文字插入对应位置；2.RenderFunc,如：(h)=>h('div',{class:'my-class'},'123')*/
+  content: string | RenderFunc
   /**
    * 弹框标题内容
    * @default 提示
    */
-  title?: string | VNode | HTMLElement
+  title?: string
   /**
    * 弹框高度,最小值130x
    * @default 130
@@ -34,12 +36,12 @@ export interface MessageBoxConfig {
    * 确定按钮文字
    * @default 确定
    */
-  okText?: string | VNode | HTMLElement
+  okText?: string
   /**
    * 取消按钮文字
    * @default 取消
    */
-  cancelText?: string | VNode | HTMLElement
+  cancelText?: string
   /**
    * 不展示内容开头的警告图标(非字符串内容默认不展示)
    * @default false

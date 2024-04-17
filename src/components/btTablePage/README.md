@@ -76,6 +76,8 @@
 
 - deleteRow: 删除指定行（分页时不推荐使用，会导致当前页展示的数据条数和页签显示的不符,分页时直接跟后端删除数据然后重新拉取表格数据）
 
+- selectRow: 主动选中行，多选、单选模式皆可用，参数：predicate，1. Number:根据索引index选中行；2. Array:根据索引index数组选中行(仅多选)；3. Function:根据断言函数返回true的行选中
+
 - clearSelect: 清空选择
 
 - clearTableData: 清空表格数据（用于特殊场景下重置表格，不拉取数据，如需刷新数据直接调用`getTableData`）
