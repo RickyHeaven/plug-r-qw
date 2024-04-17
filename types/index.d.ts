@@ -8,5 +8,5 @@ export * from './needImportFunc'
 export * from './protoFunc'
 export * from './plug-r-qw.methods'
 import {plugRQw} from "./plug-r-qw"
-export default plugRQw
+export = plugRQw
 export as namespace plugRQw

@@ -71,7 +71,7 @@ function print(columns, data, title, config) {
 	}
 	
 	let columnsB
-	if(!config.domPrint){
+	if(!config?.domPrint){
 		let _columns = _.cloneDeep(
 			columns.filter((e) => {
 				return e.key

@@ -2,7 +2,7 @@ import tablePrint from './tablePrint'
 
 /**
  * @description 打印Dom(网页指定的内容)
- * @param {Array} data 要打印的dom数据，一般使用dom操作获取dom，然后将其outerHTML作为data传进去就行
+ * @param {String} data 要打印的dom数据，一般使用dom操作获取dom，然后将其outerHTML作为data传进去就行
  * @param {String} title 标题(如打印为PDF将是默认文件名)
  * @param {Object} config 打印设置，目前支持：1.customClass,用于定制打印页面样式；2.autoPrint,是否直接打印；3.width,dom容器宽度（打印内容将放在这个容器进行打印）
  * 注意：

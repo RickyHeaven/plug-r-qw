@@ -12,11 +12,10 @@
   "typings": "types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./lib/plugRQw.umd.min.js",
-      "require": "./lib/plugRQw.common.js",
-      "types": "./types/index.d.ts"
+      "require": "./lib/plugRQw.common.js"
     },
-    "./lib/plugRQw.min.css": "./lib/plugRQw.min.css",
     "./lib/**/*.js": "./lib/**/*.js",
     "./*": "./*"
   },

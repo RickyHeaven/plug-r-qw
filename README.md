@@ -304,12 +304,11 @@
 
    > 该库从`@zhangqingcq/plug-r-qw@1.3.12`开始支持`TypeScript + Vue`的项目（非TypeScript项目依然支持，用法没有任何改动），用法和之前
    `JS + Vue`的项目大同小异，除了下面列出的不同，其他都相同。
-   >
-   >
-   为了更好的支持Typescript类型检查，我们需要在Vue接口[模块补充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
-   > 该库的全局方法，这样可以避免使用`this.xxx`或`proxy.xxx`(proxy为vue@2.7.14的`getCurrentInstance().proxy`)
-   时提示`xxx不存在于this或proxy`，
-   > 而且能在使用这些方法时获得IDE提示或能方便的查看对应方法的声明代码，模块补充方法如下：
+
+   > Ts项目在安装该库时"Vue.use(plugRQw)"可能会提示plugRQw类型错误，这并非库的问题，不影响使用，使用//@ts-ignore 忽略类型错误
+
+   > 为了更好的支持Typescript类型检查，我们需要在Vue接口[模块补充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)该库的全局方法，这样可以避免使用`this.xxx`或`proxy.xxx`(proxy为vue@2.7.14的`getCurrentInstance().proxy`)
+   时提示`xxx不存在于this或proxy`， 而且能在使用这些方法时获得IDE提示或能方便的查看对应方法的声明代码，模块补充方法如下：
    > ```
    > // types/xxx.d.ts
    > 
