@@ -99,7 +99,9 @@
    >```
 
    > 该库支持`TypeScript + Vue`的项目（非TypeScript项目依然支持），用法和`JS + Vue`的项目大同小异，除了下面的不同，其他都相同。
-   >
+
+   > Ts项目在安装该库时"app.use(plugRQw)"可能会提示plugRQw类型错误，这并非库的问题，不影响使用，使用//@ts-ignore 忽略类型错误，或者把项目升级到基于node20的架构，可参考本库架构
+
    >
    > 如果用了`lodash-es`等自身没有声明文件的第三方库，需要在`env.d.ts`文件中(或其他在`tsconfig.app.json`的`include`
    中的声明文件)
