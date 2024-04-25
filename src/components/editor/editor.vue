@@ -258,9 +258,9 @@
 							.then((r) => {
 								if (r?.data && myTypeof(r.data) === 'Array') {
 									for (let item of r.data) {
-										if (isValidValue(item.id)) {
+										if (isValidValue(item?.id)) {
 											// 上传图片，返回结果，将图片插入到编辑器中
-											insertImgFn(`${configS.url}/${item.id}/download`)
+											insertImgFn(`${configS.url}/${item?.id}/download`)
 										}
 									}
 								} else {
@@ -370,7 +370,7 @@
 								return
 							}
 						}
-						let val = e.target.value
+						let val = e?.target?.value
 						val = Number(val)
 						if (wallE?.style?.width === val + 'px') {
 							return
@@ -403,7 +403,7 @@
 								return
 							}
 						}
-						let val = e.target.value
+						let val = e?.target?.value
 						val = Number(val)
 
 						if (outWallE?.style?.height === val + 'px') {

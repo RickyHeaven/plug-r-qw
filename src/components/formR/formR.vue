@@ -246,7 +246,7 @@
 					if (t.hasOwnProperty(k)) {
 						if (Array.isArray(t[k])) {
 							for (let e of t[k]) {
-								if (!(e.message || e.validator)) {
+								if (!(e?.message || e?.validator)) {
 									e.message = this.t('r.required')
 								}
 							}
@@ -290,7 +290,7 @@
 		methods: {
 			getSlotFormData(d) {
 				/*私有，获取插槽数据*/
-				return d.filter((e) => e.slotName)
+				return d.filter((e) => e?.slotName)
 			},
 			/**
 			 * 计算需要提交的key
@@ -381,7 +381,7 @@
 							} else if (myTypeof(this.valGroup[k]) === 'Boolean') {
 								this.$set(this.valGroup, k, false)
 							} else {
-								const formItem = findCollection(this.formData, (e) => e.key === k)
+								const formItem = findCollection(this.formData, (e) => e?.key === k)
 								if (formItem && (formItem.type === 'editor' || formItem.type === 'editorPro')) {
 									this.$set(this.valGroup, k, '')
 								} else {
@@ -816,7 +816,7 @@
 										/*设置changeOption为true时,当待选项地址改变后重新拉取待选项，在使用该表单组件的地方改变传入的formData对应项的optionUrl*/
 										this.watchGroup.push(
 											this.$watch(
-												() => findCollection(this.formData, (e) => e.key === root.key).optionUrl,
+												() => findCollection(this.formData, (e) => e?.key === root.key).optionUrl,
 												(after) => {
 													let tV = _.cloneDeep(this.tempKeys[root.tempKey])
 													this.tempKeys[root.tempKey] = null
@@ -845,7 +845,7 @@
 								}
 							} else if (myTypeof(root.borrowOption) === 'String') {
 								/*借用待选项*/
-								root.options = findCollection(this.formDataT, (e) => e.key === root.borrowOption).options
+								root.options = findCollection(this.formDataT, (e) => e?.key === root.borrowOption).options
 							}
 
 							const tempKeyC = 'opEle' + Math.floor(Math.random() * 100000000)
@@ -1189,14 +1189,14 @@
 											}
 										}
 
-										let sameKeyCom = findCollection(this.formDataT, (e) => e.key === root.collectLabel.key)
+										let sameKeyCom = findCollection(this.formDataT, (e) => e?.key === root.collectLabel.key)
 										if (sameKeyCom && sameKeyCom.tempKey) {
 											this.tempKeys[sameKeyCom.tempKey] = this.valGroup[root.collectLabel.key]
 										}
 									}
 								} else if (Array.isArray(root.collectLabel)) {
 									for (let l of root.collectLabel) {
-										if (l.key && l.valKey) {
+										if (l?.key && l.valKey) {
 											const collectTempKey = this.findTempKey(l.key)
 											let t = null
 
@@ -1216,7 +1216,7 @@
 												}
 											}
 
-											let sameKeyCom = findCollection(this.formDataT, (e) => e.key === l.key)
+											let sameKeyCom = findCollection(this.formDataT, (e) => e?.key === l.key)
 											if (sameKeyCom && sameKeyCom.tempKey) {
 												this.tempKeys[sameKeyCom.tempKey] = this.valGroup[l.key]
 											}
@@ -1288,7 +1288,7 @@
 					if (after) {
 						let t = []
 						for (let e of root.options) {
-							if (after.indexOf(e.val) !== -1) {
+							if (after.indexOf(e?.val) !== -1) {
 								t.push(e)
 							}
 						}
@@ -1298,7 +1298,7 @@
 				} else {
 					if (after || after === 0 || after === false) {
 						for (let e of root.options) {
-							if (e.val === after) {
+							if (e?.val === after) {
 								return e
 							}
 						}
@@ -1372,7 +1372,7 @@
 						for (let k of Object.keys(d)) {
 							/*需要校验的表单项满足条件：1.在更新队列；2.没有处于隐藏状态；3.不能是手动置空的表单项；*/
 							if (
-								e.key === k &&
+								e?.key === k &&
 								this.showingKeys.indexOf(k) > -1 &&
 								!(d[k] === null || ((Array.isArray(d[k]) || myTypeof(d[k]) === 'Object') && _.isEmpty(d[k])))
 							) {
@@ -1382,7 +1382,7 @@
 						}
 						return false
 					})
-					.map((e) => e.key)
+					.map((e) => e?.key)
 			},
 			/**
 			 * 更新表单项的值（只能更新已有字段，公开）

@@ -369,7 +369,7 @@
 						optionLabel: 'name',
 						optionVal: 'tel',
 						optionFilter(d) {
-							return d.filter((e) => e.birth !== '1991')
+							return d.filter((e) => e?.birth !== '1991')
 						}
 					},
 					{
@@ -732,7 +732,7 @@
 		},
 		mounted() {
 			this.setTimeout(() => {
-				this.findCollection(this.data5, (e) => e.key === 'friendN').optionUrl =
+				this.findCollection(this.data5, (e) => e?.key === 'friendN').optionUrl =
 					location.pathname + 'testData/formR/people.json'
 			}, 10000)
 		},

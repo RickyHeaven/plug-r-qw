@@ -34,8 +34,8 @@ import { t } from '../locale'
 			const contentR = d.getHtml()
 
 			if (e) {
-				let wallE = e.children[0].children[1].children[0]
-				let outWallE = e.children[0].children[1]
+				let wallE = e.children?.[0]?.children?.[1]?.children?.[0]
+				let outWallE = e.children?.[0]?.children?.[1]
 				wallE.innerHTML = contentR
 				wallE.style.width = _w + 'px'
 				outWallE.style.height = _h + 'px'
@@ -64,7 +64,7 @@ import { t } from '../locale'
 							return
 						}
 					}
-					let val = e.target.value
+					let val = e?.target?.value
 					val = Number(val)
 					if (wallE?.style?.width === val + 'px') {
 						return
@@ -97,7 +97,7 @@ import { t } from '../locale'
 							return
 						}
 					}
-					let val = e.target.value
+					let val = e?.target?.value
 					val = Number(val)
 
 					if (outWallE?.style?.height === val + 'px') {

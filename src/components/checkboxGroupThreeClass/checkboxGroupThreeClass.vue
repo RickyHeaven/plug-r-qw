@@ -110,11 +110,11 @@
 					/*遍历data添加勾选信息(1级)*/
 					let checkCount = 0
 					let indeterminateCount = 0
-					if (item.children && !_.isEmpty(item.children)) {
+					if (item?.children && !_.isEmpty(item.children)) {
 						for (let secItem of item.children) {
 							/*更深一层遍历children（2级）*/
 							let checkCountB = 0
-							if (secItem.children && !_.isEmpty(secItem.children)) {
+							if (secItem?.children && !_.isEmpty(secItem.children)) {
 								for (let thirdItem of secItem.children) {
 									/*更深一层遍历children（3级）*/
 									for (let valIndex = 0, len = valTemp.length; valIndex < len; valIndex++) {
@@ -166,7 +166,7 @@
 					if (checkCount === 0 && indeterminateCount === 0) {
 						item.checked = false
 						item.indeterminate = false
-					} else if (item.children && checkCount === item.children.length) {
+					} else if (item?.children && checkCount === item.children.length) {
 						item.checked = true
 						item.indeterminate = false
 					} else {
@@ -191,10 +191,10 @@
 		},
 		methods: {
 			checkChangeFirst(root, isCheck) {
-				if (root.children) {
+				if (root?.children) {
 					for (let item of root.children) {
 						item.checked = isCheck
-						if (item.children) {
+						if (item?.children) {
 							for (let itemB of item.children) {
 								itemB.checked = isCheck
 							}
@@ -217,7 +217,7 @@
 			getLeafChecked(val, isLeaf) {
 				let temp = []
 				for (let item of val) {
-					if (!isLeaf && !this.leaf && item.checked && item.indeterminate === false) {
+					if (!isLeaf && !this.leaf && item?.checked && item.indeterminate === false) {
 						/*非叶子节点模式且需要获取parent节点时，如果当前parent节点所有子节点都选中，在value中带上parent节点*/
 						if (myTypeof(this.collectVal) === 'Array') {
 							let ttO = {}
@@ -229,9 +229,9 @@
 							temp.push(item[this.collectVal])
 						}
 					}
-					if (item.children) {
+					if (item?.children) {
 						for (let secItem of item.children) {
-							if (!isLeaf && !this.leaf && secItem.checked && secItem.indeterminate === false) {
+							if (!isLeaf && !this.leaf && secItem?.checked && secItem.indeterminate === false) {
 								/*非叶子节点模式且需要获取parent节点时，如果当前parent节点所有子节点都选中，在value中带上parent节点*/
 								if (myTypeof(this.collectVal) === 'Array') {
 									let ttO = {}

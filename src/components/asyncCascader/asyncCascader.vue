@@ -100,7 +100,7 @@
 					} else if (_.isNumber(valProp)) {
 						return findPath({
 							group: this.data,
-							condition: (item) => item.value === valProp,
+							condition: (item) => item?.value === valProp,
 							pathKey: 'value'
 						})
 					} else if (_.isString(valProp)) {
@@ -159,7 +159,7 @@
 						value: item[this.optionVal],
 						label: item[this.optionLabel]
 					}
-					if (item.children && !_.isEmpty(item.children)) {
+					if (item?.children && !_.isEmpty(item.children)) {
 						tt.children = this.dataFilter(item.children)
 					}
 					temp.push(tt)
@@ -177,7 +177,7 @@
 				if (!_.isEmpty(selectedDetail)) {
 					label = selectedDetail
 						.map((item) => {
-							return item.label
+							return item?.label
 						})
 						.join(this.separator)
 				}

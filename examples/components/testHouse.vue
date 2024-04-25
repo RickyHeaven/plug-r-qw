@@ -83,10 +83,10 @@
 			// console.log(findCollection(this.arrTree, 9, true))
 			// console.log(findCollection(this.arrTree, e => e[1] === 9))
 			// console.log(findCollection(this.objTree, 'ok', true))
-			// console.log(findCollection(this.objTree, e => e.n === 'ok'))
+			// console.log(findCollection(this.objTree, e => e?.n === 'ok'))
 			// console.log(findCollection(this.tree, 8,true))
-			// console.log(findCollection(this.tree, e => e.a === 8))
-			// console.log(findCollection(this.tree, e => e.a === 8, true))
+			// console.log(findCollection(this.tree, e => e?.a === 8))
+			// console.log(findCollection(this.tree, e => e?.a === 8, true))
 			// console.log(findCollection(this.monster, 99, true))
 			console.log(findCollection(this.monster, (e) => e[1] === 99))
 		},

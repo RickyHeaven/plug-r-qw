@@ -128,7 +128,7 @@
 				/*清空dataT已选*/
 				setValByOption({
 					group: this.dataT,
-					condition: (e) => e.checked === true,
+					condition: (e) => e?.checked === true,
 					key: 'checked',
 					val: false
 				})
@@ -153,7 +153,7 @@
 				handler(after) {
 					setValByOption({
 						group: this.dataT,
-						condition: (e) => e.disableCheckbox !== after,
+						condition: (e) => e?.disableCheckbox !== after,
 						key: 'disableCheckbox',
 						val: after
 					})
@@ -177,15 +177,15 @@
 					}
 					let temp = {
 						name: item[this.label],
-						expand: Boolean(this.expandAll || item.expand),
+						expand: Boolean(this.expandAll || item?.expand),
 						checked: checked,
 						disableCheckbox: this.disabled
 					}
 					for (let keyI of this.collectValT) {
-						temp[keyI] = item[keyI]
+						temp[keyI] = item?.[keyI]
 					}
 					root.push(temp)
-					if (item.children?.length > 0) {
+					if (item?.children?.length > 0) {
 						temp.children = []
 						this.initDataB(item.children, temp.children)
 					}
@@ -203,7 +203,7 @@
 					}
 					let temp = {
 						name: item[this.label],
-						expand: Boolean(this.expandAll || item.expand),
+						expand: Boolean(this.expandAll || item?.expand),
 						checked: checked,
 						disableCheckbox: this.disabled
 					}
@@ -211,7 +211,7 @@
 						temp[keyI] = item[keyI]
 					}
 					root.push(temp)
-					if (item.children?.length > 0) {
+					if (item?.children?.length > 0) {
 						temp.children = []
 						this.initData(item.children, temp.children)
 					}
@@ -263,8 +263,8 @@
 				let arr = document.querySelectorAll('#' + this.id + ' .inlineChildXA')
 				if (arr.length > 0) {
 					for (let item of arr) {
-						let parent = item.parentNode
-						let tt = parent.nextElementSibling
+						let parent = item?.parentNode
+						let tt = parent?.nextElementSibling
 						if (!tt) {
 							return
 						}
@@ -290,7 +290,7 @@
 				let temp = []
 				if (this.leaf) {
 					for (let item of data) {
-						if (!item.children) {
+						if (!item?.children) {
 							if (myTypeof(this.collectVal) === 'Array') {
 								let valT = {}
 								for (let keyI of this.collectVal) {
@@ -298,7 +298,7 @@
 								}
 								temp.push(valT)
 							} else {
-								temp.push(item[this.collectVal])
+								temp.push(item?.[this.collectVal])
 							}
 						}
 					}
@@ -307,11 +307,11 @@
 						if (myTypeof(this.collectVal) === 'Array') {
 							let valT = {}
 							for (let keyI of this.collectVal) {
-								valT[keyI] = item[keyI]
+								valT[keyI] = item?.[keyI]
 							}
 							temp.push(valT)
 						} else {
-							temp.push(item[this.collectVal])
+							temp.push(item?.[this.collectVal])
 						}
 					}
 				}

@@ -33,32 +33,32 @@
 		<div class="previewBoxM" v-show="previewType === 'img' && fileDefaultList.length > 0">
 			<div
 				class="previewImg"
-				:class="{ previewLoading: item.mimeType === 'loading' }"
+				:class="{ previewLoading: item?.mimeType === 'loading' }"
 				v-if="!manualUpload && item?.id !== null"
 				v-for="item of fileDefaultList"
 				:key="item?.id"
 			>
-				<div class="imgLoading" v-show="item.mimeType === 'loading'">
+				<div class="imgLoading" v-show="item?.mimeType === 'loading'">
 					<div data-loader="circle-side" class="loader-div" />
 				</div>
 				<img
-					:src="url + '/' + item.id + '/download?preview=true'"
-					:alt="item.name"
-					v-show="item.mimeType !== 'loading'"
+					:src="url + '/' + item?.id + '/download?preview=true'"
+					:alt="item?.name"
+					v-show="item?.mimeType !== 'loading'"
 				/>
-				<div class="deleteModal" v-show="item.mimeType !== 'loading'">
+				<div class="deleteModal" v-show="item?.mimeType !== 'loading'">
 					<Icon
 						type="ios-expand"
 						size="40"
 						class="previewExpand"
 						:title="t('r.fView')"
-						@click="fullScreenImgByDom(url + '/' + item.id + '/download?preview=true')"
+						@click="fullScreenImgByDom(url + '/' + item?.id + '/download?preview=true')"
 					/>
 					<Icon
 						type="ios-trash-outline"
 						size="40"
 						class="previewDelete"
-						@click="deleteById($event, item.id)"
+						@click="deleteById($event, item?.id)"
 						:title="t('r.delete')"
 					/>
 				</div>
@@ -97,7 +97,7 @@
 				v-for="(item, index) of fileList"
 				:key="'manualItem' + index"
 			>
-				<Icon v-if="item.name" :type="getFileTypeIconByName(item.name)" />
+				<Icon v-if="item?.name" :type="getFileTypeIconByName(item?.name)" />
 				<span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{ getName(item) }}</span>
 				<span class="btBoxJ">
 					<Icon
@@ -119,18 +119,18 @@
 				v-for="(item, index) of fileDefaultList"
 				:key="'defaultItem' + index"
 			>
-				<div class="listLoading" v-show="item.mimeType === 'loading'">
+				<div class="listLoading" v-show="item?.mimeType === 'loading'">
 					<div data-loader="circle-side" class="loader-div" />
 				</div>
-				<Icon :type="getFileTypeIconByName(item.name)" v-show="item.mimeType !== 'loading'" />
+				<Icon :type="getFileTypeIconByName(item?.name)" v-show="item?.mimeType !== 'loading'" />
 				<span
 					class="upNameT"
 					@click="downloadDefaultFile(item)"
 					:title="t('r.download')"
-					v-show="item.mimeType !== 'loading'"
-					>{{ item.name || t('r.file') + (index + 1) }}</span
+					v-show="item?.mimeType !== 'loading'"
+					>{{ item?.name || t('r.file') + (index + 1) }}</span
 				>
-				<span class="btBoxJ" v-show="item.mimeType !== 'loading'">
+				<span class="btBoxJ" v-show="item?.mimeType !== 'loading'">
 					<Icon
 						v-if="showPreview(item)"
 						type="md-qr-scanner"
@@ -275,7 +275,7 @@
 					if (this.manualUpload) {
 						this.fileIdList = val
 					} else {
-						this.fileIdList = val.map((e) => e.id)
+						this.fileIdList = val.map((e) => e?.id)
 					}
 				}
 			},
@@ -347,7 +347,7 @@
 							if (item?.name === undefined) {
 								//根据id获取文件名字
 								if (item.id) {
-									const fileT = _.find(_fileDefaultList, (e) => e.id === item.id)
+									const fileT = _.find(_fileDefaultList, (e) => e?.id === item.id)
 									if (fileT) {
 										//本地有名字，在本地拿
 										item.name = fileT.name

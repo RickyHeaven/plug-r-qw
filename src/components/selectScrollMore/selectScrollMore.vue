@@ -12,8 +12,8 @@
 		:placeholder="placeholderT"
 		:disabled="disabled"
 	>
-		<Option v-for="(item, index) in options" :key="'op' + index" :value="item.value" :disabled="item.disabled">{{
-			item.label
+		<Option v-for="(item, index) in options" :key="'op' + index" :value="item?.value" :disabled="item?.disabled">{{
+			item?.label
 		}}</Option>
 	</Select>
 </template>
@@ -188,14 +188,15 @@
 			isSelect(val) {
 				/*私有，不可调用*/
 				for (let item of this.options) {
-					if (item.label === val) {
+					if (item?.label === val) {
 						return true
 					}
 				}
 				return false
 			},
 			getOption: _.debounce(function (e) {
-				/*私有，不可调用*/ const val = e.target.value
+				/*私有，不可调用*/
+				const val = e?.target?.value
 				if (!this.isSelect(val)) {
 					if (isValidValue(val)) {
 						if (this.urlChanged) {
@@ -319,7 +320,7 @@
 								/*去重*/
 								let hash = {}
 								this.options = this.options.filter((e) => {
-									if (!hash[e.value]) {
+									if (!hash[e?.value]) {
 										hash[e.value] = true
 										return e
 									}

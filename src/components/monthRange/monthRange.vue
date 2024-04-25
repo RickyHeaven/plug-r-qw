@@ -115,7 +115,7 @@
 			})
 			document.querySelector('.monthRangeBoxR .aRoot .ivu-input-suffix').addEventListener('click', (e) => {
 				if (!this.disabled && (this.valueA || this.valueB)) {
-					e.stopPropagation()
+					e?.stopPropagation?.()
 					this.clear()
 				}
 			})

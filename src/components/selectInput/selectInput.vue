@@ -6,10 +6,10 @@
 		<Select v-model="selectVal" :style="labelSelectStyle" :disabled="Boolean(disabled)" transfer>
 			<Option
 				v-for="(item, index) in selectOption"
-				:value="item.val"
-				:key="'selectInputOp' + item.value + index"
+				:value="item?.val"
+				:key="'selectInputOp' + item?.value + index"
 				:style="{ textAlign: labelTextAlign }"
-				>{{ item.label }}</Option
+				>{{ item?.label }}</Option
 			>
 		</Select>
 		<Input
@@ -125,7 +125,7 @@
 					this.handleChange(
 						{
 							key: this.selectVal,
-							val: e.target.value
+							val: e?.target?.value
 						},
 						this
 					)

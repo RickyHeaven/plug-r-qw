@@ -15,6 +15,7 @@
 
 import _ from 'lodash'
 import printModal from './printModal.vue'
+import { myTypeof } from '../functionGroup'
 
 let _router = null
 
@@ -31,7 +32,7 @@ function init(router) {
 		const t = router.getRoutes()
 		let add = true
 		for (let e of t) {
-			if (e.name === 'tablePrint') {
+			if (e?.name === 'tablePrint') {
 				add = false
 				break
 			}
@@ -58,10 +59,24 @@ function init(router) {
 	}
 }
 
+function columnsHandle(item) {
+	if (myTypeof(item) === 'Object') {
+		item.width = item.minWidth || 100
+		item.sortable = false
+		delete item.minWidth
+		delete item.__id
+		item.resizable = true
+		if (item.children && myTypeof(item.children) === 'Array') {
+			item.children = item.children.map(columnsHandle)
+		}
+	}
+	return item
+}
+
 /**
  * 供外部使用的打印API
  * @param {Array} columns Table的列设置，同view-design
- * @param {Array} data Table的数据
+ * @param {Array|String} data Table的数据
  * @param {String} title 标题(如打印为PDF将是默认文件名)
  * @param {Object} config 打印设置，目前支持：1.customClass,用于定制打印页面样式；2.autoPrint,是否直接打印
  */
@@ -69,12 +84,12 @@ function print(columns, data, title, config) {
 	if (!_router) {
 		return
 	}
-	
+
 	let columnsB
-	if(!config?.domPrint){
+	if (!config?.domPrint) {
 		let _columns = _.cloneDeep(
 			columns.filter((e) => {
-				return e.key
+				return e?.key || e?.children
 			})
 		)
 		if (_columns[0].type === 'selection') {
@@ -83,38 +98,28 @@ function print(columns, data, title, config) {
 		if (!_columns.length) {
 			columnsB = []
 		} else {
-			columnsB = _columns.map((item) => {
-				item.width = item.minWidth || 100
-				item.sortable = false
-				delete item.minWidth
-				delete item.__id
-				item.resizable = true
-				return item
-			})
+			columnsB = _columns.map(columnsHandle)
 		}
 	}
-	
+
 	let _p = _router?.currentRoute?.fullPath
 	if (_p) {
 		_p = _p.replace(/\//g, '_')
 	}
 	let _d = {
-			data,
-			title,
-			config
+		data,
+		title,
+		config
 	}
-	if(!config.domPrint){
+	if (!config?.domPrint) {
 		_d.columns = columnsB
 	}
-	window.sessionStorage.setItem(
-		'print_' + _p,
-		JSON.stringify(_d)
-	)
+	window.sessionStorage.setItem('print_' + _p, JSON.stringify(_d))
 	const r = _router.resolve({
 		name: 'tablePrint',
 		params: { isFrom: _p }
 	})
-	window.open(r.href, '_blank')
+	window.open(r?.href, '_blank')
 }
 
 export default {

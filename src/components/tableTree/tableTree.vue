@@ -63,7 +63,7 @@
 			columnsX() {
 				//计算过后的表格结构数据
 				let temp = this.columns.filter((item) => {
-					return item.type !== 'selection'
+					return item?.type !== 'selection'
 				})
 
 				if (temp[0]) {
@@ -109,7 +109,7 @@
 											}
 										},
 										click: (e) => {
-											e.preventDefault()
+											e?.preventDefault?.()
 										}
 									}
 								}),
@@ -164,18 +164,18 @@
 				if (option && isValidValue(option.checkBox) && myTypeof(arr) === 'Array') {
 					if (option.ownKey) {
 						for (let item of arr) {
-							if (item.ownKey === option.ownKey) {
+							if (item?.ownKey === option.ownKey) {
 								item.checkBox = option.checkBox
 							}
-							if (myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-								this.setCollectionValB(item.childrenXK, option)
+							if (myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK.length > 0) {
+								this.setCollectionValB(item?.childrenXK, option)
 							}
 						}
 					} else {
 						for (let item of arr) {
 							item.checkBox = option.checkBox
-							if (myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-								this.setCollectionValB(item.childrenXK, option)
+							if (myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK.length > 0) {
+								this.setCollectionValB(item?.childrenXK, option)
 							}
 						}
 					}
@@ -185,18 +185,18 @@
 				if (option && isValidValue(option.checkBox) && myTypeof(arr) === 'Array') {
 					if (option.ownKey) {
 						for (let item of arr) {
-							if (item.ownKey === option.ownKey) {
+							if (item?.ownKey === option.ownKey) {
 								item.checkBox = option.checkBox
 							}
-							if (myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-								this.setCollectionVal(item.childrenXK, option)
+							if (myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK.length > 0) {
+								this.setCollectionVal(item?.childrenXK, option)
 							}
 						}
 					} else {
 						for (let item of arr) {
 							item.checkBox = option.checkBox
-							if (myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
-								this.setCollectionVal(item.childrenXK, option)
+							if (myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK.length > 0) {
+								this.setCollectionVal(item?.childrenXK, option)
 							}
 						}
 					}
@@ -214,7 +214,7 @@
 			showDefault() {
 				for (let i = 0, l = this.dataX.length; i < l; i++) {
 					let e = this.dataX[i]
-					if (e.hideChild === false && e._hideChild === true) {
+					if (e?.hideChild === false && e?._hideChild === true) {
 						this.showHideClick(i)
 						break
 					}
@@ -240,11 +240,11 @@
 					if (parentNoKey !== undefined) {
 						item.parentNoKey.push(...parentNoKey)
 					}
-					if (item.children) {
+					if (item?.children) {
 						item.childrenXK = item.children
 						delete item.children
 					}
-					if (this.myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
+					if (this.myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK.length > 0) {
 						if (item._hideChild !== false) {
 							item._hideChild = true
 						}
@@ -261,11 +261,11 @@
 					if (parentNoKey !== undefined) {
 						item.parentNoKey.push(...parentNoKey)
 					}
-					if (item.children) {
+					if (item?.children) {
 						item.childrenXK = item.children
 						delete item.children
 					}
-					if (this.myTypeof(item.childrenXK) === 'Array' && item.childrenXK.length > 0) {
+					if (this.myTypeof(item?.childrenXK) === 'Array' && item?.childrenXK?.length > 0) {
 						if (item._hideChild !== false) {
 							item._hideChild = true
 						}
@@ -282,7 +282,7 @@
 				//更改收展状态
 				setValByOption({
 					group: [this.dataX[i]],
-					condition: (e) => e._hideChild === false,
+					condition: (e) => e?._hideChild === false,
 					key: '_hideChild',
 					val: true,
 					childKey: 'childrenXK'
@@ -321,24 +321,24 @@
 					}
 					for (let item of this.dataX) {
 						//在table内容数据dataX中的节点（新节点的所有上辈）的对应位置（层级,即第几层children）上添加新节点数据
-						let level = parenNoKeyT.indexOf(item.ownKey) //父辈等级（父辈ownKey在新节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
+						let level = parenNoKeyT.indexOf(item?.ownKey) //父辈等级（父辈ownKey在新节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
 						if (level > -1) {
 							//如果是新节点父辈
-							if (item.childrenXK === undefined) {
+							if (item?.childrenXK === undefined) {
 								item.childrenXK = []
 							}
-							let childrenXK = item.childrenXK
+							let childrenXK = item?.childrenXK
 							let temp = item
 							for (let i = 0; i < level + 1; i++) {
 								//找到正确的位置(层级)添加新节点数据
 								if (i === level) {
 									childrenXK.push(_.cloneDeep(nodeT))
-									if (item._hideChild === undefined) {
+									if (item?._hideChild === undefined) {
 										item._hideChild = true
 									}
 									break
 								} else {
-									temp = _.find(temp.childrenXK, (e) => parenNoKeyT.indexOf(e.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
+									temp = _.find(temp.childrenXK, (e) => parenNoKeyT.indexOf(e?.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
 									if (temp._hideChild === undefined) {
 										temp._hideChild = true
 									}
@@ -377,20 +377,20 @@
 					this.dataX[index] = nodeT //更新当前节点
 					for (let item of this.dataX) {
 						//在table内容数据dataX中的节点（当前节点的所有上辈）的对应位置（层级,即第几层children）上修改节点数据
-						let level = nodeT.parentNoKey.indexOf(item.ownKey) //父辈等级（父辈ownKey在当前节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
+						let level = nodeT.parentNoKey.indexOf(item?.ownKey) //父辈等级（父辈ownKey在当前节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
 						if (level > -1) {
 							//如果是当前节点父辈
-							let childrenXK = item.childrenXK
+							let childrenXK = item?.childrenXK
 							for (let i = 0; i < level + 1; i++) {
 								//找到正确的位置(层级)修改节点新数据
 								if (i === level) {
-									let tIndex = _.findIndex(childrenXK, (e) => e.ownKey === nodeT.ownKey)
+									let tIndex = _.findIndex(childrenXK, (e) => e?.ownKey === nodeT?.ownKey)
 									if (tIndex > -1) {
 										childrenXK[tIndex] = _.cloneDeep(nodeT)
 									}
 									break
 								} else {
-									let temp = _.find(childrenXK, (e) => nodeT.parentNoKey.indexOf(e.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
+									let temp = _.find(childrenXK, (e) => nodeT.parentNoKey.indexOf(e?.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
 									childrenXK = temp.childrenXK
 								}
 							}
@@ -417,15 +417,15 @@
 					this.deleteLocalChildNode(thisNode.ownKey, index)
 					for (let item of this.dataX) {
 						//在table内容数据dataX中的节点（当前节点的所有上辈）的对应位置（层级,即第几层children）上删除节点数据
-						let level = thisNode.parentNoKey.indexOf(item.ownKey) //父辈等级（父辈ownKey在当前节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
+						let level = thisNode.parentNoKey.indexOf(item?.ownKey) //父辈等级（父辈ownKey在当前节点parentNoKey中的位置，等级越高，位置越靠后，直接父节点在最前面）
 						if (level > -1) {
 							//如果是当前节点父辈
-							let childrenXK = item.childrenXK
+							let childrenXK = item?.childrenXK
 							let temp = item
 							for (let i = 0; i < level + 1; i++) {
 								//找到正确的位置(层级)删除节点新数据
 								if (i === level) {
-									let tIndex = _.findIndex(childrenXK, (e) => e.ownKey === thisNode.ownKey)
+									let tIndex = _.findIndex(childrenXK, (e) => e?.ownKey === thisNode?.ownKey)
 									if (tIndex > -1) {
 										childrenXK.splice(tIndex, 1)
 										if (childrenXK.length === 0) {
@@ -434,7 +434,7 @@
 									}
 									break
 								} else {
-									temp = _.find(childrenXK, (e) => thisNode.parentNoKey.indexOf(e.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
+									temp = _.find(childrenXK, (e) => thisNode.parentNoKey.indexOf(e?.ownKey) !== -1) //找到下一层级（children）中的父辈数据节点，进行下一循环
 									childrenXK = temp.childrenXK
 								}
 							}
@@ -454,7 +454,7 @@
 			getChildCount(ownKey) {
 				let count = 0
 				for (let item of this.dataX) {
-					if (item.parentNoKey.indexOf(ownKey) !== -1) {
+					if (item?.parentNoKey?.indexOf?.(ownKey) !== -1) {
 						//如果当前行的parentNoKey里有删除行的ownKey,则表示当前行是删除行的子节点
 						count++
 					}

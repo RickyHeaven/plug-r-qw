@@ -17,8 +17,8 @@
 		:show-message="false"
 		@on-submit="onSubmit"
 	>
-		<template #[item.slotName]="{ valGroup }" v-for="item in formDataC">
-			<slot :name="item.slotName" :val-group="valGroup" />
+		<template #[item?.slotName]="{ valGroup }" v-for="item in formDataC">
+			<slot :name="item?.slotName" :val-group="valGroup" />
 		</template>
 	</form-r>
 </template>
@@ -75,16 +75,16 @@
 				if (this.formTeam) {
 					let t = []
 					for (let f of this.formData) {
-						t = t.concat(f.filter((e) => e.type === 'custom' || (e.type === 'input' && e.slotName && e.slotPosition)))
+						t = t.concat(f.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition)))
 					}
 					return t
 				}
-				return this.formData.filter((e) => e.type === 'custom' || (e.type === 'input' && e.slotName && e.slotPosition))
+				return this.formData.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition))
 			}
 		},
 		mounted() {
 			this.$refs.formRRef.$el.parentNode.addEventListener('keyup', (e) => {
-				if (e.keyCode === 13) {
+				if (e?.keyCode === 13) {
 					//回车
 					this.submit()
 				}

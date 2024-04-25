@@ -234,7 +234,7 @@
 				})
 				marker.on('click', (e) => {
 					if (this.infoWindow) {
-						this.infoWindow.open(this.mapX, e.target.getPosition())
+						this.infoWindow.open(this.mapX, e?.target?.getPosition?.())
 					}
 				})
 				this.mapX.setFitView()

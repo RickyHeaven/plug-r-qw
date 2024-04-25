@@ -196,8 +196,8 @@ function checkRequest(method, url, data, msg, rPath, config = {}, isUrlData) {
          请求地址 ‘/mgr/file’ 会被改变为 'http://mgr.myweb.com/file'
          */
 				let httpEnv = Object.keys(window.g)
-					.filter((e) => e.indexOf('URL') > -1)
-					.map((e) => e.replace('URL', ''))
+					.filter((e) => e?.indexOf?.('URL') > -1)
+					.map((e) => e?.replace?.('URL', ''))
 
 				for (let e of httpEnv) {
 					let regExp = new RegExp('^/' + e + '(?=/.*$)', 'i')

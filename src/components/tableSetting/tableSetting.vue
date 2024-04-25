@@ -115,7 +115,7 @@
 				})
 			},
 			disabledGroup() {
-				return this.groupX.filter((e) => e.disabled)
+				return this.groupX.filter((e) => e?.disabled)
 			},
 			checkAllGroup: {
 				get() {
@@ -125,7 +125,7 @@
 				set(val) {
 					let subV = this.groupT.filter((e) => {
 						for (let item of val) {
-							if (item === e.title) {
+							if (item === e?.title) {
 								return true
 							}
 						}
@@ -154,7 +154,7 @@
 				this.checkAllGroup = JSON.parse(decodeURI(localStr))
 			} else {
 				if (this.defaultCheck) {
-					this.checkAllGroup = this.value.filter((e) => e.showSettingCheck).map((e) => e?.title || unknown)
+					this.checkAllGroup = this.value.filter((e) => e?.showSettingCheck).map((e) => e?.title || unknown)
 				}
 			}
 		},
@@ -190,9 +190,9 @@
 				this.indeterminate = false
 
 				if (this.checkAll) {
-					this.checkAllGroup = this.groupX.map((e) => e.label)
+					this.checkAllGroup = this.groupX.map((e) => e?.label)
 				} else {
-					this.checkAllGroup = this.disabledGroup.map((e) => e.label)
+					this.checkAllGroup = this.disabledGroup.map((e) => e?.label)
 				}
 			},
 			checkAllGroupChange(data) {

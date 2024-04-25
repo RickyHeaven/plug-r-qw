@@ -176,13 +176,13 @@
 			addParamsHandle: {
 				type: Function,
 				default: (selection) => {
-					return selection.map((e) => e.id)
+					return selection.map((e) => e?.id)
 				}
 			},
 			deleteParamsHandle: {
 				type: Function,
 				default: (selection) => {
-					return selection.map((e) => e.id)
+					return selection?.map?.((e) => e?.id)
 				}
 			},
 			addAllParamsHandle: {

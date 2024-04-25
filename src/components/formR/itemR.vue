@@ -1,115 +1,115 @@
 <template>
 	<FormItem
-		:label="item.type !== 'radio' && item.type !== 'checkbox' ? item.label : ' '"
-		:prop="item.key || ''"
+		:label="item?.type !== 'radio' && item?.type !== 'checkbox' ? item?.label : ' '"
+		:prop="item?.key || ''"
 		class="relativeBox"
 		:class="itemClass(item)"
 	>
 		<!--纯文本,也可以不传label和val,单纯用来布局占位-->
 		<div
-			v-if="item.type === 'txt'"
+			v-if="item?.type === 'txt'"
 			:style="itemStyle"
 			style="display: inline-block"
 			:class="{
-				likeInputX: item.likeInput,
-				disabled: Boolean(item.disabled) || disabled
+				likeInputX: item?.likeInput,
+				disabled: Boolean(item?.disabled) || disabled
 			}"
 		>
-			{{ item.valKey ? valGroup[item.valKey] || '无' : item.val }}
+			{{ item?.valKey ? valGroup?.[item?.valKey] || '无' : item?.val }}
 		</div>
 		<!--数字输入框-->
 		<InputNumber
 			:style="itemStyle"
-			v-else-if="item.type === 'inputNumber'"
-			v-model="tempKeys[item.tempKey]"
-			:max="item.max || item.max === 0 ? item.max : Infinity"
-			:min="item.min || item.min === 0 ? item.min : -Infinity"
-			:precision="item.precision"
-			:step="item.step || 1"
-			:placeholder="item.placeholder || t('r.pInput')"
-			:disabled="Boolean(item.disabled) || disabled"
-			:readonly="Boolean(item.readonly)"
-			:editable="item.editable !== false"
+			v-else-if="item?.type === 'inputNumber'"
+			v-model="tempKeys[item?.tempKey]"
+			:max="item?.max || item?.max === 0 ? item.max : Infinity"
+			:min="item?.min || item?.min === 0 ? item.min : -Infinity"
+			:precision="item?.precision"
+			:step="item?.step || 1"
+			:placeholder="item?.placeholder || t('r.pInput')"
+			:disabled="Boolean(item?.disabled) || disabled"
+			:readonly="Boolean(item?.readonly)"
+			:editable="item?.editable !== false"
 			@on-blur="itemChange($event, item)"
-			:active-change="Boolean(item.activeChange)"
-			:clearable="item.clearable !== false"
+			:active-change="Boolean(item?.activeChange)"
+			:clearable="item?.clearable !== false"
 		/>
 		<!--输入框-->
 		<Input
 			:style="itemStyle"
-			v-else-if="item.type === 'input'"
-			v-model="tempKeys[item.tempKey]"
-			:type="item.inputType ? item.inputType : item.password ? 'password' : 'text'"
-			:maxlength="item.maxLength || null"
-			:password="Boolean(item.password)"
-			:icon="item.icon"
-			:prefix="item.prefix"
-			:suffix="item.suffix"
-			:placeholder="item.placeholder || t('r.pInput')"
-			:disabled="Boolean(item.disabled) || disabled"
+			v-else-if="item?.type === 'input'"
+			v-model="tempKeys[item?.tempKey]"
+			:type="item?.inputType ? item.inputType : item?.password ? 'password' : 'text'"
+			:maxlength="item?.maxLength || null"
+			:password="Boolean(item?.password)"
+			:icon="item?.icon"
+			:prefix="item?.prefix"
+			:suffix="item?.suffix"
+			:placeholder="item?.placeholder || t('r.pInput')"
+			:disabled="Boolean(item?.disabled) || disabled"
 			@on-blur="itemChange($event, item)"
-			:clearable="!item.password && item.inputType === 'text' && item.clearable !== false"
+			:clearable="!item?.password && item?.inputType === 'text' && item?.clearable !== false"
 		>
-			<template v-if="item.slotPosition && item.slotName" #[item.slotPosition]>
+			<template v-if="item?.slotPosition && item?.slotName" #[item.slotPosition]>
 				<slot :name="item.slotName" :valGroup="valGroup" />
 			</template>
-			<template v-if="item.slotPosition !== 'prepend' && item.prepend" #prepend>
+			<template v-if="item?.slotPosition !== 'prepend' && item?.prepend" #prepend>
 				<span>{{ item.prepend }}</span>
 			</template>
-			<template v-if="item.slotPosition !== 'append' && item.append" #append>
+			<template v-if="item?.slotPosition !== 'append' && item?.append" #append>
 				<span>{{ item.append }}</span>
 			</template>
 		</Input>
 		<!--下拉框-->
 		<Select
-			v-else-if="item.type === 'select'"
-			v-model="tempKeys[item.tempKey]"
+			v-else-if="item?.type === 'select'"
+			v-model="tempKeys[item?.tempKey]"
 			:style="itemStyle"
-			:filterable="item.filterable === true || item.filterable === false ? item.filterable : false"
-			:disabled="Boolean(item.disabled) || disabled"
-			:multiple="Boolean(item.multiple)"
-			:placeholder="item.placeholder || t('r.pSelect')"
+			:filterable="item?.filterable === true || item?.filterable === false ? item?.filterable : false"
+			:disabled="Boolean(item?.disabled) || disabled"
+			:multiple="Boolean(item?.multiple)"
+			:placeholder="item?.placeholder || t('r.pSelect')"
 			@on-change="itemChange($event, item)"
 			transfer
-			:clearable="item.clearable !== false"
+			:clearable="item?.clearable !== false"
 		>
 			<Option
-				v-for="(optionItem, i) in item.options"
-				:value="optionItem.val"
-				:label="optionItem.label || optionItem.val"
-				:key="'option-' + item.key + i"
-				:disabled="!!optionItem.disabled"
+				v-for="(optionItem, i) in item?.options"
+				:value="optionItem?.val"
+				:label="optionItem?.label || optionItem?.val"
+				:key="'option-' + item?.key + i"
+				:disabled="!!optionItem?.disabled"
 			/>
 		</Select>
 		<!--选择输入框（可以选择输入的key，比如选择是想收集体重还是身高）-->
 		<select-input
-			v-else-if="item.type === 'selectInput'"
-			v-model="tempKeys[item.tempKey]"
+			v-else-if="item?.type === 'selectInput'"
+			v-model="tempKeys[item?.tempKey]"
 			:label-width="labelWidth"
 			:item-width="itemWidth"
-			:select-option="item.options || []"
-			:placeholder="item.placeholder || t('r.pInput')"
-			:clearable="item.clearable !== false"
-			:disabled="Boolean(item.disabled) || disabled"
+			:select-option="item?.options || []"
+			:placeholder="item?.placeholder || t('r.pInput')"
+			:clearable="item?.clearable !== false"
+			:disabled="Boolean(item?.disabled) || disabled"
 			@on-change="onSelectInputChange"
 		/>
 		<!--行政区域级联-->
 		<al-cascader-m-c
 			:style="itemStyle"
 			class="inlineBlock"
-			v-else-if="item.type === 'alCascader'"
-			v-model="valGroup[item.key]"
-			:level="item.level || item.level === 0 ? item.level : 2"
-			:disabled="Boolean(item.disabled) || disabled"
-			:filterable="item.filterable !== false"
-			:placeholder="item.placeholder || t('r.pSelect')"
-			:change-on-select="Boolean(item.changeOnSelect)"
+			v-else-if="item?.type === 'alCascader'"
+			v-model="valGroup[item?.key]"
+			:level="item?.level || item?.level === 0 ? item?.level : 2"
+			:disabled="Boolean(item?.disabled) || disabled"
+			:filterable="item?.filterable !== false"
+			:placeholder="item?.placeholder || t('r.pSelect')"
+			:change-on-select="Boolean(item?.changeOnSelect)"
 			@on-name-change="alNameChange($event, item)"
 		/>
 		<!--远程数据级联-->
 		<async-cascader
 			:style="itemStyle"
-			v-else-if="item.type === 'asyncCascader'"
+			v-else-if="item?.type === 'asyncCascader'"
 			v-model="valGroup[item.key]"
 			:url="item.url || mgrUrl + '/web/v1/umc/orgs'"
 			:option-val="item.optionVal || 'id'"
@@ -125,7 +125,7 @@
 		/>
 		<!--单选（不可取消选择）-->
 		<Radio
-			v-else-if="item.type === 'radio'"
+			v-else-if="item?.type === 'radio'"
 			v-model="valGroup[item.key]"
 			:disabled="Boolean(item.disabled) || disabled"
 			@on-change="itemChange($event, item)"
@@ -134,25 +134,25 @@
 		<!--单选组-->
 		<RadioGroup
 			:style="itemStyle"
-			v-else-if="item.type === 'radioGroup'"
+			v-else-if="item?.type === 'radioGroup'"
 			@on-change="reValidateAndChangeHandle($event, item)"
 			:type="item.buttonType ? 'button' : null"
 			v-model="tempKeys[item.tempKey]"
 		>
 			<Radio
 				v-for="radioItem of item.options"
-				:key="'radioItem' + radioItem.val"
-				:label="radioItem.val"
+				:key="'radioItem' + radioItem?.val"
+				:label="radioItem?.val"
 				:border="Boolean(item.itemBorder)"
-				:disabled="Boolean(item.disabled) || disabled || radioItem.disabled"
+				:disabled="Boolean(item.disabled) || disabled || radioItem?.disabled"
 			>
-				<Icon v-if="radioItem.icon && !item.buttonType" :type="radioItem.icon" />
-				<span>{{ radioItem.label || radioItem.val }}</span>
+				<Icon v-if="radioItem?.icon && !item.buttonType" :type="radioItem?.icon" />
+				<span>{{ radioItem?.label || radioItem?.val }}</span>
 			</Radio>
 		</RadioGroup>
 		<!--单选（可取消选择）-->
 		<Checkbox
-			v-else-if="item.type === 'checkbox'"
+			v-else-if="item?.type === 'checkbox'"
 			v-model="valGroup[item.key]"
 			:disabled="!!item.disabled"
 			@on-change="itemChange($event, item)"
@@ -161,23 +161,23 @@
 		<!--多选组-->
 		<CheckboxGroup
 			:style="itemStyle"
-			v-else-if="item.type === 'checkboxGroup'"
+			v-else-if="item?.type === 'checkboxGroup'"
 			v-model="tempKeys[item.tempKey]"
 			@on-change="reValidateAndChangeHandle($event, item)"
 		>
 			<Checkbox
 				v-for="checkItem of item.options"
-				:key="'checkItem' + checkItem.val"
-				:label="checkItem.val"
-				:disabled="Boolean(item.disabled) || disabled || checkItem.disabled"
+				:key="'checkItem' + checkItem?.val"
+				:label="checkItem?.val"
+				:disabled="Boolean(item.disabled) || disabled || checkItem?.disabled"
 			>
-				<Icon v-if="checkItem.icon" :type="checkItem.icon" />
-				<span>{{ checkItem.label || checkItem.val }}</span>
+				<Icon v-if="checkItem?.icon" :type="checkItem?.icon" />
+				<span>{{ checkItem?.label || checkItem?.val }}</span>
 			</Checkbox>
 		</CheckboxGroup>
 		<!--文本框-->
 		<Input
-			v-else-if="item.type === 'textarea'"
+			v-else-if="item?.type === 'textarea'"
 			type="textarea"
 			v-model="tempKeys[item.tempKey]"
 			:autosize="item.autosize || { minRows: 2 }"
@@ -193,7 +193,7 @@
 		<upload-group
 			:style="itemStyle"
 			class="inlineBlock"
-			v-else-if="item.type === 'upload'"
+			v-else-if="item?.type === 'upload'"
 			v-model="valGroup[item.key]"
 			:url="item.url || uploadUrl"
 			:manual-upload="Boolean(item.manualUpload)"
@@ -209,7 +209,7 @@
 		<!--日期选择器-->
 		<DatePicker
 			:style="itemStyle"
-			v-else-if="item.type === 'date'"
+			v-else-if="item?.type === 'date'"
 			v-model="tempKeys[item.tempKey]"
 			:type="item.dateType"
 			:disabled="Boolean(item.disabled) || disabled"
@@ -224,7 +224,7 @@
 		<!--时间选择器-->
 		<TimePicker
 			:style="itemStyle"
-			v-else-if="item.type === 'time'"
+			v-else-if="item?.type === 'time'"
 			v-model="tempKeys[item.tempKey]"
 			:type="item.dateType"
 			:disabled="Boolean(item.disabled) || disabled"
@@ -240,7 +240,7 @@
 		<!--月份区间选择-->
 		<month-range
 			:style="itemStyle"
-			v-else-if="item.type === 'monthRange'"
+			v-else-if="item?.type === 'monthRange'"
 			v-model="tempKeys[item.tempKey]"
 			:disabled="Boolean(item.disabled) || disabled"
 			placement="bottom-end"
@@ -253,7 +253,7 @@
 		<editor
 			class="inlineBlock"
 			:style="itemStyle"
-			v-else-if="item.type === 'editor'"
+			v-else-if="item?.type === 'editor'"
 			v-model="valGroup[item.key]"
 			:placeholder="item.placeholder || t('r.pInput')"
 			:disabled="Boolean(item.disabled) || disabled"
@@ -269,7 +269,7 @@
 		<editor-pro
 			class="inlineBlock"
 			:style="itemStyle"
-			v-else-if="item.type === 'editorPro'"
+			v-else-if="item?.type === 'editorPro'"
 			v-model="valGroup[item.key]"
 			:placeholder="item.placeholder || t('r.pInput')"
 			:disabled="Boolean(item.disabled) || disabled"
@@ -280,7 +280,7 @@
 			@input="itemChange($event, item)"
 		/>
 		<input-map
-			v-else-if="item.type === 'inputMap'"
+			v-else-if="item?.type === 'inputMap'"
 			v-model="tempKeys[item.tempKey]"
 			:style="itemStyle"
 			:placeholder="item.placeholder || t('r.search')"
@@ -289,14 +289,14 @@
 			:height="item.mapHeight || '250px'"
 			@on-change="itemChange($event, item)"
 		/>
-		<div v-else-if="item.type === 'custom'" class="inlineBlock" :style="itemStyle">
+		<div v-else-if="item?.type === 'custom'" class="inlineBlock" :style="itemStyle">
 			<slot :name="item.slotName" :val-group="valGroup" />
 		</div>
 		<!--表单项提示文字-->
-		<div v-if="Boolean(item.info)" class="formInfoTxtXN">{{ item.info }}</div>
+		<div v-if="Boolean(item?.info)" class="formInfoTxtXN">{{ item?.info }}</div>
 		<!--表单项标题-->
-		<div v-if="Boolean(item.title)" class="formTitleTxtXN">
-			{{ item.title }}
+		<div v-if="Boolean(item?.title)" class="formTitleTxtXN">
+			{{ item?.title }}
 		</div>
 	</FormItem>
 </template>

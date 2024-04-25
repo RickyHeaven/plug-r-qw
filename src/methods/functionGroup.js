@@ -211,7 +211,7 @@ export function toFormData(data) {
  * @param {Array} path - 递归用参数，逻辑内部参数，不用传
  * @return {Array} 返回带有路径（层级）信息的数组
  * @example group: {id:1,name:'爸爸',children:[{id:2,name:'大儿子'},{id:3,name:'二儿子'}]}
- *          condition: e=>e.id === 3
+ *          condition: e=>e?.id === 3
  *          pathKey: 'name'
  *          childKey: 'children'
  *
@@ -289,8 +289,8 @@ export function findPath({ group, condition, pathKey, childKey = 'children', pat
 /**
  * 在目标集合中按条件查找或直接查找，返回第一个满足条件的元素或路径
  * 与findPath不同，这里的路径是完整路径（findPath省略了一些标准结构中间路径），找不到返回：false
- * @param {Array/Object} group 被查找的集合
- * @param {Function/String/Number/Boolean} condition 查找的条件或值
+ * @param {Array|Object} group 被查找的集合
+ * @param {Function|String|Number|Boolean|null|undefined} condition 查找的条件或值
  * @param {Boolean} getPath 是否返回路径，默认为：false，返回找到的元素
  * @returns {*}
  */
@@ -298,11 +298,12 @@ export function findCollection(group, condition, getPath = false) {
 	if (!group || !condition) {
 		return false
 	}
+	const isFunc = myTypeof(condition) === 'Function'
 	let PATH
 	let target = 'notFoundC'
 	let deepSearch = function (group, condition) {
 		if (myTypeof(group) === 'Array') {
-			if (myTypeof(condition) === 'Function' && condition(group)) {
+			if (isFunc && condition(group)) {
 				target = group
 				return []
 			}
@@ -310,7 +311,7 @@ export function findCollection(group, condition, getPath = false) {
 				if (target !== 'notFoundC') {
 					break
 				}
-				if ((myTypeof(condition) === 'Function' && condition(e)) || e === condition) {
+				if ((isFunc && condition(e)) || e === condition) {
 					target = e
 					return [group.indexOf(e)]
 				} else if (myTypeof(e) === 'Array' || myTypeof(e) === 'Object') {
@@ -321,7 +322,7 @@ export function findCollection(group, condition, getPath = false) {
 				}
 			}
 		} else if (myTypeof(group) === 'Object') {
-			if (myTypeof(condition) === 'Function' && condition(group)) {
+			if (isFunc && condition(group)) {
 				target = group
 				return []
 			}
@@ -330,7 +331,7 @@ export function findCollection(group, condition, getPath = false) {
 					break
 				}
 				if (group.hasOwnProperty(key)) {
-					if ((myTypeof(condition) === 'Function' && condition(key)) || group[key] === condition) {
+					if ((isFunc && condition(key)) || group[key] === condition) {
 						target = group[key]
 						return [key]
 					} else if (myTypeof(group[key]) === 'Object' || myTypeof(group[key]) === 'Array') {
@@ -391,8 +392,8 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
      请求地址 ‘/mgr/file’ 会被改变为 'http://mgr.myweb.com/file'
      */
 		let httpEnv = Object.keys(window.g)
-			.filter((e) => e.indexOf('URL') > -1)
-			.map((e) => e.replace('URL', ''))
+			.filter((e) => e?.indexOf('URL') > -1)
+			.map((e) => e?.replace('URL', ''))
 
 		for (let item of httpEnv) {
 			let regExp = new RegExp('^/' + item + '(?=/.*$)', 'i')
@@ -459,9 +460,9 @@ export function getColumnsKeys(sKey, columns, returnArray = false) {
 		let names = localStorage.getItem(sKey)
 		if (names) {
 			names = JSON.parse(decodeURI(names))
-			temp = columns.filter((e) => e.key && names.indexOf(e.title) !== -1).map((e) => e.key)
+			temp = columns.filter((e) => e?.key && names.indexOf(e?.title) !== -1).map((e) => e?.key)
 		} else {
-			temp = columns.map((e) => e.key)
+			temp = columns.map((e) => e?.key)
 		}
 	} else {
 		temp = []
@@ -718,7 +719,7 @@ export function dataFilterOrToUrl(data, toUrl, keepEmptyVal) {
 //阻止冒泡
 export function stopBubbling(e) {
 	e = e || window.Event
-	if (e.stopPropagation) {
+	if (e?.stopPropagation) {
 		//W3C阻止冒泡方法
 		e.stopPropagation()
 	} else {

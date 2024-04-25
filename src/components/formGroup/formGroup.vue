@@ -14,8 +14,8 @@
 			:btnLoading="btnLoading"
 			@on-submit="onSubmit"
 		>
-			<template #[item.slotName]="{ valGroup }" v-for="item in formDataC">
-				<slot :name="item.slotName" :val-group="valGroup" />
+			<template #[item?.slotName]="{ valGroup }" v-for="item in formDataC">
+				<slot :name="item?.slotName" :val-group="valGroup" />
 			</template>
 		</form-r>
 		<div class="formFooterVM" v-show="showOkBt || showCancelBt" :style="{ marginLeft: labelWidth + 'px' }">
@@ -113,11 +113,11 @@
 				if (this.formTeam) {
 					let t = []
 					for (let f of this.formData) {
-						t = t.concat(f.filter((e) => e.type === 'custom' || (e.type === 'input' && e.slotName && e.slotPosition)))
+						t = t.concat(f.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition)))
 					}
 					return t
 				}
-				return this.formData.filter((e) => e.type === 'custom' || (e.type === 'input' && e.slotName && e.slotPosition))
+				return this.formData.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition))
 			}
 		},
 		methods: {

@@ -36,7 +36,7 @@
 
 - deleteAllUrl: 字符串，全部移除(向右穿)接口地址
 
-- addParamsHandle: Function，添加接口参数处理函数（入参为右侧已选数据），默认：`(selection)=>selection.map(e=>e.id)`
+- addParamsHandle: Function，添加接口参数处理函数（入参为右侧已选数据），默认：`(selection)=>selection.map(e=>e?.id)`
 
 - deleteParamsHandle: Function，移除接口参数处理函数（入参为左侧已选数据），注意：左右一样时可传同一方法，但还是都得传
 

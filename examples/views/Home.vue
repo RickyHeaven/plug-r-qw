@@ -77,7 +77,7 @@
 		},
 		created() {
 			this.routeArr = this.$router.options.routes.filter((e) => {
-				if (e.name && e.name !== 'login' && e.name !== 'index') {
+				if (e?.name && e.name !== 'login' && e.name !== 'index') {
 					return e
 				}
 			})
