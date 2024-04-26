@@ -10,6 +10,7 @@
 
 - icon 字符串，可选值：`'success','error','warning','info'`，可不传
 
+- closeOnClickOutside 布尔值，可选，默认值：`true`
 ```
 推荐使用方式示例：
 this.$swal('操作成功','','success')
@@ -28,21 +29,23 @@ ps:这种场景使用$swalConfirm更简洁：this.$swalConfirm(null, null, 'warn
 
 ### <a name='option'>option 支持属性详解（为对象时）</a>
 
-- title 字符串，提示框标题，可不传
+- title 字符串，非必填，提示框标题
 
-- text 字符串/DOM node，提示框内容，可不传
+- text 字符串/DOM node，非必填，提示框内容
 
-- icon 字符串，可选值：`'success','error','warning','info'`，可不传
+- icon 字符串，非必填，可选值：`'success','error','warning','info'`
 
-- onOk Function，确定按钮点击回调
+- onOk Function，非必填，确定按钮点击回调
 
-- content 同 text 属性，不要同时使用这两个属性
+- content 非必填，同 text 属性，不要同时使用这两个属性
 
-- type 字符串，同 icon，建议使用 icon
+- type 字符串，非必填，同 icon，建议使用 icon
 
-- className 字符串，弹框顶级 node 的自定义 class（在模态框下），可借用该属性自定义弹框样式
+- className 字符串，非必填，弹框顶级 node 的自定义 class（在模态框下），可借用该属性自定义弹框样式
 
-- buttons 对象/数组，弹框底部按钮配置，参考[buttons 详解](#buttons)
+- buttons 对象/数组，非必填，弹框底部按钮配置，参考[buttons 详解](#buttons)
+
+- closeOnClickOutside 布尔值，非必填，默认值：`true`
 
 ### <a name='buttons'>buttons 详解</a>
 

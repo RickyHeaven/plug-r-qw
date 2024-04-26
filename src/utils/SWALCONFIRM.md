@@ -8,6 +8,8 @@
 
 - text 字符串/DOM node，提示框内容，没有时传`''`，和 swal 不同，传 null 可以触发默认值，swal 的该参数没有默认值
 
-- icon 字符串，可选值：`'success','error','warning','info'`，可不传，和 swal 不同，传 null 可以触发默认值，swal 的该参数没有默认值
+- icon 字符串，可选值：`'success','error','warning','info'`，传''不展示图标，和 swal 不同，传 null 可以触发默认值（warning），swal 的该参数没有默认值
 
-- onOk Function，确定按钮被点击时的回调
+- onOk Function，必填，确定按钮被点击时的回调
+
+- closeOnClickOutside 布尔值，非必填，默认值：`false`

@@ -8,12 +8,13 @@ import { myTypeof } from './functionGroup.js'
 import { t } from '../locale/index'
 
 /**
- * @param option object/string object:{title:'标题',content(or text):'内容，可以为空',type(or icon):'success(or error or
- *   warning)'}---string:'标题'
- * @param text string 当option为object时不传此变量，当option为string时该变量为'内容'
- * @param icon string 当option为object时不传此变量，当option为string时该变量为弹出框类型'success'or'error'or'warning'
+ * @param {object|string} option  1.object:{title:'标题',content(or text):'内容，可以为空',type(or icon):'success(or error or
+ *   warning)'};2.string:'标题'
+ * @param {string} [text] 当option为object时不传此变量，当option为string时该变量为'内容'
+ * @param {string} [icon] 当option为object时不传此变量，当option为string时该变量为弹出框类型'success'|'error'|'warning'
+ * @param {boolean} closeOnClickOutside 点击外部关闭，默认：true
  */
-export default function (option, text, icon) {
+export default function (option, text, icon, closeOnClickOutside = true) {
 	const T = (...arg) => t.apply(this, arg)
 
 	return new Promise((r, j) => {
@@ -69,6 +70,7 @@ export default function (option, text, icon) {
 						}
 					}
 				}
+				option.closeOnClickOutside = option.closeOnClickOutside ?? true
 				swal(option)
 					.then((res) => {
 						if (res && myTypeof(option.onOk) === 'Function') {
@@ -92,7 +94,8 @@ export default function (option, text, icon) {
 							closeModal: true
 						}
 					},
-					className: 'swalBoxX'
+					className: 'swalBoxX',
+					closeOnClickOutside: closeOnClickOutside
 				}
 				if (text) {
 					switch (myTypeof(text)) {
