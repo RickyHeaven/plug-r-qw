@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@jiaminghi/data-view':
     specifier: ^2.10.0
@@ -41,6 +37,9 @@ dependencies:
   moment:
     specifier: 2.29.4
     version: 2.29.4
+  popper.js:
+    specifier: 1.16.1-lts
+    version: 1.16.1-lts
   sweetalert:
     specifier: ^2.1.2
     version: 2.1.2
@@ -93,7 +92,7 @@ devDependencies:
     version: 1.0.4
   compression-webpack-plugin:
     specifier: ^10.0.0
-    version: 10.0.0(webpack@5.91.0)
+    version: 10.0.0
   deepmerge:
     specifier: ^2.2.1
     version: 2.2.1
@@ -126,7 +125,7 @@ devDependencies:
     version: 4.2.0
   less-loader:
     specifier: ^8.0.0
-    version: 8.1.1(less@4.2.0)(webpack@5.91.0)
+    version: 8.1.1(less@4.2.0)
   multer:
     specifier: ^1.4.5-lts.1
     version: 1.4.5-lts.1
@@ -141,19 +140,19 @@ devDependencies:
     version: 1.72.0
   sass-loader:
     specifier: ^12.0.0
-    version: 12.6.0(sass@1.72.0)(webpack@5.91.0)
+    version: 12.6.0(sass@1.72.0)
   typescript:
     specifier: ~4.5.5
     version: 4.5.5
   vue-markdown-loader:
     specifier: ^2.4.1
-    version: 2.5.0(vue-loader@17.4.2)
+    version: 2.5.0
   vue-template-compiler:
     specifier: ^2.6.14
     version: 2.7.16
   vuex-class:
     specifier: ^0.3.2
-    version: 0.3.2(vue-class-component@7.2.6)(vue@2.7.16)(vuex@3.6.2)
+    version: 0.3.2(vue-class-component@7.2.6)(vue@2.7.16)
 
 packages:
 
@@ -1845,10 +1844,9 @@ packages:
       svg-tags: 1.0.0
     dev: true
 
-  /@vue/babel-preset-app@5.0.8(@babel/core@7.24.3)(core-js@3.36.1)(vue@2.7.16):
+  /@vue/babel-preset-app@5.0.8(core-js@3.36.1)(vue@2.7.16):
     resolution: {integrity: sha512-yl+5qhpjd8e1G4cMXfORkkBlvtPCIgmRf3IYCWYDKIQ7m+PPa5iTm4feiNmCMD6yGqQWMhhK/7M3oWGL9boKwg==}
     peerDependencies:
-      '@babel/core': '*'
       core-js: ^3
       vue: ^2 || ^3.2.13
     peerDependenciesMeta:
@@ -1970,7 +1968,7 @@ packages:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
       '@babel/core': 7.24.3
-      '@vue/babel-preset-app': 5.0.8(@babel/core@7.24.3)(core-js@3.36.1)(vue@2.7.16)
+      '@vue/babel-preset-app': 5.0.8(core-js@3.36.1)(vue@2.7.16)
       '@vue/cli-service': 5.0.8(less-loader@8.1.1)(lodash@4.17.21)(prettier@3.2.5)(sass-loader@12.6.0)(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.3.0(@babel/core@7.24.3)(webpack@5.91.0)
@@ -2108,7 +2106,7 @@ packages:
       html-webpack-plugin: 5.6.0(webpack@5.91.0)
       is-file-esm: 1.0.0
       launch-editor-middleware: 2.6.1
-      less-loader: 8.1.1(less@4.2.0)(webpack@5.91.0)
+      less-loader: 8.1.1(less@4.2.0)
       lodash.defaultsdeep: 4.6.1
       lodash.mapvalues: 4.6.0
       mini-css-extract-plugin: 2.8.1(webpack@5.91.0)
@@ -2118,7 +2116,7 @@ packages:
       postcss: 8.4.38
       postcss-loader: 6.2.1(postcss@8.4.38)(webpack@5.91.0)
       progress-webpack-plugin: 1.0.16(webpack@5.91.0)
-      sass-loader: 12.6.0(sass@1.72.0)(webpack@5.91.0)
+      sass-loader: 12.6.0(sass@1.72.0)
       ssri: 8.0.1
       terser-webpack-plugin: 5.3.10(webpack@5.91.0)
       thread-loader: 3.0.4(webpack@5.91.0)
@@ -2714,10 +2712,8 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats@2.1.1(ajv@8.12.0):
+  /ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
-    peerDependencies:
-      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -3039,7 +3035,7 @@ packages:
   /axios@1.6.8:
     resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
     dependencies:
-      follow-redirects: 1.15.6(debug@4.3.4)
+      follow-redirects: 1.15.6
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -3679,7 +3675,7 @@ packages:
       mime-db: 1.52.0
     dev: true
 
-  /compression-webpack-plugin@10.0.0(webpack@5.91.0):
+  /compression-webpack-plugin@10.0.0:
     resolution: {integrity: sha512-wLXLIBwpul/ALcm7Aj+69X0pYT3BYt6DdPn3qrgBIh9YejV9Bju9ShhlAsjujLyWMo6SAweFIWaUoFmXZNuNrg==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -3687,7 +3683,6 @@ packages:
     dependencies:
       schema-utils: 4.2.0
       serialize-javascript: 6.0.2
-      webpack: 5.91.0
     dev: true
 
   /compression@1.7.4:
@@ -4240,6 +4235,7 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+    dev: true
 
   /decamelize@1.2.0:
     resolution: {integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==}
@@ -5019,6 +5015,16 @@ packages:
       readable-stream: 2.3.8
     dev: true
 
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /follow-redirects@1.15.6(debug@4.3.4):
     resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
@@ -5029,6 +5035,7 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
+    dev: true
 
   /for-in@1.0.2:
     resolution: {integrity: sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==}
@@ -6208,7 +6215,7 @@ packages:
       flush-write-stream: 1.1.1
     dev: true
 
-  /less-loader@8.1.1(less@4.2.0)(webpack@5.91.0):
+  /less-loader@8.1.1(less@4.2.0):
     resolution: {integrity: sha512-K93jJU7fi3n6rxVvzp8Cb88Uy9tcQKfHlkoezHwKILXhlNYiRQl4yowLIkQqmBXOH/5I8yoKiYeIf781HGkW9g==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -6217,7 +6224,6 @@ packages:
     dependencies:
       klona: 2.0.6
       less: 4.2.0
-      webpack: 5.91.0
     dev: true
 
   /less@4.2.0:
@@ -6646,6 +6652,7 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: true
 
   /ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -7264,6 +7271,10 @@ packages:
   /popper.js@1.16.1:
     resolution: {integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==}
     deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+    dev: false
+
+  /popper.js@1.16.1-lts:
+    resolution: {integrity: sha512-Kjw8nKRl1m+VrSFCoVGPph93W/qrSO7ZkqPpTf7F4bk/sqcfWK019dWBUpE/fBOsOQY1dks/Bmcbfn1heM/IsA==}
     dev: false
 
   /portfinder@1.0.32:
@@ -8089,7 +8100,7 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass-loader@12.6.0(sass@1.72.0)(webpack@5.91.0):
+  /sass-loader@12.6.0(sass@1.72.0):
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -8111,7 +8122,6 @@ packages:
       klona: 2.0.6
       neo-async: 2.6.2
       sass: 1.72.0
-      webpack: 5.91.0
     dev: true
 
   /sass@1.72.0:
@@ -8162,7 +8172,7 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.12.0
-      ajv-formats: 2.1.1(ajv@8.12.0)
+      ajv-formats: 2.1.1
       ajv-keywords: 5.1.0(ajv@8.12.0)
     dev: true
 
@@ -9378,7 +9388,7 @@ packages:
       webpack: 5.91.0
     dev: true
 
-  /vue-markdown-loader@2.5.0(vue-loader@17.4.2):
+  /vue-markdown-loader@2.5.0:
     resolution: {integrity: sha512-UlaDd9Ajnx7iKl1cbtyRZOrdbL14r4qdHG8pZ/LxpNyeHomVN7nkDwZ9XGiaqxsk3cyiNi3Z8I87CATKEeq99Q==}
     peerDependencies:
       vue-loader: '>=10.0.0'
@@ -9387,7 +9397,6 @@ packages:
       highlight.js: 11.9.0
       loader-utils: 1.4.2
       markdown-it: 8.4.2
-      vue-loader: 17.4.2(vue@2.7.16)(webpack@5.91.0)
     dev: true
 
   /vue-property-decorator@9.1.2(vue-class-component@7.2.6)(vue@2.7.16):
@@ -9433,7 +9442,7 @@ packages:
       '@vue/compiler-sfc': 2.7.16
       csstype: 3.1.3
 
-  /vuex-class@0.3.2(vue-class-component@7.2.6)(vue@2.7.16)(vuex@3.6.2):
+  /vuex-class@0.3.2(vue-class-component@7.2.6)(vue@2.7.16):
     resolution: {integrity: sha512-m0w7/FMsNcwJgunJeM+wcNaHzK2KX1K1rw2WUQf7Q16ndXHo7pflRyOV/E8795JO/7fstyjH3EgqBI4h4n4qXQ==}
     peerDependencies:
       vue: ^2.5.0
@@ -9442,15 +9451,6 @@ packages:
     dependencies:
       vue: 2.7.16
       vue-class-component: 7.2.6(vue@2.7.16)
-      vuex: 3.6.2(vue@2.7.16)
-    dev: true
-
-  /vuex@3.6.2(vue@2.7.16):
-    resolution: {integrity: sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==}
-    peerDependencies:
-      vue: ^2.0.0
-    dependencies:
-      vue: 2.7.16
     dev: true
 
   /wangeditor@4.7.13:
@@ -9835,3 +9835,7 @@ packages:
     dependencies:
       tslib: 2.3.0
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

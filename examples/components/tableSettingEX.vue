@@ -2,8 +2,8 @@
 	<div class="exBox">
 		<showReadMe />
 		<toHome />
-		<div class="headBR">
-			<tableSetting class="fr" v-model="columns" sKey="tableSettingEx_202007030903" top="40px" :defaultCheck="true" />
+		<div class="headBR relativeBox">
+			<tableSetting class="fr" v-model="columns" sKey="tableSettingEx_202007030903" defaultCheck transfer/>
 		</div>
 		<div class="tableLK">
 			<bt-table-page :columns="columns" :url="url" />
@@ -106,6 +106,7 @@
 		height: $headerH;
 		line-height: $headerH;
 		background-color: $headerBg;
+		overflow: hidden;
 
 		&:after {
 			content: '';

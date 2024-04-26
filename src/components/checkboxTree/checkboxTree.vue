@@ -14,7 +14,7 @@
 	/>
 </template>
 <script>
-	import { myTypeof, setValByOption } from '../../methods/functionGroup'
+	import { myTypeof, setValByOption } from '../../utils/functionGroup'
 	import _ from 'lodash'
 
 	export default {

@@ -34,7 +34,7 @@
 	 * @example 调用示例 <table-search v-model="areaName" :open="openSearch" placeholder="片区名称" @on-search="search" @on-toggle="openSearch=!openSearch"/>
 	 */
 	import Locale from '../../mixins/locale'
-	import { setTimeout } from '../../methods/timer'
+	import { setTimeout } from '../../utils/timer'
 
 	export default {
 		name: 'tableSearch',

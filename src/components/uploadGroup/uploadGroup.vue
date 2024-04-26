@@ -154,10 +154,10 @@
 		isImgByFile,
 		getFileTypeIconByName,
 		downloadFileReaderFile
-	} from '../../methods/functionGroup'
-	import $fetch from '../../methods/fetch'
-	import fullScreenImgByDom from '../../methods/fullScreenImgByDom'
-	import $swal from '../../methods/swal'
+	} from '../../utils/functionGroup'
+	import $fetch from '../../utils/fetch'
+	import fullScreenImgByDom from '../../utils/fullScreenImgByDom'
+	import $swal from '../../utils/swal'
 	import Locale from '../../mixins/locale'
 	import _ from 'lodash'
 

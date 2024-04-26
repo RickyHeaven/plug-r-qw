@@ -19,7 +19,7 @@
 	import { lazyAMapApiLoaderInstance } from 'vue-amap'
 	import _ from 'lodash'
 	import Locale from '../../mixins/locale'
-	import { setTimeout } from '../../methods/timer'
+	import { setTimeout } from '../../utils/timer'
 
 	export default {
 		name: 'inputMap',

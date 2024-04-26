@@ -22,7 +22,7 @@
 </template>
 
 <script>
-	import { myTypeof } from '../../methods/functionGroup.js'
+	import { myTypeof } from '../../utils/functionGroup.js'
 	import Locale from '../../mixins/locale'
 
 	export default {

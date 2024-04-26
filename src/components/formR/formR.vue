@@ -101,10 +101,10 @@
 <script>
 	import moment from 'moment'
 	import _ from 'lodash'
-	import { myTypeof, isValidValue, trimObj, findCollection } from '../../methods/functionGroup'
-	import $fetch from '../../methods/fetch'
+	import { myTypeof, isValidValue, trimObj, findCollection } from '../../utils/functionGroup'
+	import $fetch from '../../utils/fetch'
 	import Locale from '../../mixins/locale'
-	import { setTimeout } from '../../methods/timer'
+	import { setTimeout } from '../../utils/timer'
 	import ItemR from './itemR'
 
 	export default {

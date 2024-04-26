@@ -8,7 +8,7 @@
 </template>
 <script>
 	import Locale from '../../mixins/locale'
-	import $fetch from '../../methods/fetch'
+	import $fetch from '../../utils/fetch'
 
 	//引入echarts对象
 	import * as echarts from 'echarts'

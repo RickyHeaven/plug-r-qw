@@ -121,6 +121,20 @@ img {
 	height: 100vh;
 }
 
+.btnR {
+	cursor: pointer;
+	color: @primary;
+	user-select: none;
+
+	&:hover {
+		opacity: 0.85;
+	}
+}
+
+.cannotSelect {
+	user-select: none;
+}
+
 .disabledR {
 	cursor: not-allowed;
 	opacity: 0.5;
@@ -240,6 +254,7 @@ img {
 			.closeN {
 				padding: 4px 4px 3px 3px;
 				box-shadow: none;
+
 				.ivu-icon {
 					line-height: 1;
 				}

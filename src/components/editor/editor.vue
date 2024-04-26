@@ -7,12 +7,12 @@
 
 <script>
 	import E from 'wangeditor'
-	import { isValidValue, myTypeof, oneOf } from '../../methods/functionGroup'
+	import { isValidValue, myTypeof, oneOf } from '../../utils/functionGroup'
 	import xss from 'xss'
-	import $swal from '../../methods/swal'
+	import $swal from '../../utils/swal'
 	import Locale from '../../mixins/locale'
-	import { setTimeout } from '../../methods/timer'
-	import $fetch from '../../methods/fetch.js'
+	import { setTimeout } from '../../utils/timer'
+	import $fetch from '../../utils/fetch.js'
 	import _ from 'lodash'
 
 	const { $, BtnMenu } = E

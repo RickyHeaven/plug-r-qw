@@ -17,7 +17,7 @@
 
 <script>
 	import _ from 'lodash'
-	import { myTypeof, isValidValue, setValByOption } from '../../methods/functionGroup'
+	import { myTypeof, isValidValue, setValByOption } from '../../utils/functionGroup'
 
 	export default {
 		name: 'tableTree',

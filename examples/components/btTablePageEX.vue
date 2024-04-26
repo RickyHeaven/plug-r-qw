@@ -45,7 +45,7 @@
 </template>
 
 <script>
-	import { downloadFileReaderFile } from '../../src/methods/functionGroup'
+	import { downloadFileReaderFile } from '../../src/utils/functionGroup'
 	import imgK from '../assets/testo.png'
 	import _ from 'lodash'
 

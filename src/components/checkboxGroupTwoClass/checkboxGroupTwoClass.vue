@@ -30,7 +30,7 @@
 
 <script>
 	import _ from 'lodash'
-	import { myTypeof } from '../../methods/functionGroup'
+	import { myTypeof } from '../../utils/functionGroup'
 	import Locale from '../../mixins/locale'
 
 	export default {

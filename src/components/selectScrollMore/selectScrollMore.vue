@@ -20,8 +20,8 @@
 
 <script>
 	import _ from 'lodash'
-	import { isValidValue, myTypeof } from '../../methods/functionGroup'
-	import $fetch from '../../methods/fetch'
+	import { isValidValue, myTypeof } from '../../utils/functionGroup'
+	import $fetch from '../../utils/fetch'
 	import Locale from '../../mixins/locale'
 
 	export default {

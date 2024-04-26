@@ -1,6 +1,5 @@
 import { Boot } from '@wangeditor/editor'
 import { t } from '../locale'
-
 ;(() => {
 	if (window.wangeditorMenuInit) {
 		return

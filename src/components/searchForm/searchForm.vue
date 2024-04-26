@@ -26,7 +26,7 @@
 <script>
 	import formR from '../formR/formR.vue'
 	import Locale from '../../mixins/locale'
-	import { myTypeof } from '../../methods/functionGroup'
+	import { myTypeof } from '../../utils/functionGroup'
 
 	export default {
 		name: 'searchForm',
@@ -79,7 +79,9 @@
 					}
 					return t
 				}
-				return this.formData.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition))
+				return this.formData.filter(
+					(e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition)
+				)
 			}
 		},
 		mounted() {

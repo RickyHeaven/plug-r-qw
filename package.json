@@ -70,6 +70,7 @@
     "js-cookie": "2.1.4",
     "lodash": "^4.17.21",
     "moment": "2.29.4",
+    "popper.js": "1.16.1-lts",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.14",
     "vue-amap": "^0.5.10",

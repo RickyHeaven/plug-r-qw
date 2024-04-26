@@ -17,7 +17,7 @@
 </template>
 
 <script>
-	import { findPath, myTypeof } from '../../methods/functionGroup'
+	import { findPath, myTypeof } from '../../utils/functionGroup'
 	import Locale from '../../mixins/locale'
 	import _ from 'lodash'
 

@@ -8,17 +8,17 @@
 
 - sKey: 字符串，组件数据在 _localstorage_ 的唯一标识，不可与其他 sKey 重复，命名规则：插件所在单文件名称\_取名时间，如：`tableSettingEx_202007030903` 必填
 
-- top: 字符串，设置面板定位-上（相对于按钮），如：`top='40px'`
+- width: 字符串，设置面板宽度，默认：`'150px'`
 
-- right: 字符串，设置面板定位-右（相对于按钮）
+- bg: 字符串，设置面板背景色（面板有阴影），默认：`'#fff'`
 
-- width: 字符串，设置面板宽度，默认：`150px`
-
-- bg: 字符串，设置面板背景色（面板有阴影），默认：`#fff`
+- placement: 字符串设置面板呼出位置，默认：`'bottom-end'`
 
 - defaultCheck: 布尔类型，是否设置默认勾选（默认`false`，用于默认展示所有列），如果设为 true（用于默认展示部分列）,则在 v-model 绑定的*columns*项里设置`showSettingCheck:true`
 
-- storage: 字符串，指定使用浏览器缓存类型，可选值`'localStorage'`、`'sessionStorage'`，默认：`localStorage`
+- storage: 字符串，指定使用浏览器缓存类型，可选值`'localStorage'`、`'sessionStorage'`，默认：`'localStorage'`
+
+- transfer: 布尔类型，是否将面板放置于 body 内，在 Tabs、带有 overflow:hidden 的 上级容器内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果，默认：`true`
 
 ### columns 与配置相关字段
 
@@ -30,4 +30,4 @@
 
 - sKey 命名一定要规范
 
-- value(columns)里一定要有 title,设置面板列表的标签是取的这个字段,如选择框'selection',一定要加上：`title:'选择'`
+- value(columns)里一定要有 title,设置面板列表的标签是取的这个字段,如选择框 'selection',一定要加上：`title:'选择'`

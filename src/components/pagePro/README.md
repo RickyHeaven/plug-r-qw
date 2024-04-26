@@ -17,6 +17,7 @@
 - transfer: 布尔值，是否在body下直接弹出选框，默认值：`true`
 
 - disabled: 布尔值，是否禁用，默认值：`false`
+
 ### 事件
 
 - on-change: 当前页改变事件

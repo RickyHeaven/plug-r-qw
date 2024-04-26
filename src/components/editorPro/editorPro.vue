@@ -21,7 +21,7 @@
 <script>
 	import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 	import Locale from '../../mixins/locale'
-	import { oneOf } from '../../methods/functionGroup'
+	import { oneOf } from '../../utils/functionGroup'
 
 	export default {
 		name: 'editorPro',

@@ -24,7 +24,7 @@
 
 <script>
 	import headerBt from '../headerBt/headerBt.vue'
-	import { myTypeof } from '../../methods/functionGroup'
+	import { myTypeof } from '../../utils/functionGroup'
 	import Locale from '../../mixins/locale'
 
 	export default {

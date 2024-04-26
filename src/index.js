@@ -32,14 +32,14 @@ import transferBox from './components/transferBox/transferBox.vue'
 import fixedFullModal from './components/fixedFullModal/fixedFullModal.vue'
 import page404 from './components/page404/page404.vue'
 import sideMenu from './components/sideMenu/sideMenu.vue'
-import messageBox from './methods/messageBox.js'
-import $swal from './methods/swal.js'
-import fullScreenImgPreview from './methods/fullScreenImgPreview.js'
-import fullScreenImgByDom from './methods/fullScreenImgByDom.js'
-import $fetch from './methods/fetch.js'
-import tablePrint from './methods/tablePrint'
-import domPrint from './methods/domPrint'
-import $swalConfirm from './methods/swalConfirm.js'
+import messageBox from './utils/messageBox.js'
+import $swal from './utils/swal.js'
+import fullScreenImgPreview from './utils/fullScreenImgPreview.js'
+import fullScreenImgByDom from './utils/fullScreenImgByDom.js'
+import $fetch from './utils/fetch.js'
+import tablePrint from './utils/tablePrint'
+import domPrint from './utils/domPrint'
+import $swalConfirm from './utils/swalConfirm.js'
 import arCascader from 'ar-cascader'
 import JsonView from 'vue-json-viewer'
 import loaders from './components/loaders/loaders.vue'
@@ -83,10 +83,10 @@ import {
 	findCollection,
 	htmlPrint,
 	siblingElems
-} from './methods/functionGroup.js'
+} from './utils/functionGroup.js'
 import locale from './locale/index'
-import timer, { setTimeout, setInterval } from './methods/timer'
-import './methods/wangeditor5init'
+import timer, { setTimeout, setInterval } from './utils/timer'
+import './utils/wangeditor5init'
 
 /*直接使用的组件（注册为全局Vue组件）*/
 const components = {
@@ -273,6 +273,8 @@ const install = function (Vue, opts = {}) {
 	Vue.prototype.btTablePageUsePagePro = false
 	// tableSetting默认背景色
 	Vue.prototype.tableSettingBg = '#fff'
+	// tableSetting默认transfer
+	Vue.prototype.tableSettingTransfer = false
 }
 
 // auto install

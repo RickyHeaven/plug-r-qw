@@ -18,7 +18,7 @@
 
 <script>
 	import _ from 'lodash'
-	import { oneOf } from '../../methods/functionGroup'
+	import { oneOf } from '../../utils/functionGroup'
 	import Locale from '../../mixins/locale'
 
 	export default {

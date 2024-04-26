@@ -63,11 +63,11 @@
 </template>
 
 <script>
-	import { toLine, toHump, oneOf, tooltipManual } from '../../methods/functionGroup.js'
-	import $fetch from '../../methods/fetch.js'
+	import { toLine, toHump, oneOf, tooltipManual } from '../../utils/functionGroup.js'
+	import $fetch from '../../utils/fetch.js'
 	import _ from 'lodash'
-	import { setTimeout } from '../../methods/timer'
-	import { myTypeof } from '../../methods/functionGroup'
+	import { setTimeout } from '../../utils/timer'
+	import { myTypeof } from '../../utils/functionGroup'
 	import pagePro from '../pagePro/pagePro.vue'
 
 	export default {

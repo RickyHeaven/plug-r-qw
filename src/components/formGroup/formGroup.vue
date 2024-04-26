@@ -32,8 +32,8 @@
 <script>
 	import formR from '../formR/formR.vue'
 	import Locale from '../../mixins/locale'
-	import { setTimeout } from '../../methods/timer'
-	import { myTypeof } from '../../methods/functionGroup'
+	import { setTimeout } from '../../utils/timer'
+	import { myTypeof } from '../../utils/functionGroup'
 
 	export default {
 		name: 'formGroup',
@@ -117,7 +117,9 @@
 					}
 					return t
 				}
-				return this.formData.filter((e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition))
+				return this.formData.filter(
+					(e) => e?.type === 'custom' || (e?.type === 'input' && e.slotName && e.slotPosition)
+				)
 			}
 		},
 		methods: {

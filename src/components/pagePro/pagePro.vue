@@ -2,7 +2,7 @@
 author ricky email:zhangqingcq@foxmail.com-->
 <script>
 	import Locale from '../../mixins/locale'
-	import { oneOf } from '../../methods/functionGroup'
+	import { oneOf } from '../../utils/functionGroup'
 
 	export default {
 		name: 'pagePro',

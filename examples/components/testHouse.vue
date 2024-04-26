@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import { findCollection } from '../../src/methods/functionGroup'
+	import { findCollection } from '../../src/utils/functionGroup'
 
 	export default {
 		name: 'testHouse',

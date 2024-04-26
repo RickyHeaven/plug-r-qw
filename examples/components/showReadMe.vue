@@ -15,7 +15,7 @@
 
 <script>
 	import comps from '../../src/components'
-	import mec from '../../src/methods'
+	import mec from '../../src/utils'
 
 	export default {
 		name: 'showReadMe',
