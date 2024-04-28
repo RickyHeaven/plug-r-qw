@@ -275,6 +275,8 @@ const install = function (Vue, opts = {}) {
 	Vue.prototype.tableSettingBg = '#fff'
 	// tableSetting默认transfer
 	Vue.prototype.tableSettingTransfer = false
+	// tableSetting默认eventsEnabled
+	Vue.prototype.tableSettingEventsEnabled = true
 }
 
 // auto install

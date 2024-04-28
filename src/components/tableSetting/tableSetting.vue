@@ -19,7 +19,10 @@
 				<Checkbox :indeterminate="indeterminate" :value="checkAll" @click.prevent.native="handleCheckAll">{{
 					t('r.all')
 				}}</Checkbox>
-				<span class="btnR" style="float: right" @click="save">{{ t('r.save') }}</span>
+				<div class="btnR" style="float: right; display: inline-block" @click="save">
+					<span class="iconfont icon-r-save"></span>
+					<span>{{ t('r.save') }}</span>
+				</div>
 			</div>
 			<CheckboxGroup v-model="checkAllGroup">
 				<Checkbox
@@ -43,11 +46,12 @@
 	 * @param {array} value - 插件的值（v-model,对应table的columns）必填
 	 * @param {string} sKey - 插件数据在localstorage的唯一标识，命名规则：插件所在单文件名称_取名时间，如areaNew_202003231639 必填
 	 * @param {string} [width] - 设置面板宽度
-	 * @param {string} [bg] - 设置面板背景色
+	 * @param {string} [bg] - 设置面板背景色，默认值可通过全局属性tableSettingBg改变，默认：`'#fff'`
 	 * @param {string} [placement] - 设置面板呼出位置，默认：'bottom-end'
 	 * @param {boolean} [defaultCheck] - 是否设置默认勾选（默认false，用于默认展示所有列），如果设为true（用于默认展示部分列）,则在v-model绑定的columns项里设置showSettingCheck:true
 	 * @param {string} [storage] - 指定使用浏览器缓存类型，可选值`'localStorage'`、`'sessionStorage'`，默认：`localStorage`
-	 * @param {boolean} [transfer] - 是否将面板放置于 body 内，在 Tabs、带有 overflow:hidden 的 上级容器内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果，默认：`true`
+	 * @param {boolean} [transfer] - 是否将面板放置于 body 内，在 Tabs、带有 overflow:hidden 的 上级容器内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果，默认值可通过全局属性tableSettingTransfer改变，默认：`true`
+	 * @param {boolean} [eventsEnabled] - 是否开启 Popper 的 eventsEnabled 属性，开启可能会牺牲一定的性能，但可以让弹出面板根据页面环境动态改变位置和自身尺寸，提升体验，默认值可通过全局属性tableSettingEventsEnabled改变，默认：`true`
 	 * @example 调用示例 <table-setting v-model="columns" sKey="tableSettingEx_202007030903"/>
 	 */
 	import Popper from 'popper.js'
@@ -83,7 +87,7 @@
 			},
 			width: {
 				type: String,
-				default: '150px'
+				default: '240px'
 			},
 			bg: {
 				type: String,
@@ -107,6 +111,13 @@
 				type: Boolean,
 				default() {
 					return this.tableSettingTransfer
+				}
+			},
+			/*是否开启 Popper 的 eventsEnabled 属性，开启可能会牺牲一定的性能，但在页面空间对弹出的面板普通式展示方式有问题时可以自行调整到适合的展示方式*/
+			eventsEnabled: {
+				type: Boolean,
+				default() {
+					return this.tableSettingEventsEnabled
 				}
 			}
 		},
@@ -173,7 +184,31 @@
 				}
 			}
 			this.$nextTick(function () {
-				this.popper = new Popper(this.$refs.buttonRef, this.$refs.popperRef, { placement: this.placement })
+				this.popper = new Popper(this.$refs.buttonRef, this.$refs.popperRef, {
+					placement: this.placement,
+					eventsEnabled: this.eventsEnabled,
+					modifiers: {
+						computeStyle: {
+							gpuAcceleration: false
+						},
+						preventOverflow: {
+							boundariesElement: 'window'
+						}
+					},
+					onUpdate: (d) => {
+						if (d?.popper && d.instance?.popper) {
+							const c = this.calcPopperHeight(d)
+							const { needChange } = c
+							if (needChange) {
+								const { height } = c
+								const el = d.instance.popper
+								if (el.style) {
+									el.style.height = `${height}px`
+								}
+							}
+						}
+					}
+				})
 			})
 
 			setTimeout(() => {
@@ -198,7 +233,7 @@
 			close() {
 				if (this.show) {
 					if (this.getChange()) {
-						SwalConfirm(this.t('r.notSave'),'','warning',this.save)
+						SwalConfirm(this.t('r.notSave'), '', 'warning', this.save)
 					}
 					this.show = false
 				}
@@ -282,10 +317,30 @@
 							}
 						}
 					}
-				}else {
+				} else {
 					return true
 				}
 				return false
+			},
+			calcPopperHeight(d) {
+				const { height } = d.popper
+				const el = d.instance.popper
+				//浏览器窗口高度
+				const h = window.innerHeight
+				let _h = 0
+				if (el.childNodes?.length) {
+					for (let i = 0; i < el.childNodes.length; i++) {
+						_h += el.childNodes[i]?.offsetHeight
+					}
+				}
+				if (h < height - 10 || height < _h) {
+					return {
+						needChange: true,
+						height: h - 10 < _h ? h - 10 : _h
+					}
+				} else {
+					return { needChange: false }
+				}
 			}
 		}
 	}

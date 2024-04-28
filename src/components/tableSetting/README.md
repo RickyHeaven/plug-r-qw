@@ -8,9 +8,9 @@
 
 - sKey: 字符串，组件数据在 _localstorage_ 的唯一标识，不可与其他 sKey 重复，命名规则：插件所在单文件名称\_取名时间，如：`tableSettingEx_202007030903` 必填
 
-- width: 字符串，设置面板宽度，默认：`'150px'`
+- width: 字符串，设置面板宽度，默认：`'240px'`
 
-- bg: 字符串，设置面板背景色（面板有阴影），默认：`'#fff'`
+- bg: 字符串，设置面板背景色（面板有阴影），默认值可通过全局属性tableSettingBg改变，默认：`'#fff'`
 
 - placement: 字符串设置面板呼出位置，默认：`'bottom-end'`
 
@@ -18,7 +18,9 @@
 
 - storage: 字符串，指定使用浏览器缓存类型，可选值`'localStorage'`、`'sessionStorage'`，默认：`'localStorage'`
 
-- transfer: 布尔类型，是否将面板放置于 body 内，在 Tabs、带有 overflow:hidden 的 上级容器内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果，默认：`true`
+- transfer: 布尔类型，是否将面板放置于 body 内，在 Tabs、带有 overflow:hidden 的 上级容器内使用时，建议添加此属性，它将不受父级样式影响，从而达到更好的效果，默认值可通过全局属性tableSettingTransfer改变，默认：`false`
+
+- eventsEnabled: 布尔类型，是否开启 Popper 的 eventsEnabled 属性，开启可能会牺牲一定的性能，但可以让弹出面板根据页面环境动态改变位置和自身尺寸，提升体验，默认值可通过全局属性tableSettingEventsEnabled改变，默认：`true`
 
 ### columns 与配置相关字段
 
