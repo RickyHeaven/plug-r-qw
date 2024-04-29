@@ -58,6 +58,8 @@
 
 - noElevator: 布尔对象，page 不带电梯，默认：`false`
 
+- usePagePro: 布尔对象，是否使用pagePro组件作为页签，可用全局属性btTablePageUsePagePro更改默认值，默认：`false`
+
 ### 事件：
 
 注意：view-design 的 Table 组件的所有事件都可监听

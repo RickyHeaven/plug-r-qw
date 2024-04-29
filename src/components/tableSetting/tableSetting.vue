@@ -134,10 +134,10 @@
 		computed: {
 			groupX() {
 				let unknown = this.t('r.unknown')
-				if (this.value.length > this.groupT.length) {
+				if (this.value?.length > this.groupT?.length) {
 					this.groupT = _.cloneDeep(this.value)
 				}
-				return this.groupT.map((e) => {
+				return this.groupT?.map?.((e) => {
 					let temp = { label: e?.title || unknown }
 					if (e?.disableShowSetting) {
 						temp.disabled = true
@@ -146,15 +146,15 @@
 				})
 			},
 			disabledGroup() {
-				return this.groupX.filter((e) => e?.disabled)
+				return this.groupX?.filter?.((e) => e?.disabled)
 			},
 			checkAllGroup: {
 				get() {
 					let unknown = this.t('r.unknown')
-					return this.value.map((e) => e?.title || unknown)
+					return this.value?.map?.((e) => e?.title || unknown)
 				},
 				set(val) {
-					let subV = this.groupT.filter((e) => {
+					let subV = this.groupT?.filter?.((e) => {
 						for (let item of val) {
 							if (item === e?.title) {
 								return true
@@ -180,10 +180,13 @@
 				this.checkAllGroup = JSON.parse(decodeURI(localStr))
 			} else {
 				if (this.defaultCheck) {
-					this.checkAllGroup = this.value.filter((e) => e?.showSettingCheck).map((e) => e?.title || unknown)
+					this.checkAllGroup = this.value?.filter?.((e) => e?.showSettingCheck).map((e) => e?.title || unknown)
 				}
 			}
 			this.$nextTick(function () {
+				if (!this.$refs.buttonRef || !this.$refs.popperRef) {
+					return
+				}
 				this.popper = new Popper(this.$refs.buttonRef, this.$refs.popperRef, {
 					placement: this.placement,
 					eventsEnabled: this.eventsEnabled,
@@ -213,16 +216,14 @@
 
 			setTimeout(() => {
 				this.show = true
-				this.popper.update()
+				this.popper?.update?.()
 				this.$nextTick(function () {
 					this.show = false
 				})
 			}, 0)
 		},
 		beforeDestroy() {
-			if (this.popper) {
-				this.popper.destroy()
-			}
+			this.popper?.destroy?.()
 		},
 		watch: {
 			checkAllGroup: {
@@ -245,7 +246,7 @@
 				if (!this.show) {
 					this.show = true
 					this.$nextTick(function () {
-						this.popper.update()
+						this.popper?.update?.()
 					})
 				} else {
 					this.close()
@@ -263,12 +264,12 @@
 				if (this.show) {
 					if (this.transfer) {
 						const $el = this.$refs.popperRef
-						if ($el === event.target || $el.contains(event.target)) {
+						if ($el === event?.target || $el?.contains?.(event?.target)) {
 							return
 						}
 					}
 
-					event.preventDefault()
+					event?.preventDefault?.()
 					this.close()
 				}
 			},

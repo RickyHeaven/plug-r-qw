@@ -11,6 +11,7 @@
 - icon 字符串，可选值：`'success','error','warning','info'`，可不传
 
 - closeOnClickOutside 布尔值，可选，默认值：`true`
+
 ```
 推荐使用方式示例：
 this.$swal('操作成功','','success')
