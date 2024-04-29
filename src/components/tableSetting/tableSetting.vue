@@ -113,8 +113,8 @@
 					return this.tableSettingTransfer
 				}
 			},
-			/*是否开启 Popper 的 eventsEnabled 属性，开启可能会牺牲一定的性能，但在页面空间对弹出的面板普通式展示方式有问题时可以自行调整到适合的展示方式*/
 			eventsEnabled: {
+				/*是否开启 Popper 的 eventsEnabled 属性，开启可能会牺牲一定的性能，但可以让弹出面板根据页面环境动态改变位置和自身尺寸，提升体验*/
 				type: Boolean,
 				default() {
 					return this.tableSettingEventsEnabled
@@ -125,7 +125,7 @@
 			return {
 				indeterminate: true,
 				checkAll: false,
-				show: true,
+				show: false,
 				groupT: [],
 				locale: null,
 				popper: null
@@ -212,8 +212,11 @@
 			})
 
 			setTimeout(() => {
+				this.show = true
 				this.popper.update()
-				this.show = false
+				this.$nextTick(function () {
+					this.show = false
+				})
 			}, 0)
 		},
 		beforeDestroy() {
