@@ -369,7 +369,7 @@
 						optionLabel: 'name',
 						optionVal: 'tel',
 						optionFilter(d) {
-							return d.filter((e) => e?.birth !== '1991')
+							return d.filter((e) => e && e.birth !== '1991')
 						}
 					},
 					{

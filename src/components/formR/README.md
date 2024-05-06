@@ -252,7 +252,7 @@
 ```
 {
   ...,
-  optionFilter(d){return d?.filter?.(e => e?.id !== 3)},
+  optionFilter(d){return d?.filter?.(e => e && e.id !== 3)},
   ...
 }
 ```

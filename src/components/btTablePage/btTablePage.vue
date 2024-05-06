@@ -502,8 +502,8 @@
 				/*私有*/
 				if (this.radio) {
 					for (let e of this.dataS) {
-						if (e?.btKey !== this.currentKey) {
-							this.$set(this.dataT[Number(e?.btKey.split('-')[1])], 'btChecked', false)
+						if (e?.btKey && e.btKey !== this.currentKey) {
+							this.$set(this.dataT[Number(e.btKey.split('-')[1])], 'btChecked', false)
 						}
 					}
 				}

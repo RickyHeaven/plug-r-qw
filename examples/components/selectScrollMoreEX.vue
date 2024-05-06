@@ -84,7 +84,7 @@
 				console.log(val)
 			},
 			filterB(d) {
-				return d.filter((e) => e?.name !== '阿上')
+				return d.filter((e) => e && e.name !== '阿上')
 			}
 		}
 	}

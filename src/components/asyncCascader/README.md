@@ -44,7 +44,7 @@ value: 2
 ```
 <asyncCascader
   ...
-  :optionFilter="d=> d.filter(e => e?.id !== 3)"
+  :optionFilter="d=> d.filter(e => e && e.id !== 3)"
   ...
 />
 ```

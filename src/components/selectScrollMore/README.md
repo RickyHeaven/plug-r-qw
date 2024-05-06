@@ -12,7 +12,7 @@
 
 - getOptions: 布尔对象，是否拉取待选项,`false`:不拉取，并清空待选项和值；（该属性一般用于重置组件，配合定时器，先赋值为`false`清空组件，再用定时器稍后赋值为`true`以拉取初始待选项数据，`searchWordsRequired`为`true`时不会拉取初始数据），默认：`true`
 
-- optionFilter: 函数，接口返回数据处理函数，传入接口返回的数据，返回处理后的数据，例如：`d => d?.filter?.(e => e?.id !== 3)`
+- optionFilter: 函数，接口返回数据处理函数，传入接口返回的数据，返回处理后的数据，例如：`d => d?.filter?.(e => e && e.id !== 3)`
 
 - optionsLabelKey: 字符串/数组，待选项 label 取接口数据中哪个字段，默认：`'name'`
 

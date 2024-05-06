@@ -246,7 +246,7 @@
 					if (t.hasOwnProperty(k)) {
 						if (Array.isArray(t[k])) {
 							for (let e of t[k]) {
-								if (!(e?.message || e?.validator)) {
+								if (e && !(e?.message || e?.validator)) {
 									e.message = this.t('r.required')
 								}
 							}

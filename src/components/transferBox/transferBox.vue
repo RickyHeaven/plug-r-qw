@@ -29,6 +29,7 @@
 						:init-data="Boolean(isEmpty(constSearchDataLeft) && leftTableUrl)"
 						get-data-loading
 						selection
+						:usePagePro="false"
 					/>
 				</div>
 			</div>
@@ -80,6 +81,7 @@
 						:init-data="Boolean(isEmpty(constSearchDataRight) && rightTableUrl)"
 						get-data-loading
 						selection
+						:usePagePro="false"
 					/>
 				</div>
 			</div>
