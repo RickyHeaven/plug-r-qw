@@ -54,6 +54,12 @@
 
 - searchFormLabelWith: 数字，搜索表单 label 的 width
 
+- usePagePro: 布尔对象，是否使用pagePro组件作为页签，可用全局属性`btTablePageUsePagePro`更改默认值，默认：`false`
+
+- showTotal: 布尔值，page是否展示total，可通过全局变量`pageShowTotal`改变默认值，默认值：`true`
+
+- showSizer: 布尔值，page是否展示sizer，可通过全局变量`pageShowSizer`改变默认值，默认值：`true`
+
 ### 事件：
 
 - transferred: 进行了穿梭，用于给外层组件判断是否需要刷新，如穿梭后改变了外层 table 的数据，那么发生过穿梭行为后，关闭穿梭框进入 table 时就需要刷新

@@ -14,6 +14,10 @@
 
 - pageSizeOpts: 数组，每页条数可选项，默认：`[10, 20, 50, 100]`
 
+- showTotal: 布尔值，是否展示total，可通过全局变量`pageShowTotal`改变默认值，默认值：`true`
+
+- showSizer: 布尔值，是否展示sizer，可通过全局变量`pageShowSizer`改变默认值，默认值：`true`
+
 - transfer: 布尔值，是否在body下直接弹出选框，默认值：`true`
 
 - disabled: 布尔值，是否禁用，默认值：`false`

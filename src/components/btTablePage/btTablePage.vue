@@ -39,8 +39,10 @@
 				v-if="usePagePro"
 				:modelValue="current"
 				:total="total"
-				:page-size="pageSizeT"
-				:page-size-opts="pageSizes"
+				:showTotal="showTotal"
+				:pageSize="pageSizeT"
+				:showSizer="showSizer"
+				:pageSizeOpts="pageSizes"
 				:size="pageComponentSize"
 				@on-change="changePage"
 				@on-page-size-change="pageSizeChange"
@@ -49,10 +51,10 @@
 				v-else
 				:current.sync="current"
 				:total="total"
-				:page-size="pageSizeT"
-				:page-size-opts="pageSizes"
-				show-sizer
-				show-total
+				:pageSize="pageSizeT"
+				:pageSizeOpts="pageSizes"
+				:showSizer="showSizer"
+				:showTotal="showTotal"
 				:showElevator="!noElevator"
 				:size="pageComponentSize"
 				@on-change="changePage"
@@ -213,6 +215,20 @@
 				type: Boolean,
 				default() {
 					return this.btTablePageUsePagePro
+				}
+			},
+			showTotal: {
+				/*page是否展示total*/
+				type: Boolean,
+				default(){
+					return this.pageShowTotal
+				}
+			},
+			showSizer: {
+				/*page是否展示sizer*/
+				type: Boolean,
+				default(){
+					return this.pageShowSizer
 				}
 			}
 		},

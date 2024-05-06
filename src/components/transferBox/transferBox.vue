@@ -29,7 +29,9 @@
 						:init-data="Boolean(isEmpty(constSearchDataLeft) && leftTableUrl)"
 						get-data-loading
 						selection
-						:usePagePro="false"
+						:usePagePro="usePagePro"
+						:showTotal="showTotal"
+						:showSizer="showSizer"
 					/>
 				</div>
 			</div>
@@ -81,7 +83,9 @@
 						:init-data="Boolean(isEmpty(constSearchDataRight) && rightTableUrl)"
 						get-data-loading
 						selection
-						:usePagePro="false"
+						:usePagePro="usePagePro"
+						:showTotal="showTotal"
+						:showSizer="showSizer"
 					/>
 				</div>
 			</div>
@@ -217,6 +221,27 @@
 			},
 			searchFormLabelWith: {
 				type: Number
+			},
+			usePagePro: {
+				/*是否使用pagePro组件作为页签*/
+				type: Boolean,
+				default() {
+					return this.btTablePageUsePagePro
+				}
+			},
+			showTotal: {
+				/*page是否展示total*/
+				type: Boolean,
+				default(){
+					return this.pageShowTotal
+				}
+			},
+			showSizer: {
+				/*page是否展示sizer*/
+				type: Boolean,
+				default(){
+					return this.pageShowSizer
+				}
 			}
 		},
 		data() {

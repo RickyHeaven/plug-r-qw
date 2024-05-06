@@ -40,6 +40,20 @@ author ricky email:zhangqingcq@foxmail.com-->
 					return this.pageSizes || [10, 20, 30, 40]
 				}
 			},
+			showTotal: {
+				/*是否展示total*/
+				type: Boolean,
+				default(){
+					return this.pageShowTotal
+				}
+			},
+			showSizer: {
+				/*是否展示sizer*/
+				type: Boolean,
+				default(){
+					return this.pageShowSizer
+				}
+			},
 			transfer: {
 				type: Boolean,
 				default: true
@@ -77,6 +91,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="pagePro" :class="{ pageProDefault: size === 'default' }">
+		<span v-if="showTotal">{{ t('r.total') + ' ' }}{{ total }}{{ ' ' + t('r.items') }}</span>
 		<Page
 			:current.sync="current"
 			:page-size="pageSizeT"
@@ -86,7 +101,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 			:disabled="disabled"
 			simple
 		/>
-		<div class="pageProSize">
+		<div class="pageProSize" v-if="showSizer">
 			<Select v-model="pageSizeT" :size="size" :transfer="transfer" :disabled="disabled">
 				<Option v-for="item in pageSizeOpts" :key="item" :value="item" style="text-align: center"
 					>{{ item }} {{ t('r.page') }}</Option

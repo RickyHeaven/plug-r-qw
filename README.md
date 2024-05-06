@@ -186,7 +186,7 @@
     app.use()
     app.config.globalProperties.searchFormLabelWidth = 100
   
-    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, tableSettingBg, tableSettingTransfer, tableSettingEventsEnabled
+    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, pageShowTotal, pageShowSizer, tableSettingBg, tableSettingTransfer, tableSettingEventsEnabled
     //注意：需要在库安装<app.use(plugRQw,{...})>后指定全局变量，即将赋值的代码写在use代码之后，否则指定的值会在库安装时被库内全局变量默认覆盖。
   ```
 
@@ -457,7 +457,7 @@
     Vue.use()
     Vue.prototype.searchFormLabelWidth = 100
   
-    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, tableSettingBg, tableSettingTransfer, tableSettingEventsEnabled
+    //已支持的全局变量有：pageSizes, searchFormLabelWidth, formModalLabelWidth, formGroupLabelWidth, iconTxtBtnIconSize, btTablePageUsePagePro, pageShowTotal, pageShowSizer, tableSettingBg, tableSettingTransfer, tableSettingEventsEnabled
     //注意：需要在库安装<Vue.use(plugRQw,{...})>后指定全局变量，即将赋值的代码写在use代码之后，否则指定的值会在库安装时被库内全局变量默认覆盖。
   ```
 

@@ -269,8 +269,12 @@ const install = function (Vue, opts = {}) {
 	Vue.prototype.formGroupWidth = '100%'
 	// iconTxtBtn默认图标大小
 	Vue.prototype.iconTxtBtnIconSize = 17
-	// btTablePage是否使用pagePro组件作为页签
-	Vue.prototype.btTablePageUsePagePro = false
+	// btTablePage是否默认使用pagePro组件作为页签，还会影响transferBox
+	Vue.prototype.btTablePageUsePagePro = true
+	// pagePro和page是否默认展示total，还会影响btTablePage、transferBox
+	Vue.prototype.pageShowTotal = true
+	// pagePro和page是否默认展示sizer，还会影响btTablePage、transferBox
+	Vue.prototype.pageShowSizer = true
 	// tableSetting默认背景色
 	Vue.prototype.tableSettingBg = '#fff'
 	// tableSetting默认transfer

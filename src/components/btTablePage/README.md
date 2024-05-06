@@ -58,7 +58,11 @@
 
 - noElevator: 布尔对象，page 不带电梯，默认：`false`
 
-- usePagePro: 布尔对象，是否使用pagePro组件作为页签，可用全局属性btTablePageUsePagePro更改默认值，默认：`false`
+- usePagePro: 布尔对象，是否使用pagePro组件作为页签，可用全局属性`btTablePageUsePagePro`更改默认值，默认：`false`
+
+- showTotal: 布尔值，page是否展示total，可通过全局变量`pageShowTotal`改变默认值，默认值：`true`
+
+- showSizer: 布尔值，page是否展示sizer，可通过全局变量`pageShowSizer`改变默认值，默认值：`true`
 
 ### 事件：
 

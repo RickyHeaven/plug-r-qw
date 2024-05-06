@@ -14,7 +14,7 @@
 				:radio="selectMode === 'radio'"
 				:selection="selectMode === 'checkbox'"
 				:draggable="true"
-				use-page-pro
+				:showTotal="false"
 				@on-drag-drop="dragDrop"
 			>
 				<template #topMsg>共有：{{ total }} 条数据。</template>
