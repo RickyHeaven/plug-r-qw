@@ -278,7 +278,7 @@ const install = function (Vue, opts = {}) {
 	// tableSetting默认背景色
 	Vue.prototype.tableSettingBg = '#fff'
 	// tableSetting默认transfer
-	Vue.prototype.tableSettingTransfer = false
+	Vue.prototype.tableSettingTransfer = true
 	// tableSetting默认eventsEnabled
 	Vue.prototype.tableSettingEventsEnabled = true
 }

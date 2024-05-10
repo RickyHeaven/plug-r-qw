@@ -227,96 +227,103 @@ img {
 
 /*messageBox对话框*/
 .customMessageBox {
-	position: relative;
-	top: -16px;
-	left: -20px;
-	width: calc(100% + 40px);
+  position: relative;
+  top: -16px;
+  left: -20px;
+  width: calc(100% + 40px);
 
-	> .containerN {
-		overflow: hidden;
-		position: absolute;
-		width: 100%;
-		top: 0;
-		left: 0;
-		bottom: -90px;
-		background-color: #fff;
-		border-radius: 3px;
+  > .containerN {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: -90px;
+    background-color: #fff;
+    border-radius: 3px;
+    z-index: 9;
 
-		> .titleN {
-			height: 40px;
-			width: 100%;
-			line-height: 40px;
-			font-size: 15px;
-			font-weight: bold;
-			padding-left: 15px;
-			border-bottom: 1px solid #e8eaec;
+    > .titleN {
+      height: 40px;
+      width: 100%;
+      line-height: 40px;
+      font-size: 15px;
+      font-weight: bold;
+      padding-left: 15px;
+      border-bottom: 1px solid #f1f4f7;
 
-			.closeN {
-				padding: 4px 4px 3px 3px;
-				box-shadow: none;
+      .closeN {
+        padding: 4px 4px 3px 3px;
+        box-shadow: none;
+        background-color: transparent;
+        border-color: transparent;
 
-				.ivu-icon {
-					line-height: 1;
-				}
-			}
-		}
+        &:hover {
+          color: #000;
+        }
 
-		> .contentN {
-			padding: 5px 16px;
-			overflow: auto;
-			height: calc(100% - 80px);
+        i {
+          line-height: unset;
+        }
+      }
+    }
 
-			.msgBoxConO {
-				margin-top: 6px;
-				font-size: 14px;
-			}
-		}
+    > .contentN {
+      padding: 5px 16px;
+      overflow: auto;
+      height: calc(100% - 80px);
 
-		> .footerN {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 40px;
-			line-height: 36px;
-			border-top: 1px solid #e8eaec;
+      .msgBoxConO {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+    }
 
-			.okBtN {
-				box-sizing: border-box;
-				width: 100px;
-				background-color: @primary;
-				color: #fff;
+    > .footerN {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      line-height: 36px;
+      border-top: 1px solid #f1f4f7;
 
-				&:hover {
-					color: @primary;
-					background-color: #fff;
-					border-color: @primary;
-				}
+      .okBtN {
+        box-sizing: border-box;
+        width: 100px;
+        background-color: @primary;
+        color: #fff;
 
-				.ivu-load-loop.ivu-icon-ios-loading {
-					display: none;
-					margin-right: 6px;
-				}
+        &:hover {
+          color: @primary;
+          background-color: #fff;
+          border-color: @primary;
+        }
 
-				&.ivu-btn-loading {
-					.ivu-load-loop.ivu-icon-ios-loading {
-						display: inline-block;
-					}
-				}
-			}
+        .ivu-load-loop.ivu-icon-ios-loading {
+          display: none;
+          margin-right: 6px;
+        }
 
-			.cancelBtN {
-				box-sizing: border-box;
-				width: 100px;
-				margin-left: 10px;
+        &.ivu-btn-loading {
+          .ivu-load-loop.ivu-icon-ios-loading {
+            display: inline-block;
+          }
+        }
+      }
 
-				&:hover {
-					color: @primary;
-					border-color: @primary;
-				}
-			}
-		}
-	}
+      .cancelBtN {
+        box-sizing: border-box;
+        width: 100px;
+        margin-left: 10px;
+
+        &:hover {
+          color: @primary;
+          border-color: @primary;
+        }
+      }
+    }
+  }
 }
 
 /*基于Modal的全屏图片预览组件*/

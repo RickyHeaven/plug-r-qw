@@ -59,11 +59,11 @@ Vue.use(dataV)
 Vue.prototype.pageSizes = [10, 20, 50, 100]
 
 window._AMapSecurityConfig = {
-	securityJsCode: '1e77836c15c172e8cda4249f26d64326'
+	securityJsCode: '6784d3fc333089ce3d6d314112609eac'
 }
 
 VueAMap.initAMapApiLoader({
-	key: 'd1e34acab7c1eae8614e0a12bfafc99d',
+	key: '6836a3633a8cdf2bffab565e44242866',
 	plugin: ['AMap.Autocomplete', 'AMap.Geocoder'], // 默认高德 sdk 版本为 1.4.4
 	v: '1.4.4'
 })

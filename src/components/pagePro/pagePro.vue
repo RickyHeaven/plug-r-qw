@@ -91,7 +91,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="pagePro" :class="{ pageProDefault: size === 'default' }">
-		<span v-if="showTotal">{{ t('r.total') + ' ' }}{{ total }}{{ ' ' + t('r.items') }}</span>
+		<span v-if="showTotal" class="pageTotal">{{ t('r.total') + ' ' }}{{ total }}{{ ' ' + t('r.items') }}</span>
 		<Page
 			:current.sync="current"
 			:page-size="pageSizeT"

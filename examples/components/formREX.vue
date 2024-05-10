@@ -624,8 +624,8 @@
 						label: '位置',
 						key: 'lng',
 						key2: 'lat',
-						defaultVal: 100.225668,
-						defaultVal2: 25.589449
+						defaultVal: 106.585836,
+						defaultVal2: 29.564123
 					},
 					{
 						type: 'editorPro',
