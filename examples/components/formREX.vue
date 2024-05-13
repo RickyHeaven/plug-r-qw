@@ -48,24 +48,29 @@
 				</div>
 			</wellCard>
 		</div>
-		<div class="eBoxA detailUA">
-			<wellCard title="详细示例">
-				<div class="inPage">
-					<formR ref="formRef" :form-data="data5" :form-rules="rules5" :show-long-ok-bt="true" @on-submit="submitB">
-						<template #switchLJ="{ valGroup }">
-							<i-switch v-model="valGroup.switchStatus" />
-						</template>
+		<wellCard title="详细示例" fit-to-content>
+			<div class="inPage detailPage">
+				<formR
+					ref="formRef"
+					:form-data="data5"
+					:form-rules="rules5"
+					:label-width="220"
+					:show-long-ok-bt="true"
+					@on-submit="submitB"
+				>
+					<template #switchLJ="{ valGroup }">
+						<i-switch v-model="valGroup.switchStatus" />
+					</template>
 
-						<template #cnu>
-							<span>阶梯</span>
-							<Table border stripe :columns="columns" :data="tableData" />
-						</template>
-					</formR>
-					表单提交的值：
-					<json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable />
-				</div>
-			</wellCard>
-		</div>
+					<template #cnu>
+						<span>阶梯</span>
+						<Table border stripe :columns="columns" :data="tableData" />
+					</template>
+				</formR>
+				表单提交的值：
+				<json-viewer :value="valGroup5" theme="my-awesome-json-theme" copyable />
+			</div>
+		</wellCard>
 	</div>
 </template>
 
@@ -749,14 +754,18 @@
 </script>
 
 <style lang="scss" scoped>
+	.detailPage {
+		width: 900px;
+	}
+
+	.inPage {
+		padding: 10px;
+	}
+
 	.eBoxA {
 		width: 600px;
 		display: inline-block;
 		margin: 0 10px 10px 0;
-
-		.inPage {
-			padding: 10px;
-		}
 
 		&.baseUA {
 			height: 240px;

@@ -43,7 +43,9 @@
 			},
 			headerFontSize: {
 				type: [String, Number],
-				default: 12
+				default(){
+					return this.fontSizeBase
+				}
 			}
 		},
 		data() {

@@ -56,8 +56,6 @@ Vue.use(plugRQw, {
 
 Vue.use(dataV)
 
-Vue.prototype.pageSizes = [10, 20, 50, 100]
-
 window._AMapSecurityConfig = {
 	securityJsCode: '6784d3fc333089ce3d6d314112609eac'
 }
@@ -80,3 +78,6 @@ new Vue({
 }).$mount('#app')
 
 window.i18n = i18n
+
+Vue.prototype.pageSizes = [10, 20, 50, 100]
+Vue.prototype.fontSizeBase = 12

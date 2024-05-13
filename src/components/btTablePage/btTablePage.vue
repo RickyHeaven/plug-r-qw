@@ -220,14 +220,14 @@
 			showTotal: {
 				/*page是否展示total*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowTotal
 				}
 			},
 			showSizer: {
 				/*page是否展示sizer*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowSizer
 				}
 			}
@@ -313,14 +313,14 @@
 						item.sortable = false
 					}
 					if (!item?.align) {
-						item.align = 'center'
+						item.align = this.btTablePageAlign || 'center'
 					}
 				})
 				if (this.tableEmptyTdHandle) {
 					temp.forEach((item) => {
 						if (item?.key && item.render === undefined) {
 							if (item.tooltip) {
-								item.render = tooltipManual(item.key, true)
+								item.render = tooltipManual(item.key, true, this.fontSizeBase)
 							} else {
 								item.render = (h, params) => {
 									let td = params.row[item.key]

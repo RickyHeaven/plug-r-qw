@@ -845,7 +845,9 @@
 								}
 							} else if (myTypeof(root.borrowOption) === 'String') {
 								/*借用待选项*/
-								root.options = findCollection(this.formDataT, (e) => e?.key === root.borrowOption).options
+								this.$nextTick(function(){
+									root.options = findCollection(this.formDataT, (e) => e?.key === root.borrowOption).options
+								})
 							}
 
 							const tempKeyC = 'opEle' + Math.floor(Math.random() * 100000000)

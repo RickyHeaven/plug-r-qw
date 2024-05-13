@@ -38,7 +38,7 @@
 		},
 		computed: {
 			txtSize() {
-				return Math.floor((this.size / 17) * 12) + 'px'
+				return Math.floor((this.size / 17) * this.fontSizeBase) + 'px'
 			}
 		},
 		methods: {

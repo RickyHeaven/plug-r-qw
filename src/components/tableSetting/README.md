@@ -32,4 +32,4 @@
 
 - sKey 命名一定要规范
 
-- value(columns)里一定要有 title,设置面板列表的标签是取的这个字段,如选择框 'selection',一定要加上：`title:'选择'`
+- value(columns)里一定要有 title,设置面板列表的标签是取的这个字段,如操作列,一定要加上：`title:'操作'`

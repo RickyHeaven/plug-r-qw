@@ -10,7 +10,7 @@
 
 - headerBg: 字符串，header 背景颜色，默认：`@titleBg`
 
-- headerFontSize: 数字/字符串，header 字体大小，默认：`12`
+- headerFontSize: 数字/字符串，header 字体大小，可通过全局变量fontSizeBase改变默认值，默认：`14`
 
 ### 事件
 

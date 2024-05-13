@@ -292,7 +292,6 @@ export function findPath({ group, condition, pathKey, childKey = 'children', pat
  * @param {Array|Object} group 被查找的集合
  * @param {Function|String|Number|Boolean|null|undefined} condition 查找的条件或值
  * @param {Boolean} getPath 是否返回路径，默认为：false，返回找到的元素
- * @returns {*}
  */
 export function findCollection(group, condition, getPath = false) {
 	if (!group || !condition) {
@@ -387,10 +386,10 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
 	let _url = url
 	if (window?.g) {
 		/*所有特定缩写字母开头的地址，都会被改变加上config.js（public里的全局配置文件，在index.html引入，在打包后通过更改该文件用于不
-     同环境的部署）里配置的地址变成绝对地址，如:
-     config.js里配置了 window.g={mgrURL:'http://mgr.myweb.com'}
-     请求地址 ‘/mgr/file’ 会被改变为 'http://mgr.myweb.com/file'
-     */
+		 同环境的部署）里配置的地址变成绝对地址，如:
+		 config.js里配置了 window.g={mgrURL:'http://mgr.myweb.com'}
+		 请求地址 ‘/mgr/file’ 会被改变为 'http://mgr.myweb.com/file'
+		 */
 		let httpEnv = Object.keys(window.g)
 			.filter((e) => e?.indexOf('URL') > -1)
 			.map((e) => e?.replace('URL', ''))
@@ -493,9 +492,10 @@ export function isNumberValue(val) {
  * 或获取值的自定义逻辑（Function回调，会传入params）
  * @param {boolean} dash 在内容为空时是否以'--'代替显示
  * @param {String} jointMark 在内容为多个字段拼接时，各字段间连接符，默认没有
+ * @param {number} fontSize 内容文字字号
  * @returns {function(...[*]=)}
  */
-export function tooltipManual(contentKey, dash = false, jointMark = '') {
+export function tooltipManual(contentKey, dash = false, jointMark = '', fontSize = 12) {
 	return function (h, params) {
 		let content
 		if (myTypeof(contentKey) === 'Array') {
@@ -511,7 +511,7 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
 		} else {
 			content = params.row[contentKey]
 		}
-		let contentWidth = getStringWidth(content)
+		let contentWidth = getStringWidth(content, fontSize)
 		let tdWidth = params.column._width
 		if (content && contentWidth > tdWidth) {
 			return h(

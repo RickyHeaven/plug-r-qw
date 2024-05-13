@@ -252,9 +252,9 @@ const install = function (Vue, opts = {}) {
 			}
 		})
 	}
-
-	// 页签每页可选条数默认配置
-	Vue.prototype.pageSizes = [10, 20, 50, 100]
+	
+	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、btTablePage的tooltip本体尺寸。
+	Vue.prototype.fontSizeBase = 14
 	// 搜索表单默认label宽度
 	Vue.prototype.searchFormLabelWidth = 84
 	// 搜索表单默认表单项内容宽度
@@ -269,8 +269,12 @@ const install = function (Vue, opts = {}) {
 	Vue.prototype.formGroupWidth = '100%'
 	// iconTxtBtn默认图标大小
 	Vue.prototype.iconTxtBtnIconSize = 17
+	// 页签每页可选条数默认配置
+	Vue.prototype.pageSizes = [10, 20, 50, 100]
 	// btTablePage是否默认使用pagePro组件作为页签，还会影响transferBox
 	Vue.prototype.btTablePageUsePagePro = true
+	// btTablePage表格内容默认对齐方式
+	Vue.prototype.btTablePageAlign = 'center'
 	// pagePro和page是否默认展示total，还会影响btTablePage、transferBox
 	Vue.prototype.pageShowTotal = true
 	// pagePro和page是否默认展示sizer，还会影响btTablePage、transferBox
