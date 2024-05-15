@@ -34,13 +34,11 @@
 					{
 						title: 'ID',
 						key: 'id',
-						align: 'center',
 						width: 80
 					},
 					{
 						title: '文件名称',
 						key: 'name',
-						align: 'center',
 						minWidth: 250,
 						render: (h, params) => {
 							return h(

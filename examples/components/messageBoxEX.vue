@@ -13,7 +13,7 @@
 		name: 'messageBoxEX',
 		data() {
 			return {
-				msg:''
+				msg: ''
 			}
 		},
 		methods: {
@@ -41,10 +41,11 @@
 			},
 			confirmHandleC() {
 				this.messageBox({
-					title:'render函数示例',
-					content:(h)=>h('Input',{props:{value:this.msg,placeholder:'请输入内容'},on:{input:e=>this.msg=e}}),
+					title: 'render函数示例',
+					content: (h) =>
+						h('Input', { props: { value: this.msg, placeholder: '请输入内容' }, on: { input: (e) => (this.msg = e) } }),
 					onOk: () => {
-						this.$swal('您输入了下面内容',this.msg)
+						this.$swal('您输入了下面内容', this.msg)
 					}
 				})
 			}

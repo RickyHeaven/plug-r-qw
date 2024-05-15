@@ -684,21 +684,18 @@
 						title: '月阶梯',
 						key: 'stair',
 						minWidth: 80,
-						align: 'center',
 						tooltip: true
 					},
 					{
 						title: '用气量（m³）',
 						key: 'gas',
 						minWidth: 110,
-						align: 'center',
 						tooltip: true
 					},
 					{
 						title: '价格（元/m³）',
 						key: 'price',
 						minWidth: 110,
-						align: 'center',
 						tooltip: true
 					}
 				],

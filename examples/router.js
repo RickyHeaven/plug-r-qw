@@ -574,17 +574,19 @@ export default new VueRouter({
 			path: '/methods',
 			name: 'METHODS',
 			component: () => import('./views/routerViewComponent.vue'),
-			children: [{
-				path: '/domPrint',
-				name: 'domPrint',
-				component: () => import('./components/domPrintEX.vue'),
-				meta: {
-					title: '方法：网页打印',
-					bg: 'linear-gradient(to right, #eea849, #f46b45)',
-					icon: 'icon-print',
-					cls: 'counterclockwise both'
+			children: [
+				{
+					path: '/domPrint',
+					name: 'domPrint',
+					component: () => import('./components/domPrintEX.vue'),
+					meta: {
+						title: '方法：网页打印',
+						bg: 'linear-gradient(to right, #eea849, #f46b45)',
+						icon: 'icon-print',
+						cls: 'counterclockwise both'
+					}
 				}
-			}]
+			]
 		}
 	]
 })

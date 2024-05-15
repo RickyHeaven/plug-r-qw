@@ -487,15 +487,14 @@ export function isNumberValue(val) {
 }
 
 /**
- * 手动tooltip(table 的 column 的tooltip失效的情况下用)
+ * 手动tooltip(基于tableTooltip的高级表格内容展示，展示内容和形式更多样和合理)
+ * tableTooltip: 替换view-design的Table的tooltip功能，只在内容会导致换行或显示不完整时渲染tooltip
  * @param {String/Array/Function} contentKey 要设置tooltip的column的key或者key组成的数组（内容按数组中key对应的内容先后拼接），
  * 或获取值的自定义逻辑（Function回调，会传入params）
  * @param {boolean} dash 在内容为空时是否以'--'代替显示
  * @param {String} jointMark 在内容为多个字段拼接时，各字段间连接符，默认没有
- * @param {number} fontSize 内容文字字号
- * @returns {function(...[*]=)}
  */
-export function tooltipManual(contentKey, dash = false, jointMark = '', fontSize = 12) {
+export function tooltipManual(contentKey, dash = false, jointMark = '') {
 	return function (h, params) {
 		let content
 		if (myTypeof(contentKey) === 'Array') {
@@ -511,39 +510,12 @@ export function tooltipManual(contentKey, dash = false, jointMark = '', fontSize
 		} else {
 			content = params.row[contentKey]
 		}
-		let contentWidth = getStringWidth(content, fontSize)
-		let tdWidth = params.column._width
-		if (content && contentWidth > tdWidth) {
-			return h(
-				'Tooltip',
-				{
-					style: {
-						width: '100%'
-					},
-					props: {
-						content: content,
-						maxWidth: tdWidth * 2
-					}
-				},
-				[
-					h(
-						'span',
-						{
-							style: {
-								width: '100%',
-								display: 'inline-block',
-								'text-overflow': 'ellipsis',
-								'white-space': 'nowrap',
-								overflow: 'hidden',
-								'vertical-align': 'top'
-							}
-						},
-						content
-					)
-				]
-			)
-		}
-		return h('span', dash && !isValidValue(content) ? '--' : content)
+
+		return h('tableTooltip', {
+			props: {
+				content: dash ? content ?? '--' : content
+			}
+		})
 	}
 }
 

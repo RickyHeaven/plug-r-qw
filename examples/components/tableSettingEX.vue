@@ -3,10 +3,11 @@
 		<showReadMe />
 		<toHome />
 		<div class="headBR relativeBox">
-			<tableSetting class="fr" v-model="columns" sKey="tableSettingEx_202007030903" defaultCheck transfer/>
+			<tableSetting class="fr" v-model="columns" sKey="tableSettingEx_202007030903" defaultCheck transfer />
+			<Checkbox v-model="nodeServer" class="fr" style="margin-right: 25px;" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
 		</div>
 		<div class="tableLK">
-			<bt-table-page :columns="columns" :url="url" />
+			<bt-table-page ref="btTab" :columns="columns" :url="url" table-empty-td-handle/>
 		</div>
 	</div>
 </template>
@@ -16,46 +17,50 @@
 		name: 'tableSettingEX',
 		data() {
 			return {
-				url: location.pathname + 'testData/btTablePage.json',
+				nodeServer: false,
 				columns: [
 					{
 						title: '文件名称',
 						key: 'name',
-						align: 'center',
-						minWidth: 250,
-						showSettingCheck: true
+						minWidth: 150,
+						showSettingCheck: true,
+						tooltip: true
 					},
 					{
 						title: '文件类型',
 						key: 'mimeType',
+						minWidth: 150,
 						showSettingCheck: true,
 						align: 'center'
 					},
 					{
 						title: '文件大小',
 						key: 'size',
+						minWidth: 150,
 						showSettingCheck: true,
 						align: 'center'
 					},
 					{
 						title: '存储路径',
 						key: 'storagePath',
+						minWidth: 150,
 						align: 'center'
 					},
 					{
 						title: '存储组',
 						key: 'storageGroup',
+						width: 150,
 						align: 'center'
 					},
 					{
 						title: '创建时间',
 						key: 'createdAt',
+						width: 190,
 						align: 'center'
 					},
 					{
 						title: '操作',
 						width: 240,
-						align: 'center',
 						showSettingCheck: true,
 						disableShowSetting: true,
 						render: (h, params) => {
@@ -84,6 +89,18 @@
 						}
 					}
 				]
+			}
+		},
+		computed:{
+			url() {
+				return this.nodeServer ? '/node-serve/bt-table-page' : location.pathname + 'testData/btTablePage.json'
+			}
+		},
+		methods:{
+			getData() {
+				this.$nextTick(function () {
+					this.$refs.btTab.getTableData()
+				})
 			}
 		}
 	}

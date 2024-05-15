@@ -1,12 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@jiaminghi/data-view':
-    specifier: ^2.10.0
-    version: 2.10.0
-  '@vue/composition-api':
-    specifier: ^1.7.1
-    version: 1.7.2(vue@2.7.16)
   '@wangeditor/editor':
     specifier: ^5.1.1
     version: 5.1.23
@@ -49,18 +43,12 @@ dependencies:
   vue-amap:
     specifier: ^0.5.10
     version: 0.5.10
-  vue-class-component:
-    specifier: ^7.2.3
-    version: 7.2.6(vue@2.7.16)
   vue-i18n:
     specifier: ^8.27.2
     version: 8.28.2(vue@2.7.16)
   vue-json-viewer:
     specifier: ^2.2.16
     version: 2.2.22(vue@2.7.16)
-  vue-property-decorator:
-    specifier: ^9.1.2
-    version: 9.1.2(vue-class-component@7.2.6)(vue@2.7.16)
   vue-router:
     specifier: ^3.5.1
     version: 3.6.5(vue@2.7.16)
@@ -131,7 +119,7 @@ devDependencies:
     version: 1.4.5-lts.1
   pinia:
     specifier: ^2.0.33
-    version: 2.1.7(@vue/composition-api@1.7.2)(typescript@4.5.5)(vue@2.7.16)
+    version: 2.1.7(typescript@4.5.5)(vue@2.7.16)
   prettier:
     specifier: ^3.0.0
     version: 3.2.5
@@ -150,9 +138,6 @@ devDependencies:
   vue-template-compiler:
     specifier: ^2.6.14
     version: 2.7.16
-  vuex-class:
-    specifier: ^0.3.2
-    version: 0.3.2(vue-class-component@7.2.6)(vue@2.7.16)
 
 packages:
 
@@ -1424,45 +1409,6 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: true
 
-  /@jiaminghi/bezier-curve@0.0.9:
-    resolution: {integrity: sha512-u9xJPOEl6Dri2E9FfmJoGxYQY7vYJkURNX04Vj64tdi535tPrpkuf9Sm0lNr3QTKdHQh0DdNRsaa62FLQNQEEw==}
-    dependencies:
-      '@babel/runtime': 7.24.1
-    dev: false
-
-  /@jiaminghi/c-render@0.4.3:
-    resolution: {integrity: sha512-FJfzj5hGj7MLqqqI2D7vEzHKbQ1Ynnn7PJKgzsjXaZpJzTqs2Yw5OSeZnm6l7Qj7jyPAP53lFvEQNH4o4j6s+Q==}
-    dependencies:
-      '@babel/runtime': 7.24.1
-      '@jiaminghi/bezier-curve': 0.0.9
-      '@jiaminghi/color': 1.1.3
-      '@jiaminghi/transition': 1.1.11
-    dev: false
-
-  /@jiaminghi/charts@0.2.18:
-    resolution: {integrity: sha512-K+HXaOOeWG9OOY1VG6M4mBreeeIAPhb9X+khG651AbnwEwL6G2UtcAQ8GWCq6GzhczcLwwhIhuaHqRygwHC0sA==}
-    dependencies:
-      '@babel/runtime': 7.24.1
-      '@jiaminghi/c-render': 0.4.3
-    dev: false
-
-  /@jiaminghi/color@1.1.3:
-    resolution: {integrity: sha512-ZY3hdorgODk4OSTbxyXBPxAxHPIVf9rPlKJyK1C1db46a50J0reFKpAvfZG8zMG3lvM60IR7Qawgcu4ZDO3+Hg==}
-    dev: false
-
-  /@jiaminghi/data-view@2.10.0:
-    resolution: {integrity: sha512-Cud2MTiMcqc5k2KWabR/svuVQmXHANqURo+yj40370/LdI/gyUJ6LG203hWXEnT1nMCeiv/SLVmxv3PXLScCeA==}
-    dependencies:
-      '@babel/runtime': 7.24.1
-      '@jiaminghi/charts': 0.2.18
-    dev: false
-
-  /@jiaminghi/transition@1.1.11:
-    resolution: {integrity: sha512-owBggipoHMikDHHDW5Gc7RZYlVuvxHADiU4bxfjBVkHDAmmck+fCkm46n2JzC3j33hWvP9nSCAeh37t6stgWeg==}
-    dependencies:
-      '@babel/runtime': 7.24.1
-    dev: false
-
   /@jridgewell/gen-mapping@0.3.5:
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
     engines: {node: '>=6.0.0'}
@@ -2335,13 +2281,6 @@ packages:
       - walrus
       - whiskers
     dev: true
-
-  /@vue/composition-api@1.7.2(vue@2.7.16):
-    resolution: {integrity: sha512-M8jm9J/laYrYT02665HkZ5l2fWTK4dcVg3BsDHm/pfz+MjDYwX+9FUaZyGwEyXEDonQYRCo0H7aLgdklcIELjw==}
-    peerDependencies:
-      vue: '>= 2.5 < 2.7'
-    dependencies:
-      vue: 2.7.16
 
   /@vue/devtools-api@6.6.1:
     resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==}
@@ -7220,7 +7159,7 @@ packages:
     dev: true
     optional: true
 
-  /pinia@2.1.7(@vue/composition-api@1.7.2)(typescript@4.5.5)(vue@2.7.16):
+  /pinia@2.1.7(typescript@4.5.5)(vue@2.7.16):
     resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
     peerDependencies:
       '@vue/composition-api': ^1.4.0
@@ -7232,11 +7171,10 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@vue/composition-api': 1.7.2(vue@2.7.16)
       '@vue/devtools-api': 6.6.1
       typescript: 4.5.5
       vue: 2.7.16
-      vue-demi: 0.14.7(@vue/composition-api@1.7.2)(vue@2.7.16)
+      vue-demi: 0.14.7(vue@2.7.16)
     dev: true
 
   /pinkie-promise@2.0.1:
@@ -9241,14 +9179,7 @@ packages:
       uppercamelcase: 1.1.0
     dev: false
 
-  /vue-class-component@7.2.6(vue@2.7.16):
-    resolution: {integrity: sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==}
-    peerDependencies:
-      vue: ^2.0.0
-    dependencies:
-      vue: 2.7.16
-
-  /vue-demi@0.14.7(@vue/composition-api@1.7.2)(vue@2.7.16):
+  /vue-demi@0.14.7(vue@2.7.16):
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
     engines: {node: '>=12'}
     hasBin: true
@@ -9260,7 +9191,6 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      '@vue/composition-api': 1.7.2(vue@2.7.16)
       vue: 2.7.16
     dev: true
 
@@ -9399,16 +9329,6 @@ packages:
       markdown-it: 8.4.2
     dev: true
 
-  /vue-property-decorator@9.1.2(vue-class-component@7.2.6)(vue@2.7.16):
-    resolution: {integrity: sha512-xYA8MkZynPBGd/w5QFJ2d/NM0z/YeegMqYTphy7NJQXbZcuU6FC6AOdUAcy4SXP+YnkerC6AfH+ldg7PDk9ESQ==}
-    peerDependencies:
-      vue: '*'
-      vue-class-component: '*'
-    dependencies:
-      vue: 2.7.16
-      vue-class-component: 7.2.6(vue@2.7.16)
-    dev: false
-
   /vue-router@3.6.5(vue@2.7.16):
     resolution: {integrity: sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==}
     peerDependencies:
@@ -9441,17 +9361,6 @@ packages:
     dependencies:
       '@vue/compiler-sfc': 2.7.16
       csstype: 3.1.3
-
-  /vuex-class@0.3.2(vue-class-component@7.2.6)(vue@2.7.16):
-    resolution: {integrity: sha512-m0w7/FMsNcwJgunJeM+wcNaHzK2KX1K1rw2WUQf7Q16ndXHo7pflRyOV/E8795JO/7fstyjH3EgqBI4h4n4qXQ==}
-    peerDependencies:
-      vue: ^2.5.0
-      vue-class-component: ^6.0.0 || ^7.0.0
-      vuex: ^3.0.0
-    dependencies:
-      vue: 2.7.16
-      vue-class-component: 7.2.6(vue@2.7.16)
-    dev: true
 
   /wangeditor@4.7.13:
     resolution: {integrity: sha512-kT0jQgTgPoe3tiYiHWbS3QV5yfklcvCXF28irqgU/rOCHKP5Bnv5z/h+ACQAdUhznsfYShpWWzzhs6PLFoPBHQ==}

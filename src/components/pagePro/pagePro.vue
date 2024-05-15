@@ -2,7 +2,7 @@
 author ricky email:zhangqingcq@foxmail.com-->
 <script>
 	import Locale from '../../mixins/locale'
-	import { oneOf } from '../../utils/functionGroup'
+	import { oneOf, getStringWidth } from '../../utils/functionGroup'
 
 	export default {
 		name: 'pagePro',
@@ -43,14 +43,14 @@ author ricky email:zhangqingcq@foxmail.com-->
 			showTotal: {
 				/*是否展示total*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowTotal
 				}
 			},
 			showSizer: {
 				/*是否展示sizer*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowSizer
 				}
 			},
@@ -61,6 +61,11 @@ author ricky email:zhangqingcq@foxmail.com-->
 			disabled: {
 				type: Boolean,
 				default: false
+			}
+		},
+		data() {
+			return {
+				currentPadding: 16
 			}
 		},
 		computed: {
@@ -84,6 +89,44 @@ author ricky email:zhangqingcq@foxmail.com-->
 						})
 					}
 				}
+			},
+			currentSize() {
+				const t = getStringWidth(String(this.total || 0), this.fontSizeBase || 14) + this.currentPadding + 2
+				return t < 32 ? 32 : t
+			}
+		},
+		watch: {
+			currentSize: {
+				handler(val) {
+					this.$nextTick(function () {
+						this.changeCurrentSize(val)
+					})
+				},
+				immediate: true
+			}
+		},
+		mounted() {
+			this.currentPadding = this.getPadding()
+		},
+		methods: {
+			getPadding() {
+				const $inputEl = this.$refs.pageRef?.$el?.querySelector?.('input')
+				if (!$inputEl) {
+					return 16
+				}
+				const inputStyle = window.getComputedStyle($inputEl)
+				const paddingL = inputStyle?.paddingLeft
+				const paddingR = inputStyle?.paddingRight
+				if (!paddingL || !paddingR) {
+					return 16
+				}
+				return Number(paddingL.replace('px', '')) + Number(paddingR.replace('px', ''))
+			},
+			changeCurrentSize(val) {
+				const $inputEl = this.$refs.pageRef?.$el?.querySelector?.('input')
+				if ($inputEl?.style) {
+					$inputEl.style.width = `${val}px`
+				}
 			}
 		}
 	}
@@ -93,6 +136,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 	<div class="pagePro" :class="{ pageProDefault: size === 'default' }">
 		<span v-if="showTotal" class="pageTotal">{{ t('r.total') + ' ' }}{{ total }}{{ ' ' + t('r.items') }}</span>
 		<Page
+			ref="pageRef"
 			:current.sync="current"
 			:page-size="pageSizeT"
 			:total="total"

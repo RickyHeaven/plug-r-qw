@@ -21,7 +21,6 @@ import zhR from '../src/locale/lang/zh-CN'
 // import zhR from '../lib/lang/zh-CN'
 
 import init from './global/init'
-import dataV from '@jiaminghi/data-view'
 
 Vue.config.productionTip = false
 
@@ -54,8 +53,6 @@ Vue.use(plugRQw, {
 	}
 })
 
-Vue.use(dataV)
-
 window._AMapSecurityConfig = {
 	securityJsCode: '6784d3fc333089ce3d6d314112609eac'
 }
@@ -81,3 +78,4 @@ window.i18n = i18n
 
 Vue.prototype.pageSizes = [10, 20, 50, 100]
 Vue.prototype.fontSizeBase = 12
+Vue.prototype.btTablePageAlign = 'left'

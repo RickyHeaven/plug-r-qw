@@ -32,6 +32,7 @@ import transferBox from './components/transferBox/transferBox.vue'
 import fixedFullModal from './components/fixedFullModal/fixedFullModal.vue'
 import page404 from './components/page404/page404.vue'
 import sideMenu from './components/sideMenu/sideMenu.vue'
+import tableTooltip from './components/tableTooltip/tableTooltip.vue'
 import messageBox from './utils/messageBox.js'
 import $swal from './utils/swal.js'
 import fullScreenImgPreview from './utils/fullScreenImgPreview.js'
@@ -95,10 +96,12 @@ const components = {
 	pagePro,
 	wellCard,
 	tableTree,
-	uploadGroup,
 	tableSetting,
-	inputMap,
 	tableIconBtn,
+	tableSearch,
+	tableTooltip,
+	uploadGroup,
+	inputMap,
 	iconTxtBtn,
 	showHidePanel,
 	selectInput,
@@ -120,7 +123,6 @@ const components = {
 	echartMap,
 	loaders,
 	showHidePanelB,
-	tableSearch,
 	selectScrollMore,
 	transferBox,
 	fixedFullModal,
@@ -253,7 +255,7 @@ const install = function (Vue, opts = {}) {
 		})
 	}
 	
-	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、btTablePage的tooltip本体尺寸。
+	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、pagePro的current输入框尺寸。
 	Vue.prototype.fontSizeBase = 14
 	// 搜索表单默认label宽度
 	Vue.prototype.searchFormLabelWidth = 84

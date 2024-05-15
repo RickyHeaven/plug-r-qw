@@ -2,7 +2,7 @@
 	<div class="examplePageL vh100">
 		<showReadMe />
 		<toHome />
-		<Button @click="print" style="margin-bottom: 20px;">打印</Button>
+		<Button @click="print" style="margin-bottom: 20px">打印</Button>
 		<checkboxGroupTwoClass id="printDomH" v-model="value" :data="data" />
 	</div>
 </template>

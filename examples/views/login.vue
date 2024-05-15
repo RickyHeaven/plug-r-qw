@@ -23,7 +23,9 @@
 				<span v-if="!loading">{{ isLogin ? '登出' : '登录' }}</span>
 				<span v-else>Loading...</span>
 			</Button>
-			<div class="tips"> 提示：1.此登录页面为了演示$fetch拦截器，如403，否则地址栏输入"/index"访问示例页；2.登录需要运行node-serve。 </div>
+			<div class="tips">
+				提示：1.此登录页面为了演示$fetch拦截器，如403，否则地址栏输入"/index"访问示例页；2.登录需要运行node-serve。
+			</div>
 		</div>
 	</div>
 </template>

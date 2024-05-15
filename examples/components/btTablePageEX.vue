@@ -261,7 +261,7 @@
 			selectRowPredicate() {
 				this.messageBox({
 					title: '按条件主动选择',
-					content: this.selectMode==='radio'?'将选中id为80的那一行':'将选中id大于79的行',
+					content: this.selectMode === 'radio' ? '将选中id为80的那一行' : '将选中id大于79的行',
 					onOk: () => {
 						if (this.selectMode === 'radio') {
 							this.$refs.btTab.selectRow((row) => row.id === 80)

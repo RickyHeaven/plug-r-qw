@@ -31,13 +31,11 @@
 					{
 						title: '接收渠道',
 						key: 'sd',
-						align: 'center',
 						tooltip: 'true',
 						minWidth: 80
 					},
 					{
 						title: '操作',
-						align: 'center',
 						minWidth: 80,
 						render: (h, params) => {
 							return h('div', [

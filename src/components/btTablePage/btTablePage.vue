@@ -316,20 +316,22 @@
 						item.align = this.btTablePageAlign || 'center'
 					}
 				})
-				if (this.tableEmptyTdHandle) {
-					temp.forEach((item) => {
-						if (item?.key && item.render === undefined) {
-							if (item.tooltip) {
-								item.render = tooltipManual(item.key, true, this.fontSizeBase)
-							} else {
-								item.render = (h, params) => {
-									let td = params.row[item.key]
-									return h('span', td === '' || td === null || td === undefined ? '--' : td)
+
+				temp.forEach((item) => {
+					if (item?.key && item.render === undefined) {
+						if (item.tooltip) {
+							item.render = tooltipManual(item.key, this.tableEmptyTdHandle, '')
+						} else {
+							item.render = (h, params) => {
+								let td = params.row[item.key]
+								if (this.tableEmptyTdHandle) {
+									return h('span', td ?? '--')
 								}
+								return h('span', td)
 							}
 						}
-					})
-				}
+					}
+				})
 				return temp
 			},
 			dataS: {

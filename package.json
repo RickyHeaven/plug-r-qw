@@ -58,8 +58,6 @@
   },
   "homepage": "https://github.com/RickyHeaven/plug-r-qw#readme",
   "dependencies": {
-    "@jiaminghi/data-view": "^2.10.0",
-    "@vue/composition-api": "^1.7.1",
     "@wangeditor/editor": "^5.1.1",
     "@wangeditor/editor-for-vue": "^1.0.2",
     "@zhangqingcq/view-design-r": "1.0.0",
@@ -74,10 +72,8 @@
     "sweetalert": "^2.1.2",
     "vue": "^2.6.14",
     "vue-amap": "^0.5.10",
-    "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.27.2",
     "vue-json-viewer": "^2.2.16",
-    "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1",
     "wangeditor": "4.7.13",
     "xss": "^1.0.8"
@@ -108,8 +104,7 @@
     "sass-loader": "^12.0.0",
     "typescript": "~4.5.5",
     "vue-markdown-loader": "^2.4.1",
-    "vue-template-compiler": "^2.6.14",
-    "vuex-class": "^0.3.2"
+    "vue-template-compiler": "^2.6.14"
   },
   "engines": {
     "node": ">=14.0.0",
