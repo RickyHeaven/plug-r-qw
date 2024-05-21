@@ -13,7 +13,7 @@ export default function (src) {
 	const fullImg = T('r.fullImg')
 
 	let id = 'previewImg' + Math.floor(Math.random() * 10000000)
-	Modal.info({
+	Modal?.info?.({
 		closable: false,
 		'transition-names': ['linear', 'fade'],
 		render: (h) => {
@@ -40,8 +40,7 @@ export default function (src) {
 							}),
 							h('Icon', {
 								props: {
-									type: 'md-close',
-									size: 20
+									type: 'md-close'
 								},
 								domProps: {
 									title: close
@@ -49,7 +48,7 @@ export default function (src) {
 								class: 'previewModalDelete',
 								on: {
 									click() {
-										Modal.remove()
+										Modal?.remove?.()
 									}
 								}
 							})

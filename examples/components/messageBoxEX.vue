@@ -52,7 +52,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.examplePageL {
 		.ivu-btn + .ivu-btn {
 			margin-left: 10px;

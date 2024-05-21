@@ -21,7 +21,6 @@
 			:multiple="multiple || false"
 			:disabled="(length > 0 && fileList.length >= length) || Boolean(disabled)"
 		>
-			<!--暂时屏蔽multiple选项-->
 			<Button
 				icon="ios-cloud-upload-outline"
 				:class="{
@@ -35,7 +34,7 @@
 				class="previewImg"
 				:class="{ previewLoading: item?.mimeType === 'loading' }"
 				v-if="!manualUpload && item?.id !== null"
-				v-for="item of fileDefaultList"
+				v-for="(item, index) of fileDefaultList"
 				:key="item?.id"
 			>
 				<div class="imgLoading" v-show="item?.mimeType === 'loading'">
@@ -52,7 +51,7 @@
 						size="40"
 						class="previewExpand"
 						:title="t('r.fView')"
-						@click="fullScreenImgByDom(url + '/' + item?.id + '/download?preview=true')"
+						@click="fullScreenImgByDom(fileImgSrcList, index)"
 					/>
 					<Icon
 						type="ios-trash-outline"
@@ -73,13 +72,7 @@
 			>
 				<img :src="item" :alt="'manualImg' + index" />
 				<div class="deleteModal">
-					<Icon
-						type="ios-expand"
-						size="40"
-						class="previewExpand"
-						@click="fullScreenImgByDom(item)"
-						:title="t('r.fView')"
-					/>
+					<Icon type="ios-expand" size="40" class="previewExpand" @click="listExpand(index)" :title="t('r.fView')" />
 					<Icon
 						type="ios-trash-outline"
 						size="40"
@@ -97,18 +90,18 @@
 				v-for="(item, index) of fileList"
 				:key="'manualItem' + index"
 			>
-				<Icon v-if="item?.name" :type="getFileTypeIconByName(item?.name)" />
+				<Icon v-if="item?.name" class="fileTypeIco" :type="getFileTypeIconByName(item?.name)" size="20" />
 				<span class="upNameT" @click="downloadManualFile(item)" :title="t('r.download')">{{ getName(item) }}</span>
 				<span class="btBoxJ">
 					<Icon
 						v-if="showPreview(item)"
 						type="md-qr-scanner"
-						size="14"
+						size="22"
 						class="listBtH"
 						@click="listExpand(item)"
 						:title="t('r.fView')"
 					/>
-					<Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
+					<Icon type="md-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
 				</span>
 			</p>
 		</div>
@@ -122,7 +115,12 @@
 				<div class="listLoading" v-show="item?.mimeType === 'loading'">
 					<div data-loader="circle-side" class="loader-div" />
 				</div>
-				<Icon :type="getFileTypeIconByName(item?.name)" v-show="item?.mimeType !== 'loading'" />
+				<Icon
+					:type="getFileTypeIconByName(item?.name)"
+					class="fileTypeIco"
+					v-show="item?.mimeType !== 'loading'"
+					size="20"
+				/>
 				<span
 					class="upNameT"
 					@click="downloadDefaultFile(item)"
@@ -134,12 +132,12 @@
 					<Icon
 						v-if="showPreview(item)"
 						type="md-qr-scanner"
-						size="14"
+						size="22"
 						class="listBtH"
 						@click="listExpand(item)"
 						:title="t('r.fView')"
 					/>
-					<Icon type="ios-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
+					<Icon type="md-close" size="22" class="listBtH" @click="clearManualItem(index)" :title="t('r.delete')" />
 				</span>
 			</div>
 		</div>
@@ -240,19 +238,24 @@
 			return {
 				getFileTypeIconByName: getFileTypeIconByName,
 				fullScreenImgByDom: fullScreenImgByDom,
-				fileSrcList: [],
-				fileDefaultList: []
+				fileSrcList: [], //本地图片模式图片文件地址集合
+				fileDefaultList: [], //从服务器返回的数据整理完成的文件集合
+				tempStorage:{}
 			}
 		},
 		computed: {
 			previewType() {
 				if (!this.manualUpload && this.showImg && this.fileListItemIsIMG) {
+					//上传到服务器，图片模式
 					return 'img'
 				} else if (this.manualUpload && this.showImg && this.fileListItemIsIMG) {
+					//上传到本地，图片模式
 					return 'localImg'
 				} else if (this.manualUpload && this.showUploadList && (!this.showImg || !this.fileListItemIsIMG)) {
+					//上传到本地
 					return 'localList'
 				} else if (!this.manualUpload && this.showUploadList && (!this.showImg || !this.fileListItemIsIMG)) {
+					//上传到服务器
 					return 'list'
 				}
 			},
@@ -264,6 +267,7 @@
 				}
 			},
 			fileList: {
+				//文件集合
 				get() {
 					if (this.manualUpload) {
 						return this.fileIdList
@@ -280,6 +284,7 @@
 				}
 			},
 			fileIdList: {
+				//文件ID集合
 				get() {
 					switch (myTypeof(this.fileIdListProp)) {
 						case 'Number':
@@ -311,6 +316,7 @@
 				}
 			},
 			fileListItemIsIMG() {
+				//文件集合是否全为图片
 				let temp
 				if (this.manualUpload) {
 					temp = this.fileList
@@ -329,6 +335,25 @@
 					}
 				}
 				return true
+			},
+			fileDefaultImgList() {
+				//图片文件集合
+				return this.fileDefaultList.filter((e) => isImgByFile(e?.mimeType))
+			},
+			fileImgSrcList() {
+				//图片地址、名字集合
+				return this.fileDefaultImgList.map((e) => ({
+					src: this.url + '/' + e?.id + '/download?preview=true',
+					name: e?.name
+				}))
+			},
+			localImgList() {
+				// 本地图片集合
+				return this.fileList.filter((e) => isImgByFile(e?.type))
+			},
+			localImgSrcList() {
+				// 本地图片地址集合
+				return this.getFileSrcList(this.localImgList)
 			}
 		},
 		watch: {
@@ -352,7 +377,11 @@
 										//本地有名字，在本地拿
 										item.name = fileT.name
 										item.mimeType = fileT.mimeType
-									} else {
+									} else if(this.tempStorage.hasOwnProperty(item.id)){
+										//缓存有信息，在缓存拿取
+										item.name = this.tempStorage[item.id].name
+										item.mimeType = this.tempStorage[item.id].mimeType
+									}else {
 										//本地没有，去服务器拿
 										item.mimeType = 'loading'
 										$fetch
@@ -389,6 +418,7 @@
 			async getFileSrcList(data) {
 				let temp = []
 				for (let item of data) {
+					//图片的 base64 格式, 可以直接当成 img 的 src 属性值
 					let src = await getFileSrc(item)
 					temp.push(src)
 				}
@@ -412,18 +442,32 @@
 				}
 				return file?.id && file.mimeType && isImgByFile(file.mimeType)
 			},
-			listExpand(file) {
+			async listExpand(file) {
 				//列表图片预览
 				if (this.manualUpload) {
-					if (!file) {
-						return
+					//本地上传
+					let index
+					let tt
+					if (typeof file === 'number') {
+						//直接传的index预览，本地图片模式
+						index = file
+						tt = this.fileSrcList
+					} else if (file) {
+						//传的file对象预览，本地列表
+						index = _.findIndex(this.localImgList, (e) => e.size === file.size && e.lastModified === file.lastModified)
+						tt = await this.localImgSrcList
 					}
-					getFileSrc(file).then((r) => {
-						//图片的 base64 格式, 可以直接当成 img 的 src 属性值
-						fullScreenImgByDom(r)
-					})
+					fullScreenImgByDom(
+						tt.map((e, i) => ({
+							src: e,
+							name: this.localImgList[i]?.name
+						})),
+						index
+					)
 				} else if (file?.id) {
-					fullScreenImgByDom(this.url + '/' + file.id + '/download?preview=true')
+					//上传到服务器，远程列表模式
+					const index = _.findIndex(this.fileDefaultImgList, (e) => e.id === file.id)
+					fullScreenImgByDom(this.fileImgSrcList, index)
 				}
 			},
 			downloadManualFile(file) {
@@ -460,26 +504,28 @@
 					return true
 				}
 			},
-			uploadError(error, file, fileList) {
+			uploadError(error) {
 				console.warn(error)
 				$swal(this.t('r.uploadError'), '', 'error')
 			},
-			uploadSuccess(response, file, fileList) {
+			uploadSuccess(response, file) {
 				if (response?.code === 0) {
 					let temp = this.fileList
 					file.id = response.data?.[0]?.id
 					file.name = response.data?.[0]?.name
 					file.mimeType = response.data?.[0]?.mimeType
+					//将文件信息存起来，不用再去服务器拉取了
+					this.tempStorage[file.id] = {name:file.name,mimeType:file.mimeType}
 					temp.push(file)
 					this.fileList = temp
 				} else {
 					$swal(this.t('r.uploadFail'), response?.message || '', 'error')
 				}
 			},
-			overSize(file, fileList) {
+			overSize() {
 				$swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + ' kb', 'warning')
 			},
-			onFormatError(file, fileList) {
+			onFormatError() {
 				$swal(
 					this.t('r.wrongFileType'),
 					this.t('r.supportType') + ((this.format.length > 0 && String(this.format)) || this.t('r.none')),
@@ -497,7 +543,7 @@
 					}
 				}
 			},
-			onRemove(file, fileList) {
+			onRemove(file) {
 				let id = file?.response?.data?.[0]?.id
 				this.deleteById(null, id)
 			},

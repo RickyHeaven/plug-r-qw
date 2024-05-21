@@ -21,7 +21,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.sideMenuEX {
 		display: flex;
 		padding: 50px 0 0 0;

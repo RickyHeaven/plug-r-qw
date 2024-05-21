@@ -506,26 +506,16 @@
 				window.echartResizeMJ = {}
 			}
 			if (!window.echartResizeMJ[me.name]) {
-				let temp = window.onresize
-				if (temp) {
-					window.onresize = () => {
-						if (me.myChart) {
-							temp()
-							me.myChart.resize()
-							window.echartResizeMJ[me.name] = true
-						}
-					}
-				} else {
-					window.onresize = () => {
-						if (me.myChart) {
-							me.myChart.resize()
-							window.echartResizeMJ[me.name] = true
-						}
-					}
-				}
+				window.addEventListener('resize',me.resizeHandler)
 			}
 		},
 		methods: {
+			resizeHandler(){
+				if (this.myChart) {
+					this.myChart.resize()
+					window.echartResizeMJ[this.name] = true
+				}
+			},
 			/**
 			 * 加载地图实例化内容结构，canvas渲染基于echarts技术，数据结构基于高德地图技术
 			 * 目前没有找到更好的引入方式实现，import动态加载不行，require形式也不行
@@ -674,7 +664,7 @@
 				option.series = series
 				me.myChart.setOption(option)
 			},
-			convertCitysData(data) {
+			convertCityData(data) {
 				let res = []
 				for (let i = 0; i < data.length; i++) {
 					let dataItem = data[i]
@@ -782,7 +772,7 @@
 						effect: this.migrationEffect(),
 						// lineStyle出发到目的地的线条颜色
 						lineStyle: this.migrationLineStyle(),
-						data: this.convertCitysData(this.migrationData) //开始到结束数据
+						data: this.convertCityData(this.migrationData) //开始到结束数据
 					},
 					{
 						// 线条+第二层光影
@@ -790,7 +780,7 @@
 						zlevel: 2,
 						effect: this.migrationEffect2(),
 						lineStyle: this.migrationLineStyle2(),
-						data: this.convertCitysData(this.migrationData)
+						data: this.convertCityData(this.migrationData)
 					}
 				]
 			},
@@ -850,6 +840,7 @@
 				this.myChart = null
 				window.echartResizeMJ = {}
 			}
+			window.removeEventListener('resize',this.resizeHandler)
 		}
 	}
 </script>

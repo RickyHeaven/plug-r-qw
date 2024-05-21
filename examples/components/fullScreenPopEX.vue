@@ -29,11 +29,11 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	@import '../global/variables';
 
 	.fullPopEX {
-		padding-top: $headerH;
+		padding-top: @headerH;
 		height: 100vh;
 		overflow: hidden;
 		position: relative;
@@ -43,9 +43,9 @@
 			color: #fff;
 			padding-left: 20px;
 			width: 100%;
-			line-height: $headerH;
-			height: $headerH;
-			background-color: $vueColor;
+			line-height: @headerH;
+			height: @headerH;
+			background-color: @vueColor;
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -54,19 +54,19 @@
 
 		.contentLAS {
 			height: 100%;
-			padding: 12px 12px 12px calc(#{$menuW} + 12px);
+			padding: 12px 12px 12px calc(@menuW + 12px);
 			position: relative;
 			background-color: #f8f8f8;
 
 			.menuLAS {
-				width: $menuW;
+				width: @menuW;
 				height: 100%;
 				position: absolute;
 				left: 0;
 				top: 0;
-				background-color: $menuBg;
+				background-color: @menuBg;
 				padding: 10px 10px 10px 20px;
-				color: $menuColor;
+				color: @menuColor;
 				font-size: 14px;
 			}
 
@@ -76,8 +76,8 @@
 				position: relative;
 
 				.titleLAS {
-					height: $headerH;
-					line-height: $headerH;
+					height: @headerH;
+					line-height: @headerH;
 					padding-left: 10px;
 					background-color: #282c34;
 					color: #fff;

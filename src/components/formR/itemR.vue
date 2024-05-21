@@ -202,6 +202,7 @@
 			:max-size="item.maxSize || 0"
 			:show-img="Boolean(item.showImg)"
 			:length="item.length || 0"
+			:multiple="Boolean(item.multiple)"
 			:disabled="Boolean(item.disabled) || disabled"
 			:with-credentials="item.withCredentials !== false"
 			@on-file-id-change="reValidateAndChangeHandle($event, item)"

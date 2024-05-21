@@ -121,7 +121,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.boxKJ {
 		width: 300px;
 		height: 300px;

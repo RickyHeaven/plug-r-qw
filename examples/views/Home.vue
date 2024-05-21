@@ -36,8 +36,8 @@
 										<i class="iconfont" :class="subItem.meta.icon"></i>
 									</div>
 									<div class="txt">{{ subItem.name }}</div>
-									<!--随机动画，当前索引值为偶数就显示四条边，奇数就显示两条边-->
-									<div v-show="(ix + 3) % 2 == 0" class="inner"></div>
+									<!--随动画，显示四条边-->
+									<div class="inner"></div>
 								</div>
 							</router-link>
 						</div>
@@ -101,7 +101,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.home {
 		padding-top: 20px;
 
@@ -146,20 +146,20 @@
 				.mold {
 					width: 100%;
 					height: auto;
-					margin: 20px 0;
+					margin: 5px 0;
 
 					.tit {
 						font-size: 20px;
 						height: 30px;
 						line-height: 30px;
 						margin-bottom: 10px;
+						color: #24abf2;
 
 						i {
 							margin-right: 10px;
 						}
 
 						span {
-							color: #24abf2;
 							font-weight: bold;
 						}
 					}
@@ -171,9 +171,8 @@
 
 						.li {
 							cursor: default;
-							width: 360px;
+							width: 200px;
 							background-color: #46be87;
-							height: 120px;
 							border-radius: 4px;
 							display: block;
 							float: left;
@@ -181,9 +180,6 @@
 							position: relative;
 
 							.show {
-								width: 300px;
-								height: 80px;
-								margin: 20px auto 0;
 								position: relative;
 								cursor: pointer;
 								color: white;
@@ -202,9 +198,9 @@
 								}
 
 								.txt {
-									font-size: 18px;
-									height: 18px;
-									line-height: 18px;
+									font-size: 16px;
+									height: 25px;
+									line-height: 20px;
 									color: #fff;
 									width: 100%;
 									text-align: center;

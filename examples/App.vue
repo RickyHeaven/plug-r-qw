@@ -12,8 +12,8 @@
 <style>
 	@import '~github-markdown-css';
 </style>
-<style lang="scss">
-	@import './global/common.scss';
+<style lang="less">
+	@import './global/common.less';
 	#app {
 		font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
 			sans-serif;

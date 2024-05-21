@@ -185,6 +185,12 @@
 			}
 		},
 		methods: {
+			resizeHandler(){
+				if (this.myChart) {
+					this.myChart.resize()
+					window.echartResizeMJ[this.name] = true
+				}
+			},
 			//数据拉取
 			getData() {
 				return new Promise((resolve, reject) => {
@@ -228,12 +234,6 @@
 				me.myChart.on('click', (res) => {
 					me.$emit('series-click', res)
 				})
-
-				/**
-        document.getElementById(this.name).onclick = (e)=>{
-          me.$emit('series-bar-click', e)
-        }
-         */
 
 				// 指定图表的配置项和数据
 				let option = {}
@@ -283,23 +283,7 @@
 					window.echartResizeMJ = {}
 				}
 				if (!window.echartResizeMJ[me.name]) {
-					let temp = window.onresize
-					if (temp) {
-						window.onresize = () => {
-							if (me.myChart) {
-								temp()
-								me.myChart.resize()
-								window.echartResizeMJ[me.name] = true
-							}
-						}
-					} else {
-						window.onresize = () => {
-							if (me.myChart) {
-								me.myChart.resize()
-								window.echartResizeMJ[me.name] = true
-							}
-						}
-					}
+					window.addEventListener('resize',me.resizeHandler)
 				}
 			}
 		},
@@ -312,6 +296,7 @@
 				this.myChart = null
 				window.echartResizeMJ = {}
 			}
+			window.removeEventListener('resize',this.resizeHandler)
 		}
 	}
 </script>

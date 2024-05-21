@@ -334,7 +334,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="less">
 	.exBox {
 		button + button {
 			margin-left: 8px;
@@ -342,7 +342,7 @@
 	}
 </style>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.exBox {
 		height: 100vh;
 		padding: 50px 20px 20px 20px;

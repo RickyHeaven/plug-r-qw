@@ -45,7 +45,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	@import '../global/variables';
 
 	.conMA {

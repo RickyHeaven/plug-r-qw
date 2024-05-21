@@ -115,7 +115,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.exBox {
 		display: inline-block;
 		width: 920px;

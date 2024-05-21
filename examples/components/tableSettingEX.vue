@@ -106,7 +106,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	@import '../global/variables';
 
 	.exBox {
@@ -115,14 +115,14 @@
 	}
 
 	.tableLK {
-		height: calc(100vh - 50px - #{$headerH});
+		height: calc(100vh - 50px - @headerH);
 		position: relative;
 	}
 
 	.headBR {
-		height: $headerH;
-		line-height: $headerH;
-		background-color: $headerBg;
+		height: @headerH;
+		line-height: @headerH;
+		background-color: @headerBg;
 		overflow: hidden;
 
 		&:after {

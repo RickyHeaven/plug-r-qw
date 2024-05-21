@@ -173,7 +173,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.flexBb {
 		display: flex;
 		flex-wrap: wrap;

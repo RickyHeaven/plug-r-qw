@@ -80,7 +80,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.outBoxS {
 		margin-top: 20px;
 		padding-left: 30px;

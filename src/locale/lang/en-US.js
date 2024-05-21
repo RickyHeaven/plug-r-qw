@@ -47,7 +47,7 @@ export default {
 		uploadError: 'Upload error',
 		uploadFail: 'Upload fail',
 		closePreview: 'Close the preview',
-		fullImg: 'Full screen img',
+		fullImg: 'This file does not support image preview',
 		preview: 'Preview',
 		searchFor: 'Search for: ',
 		noMore: 'No more',
@@ -84,6 +84,8 @@ export default {
 		page: '/page',
 		total: 'Total',
 		items: 'items',
-		notSave: 'Not save yet, save?'
+		notSave: 'Not save yet, save?',
+		last: 'Last',
+		next: 'Next'
 	}
 }

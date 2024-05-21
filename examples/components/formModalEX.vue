@@ -117,7 +117,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.examplePageL {
 		> button + button {
 			margin-left: 10px;

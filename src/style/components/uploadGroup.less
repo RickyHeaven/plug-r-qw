@@ -19,12 +19,13 @@
 
 .previewBoxM {
 	margin-top: 10px;
-	height: 100px;
 
 	.previewImg {
 		display: inline-block;
 		position: relative;
-		height: 100%;
+    height: 100px;
+    max-width: 100%;
+    overflow: hidden;
 		background: #eee;
 		margin-right: 4px;
 
@@ -81,8 +82,8 @@
 	margin-top: 10px;
 
 	.customFileListItem {
-		padding: 4px;
-		border-radius: 4px;
+		padding:2px 4px;
+		border-radius: 2px;
 		word-break: break-all;
 		line-height: 1.4em;
 		position: relative;
@@ -92,12 +93,19 @@
 
 			.btBoxJ {
 				opacity: 1;
+        .listBtH{
+          background-color: @listHoverBg;
+        }
 			}
 
 			.upNameT {
 				color: @primary;
 			}
 		}
+
+    .fileTypeIco{
+      margin-right: 6px;
+    }
 
 		.listLoading {
 			height: 15px;
@@ -131,7 +139,7 @@
 				margin-left: 6px;
 
 				&:hover {
-					color: @textColor;
+					color: @warningColor;
 				}
 			}
 		}

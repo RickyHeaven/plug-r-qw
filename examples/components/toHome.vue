@@ -18,7 +18,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.backLink {
 		position: fixed;
 		z-index: 10;

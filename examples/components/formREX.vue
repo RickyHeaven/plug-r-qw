@@ -750,7 +750,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.detailPage {
 		width: 900px;
 	}

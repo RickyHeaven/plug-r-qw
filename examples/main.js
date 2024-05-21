@@ -77,5 +77,5 @@ new Vue({
 window.i18n = i18n
 
 Vue.prototype.pageSizes = [10, 20, 50, 100]
-Vue.prototype.fontSizeBase = 12
+Vue.prototype.fontSizeBase = 14
 Vue.prototype.btTablePageAlign = 'left'

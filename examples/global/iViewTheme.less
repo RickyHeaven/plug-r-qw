@@ -6,14 +6,16 @@
 @css-prefix-iconfont: ivu-icon;
 
 // Color
-@primary-color: #202124;
-@info-color: #323639;
+@primary-color: #070428;
+@info-color: #2db7f5;
 @success-color: #19be6b;
 @processing-color: @primary-color;
 @warning-color: #ff9900;
 @error-color: #ed4014;
+@error-hover-color: color(~`colorPalette('@{error-color}', 5) `);
+@error-active-color: color(~`colorPalette('@{error-color}', 7) `);
 @normal-color: #e6ebf1;
-@link-color: #585858;
+@link-color: #2d8cf0;
 @link-hover-color: tint(@link-color, 20%);
 @link-active-color: shade(@link-color, 5%);
 @selected-color: fade(@primary-color, 90%);
@@ -34,14 +36,29 @@
 @text-color-secondary: fade(@black, 45%);
 @heading-color: fade(#000, 85%);
 @heading-color-dark: fade(@white, 100%);
-@font-size-base: 12px;
-@font-size-small: 10px;
-@font-size-large: 14px;
+@font-size-base: 14px;
+@font-size-small: @font-size-base - 2px;
+@font-size-large: @font-size-base + 2px;
+@heading-1-size: ceil(@font-size-base * 2.71);
+@heading-2-size: ceil(@font-size-base * 2.14);
+@heading-3-size: ceil(@font-size-base * 1.71);
+@heading-4-size: ceil(@font-size-base * 1.42);
+@heading-5-size: ceil(@font-size-base * 1.14);
+@heading-6-size: ceil(@font-size-base * 1);
 @line-height-base: 1.5;
 @line-height-computed: floor((@font-size-base * @line-height-base));
 @border-radius-base: 6px;
 @border-radius-small: 4px;
 @cursor-disabled: not-allowed;
+
+// LINK
+@link-decoration: none;
+@link-hover-decoration: none;
+@link-focus-decoration: none;
+@link-focus-outline: 0;
+
+// Disabled
+@disabled-color: fade(#000, 25%);
 
 // vertical paddings
 @padding-lg: 24px; // containers
@@ -62,8 +79,8 @@
 @head-bg: #f9fafc;
 @table-thead-bg: #f8f8f9;
 @table-td-stripe-bg: #f8f8f9;
-@table-td-hover-bg: #e7e7e7;
-@table-td-highlight-bg: #e2e2e2;
+@table-td-hover-bg: #ebf7ff;
+@table-td-highlight-bg: #ebf7ff;
 @menu-dark-title: #515a6e;
 @menu-dark-active-bg: #363e4f;
 @menu-dark-subsidiary-color: rgba(255, 255, 255, 0.7);
@@ -84,9 +101,9 @@
 @btn-height-large: 40px;
 @btn-height-small: 24px;
 
-@btn-padding-base: 5px @padding-md - 1px 6px;
-@btn-padding-large: 6px @padding-md - 1px;
-@btn-padding-small: 1px @padding-xs - 1px 2px;
+@btn-padding-base: 0 @padding-md - 1px;
+@btn-padding-large: @btn-padding-base;
+@btn-padding-small: 0 @padding-xs - 1px;
 
 @btn-font-weight: normal;
 @btn-padding-base-icon: 5px 15px 6px;
@@ -115,7 +132,7 @@
 @btn-ghost-border: @border-color-base;
 
 @btn-circle-size: @btn-height-base;
-@btn-circle-size-large: @btn-height-large - 4px;
+@btn-circle-size-large: @btn-height-large;
 @btn-circle-size-small: @btn-height-small;
 
 @btn-square-size: @btn-height-base;
@@ -142,7 +159,7 @@
 
 // Input
 @input-height-base: 32px;
-@input-height-large: 36px;
+@input-height-large: 40px;
 @input-height-small: 24px;
 
 @input-padding-horizontal: 7px;
@@ -198,6 +215,7 @@
 @zindex-spin: 8;
 @zindex-affix: 10;
 @zindex-back-top: 10;
+@zindex-menu: 1;
 @zindex-select: 900;
 @zindex-modal: 1000;
 @zindex-drawer: 1000;
@@ -219,7 +237,7 @@
 @slider-height: 4px;
 @slider-margin: 16px 0;
 @slider-button-wrap-size: 18px;
-@slider-button-wrap-offset: -4px;
+@slider-button-wrap-offset: -5px;
 @slider-disabled-color: #ccc;
 
 // Avatar
@@ -237,7 +255,6 @@
 @anchor-border-width: 2px;
 
 // List
-// ---
 @list-header-background: transparent;
 @list-footer-background: transparent;
 @list-empty-text-padding: @padding-md;
@@ -245,3 +262,29 @@
 @list-item-meta-margin-bottom: @padding-md;
 @list-item-meta-avatar-margin-right: @padding-md;
 @list-item-meta-title-margin-bottom: @padding-sm;
+
+// Skeleton
+@skeleton-base-color: rgba(190, 190, 190, 0.2);
+@skeleton-to-color: shade(@skeleton-base-color, 5%);
+@skeleton-border-radius-round: 40px;
+@skeleton-item-margin: 16px;
+@skeleton-height-base: 32px;
+@skeleton-height-large: 40px;
+@skeleton-height-small: 24px;
+@skeleton-rect-width-base: 160px;
+@skeleton-rect-width-large: 200px;
+@skeleton-rect-width-small: 120px;
+@skeleton-image-width-base: 48px;
+@skeleton-image-width-large: 96px;
+@skeleton-image-width-small: 32px;
+
+// Typography
+@typography-title-font-weight: 600;
+@typography-title-margin-top: 1.2em;
+@typography-title-margin-bottom: 0.5em;
+
+// Image
+@image-preview-operations-background: rgba(55, 55, 55, 0.4);
+@image-preview-operations-fontsize: 26px;
+@image-preview-operations-hover: 0.75;
+@image-preview-operations-disabled-color: #c5c8ce;

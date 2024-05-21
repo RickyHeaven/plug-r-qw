@@ -9,7 +9,7 @@
 		data() {
 			return {
 				tooltipDisabled: true,
-				debounceS: false,
+				debounceS: null,
 				maxWidth: 200
 			}
 		},

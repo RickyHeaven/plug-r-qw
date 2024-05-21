@@ -93,7 +93,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.exBox {
 		height: 100vh;
 		padding: 50px 20px 20px 20px;

@@ -50,7 +50,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	.exBoxK {
 		display: flex;
 	}

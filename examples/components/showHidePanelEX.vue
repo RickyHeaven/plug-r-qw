@@ -18,11 +18,11 @@
 		name: 'showHidePanelEX'
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 	@import '../global/variables';
 
 	.headerKH {
 		height: 40px;
-		background-color: $vueColor;
+		background-color: @vueColor;
 	}
 </style>

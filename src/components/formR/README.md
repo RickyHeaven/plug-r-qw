@@ -286,7 +286,7 @@
 - <a name='mode'>mode</a> 字符串，`'default'` 默认模式 - 集成了 wangEditor 所有功能；`'simple'` 简洁模式 -
   仅有部分常见功能，但更加简洁易用，默认：`'simple'`
 
-- <a name='multiple'>multiple</a> 布尔对象，Select 是否支持多选，默认：`false`
+- <a name='multiple'>multiple</a> 布尔对象，select 是否支持多选；upload 选择文件时是否支持多选，多选时无法限制可传文件个数（用户第一次选择文件时想选多少个是限制不了的），建议多选和限制可传文件个数功能二选一，不要同时开启，默认：`false`
 
 - <a name='numberVal'>numberVal</a> 布尔对象，表单项收集的值自动转换为`number`类型，需是类似`number`的字符串才能转(
   如：`'32.2'`、`'-13.9'`)，否则收集的值为字符串，默认：`false`
@@ -896,6 +896,8 @@
 - [maxSize](#maxSize) 上传文件大小限制，单位 kb，配置时写数字，不要带单位
 
 - [length](#length) 上传文件个数限制
+
+- [multiple](#multiple) 选择文件时是否支持多选，多选时无法限制可传文件个数（用户第一次选择文件时想选多少个是限制不了的），建议多选和限制可传文件个数功能二选一，不要同时开启，默认：`false`
 
 - [showImg](#showImg) 以缩略图方式展示已上传文件，如果有文件不是图片，则自动切换成列表展示，默认：`false`
 

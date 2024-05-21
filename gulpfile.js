@@ -31,7 +31,7 @@ function fonts(cb) {
 }
 
 //拷贝国际化文件
-function langs(cb) {
+function lang(cb) {
   src([
     './src/locale/lang/*.js'
   ])
@@ -48,4 +48,4 @@ function clean(cb) {
 }
 
 
-exports.default = series(clean, build, fonts, langs)
+exports.default = series(clean, build, fonts, lang)

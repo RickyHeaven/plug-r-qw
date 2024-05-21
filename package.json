@@ -100,8 +100,6 @@
     "multer": "^1.4.5-lts.1",
     "pinia": "^2.0.33",
     "prettier": "^3.0.0",
-    "sass": "^1.32.7",
-    "sass-loader": "^12.0.0",
     "typescript": "~4.5.5",
     "vue-markdown-loader": "^2.4.1",
     "vue-template-compiler": "^2.6.14"

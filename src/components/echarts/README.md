@@ -72,53 +72,41 @@ echarts 提供了常规的折线图、柱状图、散点图、饼图、K 线图�
 
 - heightT - 字符串，图表高度，默认：`384px`
 
+
 ### 事件
 
-- timelinechanged 时间轴中的时间点改变触发事件
+- time-line-change 时间轴中的时间点改变后的方法,回调为当前页的索引值,在echart实例触发`timelinechanged`事件时触发
 
-- click 普通点击事件
+- series-click 点击方法，回调当前点击的图表值,在echart实例触发`click`事件时触发
 
-- onresize 监听屏幕大小，图表进行相应缩放
+### 其他
+该组件（echart.vue）内部的echart实例（myChart）支持一些调用,如:
 
+- 实例访问方法：
 ```
-if (window.echartResizeMJ === undefined) {
-  window.echartResizeMJ = {}
-}
-if (!window.echartResizeMJ[me.name]) {
-  let temp = window.onresize
-  if (temp) {
-    window.onresize = function () {
-      temp()
-      myChart.resize()
-      window.echartResizeMJ[me.name] = true
-    }
-  }
-  else {
-    window.onresize = function () {
-      myChart.resize()
-      window.echartResizeMJ[me.name] = true
-    }
-  }
-}
+ <echart ref='echartRef'/>
+ 
+ this.$refs.echartRef.XXX
+ 
 ```
 
-### 方法
-
-- time-line-change 时间轴中的时间点改变后的方法,回调为当前页的索引值
-
+- 可以监听的实例事件`timelinechanged`:
 ```
-myChart.on('timelinechanged', function (res) {
-  me.$emit('time-line-change', res.currentIndex)
+this.$refs.echartRef.myChart.on('timelinechanged', function (res) {
+  //实现你的逻辑
 })
 ```
-
-- series-bar-click 点击方法，回调当前点击的图表值
-
+- 可以监听的实例事件`click`:
 ```
-myChart.on('click', 'series.bar', function (res) {
-  me.$emit('series-bar-click', res)
+this.$refs.echartRef.myChart.on('click', 'series.bar', function (res) {
+  //实现你的逻辑
 })
 ```
+- 可以调用的实例方法`onresize`:
+```
+this.$refs.echartRef.myChart.onresize()
+```
+
 
 ### 注意
 
