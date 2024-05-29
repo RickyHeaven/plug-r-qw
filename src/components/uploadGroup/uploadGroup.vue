@@ -22,7 +22,7 @@
 			:disabled="(length > 0 && fileList.length >= length) || Boolean(disabled)"
 		>
 			<Button
-				icon="ios-cloud-upload-outline"
+				icon="md-cloud-upload"
 				:class="{
 					disabledR: (length > 0 && fileList.length >= length) || Boolean(disabled)
 				}"

@@ -23,7 +23,7 @@
 				&.form-save-btn {
 					background-color: @primary;
 					color: #fff;
-					width: @formGroupBtnW;
+					min-width: @formGroupBtnW;
 
 					&:hover {
 						background-color: #fff;
@@ -33,7 +33,7 @@
 				}
 
 				&.form-cancel-btn {
-					width: calc(100% - @formGroupBtnW - 10px);
+					min-width: calc(100% - @formGroupBtnW - 10px);
 				}
 			}
 		}

@@ -423,6 +423,12 @@
 						optionVal: 'tel'
 					},
 					{
+						type: 'txt',
+						label: '联系人F的生日',
+						valKey: 'friendFBirth',
+						likeInput: true
+					},
+					{
 						type: 'select',
 						label: '多选M(收集多个字段)',
 						key: 'friendM',
