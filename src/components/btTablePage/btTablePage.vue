@@ -325,7 +325,7 @@
 							item.render = (h, params) => {
 								let td = params.row[item.key]
 								if (this.tableEmptyTdHandle) {
-									return h('span', td ?? '--')
+									return h('span', td===''?'--':td ?? '--')
 								}
 								return h('span', td)
 							}

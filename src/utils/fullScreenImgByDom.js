@@ -1,6 +1,7 @@
-/** created at 2020.05.08
- *@author ricky email:zhangqingcq@foxmail.com
- * @param {String}src - img src
+/**
+ * @description全屏预览，原生dom技术
+ * @author ricky email:zhangqingcq@foxmail.com
+ * @created 2020.05.08
  */
 
 import _ from 'lodash'

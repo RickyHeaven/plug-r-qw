@@ -240,6 +240,7 @@
 				fullScreenImgByDom: fullScreenImgByDom,
 				fileSrcList: [], //本地图片模式图片文件地址集合
 				fileDefaultList: [], //从服务器返回的数据整理完成的文件集合
+				localImgSrcList:[],// 本地图片地址集合
 				tempStorage:{}
 			}
 		},
@@ -350,13 +351,14 @@
 			localImgList() {
 				// 本地图片集合
 				return this.fileList.filter((e) => isImgByFile(e?.type))
-			},
-			localImgSrcList() {
-				// 本地图片地址集合
-				return this.getFileSrcList(this.localImgList)
 			}
 		},
 		watch: {
+			localImgList:{
+				async handler(after){
+					this.localImgSrcList = await this.getFileSrcList(after)
+				}
+			},
 			fileList: {
 				async handler(after) {
 					if (this.previewType === 'localImg') {
@@ -455,7 +457,7 @@
 					} else if (file) {
 						//传的file对象预览，本地列表
 						index = _.findIndex(this.localImgList, (e) => e.size === file.size && e.lastModified === file.lastModified)
-						tt = await this.localImgSrcList
+						tt = this.localImgSrcList
 					}
 					fullScreenImgByDom(
 						tt.map((e, i) => ({
