@@ -1629,6 +1629,7 @@
 			 * @param root 表单项结构数据
 			 */
 			itemChange({ e, root }) {
+				//定时300ms是为了从 valGroup 取到最新的值（从组件on-change触发到值更新到 valGroup 需要一点时间）
 				setTimeout(() => {
 					let d = {
 						event: e
@@ -1647,7 +1648,7 @@
 						}
 					}
 					this.$emit('on-item-change', d)
-				}, 500)
+				}, 300)
 			},
 			/**
 			 * 获取需要提交的数据(私有)
