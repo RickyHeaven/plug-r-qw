@@ -153,6 +153,10 @@
 				}
 			},
 			initMap() {
+				if(!lazyAMapApiLoaderInstance){
+					console.error('高德地图示例未初始化，lazyAMapApiLoaderInstance为null')
+					return
+				}
 				lazyAMapApiLoaderInstance.load().then(() => {
 					this.mapX = new AMap.Map(this.vidT, {}).on('complete', () => {
 						this.geoCoder = new AMap.Geocoder()
@@ -180,7 +184,7 @@
 										lat: val.poi.location.lat
 									}
 								} else {
-									this.mapX.setCity(val.poi.name, () => {
+									this.mapX?.setCity(val.poi.name, () => {
 										let center = this.mapX.getCenter()
 										this.createMarker({
 											name: val.poi.name,
@@ -198,7 +202,7 @@
 							this.$emit('on-change', this.valueT)
 						})
 
-						this.mapX.on('hotspotclick', (d) => {
+						this.mapX?.on('hotspotclick', (d) => {
 							this.createMarker({
 								name: d.name,
 								lng: d.lnglat.lng,
@@ -214,14 +218,14 @@
 				})
 			},
 			createMarker({ lng, lat, name }) {
-				this.mapX.clearMap()
+				this.mapX?.clearMap()
 				let point = new AMap.LngLat(lng, lat)
 				let marker = new AMap.Marker({
 					map: this.mapX,
 					position: point,
 					draggable: true
 				})
-				this.mapX.add(marker)
+				this.mapX?.add(marker)
 				this.getAddress(lng, lat)
 				marker.on('dragend', () => {
 					let dragPoint = marker.getPosition()
@@ -237,10 +241,10 @@
 						this.infoWindow.open(this.mapX, e?.target?.getPosition?.())
 					}
 				})
-				this.mapX.setFitView()
+				this.mapX?.setFitView()
 			},
 			getAddress(lng, lat) {
-				this.geoCoder.getAddress([lng, lat], (status, result) => {
+				this.geoCoder?.getAddress([lng, lat], (status, result) => {
 					if (status === 'complete' && result.info === 'OK' && result.regeocode && result.regeocode.formattedAddress) {
 						this.infoWindow = new AMap.InfoWindow({
 							//创建信息窗体
