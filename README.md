@@ -270,6 +270,8 @@
   在容器滚动到底部时调用传入指令的值（回调函数），指令在绑定对象mounted时生效，可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`
   ,boxN的意思为document下class为boxN的首个元素,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
 
+* clickOutside 在容器外部有鼠标点击事件时触发（如`v-click-outside='close'`）
+
 ## vue2 version README file is start from here:
 
 * [组件](https://github.com/RickyHeaven/plug-r-qw/tree/master/src/components)
@@ -615,4 +617,6 @@
 * loadmore
   在容器滚动到底部时调用传入指令的值（回调函数），可通过指令参数传入一个class，来指定滚动的容器（如`v-loadmore:boxN='getData'`
   ,boxN的意思为指令绑定元素的某个子元素，它有个class为boxN,而该元素被指定为滚动的容器；getData为回调函数，比如在函数内部拉取数据并渲染到容器内），滚动容器默认为指令绑定的元素
+
+* clickOutside 在容器外部有鼠标点击事件时触发（如`v-click-outside='close'`）
 
