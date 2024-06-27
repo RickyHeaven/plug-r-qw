@@ -57,7 +57,7 @@
 	import Popper from 'popper.js'
 	import _ from 'lodash'
 	import TransferDom from '../../directives/transfer-dom'
-	import ClickOutside from '../../directives/clickoutside'
+	import ClickOutside from '../../directives/clickOutside'
 	import Locale from '../../mixins/locale'
 	import { setTimeout } from '../../utils/timer'
 	import { oneOf } from '../../utils/functionGroup'

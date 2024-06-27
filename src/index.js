@@ -86,6 +86,7 @@ import {
 	siblingElems
 } from './utils/functionGroup.js'
 import locale from './locale/index'
+import clickOutside from './directives/clickOutside'
 import timer, { setTimeout, setInterval } from './utils/timer'
 import './utils/wangeditor5init'
 
@@ -253,6 +254,9 @@ const install = function (Vue, opts = {}) {
 				})
 			}
 		})
+	}
+	if (Vue.directive('clickOutside') === undefined) {
+		Vue.directive('clickOutside', clickOutside)
 	}
 	
 	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、pagePro的current输入框尺寸。
