@@ -38,19 +38,19 @@
 		</div>
 
 		<div class="middleBoxLLL">
-			<Button class="middleBtLLL" size="large" type="default" @click="removeAll" :disabled="delAllDis"
+			<Button class="middleBtLLL" type="default" @click="removeAll" :disabled="delAllDis"
 				>{{ t('r.removeAll') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
-			<Button class="middleBtLLL" size="large" type="default" @click="remove" :disabled="deleteDis"
+			<Button class="middleBtLLL" type="default" @click="remove" :disabled="deleteDis"
 				>{{ t('r.remove') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
-			<Button class="middleBtLLL" size="large" type="primary" @click="add" :disabled="addDis">
+			<Button class="middleBtLLL" type="primary" @click="add" :disabled="addDis">
 				<Icon type="ios-arrow-back" />
 				{{ t('r.add') }}</Button
 			>
-			<Button class="middleBtLLL" size="large" type="primary" @click="addAll" :disabled="addAllDis">
+			<Button class="middleBtLLL" type="primary" @click="addAll" :disabled="addAllDis">
 				<Icon type="ios-arrow-back" />
 				{{ t('r.addAll') }}</Button
 			>
