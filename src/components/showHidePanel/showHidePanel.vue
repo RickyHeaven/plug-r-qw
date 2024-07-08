@@ -4,12 +4,12 @@
 
 <template>
 	<div :style="getBg">
-		<div v-show="show" class="contentX">
+		<div v-show="showT" class="contentX">
 			<slot />
 		</div>
 		<div class="arrowA">
-			<div class="btA" @click="show = !show">
-				<Icon :type="show ? 'ios-arrow-up' : 'ios-arrow-down'" size="20" />
+			<div class="btA" @click="showT = !showT">
+				<Icon :type="showT ? 'ios-arrow-up' : 'ios-arrow-down'" size="20" />
 			</div>
 		</div>
 	</div>
@@ -18,19 +18,33 @@
 <script>
 	export default {
 		name: 'showHidePanel',
-		props: ['bg'],
-		data() {
+		props: {
+			show:{
+				type: Boolean,
+				default: true
+			},
+			bg:{
+				type: String,
+				default: 'transparent'
+			}
+		},
+		data(){
 			return {
-				show: true
+				showT: this.show
 			}
 		},
 		computed: {
 			getBg() {
-				if (this.show) {
-					return 'background:' + this.bg || 'transparent'
+				if (this.showT) {
+					return 'background:' + this.bg
 				} else {
 					return ''
 				}
+			}
+		},
+		watch:{
+			show(d){
+				this.showT = d
 			}
 		}
 	}
