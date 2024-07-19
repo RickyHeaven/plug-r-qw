@@ -643,8 +643,6 @@
 
 - [changeOnSelect](#changeOnSelect) 布尔对象，当此项为 true 时，点选每级菜单选项值都会发生变化，默认：`false`
 
-- [filterable](#filterable) 是否支持筛选待选项，默认：`true`
-
 - [placeholder](#placeholder) 占位符，默认：`'请输入'`
 
 - [disabled](#disabled) 禁用该表单项，非响应式，可用 updateFormDataT 方法更改，默认：`false`

@@ -6,13 +6,10 @@
 		v-bind="$attrs"
 		v-on="$listeners"
 		class="alCascaderMC"
-		ref="alCascaderRefLK"
 		v-model="valueT"
 		:level="level"
 		:disabled="disabled"
 		:placeholder="placeholder || t('r.pSelect')"
-		:transfer="transfer"
-		:searchable="filterable"
 	/>
 </template>
 
@@ -51,20 +48,6 @@
 					return false
 				}
 			},
-			transfer: {
-				/*弹出框元素直接放置于body下*/
-				type: Boolean,
-				default() {
-					return true
-				}
-			},
-			filterable: {
-				/*可搜索*/
-				type: Boolean,
-				default() {
-					return true
-				}
-			},
 			separator: {
 				/*地址名称分隔符*/
 				type: String,
@@ -80,23 +63,14 @@
 		computed: {
 			valueT: {
 				get() {
-					if (this.value && (_.isNumber(this.value) || _.isString(this.value))) {
+					if (this.value && (typeof this.value === 'string' || typeof this.value === 'number')) {
 						let temp = String(this.value).trim()
 
-						let regP = /^\d*$/
+						let regP = /^\d+$/
 						if (regP.test(temp)) {
-							let lv1 = temp.substr(0, 2) + '0000'
-							let lv2
-							let lv3 = this.getLastCode(temp)
-							if (lv3.length < 7) {
-								lv2 = temp.substr(0, 4) + '00'
-							} else {
-								lv2 = temp.substr(0, 6)
-							}
-							if (/^8\d+$/.test(temp)) {
-								return [lv1, lv3]
-							}
-							return [lv1, lv2, lv3]
+							let lv1 = temp.substring(0, 2) + '0000000000'
+							let lv2 = temp.substring(0, 4)+'00000000'
+							return [lv1, lv2, temp]
 						}
 
 						if (temp.indexOf(this.separator) !== -1) {
@@ -105,13 +79,11 @@
 						}
 
 						return [temp]
-					} else if (Array.isArray(this.value)) {
+					}
+					else if (Array.isArray(this.value)) {
 						return _.cloneDeep(this.value)
-					} else {
-						let refC = this.$refs.alCascaderRefLK
-						if (refC) {
-							refC.select = []
-						}
+					}
+					else {
 						return []
 					}
 				},
@@ -119,7 +91,8 @@
 					if (_.isEmpty(val)) {
 						this.$emit('subVal', null)
 						this.$emit('on-name-change', null)
-					} else {
+					}
+					else {
 						let last = _.last(val)
 						let code = null
 						let name = null
@@ -151,15 +124,6 @@
 						}
 					}
 				}
-			}
-		},
-		methods: {
-			getLastCode(d) {
-				let t = [...d]
-				while (t[t.length - 1] === '0') {
-					t.pop()
-				}
-				return t.join('')
 			}
 		}
 	}

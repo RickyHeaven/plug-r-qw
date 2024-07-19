@@ -56,11 +56,11 @@
 		name: 'alCascaderMCEX',
 		data() {
 			return {
-				value: null,
+				value: 500238000000,
 				value2: '重庆市',
 				value3: '山西省/大同市',
-				value5: 500112000000,
-				value6: null
+				value5:   441900105000,
+				value6: 110000000000
 			}
 		},
 		methods: {
