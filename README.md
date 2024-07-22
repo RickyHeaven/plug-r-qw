@@ -157,6 +157,7 @@
   把项目跑起来，就可以查看各个组件或方法的示例了。
 
 * 推荐使用[pnpm](https://pnpm.io/zh/motivation)作为你项目的包管理器
+  > 如果安装依赖失败，可能时npm镜像和库不一致，可根据提示安装对应的镜像（淘宝镜像https://registry.npmmirror.com、腾讯云镜像https://mirrors.cloud.tencent.com/npm/）后安装项目依赖
 
 * 你的项目使用`npm`作为包管理器时，plug-r-qw库使用了的依赖不用再次在你的项目安装
 
@@ -480,6 +481,7 @@
 
 * 推荐使用[pnpm](https://pnpm.io/zh/motivation)作为你项目的包管理器，但请注意，和使用npm不同，库使用了的依赖如`lodash`
   ，你项目在安装库后，想直接使用那些依赖提示“没有该模块”时，需要在你的项目安装该依赖（不能像使用npm时那样偷懒）。
+  > 如果安装依赖失败，可能时npm镜像和库不一致，可根据提示安装对应的镜像（淘宝镜像https://registry.npmmirror.com、腾讯云镜像https://mirrors.cloud.tencent.com/npm/）后安装项目依赖
 
 * 如果你的网络环境较差，安装依赖推荐使用*npm*加*淘宝镜像*的组合（*cnpm*在安装一些有自己脚本的依赖时很大机率会报错；
   *淘宝镜像*更新速度较慢，有时要隔一天才会拉到新的资源，所以在使用*淘宝镜像*有问题时，可以切回*官方镜像*
