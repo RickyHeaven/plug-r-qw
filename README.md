@@ -157,7 +157,7 @@
   把项目跑起来，就可以查看各个组件或方法的示例了。
 
 * 推荐使用[pnpm](https://pnpm.io/zh/motivation)作为你项目的包管理器
-  > 如果安装依赖失败，可更换国内的镜像再试（淘宝镜像https://registry.npmmirror.com、腾讯云镜像https://mirrors.cloud.tencent.com/npm/）
+  > 如果安装依赖失败，可更换国内的镜像再试，淘宝镜像https://registry.npmmirror.com，腾讯云镜像https://mirrors.cloud.tencent.com/npm/
 
 * 你的项目使用`npm`作为包管理器时，plug-r-qw库使用了的依赖不用再次在你的项目安装
 
