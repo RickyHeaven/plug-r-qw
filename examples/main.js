@@ -6,15 +6,18 @@ import { useStore } from './store'
 import VueI18n from 'vue-i18n'
 import en from './lang/en-US'
 import zh from './lang/zh-CN'
+import ru from './lang/ru-RU'
 import ViewUI from '@zhangqingcq/view-design-r'
 import enI from '@zhangqingcq/view-design-r/dist/locale/en-US'
 import zhI from '@zhangqingcq/view-design-r/dist/locale/zh-CN'
+import ruI from '@zhangqingcq/view-design-r/dist/locale/ru-RU'
 import './global/iViewTheme.less'
 import VueAMap from 'vue-amap'
 import plugRQw from '../src'
 import '../src/style/index.less'
 import enR from '../src/locale/lang/en-US'
 import zhR from '../src/locale/lang/zh-CN'
+import ruR from '../src/locale/lang/ru-RU'
 // import plugRQw from '../lib/plugRQw.umd.min.js'
 // import '../lib/plugRQw.min.css'
 // import enR from '../lib/lang/en-US'
@@ -31,7 +34,8 @@ Vue.use(VueI18n)
 
 const messages = {
 	en: { ...en, ...enI, ...enR },
-	zh: { ...zh, ...zhI, ...zhR }
+	zh: { ...zh, ...zhI, ...zhR },
+	ru: { ...ru, ...ruI, ...ruR }
 }
 
 const i18n = new VueI18n({

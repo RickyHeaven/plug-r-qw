@@ -2,10 +2,11 @@
 	<div class="home">
 		<div class="btBox">
 			{{ $t('r.testMsg') + ' | ' + $t('e.testTxt') }}
-			<i-switch size="large" v-model="localeT" style="margin-right: 10px">
-				<span slot="open">ENG</span>
-				<span slot="close">CN</span>
-			</i-switch>
+			<Select v-model="locale" style="margin-right: 10px;width: 80px;">
+				<Option value="zh">中文</Option>
+				<Option value="en">English</Option>
+				<Option value="ru">Pусский</Option>
+			</Select>
 			<span @click="loginH">{{ isLogin ? '登出' : '登录' }}</span>
 		</div>
 		<img class="brandK" alt="Vue logo" src="../assets/logo.png" />
@@ -60,20 +61,12 @@
 		data() {
 			return {
 				active: [],
-				routeArr: []
+				routeArr: [],
+				locale: window.localStorage.getItem('locale')||'zh'
 			}
 		},
 		computed: {
-			...mapState(useStore, ['isLogin']),
-			...mapWritableState(useStore, ['locale']),
-			localeT: {
-				get() {
-					return this.$i18n.locale === 'en'
-				},
-				set(val) {
-					this.$i18n.locale = val ? 'en' : 'zh'
-				}
-			}
+			...mapState(useStore, ['isLogin']), ...mapWritableState(useStore, ['locale'])
 		},
 		created() {
 			this.routeArr = this.$router.options.routes.filter((e) => {
@@ -83,10 +76,9 @@
 			})
 		},
 		watch: {
-			localeT(after) {
-				const t = after ? 'en' : 'zh'
-				this.locale = t
-				window.localStorage.setItem('locale', t)
+			locale(after) {
+				this.$i18n.locale = after
+				window.localStorage.setItem('locale', after)
 			}
 		},
 		methods: {
@@ -94,7 +86,8 @@
 				if (this.isLogin) {
 					const store = useStore()
 					store.logout()
-				} else {
+				}
+				else {
 					this.$router.push('login')
 				}
 			}
@@ -265,9 +258,8 @@
 		-webkit-transition: -webkit-transform 0.3s;
 		transition: -webkit-transform 0.3s;
 		transition: transform 0.3s;
-		transition:
-			transform 0.3s,
-			-webkit-transform 0.3s;
+		transition: transform 0.3s,
+		-webkit-transform 0.3s;
 	}
 
 	.bz-button-animated.horizontal:before,
