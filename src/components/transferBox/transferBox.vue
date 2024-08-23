@@ -38,12 +38,14 @@
 		</div>
 
 		<div class="middleBoxLLL">
-			<Button class="middleBtLLL" type="default" @click="removeAll" :disabled="delAllDis"
-				>{{ t('r.removeAll') }}
+			<Button
+				class="middleBtLLL" type="default" @click="removeAll" :disabled="delAllDis"
+			>{{ t('r.removeAll') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
-			<Button class="middleBtLLL" type="default" @click="remove" :disabled="deleteDis"
-				>{{ t('r.remove') }}
+			<Button
+				class="middleBtLLL" type="default" @click="remove" :disabled="deleteDis"
+			>{{ t('r.remove') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
 			<Button class="middleBtLLL" type="primary" @click="add" :disabled="addDis">
@@ -232,16 +234,23 @@
 			showTotal: {
 				/*page是否展示total*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowTotal
 				}
 			},
 			showSizer: {
 				/*page是否展示sizer*/
 				type: Boolean,
-				default(){
+				default() {
 					return this.pageShowSizer
 				}
+			},
+			leftSearchDataFilter: {
+				/*条件查询数据处理回调*/
+				type: Function
+			},
+			rightSearchDataFilter: {
+				type: Function
 			}
 		},
 		data() {
@@ -314,11 +323,21 @@
 			},
 			searchLeft(d) {
 				/*私有*/
-				this.searchDataLeft = d
+				if (typeof this.leftSearchDataFilter === 'function') {
+					this.searchDataLeft = this.leftSearchDataFilter(d)
+				}
+				else {
+					this.searchDataLeft = d
+				}
 			},
 			searchRight(d) {
 				/*私有*/
-				this.searchDataRight = d
+				if (typeof this.rightSearchDataFilter === 'function') {
+					this.searchDataRight = this.rightSearchDataFilter(d)
+				}
+				else {
+					this.searchDataRight = d
+				}
 			},
 			add() {
 				/*私有*/
@@ -380,7 +399,8 @@
 									this.$refs.rTabRef.getTableData()
 								}
 								this.$emit('transferred')
-							} else {
+							}
+							else {
 								this.$swal(msg + this.t('r.failed'), r?.message || '', 'error')
 							}
 						})
