@@ -6,10 +6,11 @@
 
 - data: 数组，菜单结构数据，如：
 
-```$xslt
+```json
 [
   {
     "name": "面条",
+    "icon": "icon-tree2",
     "level": 1,
     "path": "/noodles",
     "children": [
@@ -27,16 +28,19 @@
   },
   {
     "name": "稀饭",
+    "icon": "icon-css3",
     "level": 1,
     "path": "/conjee"
   },
   {
     "name": "馒头",
+    "icon": "icon-selectScrollMore",
     "level": 1,
     "path": "/steamedBun"
   },
   {
     "name": "川菜",
+    "icon": "icon-formModal",
     "level": 1,
     "path": "/sichuanCuisine",
     "children": [
@@ -68,6 +72,23 @@
             "path": "/sichuanCuisine/combo/shreddedPorkWithGreenPepper"
           },
           {
+            "name": "回锅肉",
+            "level": 3,
+            "path": "/sichuanCuisine/combo/twiceCookedPork",
+            "children": [
+              {
+                "name": "加豆干",
+                "level": 4,
+                "path": "/sichuanCuisine/combo/twiceCookedPork/sideMenuPro"
+              },
+              {
+                "name": "加洋葱",
+                "level": 4,
+                "path": "/sichuanCuisine/combo/twiceCookedPork/onion"
+              }
+            ]
+          },
+          {
             "name": "宫保鸡丁",
             "level": 3,
             "path": "/sichuanCuisine/combo/kungPaoChicken"
@@ -78,6 +99,7 @@
   }
 ]
 ```
+- light: 布尔值，是否开启浅色模式，默认：`false`
 
 ### 注意
 
@@ -86,3 +108,5 @@
 - 菜单的激活样式需要配合 vue-router 的`linkActiveClass`配置实现，需将其值设置为`'active'`。
 
 - `name`为菜单项展示的 label；`level`为菜单项左侧缩进宽度，按级别递增，从 1 级开始；`path`为菜单项点击后跳转的地址，为完整路径；如接口数据结构不满足前面要求，自己调整成规定格式后传入使用。
+
+- 菜单项`icon`为iconfont图标，你可以使用任何你喜欢的iconfont图标（使用方法参考本库示例）。

@@ -1,5 +1,5 @@
 <template>
-	<div ref="menuRefRJ" class="menuBoxRP">
+	<div ref="menuRefRP" :class="['menuBoxRP','cannotSelect',{light:light}]">
 		<div class="menuListR" v-show="menuDisplay">
 			<side-menu-group :data="data" :pathName="pathName" />
 		</div>
@@ -18,6 +18,7 @@
 <script>
 	import Locale from '../../mixins/locale'
 	import SideMenuGroup from './sideMenuGroup'
+	import { setTimeout } from '../../utils/timer'
 
 	export default {
 		name: 'sideMenu',
@@ -29,6 +30,9 @@
 				default() {
 					return []
 				}
+			},
+			light: {
+				type: Boolean
 			}
 		},
 		computed: {
@@ -59,8 +63,8 @@
 			$route: {
 				handler(after) {
 					this.pathName = after.path
-					this.$nextTick(function () {
-						this.addOpen()
+					this.$nextTick(function(){
+						setTimeout(this.addOpen,10)
 					})
 				},
 				immediate: true
@@ -73,7 +77,7 @@
 				this.$emit('on-change', this.menuDisplay)
 			},
 			addOpen() {
-				let t = this.$refs.menuRefRJ.querySelectorAll('.dropItemRP')
+				let t = this.$refs.menuRefRP.querySelectorAll('.dropItemRP')
 				for (let e of t) {
 					if (e?.querySelector?.('.active') && !e?.classList?.contains?.('open')) {
 						e.classList.add?.('open')

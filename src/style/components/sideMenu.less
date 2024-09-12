@@ -4,6 +4,7 @@
 .menuBoxRP {
   position: relative;
   border-top: 1px solid lighten(@sideMenuColor, 5%);
+  background-color: @sideMenuColor;
   font-size: 14px;
 
   * {
@@ -37,23 +38,50 @@
     order: -1;
     padding: 0;
     overflow: hidden;
-    background-color: @sideMenuColor;
     overflow-y: auto;
 
     .groupBoxRP {
       > li {
         cursor: pointer;
 
-        > .menuTxtR {
-          padding-top: 16px;
-          padding-bottom: 16px;
+        &.dropItemRP > .menuTxtR{
+          font-weight: bold;
+        }
 
-          &.active {
-            background-color: rgba(255, 255, 255, 0.1);
+        > .menuTxtR {
+          position: relative;
+          padding-top: 9px;
+          padding-bottom: 9px;
+          &:before, &:after {
+            content: '';
+            height: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
           }
 
-          &:hover {
-            background-color: rgba(255, 255, 255, 0.08);
+          &.active{
+            font-weight: bold;
+          }
+
+          &.active, &:hover {
+            &:before {
+              background-color: #fff;
+              display: block;
+              width: 100%;
+            }
+          }
+
+          &.active:before{
+            opacity: 0.06;
+          }
+          &.active:after {
+            border: 3px solid transparent;
+            border-left-color: #eee;
+          }
+
+          &:hover:before {
+            opacity: 0.04;
           }
         }
 
@@ -62,7 +90,7 @@
 
           &:before {
             position: absolute;
-            top: 0.96875rem;
+            top: 0.65rem;
             right: 1rem;
             display: block;
             width: 0.875rem;
@@ -89,6 +117,10 @@
             }
           }
         }
+
+        .menuIcoL {
+          margin-right: 8px;
+        }
       }
     }
   }
@@ -107,6 +139,51 @@
 
     &:hover {
       opacity: 1;
+    }
+  }
+}
+
+.menuBoxRP.light {
+  border-top: 1px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.08);
+
+  * {
+    /*修改滚动条样式*/
+
+    &::-webkit-scrollbar-track {
+      background-color: lighten(#777, 45%);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lighten(#777, 35%);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: lighten(#777, 30%);
+    }
+  }
+
+  .menuListR {
+    color: inherit;
+
+    .groupBoxRP .menuTxtR{
+      &.active, &:hover {
+        &:before {
+          background-color: @sideMenuColor;
+        }
+      }
+
+      &.active:before{
+        opacity: 0.1;
+      }
+      &.active:after {
+        border-left-color: @sideMenuColor;
+      }
+
+      &:hover:before {
+        opacity: 0.08;
+      }
     }
   }
 }

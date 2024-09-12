@@ -300,6 +300,16 @@ export default new VueRouter({
 						icon: 'icon-leftMenu',
 						cls: 'counterclockwise horizontal'
 					}
+				},{
+					path: '/sichuanCuisine/combo/twiceCookedPork/sideMenuPro',
+					name: 'sideMenuPro',
+					component: () => import('./components/sideMenuProEX.vue'),
+					meta: {
+						title: '组件：侧边菜单',
+						bg: 'linear-gradient(to right, #252566, #5136a7, #170f56)',
+						icon: 'icon-menu',
+						cls: 'counterclockwise horizontal'
+					}
 				},
 				{
 					path: '/showHidePanel',

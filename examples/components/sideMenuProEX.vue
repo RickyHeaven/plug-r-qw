@@ -2,20 +2,20 @@
 	<div class="sideMenuEX">
 		<toHome />
 
-		<sideMenu :data="data"/>
+		<sideMenuPro :data="data" light/>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'sideMenuEX',
+		name: 'sideMenuProEX',
 		data() {
 			return {
 				data: []
 			}
 		},
 		created() {
-			this.$fetch.get('testData/sideMenu.json').then((r) => {
+			this.$fetch.get('testData/sideMenuPro.json').then((r) => {
 				this.data = r
 			})
 		}

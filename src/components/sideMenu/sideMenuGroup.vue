@@ -7,7 +7,8 @@
 				@click="handleClick($event, item)"
 				:style="{ paddingLeft: item?.level * 20 + 'px' }"
 			>
-				{{ item?.name || '-- no name --' }}
+				<Icon class="menuIcoL" :custom="'iconfont '+item.icon" v-if="item?.icon" />
+				<span>{{ item?.name || '-- no name --' }}</span>
 			</div>
 			<sideMenuGroup :data="item?.children" v-if="item?.children" :path-name="pathName" />
 		</li>

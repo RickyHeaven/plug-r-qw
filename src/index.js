@@ -32,6 +32,7 @@ import transferBox from './components/transferBox/transferBox.vue'
 import fixedFullModal from './components/fixedFullModal/fixedFullModal.vue'
 import page404 from './components/page404/page404.vue'
 import sideMenu from './components/sideMenu/sideMenu.vue'
+import sideMenuPro from './components/sideMenuPro/sideMenuPro.vue'
 import tableTooltip from './components/tableTooltip/tableTooltip.vue'
 import messageBox from './utils/messageBox.js'
 import $swal from './utils/swal.js'
@@ -129,6 +130,7 @@ const components = {
 	fixedFullModal,
 	page404,
 	sideMenu,
+	sideMenuPro,
 	monthRange
 }
 

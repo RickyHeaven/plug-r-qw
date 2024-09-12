@@ -63,9 +63,21 @@
             "path": "/sichuanCuisine/combo/shreddedPorkWithGreenPepper"
           },
           {
-            "name": "侧边菜单示例页面",
+            "name": "回锅肉",
             "level": 3,
-            "path": "/sichuanCuisine/combo/sideMenu"
+            "path": "/sichuanCuisine/combo/twiceCookedPork",
+            "children": [
+              {
+                "name": "加豆干",
+                "level": 4,
+                "path": "/sichuanCuisine/combo/twiceCookedPork/sideMenuPro"
+              },
+              {
+                "name": "加洋葱",
+                "level": 4,
+                "path": "/sichuanCuisine/combo/twiceCookedPork/onion"
+              }
+            ]
           },
           {
             "name": "宫保鸡丁",

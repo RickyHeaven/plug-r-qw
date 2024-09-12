@@ -18,7 +18,7 @@
 
 - 卡片内容通过默认插槽引入，可以直接放在标签内，如：
 
-```$xslt
+```
 <wellCard title="模块A">
     我是内容~~~~~~~~~~
 </wellCard>
@@ -26,7 +26,7 @@
 
 - 顶部按钮通过 slot 引入，插槽名为*bts*，如：
 
-```$xslt
+```
 <template #bts>
     <div class="fullHeight tr">
         <Button class="headerBt withIcoL" type="text" @click="handleClick" size="small" ghost>

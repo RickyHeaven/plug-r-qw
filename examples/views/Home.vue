@@ -2,7 +2,7 @@
 	<div class="home">
 		<div class="btBox">
 			{{ $t('r.testMsg') + ' | ' + $t('e.testTxt') }}
-			<Select v-model="locale" style="margin-right: 10px;width: 80px;">
+			<Select v-model="localeT" style="margin-right: 10px;width: 80px;">
 				<Option value="zh">中文</Option>
 				<Option value="en">English</Option>
 				<Option value="ru">Pусский</Option>
@@ -62,7 +62,7 @@
 			return {
 				active: [],
 				routeArr: [],
-				locale: window.localStorage.getItem('locale')||'zh'
+				localeT: window.localStorage.getItem('locale')||'zh'
 			}
 		},
 		computed: {
@@ -76,7 +76,7 @@
 			})
 		},
 		watch: {
-			locale(after) {
+			localeT(after) {
 				this.$i18n.locale = after
 				window.localStorage.setItem('locale', after)
 			}
