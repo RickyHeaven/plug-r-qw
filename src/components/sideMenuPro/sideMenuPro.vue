@@ -41,7 +41,7 @@
 				return this.menuDisplay ? this.t('r.hideMenu') : this.t('r.showMenu')
 			},
 			typeIco() {
-				return this.menuDisplay ? 'iconfont icon-shousuocaidan' : 'iconfont icon-zhankaicaidan'
+				return this.menuDisplay ? 'iconfont icon-r-shousuocaidan' : 'iconfont icon-r-zhankaicaidan'
 			}
 		},
 		data() {

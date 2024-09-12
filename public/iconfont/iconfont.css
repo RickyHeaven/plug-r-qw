@@ -2,9 +2,9 @@
   font-family: "iconfont"; /* Project id 3365934 */
   /* Color fonts */
   src: 
-       url('iconfont.woff2?t=1726125325443') format('woff2'),
-       url('iconfont.woff?t=1726125325443') format('woff'),
-       url('iconfont.ttf?t=1726125325443') format('truetype');
+       url('iconfont.woff2?t=1726126542951') format('woff2'),
+       url('iconfont.woff?t=1726126542951') format('woff'),
+       url('iconfont.ttf?t=1726126542951') format('truetype');
 }
 
 .iconfont {
@@ -13,14 +13,6 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-shousuocaidan:before {
-  content: "\e659";
-}
-
-.icon-zhankaicaidan:before {
-  content: "\e655";
 }
 
 .icon-menu:before {
