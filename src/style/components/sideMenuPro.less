@@ -55,7 +55,8 @@
       }
 
       > .menuTxtR:hover,
-      &.open > .menuTxtR {
+      &.open > .menuTxtR,
+      > .menuTxtR.active {
         background-color: rgba(255, 255, 255, 0.15);
       }
     }
@@ -238,7 +239,8 @@
     color: inherit;
 
     & > li > .menuTxtR:hover,
-    & > li.open > .menuTxtR {
+    & > li.open > .menuTxtR,
+    & > li> .menuTxtR.active {
       color: #fff;
       background-color: @sideMenuColor;
     }
