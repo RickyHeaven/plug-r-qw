@@ -203,22 +203,18 @@
     }
   }
 
-  .icoMenuR > li > .rightTwoMenu,
-  .menuListR {
+  .menuListR,
+  .icoMenuR > li > .rightTwoMenu {
     color: inherit;
+  }
 
-    .menuTxtR:hover {
-      &:after {
-        background-color: @sideMenuColor;
-        opacity: 0.05;
-      }
-    }
-
+  .icoMenuR > li > .rightTwoMenu.groupBoxRX,
+  .menuListR .groupBoxRX {
     .dropIcoRX:before {
       color: #999;
     }
 
-    .groupBoxRX .menuTxtR {
+    .menuTxtR {
       &.active, &:hover {
         color: @sideMenuColor;
 
@@ -227,10 +223,15 @@
           opacity: 0.05;
         }
       }
-    }
 
-    .groupBoxRX .menuTxtR.active:after {
-      border-left-color: @sideMenuColor;
+      &:hover:after {
+        background-color: @sideMenuColor;
+        opacity: 0.05;
+      }
+
+      &.active:after {
+        border-left-color: @sideMenuColor;
+      }
     }
   }
 
@@ -240,7 +241,7 @@
 
     & > li > .menuTxtR:hover,
     & > li.open > .menuTxtR,
-    & > li> .menuTxtR.active {
+    & > li > .menuTxtR.active {
       color: #fff;
       background-color: @sideMenuColor;
     }
