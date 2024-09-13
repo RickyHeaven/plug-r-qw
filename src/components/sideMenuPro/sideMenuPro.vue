@@ -84,8 +84,8 @@
 					const ico = e?.querySelector?.('.dropIcoRX')
 					if (e?.querySelector?.('.active')) {
 						if(e?.childNodes[1]?.classList?.contains?.('rightChildRX')){
-							if (!e?.childNodes[0]?.classList?.contains?.('active')) {
-								e?.childNodes[0].classList.add?.('active')
+							if (!e?.childNodes[0]?.classList?.contains?.('activeR')) {
+								e?.childNodes[0].classList.add?.('activeR')
 							}
 						}else {
 							if (!e?.classList?.contains?.('open')) {
@@ -93,6 +93,19 @@
 							}
 							if (ico && !ico?.classList?.contains?.('open')) {
 								ico.classList.add?.('open')
+							}
+						}
+					}else {
+						if(e?.childNodes[1]?.classList?.contains?.('rightChildRX')){
+							if (e?.childNodes[0]?.classList?.contains?.('activeR')) {
+								e?.childNodes[0].classList.remove?.('activeR')
+							}
+						}else {
+							if (e?.classList?.contains?.('open')&&!e?.classList?.contains?.('fromIcoMenu')) {
+								e.classList.remove?.('open')
+							}
+							if (ico && !ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
+								ico.classList.remove?.('open')
 							}
 						}
 					}

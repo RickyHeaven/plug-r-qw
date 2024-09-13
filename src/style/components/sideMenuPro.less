@@ -56,7 +56,8 @@
 
       > .menuTxtR:hover,
       &.open > .menuTxtR,
-      > .menuTxtR.active {
+      > .menuTxtR.active,
+      > .menuTxtR.activeR {
         background-color: rgba(255, 255, 255, 0.15);
       }
     }
@@ -144,7 +145,7 @@
       bottom: 0;
     }
 
-    &.active, &:hover {
+    &.active, &.activeR, &:hover {
       &:before {
         background-color: #fff;
         display: block;
@@ -153,7 +154,7 @@
       }
     }
 
-    &.active {
+    &.active, &.activeR {
       font-weight: bold;
 
       &:after {
@@ -215,7 +216,7 @@
     }
 
     .menuTxtR {
-      &.active, &:hover {
+      &.active, &.activeR, &:hover {
         color: @sideMenuColor;
 
         &:before {
@@ -229,7 +230,7 @@
         opacity: 0.05;
       }
 
-      &.active:after {
+      &.active:after, &.activeR:after {
         border-left-color: @sideMenuColor;
       }
     }
@@ -241,7 +242,8 @@
 
     & > li > .menuTxtR:hover,
     & > li.open > .menuTxtR,
-    & > li > .menuTxtR.active {
+    & > li > .menuTxtR.active,
+    & > li > .menuTxtR.activeR {
       color: #fff;
       background-color: @sideMenuColor;
     }

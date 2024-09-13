@@ -1,6 +1,6 @@
 <template>
 	<ul class="groupBoxRX">
-		<li :class="{dropItemRX:item?.children,open:fromIcoMenu}" v-for="(item, i) of data" :key="item?.path + i">
+		<li :class="{dropItemRX:item?.children,open:fromIcoMenu,fromIcoMenu:fromIcoMenu}" v-for="(item, i) of data" :key="item?.path + i">
 			<div
 				:class="getClass(item)"
 				@click="handleClick($event, item)"
@@ -8,7 +8,7 @@
 			>
 				<Icon class="menuIcoL" :custom="'iconfont '+item.icon" />
 				<span>{{ item?.name || '-- no name --' }}</span>
-				<Icon :class="['dropIcoRX',{open:fromIcoMenu}]" type="ios-arrow-forward" v-show="item.children && item.children.length > 0" />
+				<Icon :class="['dropIcoRX',{open:fromIcoMenu,fromIcoMenu:fromIcoMenu}]" type="ios-arrow-forward" v-show="item.children && item.children.length > 0" />
 			</div>
 			<sideMenuProGroup :data="item?.children" v-if="item?.children" :path-name="pathName" fromIcoMenu/>
 		</li>
