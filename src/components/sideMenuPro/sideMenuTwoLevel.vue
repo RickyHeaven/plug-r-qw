@@ -10,7 +10,7 @@
 				<span>{{ item?.name || '-- no name --' }}</span>
 				<Icon :class="['dropIcoRX',{open:fromIcoMenu,fromIcoMenu:fromIcoMenu}]" type="ios-arrow-forward" v-show="item.children && item.children.length > 0" />
 			</div>
-			<sideMenuProGroup :data="item?.children" v-if="item?.children" :path-name="pathName" fromIcoMenu/>
+			<sideMenuProGroup :data="item?.children" v-if="item?.children" :path-name="pathName"/>
 		</li>
 	</ul>
 </template>

@@ -81,7 +81,7 @@
 			addOpen() {
 				let t = this.$refs.menuRefRX.querySelectorAll('.dropItemRX')
 				for (let e of t) {
-					const ico = e?.querySelector?.('.dropIcoRX')
+					const ico = e?.childNodes[0]?.querySelector?.('.dropIcoRX')
 					if (e?.querySelector?.('.active')) {
 						if(e?.childNodes[1]?.classList?.contains?.('rightChildRX')){
 							if (!e?.childNodes[0]?.classList?.contains?.('activeR')) {
@@ -104,7 +104,7 @@
 							if (e?.classList?.contains?.('open')&&!e?.classList?.contains?.('fromIcoMenu')) {
 								e.classList.remove?.('open')
 							}
-							if (ico && !ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
+							if (ico && ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
 								ico.classList.remove?.('open')
 							}
 						}
