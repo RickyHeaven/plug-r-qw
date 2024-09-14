@@ -10,7 +10,7 @@
 				:class="getClass(item)"
 				@click="handleClick($event, item)"
 			>
-				<Icon class="menuIcoM" :custom="'iconfont '+item.icon" size="20" />
+				<Icon class="menuIcoM" :custom="'iconfont '+(item.icon||'icon-r-menu-default')" size="20"/>
 			</div>
 			<sideMenuTwoLevel class="rightTwoMenu" v-show="current===item?.path" :data="[item]" :pathName="pathName" fromIcoMenu/>
 		</li>

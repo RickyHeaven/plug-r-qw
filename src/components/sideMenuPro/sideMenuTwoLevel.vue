@@ -6,7 +6,7 @@
 				@click="handleClick($event, item)"
 				:style="{ paddingLeft: item?.level * 20 + 'px' }"
 			>
-				<Icon class="menuIcoL" :custom="'iconfont '+item.icon" />
+				<Icon class="menuIcoL" :custom="'iconfont '+(item.icon||'icon-r-menu-default')" />
 				<span>{{ item?.name || '-- no name --' }}</span>
 				<Icon :class="['dropIcoRX',{open:fromIcoMenu,fromIcoMenu:fromIcoMenu}]" type="ios-arrow-forward" v-show="item.children && item.children.length > 0" />
 			</div>
