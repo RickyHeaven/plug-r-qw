@@ -104,7 +104,7 @@
 							if (e?.classList?.contains?.('open')&&!e?.classList?.contains?.('fromIcoMenu')) {
 								e.classList.remove?.('open')
 							}
-							if (ico && ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
+							if (ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
 								ico.classList.remove?.('open')
 							}
 						}

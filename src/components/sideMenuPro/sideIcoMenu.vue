@@ -52,7 +52,7 @@
 				e?.preventDefault?.()
 				let target = e?.target
 
-				if (!item?.children && !target.classList.contains('active')) {
+				if (item && !item?.children && !target.classList.contains('active')) {
 					this.$router.push(item?.path)
 				}
 			},
