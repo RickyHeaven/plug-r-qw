@@ -1,8 +1,8 @@
 <template>
-	<router-link to="/index" :style="{ color: color }" class="backLink">
+	<div @click="goBack" :style="{ color: color }" class="backLink">
 		<Icon type="md-rewind" />
 		返回
-	</router-link>
+	</div>
 </template>
 
 <script>
@@ -15,6 +15,11 @@
 					return '#46be87'
 				}
 			}
+		},
+		methods: {
+			goBack() {
+				this.$router.go(-1)
+			}
 		}
 	}
 </script>
@@ -24,6 +29,8 @@
 		z-index: 10;
 		top: 20px;
 		right: 40px;
+		cursor: pointer;
+
 		&:hover {
 			opacity: 0.85;
 		}

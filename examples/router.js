@@ -300,7 +300,8 @@ export default new VueRouter({
 						icon: 'icon-leftMenu',
 						cls: 'counterclockwise horizontal'
 					}
-				},{
+				},
+				{
 					path: '/sichuanCuisine/combo/twiceCookedPork/sideMenuPro',
 					name: 'sideMenuPro',
 					component: () => import('./components/sideMenuProEX.vue'),

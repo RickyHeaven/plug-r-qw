@@ -4,10 +4,12 @@
 		<toHome />
 		<div class="headBR relativeBox">
 			<tableSetting class="fr" v-model="columns" sKey="tableSettingEx_202007030903" defaultCheck transfer />
-			<Checkbox v-model="nodeServer" class="fr" style="margin-right: 25px;" @on-change="getData">切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox>
+			<Checkbox v-model="nodeServer" class="fr" style="margin-right: 25px" @on-change="getData"
+				>切换为node-serve数据(需开启项目nodeJs服务器)</Checkbox
+			>
 		</div>
 		<div class="tableLK">
-			<bt-table-page ref="btTab" :columns="columns" :url="url" table-empty-td-handle/>
+			<bt-table-page ref="btTab" :columns="columns" :url="url" table-empty-td-handle />
 		</div>
 	</div>
 </template>
@@ -91,12 +93,12 @@
 				]
 			}
 		},
-		computed:{
+		computed: {
 			url() {
 				return this.nodeServer ? '/node-serve/bt-table-page' : location.pathname + 'testData/btTablePage.json'
 			}
 		},
-		methods:{
+		methods: {
 			getData() {
 				this.$nextTick(function () {
 					this.$refs.btTab.getTableData()

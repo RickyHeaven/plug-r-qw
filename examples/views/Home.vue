@@ -2,7 +2,7 @@
 	<div class="home">
 		<div class="btBox">
 			{{ $t('r.testMsg') + ' | ' + $t('e.testTxt') }}
-			<Select v-model="localeT" style="margin-right: 10px;width: 80px;">
+			<Select v-model="localeT" style="margin-right: 10px; width: 80px">
 				<Option value="zh">中文</Option>
 				<Option value="en">English</Option>
 				<Option value="ru">Pусский</Option>
@@ -62,11 +62,12 @@
 			return {
 				active: [],
 				routeArr: [],
-				localeT: window.localStorage.getItem('locale')||'zh'
+				localeT: window.localStorage.getItem('locale') || 'zh'
 			}
 		},
 		computed: {
-			...mapState(useStore, ['isLogin']), ...mapWritableState(useStore, ['locale'])
+			...mapState(useStore, ['isLogin']),
+			...mapWritableState(useStore, ['locale'])
 		},
 		created() {
 			this.routeArr = this.$router.options.routes.filter((e) => {
@@ -86,8 +87,7 @@
 				if (this.isLogin) {
 					const store = useStore()
 					store.logout()
-				}
-				else {
+				} else {
 					this.$router.push('login')
 				}
 			}
@@ -258,8 +258,9 @@
 		-webkit-transition: -webkit-transform 0.3s;
 		transition: -webkit-transform 0.3s;
 		transition: transform 0.3s;
-		transition: transform 0.3s,
-		-webkit-transform 0.3s;
+		transition:
+			transform 0.3s,
+			-webkit-transform 0.3s;
 	}
 
 	.bz-button-animated.horizontal:before,

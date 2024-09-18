@@ -6,8 +6,8 @@
 			<div>单张图全屏预览</div>
 		</div>
 		<div class="linkM">
-			<img src="../assets/testo.png" alt="testo" @click="imagesPreview(0)"/>
-			<img src="../assets/logo.png" alt="logo"  @click="imagesPreview(1)"/>
+			<img src="../assets/testo.png" alt="testo" @click="imagesPreview(0)" />
+			<img src="../assets/logo.png" alt="logo" @click="imagesPreview(1)" />
 			<div @click="imagesPreview(0)">多张图全屏预览</div>
 		</div>
 	</div>
@@ -23,20 +23,20 @@
 			clickHandle() {
 				this.fullScreenImgByDom(testo)
 			},
-			imagesPreview(i){
-				this.fullScreenImgByDom([testo,logo],i)
+			imagesPreview(i) {
+				this.fullScreenImgByDom([testo, logo], i)
 			}
 		}
 	}
 </script>
 <style lang="less" scoped>
-	.linkM{
+	.linkM {
 		width: 300px;
 		display: inline-block;
-		img{
+		img {
 			display: inline-block;
 			height: 80px;
-			&+img{
+			& + img {
 				margin-left: 20px;
 			}
 		}

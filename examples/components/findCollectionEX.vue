@@ -37,9 +37,11 @@
 						<p v-if="n % 2 === 0"> 注意：这只是有效条件的一种，实际使用中自行发挥 </p>
 						<div class="outBoxS">
 							<Input v-model.number="valA[n]" placeholder="YYY" style="width: 39%" v-if="n % 2 === 0" />
-							<Input v-model.number="valV[n - 1]" placeholder="XXX" :style="{ width: n % 2 === 0 ? '60%' : '100%' }"
-								><Button #append @click="find(n)">测试</Button></Input
-							>
+							<Input v-model.number="valV[n - 1]" placeholder="XXX" :style="{ width: n % 2 === 0 ? '60%' : '100%' }">
+								<template #append>
+									<Button @click="find(n)">测试</Button>
+								</template>
+							</Input>
 						</div>
 						<div class="rsB">
 							<span>查找结果</span>
@@ -177,6 +179,7 @@
 	.flexBb {
 		display: flex;
 		flex-wrap: wrap;
+
 		.wellsL {
 			width: 320px;
 			margin-right: 10px;
@@ -186,11 +189,13 @@
 			.wellInnerK {
 				padding-top: 10px;
 				padding-left: 10px;
+
 				.outBoxS {
 					margin-top: 10px;
 					padding: 0 30px;
 					display: flex;
 				}
+
 				.rsB {
 					padding: 10px 10px 10px 0;
 				}

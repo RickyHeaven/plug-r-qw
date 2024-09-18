@@ -1,8 +1,9 @@
 <template>
 	<div class="sideMenuEX">
 		<toHome />
+		<showReadMe />
 
-		<sideMenu :data="data"/>
+		<sideMenu :data="data" />
 	</div>
 </template>
 
