@@ -19,6 +19,7 @@
 			:form-data="formData"
 			:label-width="labelWidth"
 			:btnLoading="btnLoading"
+			:disabled="disabled"
 			@on-submit="onSubmit"
 		>
 			<template #[item?.slotName]="{ valGroup }" v-for="item in formDataC">
@@ -26,7 +27,7 @@
 			</template>
 		</form-r>
 		<template #footer>
-			<Button @click="submit" class="modal-save-btn" :loading="btnLoading && showLoading">{{
+			<Button @click="submit" class="modal-save-btn" :loading="btnLoading && showLoading" :disabled="disabled">{{
 				okBtTxt || t('r.confirm')
 			}}</Button>
 			<Button @click="close" class="modal-cancel-btn" v-if="!hideCancelBt">{{ cancelBtTxt || t('r.cancel') }}</Button>
@@ -92,6 +93,11 @@
 			},
 			btnLoading: {
 				/*提交按钮显示loading*/
+				type: Boolean,
+				default: false
+			},
+			disabled: {
+				/*组件禁用（只展示信息）*/
 				type: Boolean,
 				default: false
 			}
