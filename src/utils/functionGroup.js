@@ -513,7 +513,7 @@ export function tooltipManual(contentKey, dash = false, jointMark = '') {
 
 		return h('tableTooltip', {
 			props: {
-				content: dash ? (content === '' ? '--' : content ?? '--') : content
+				content: dash ? (content === '' ? '--' : (content ?? '--')) : content
 			}
 		})
 	}

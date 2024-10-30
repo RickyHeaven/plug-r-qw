@@ -240,8 +240,8 @@
 				fullScreenImgByDom: fullScreenImgByDom,
 				fileSrcList: [], //本地图片模式图片文件地址集合
 				fileDefaultList: [], //从服务器返回的数据整理完成的文件集合
-				localImgSrcList:[],// 本地图片地址集合
-				tempStorage:{}
+				localImgSrcList: [], // 本地图片地址集合
+				tempStorage: {}
 			}
 		},
 		computed: {
@@ -354,8 +354,8 @@
 			}
 		},
 		watch: {
-			localImgList:{
-				async handler(after){
+			localImgList: {
+				async handler(after) {
 					this.localImgSrcList = await this.getFileSrcList(after)
 				}
 			},
@@ -379,11 +379,11 @@
 										//本地有名字，在本地拿
 										item.name = fileT.name
 										item.mimeType = fileT.mimeType
-									} else if(this.tempStorage.hasOwnProperty(item.id)){
+									} else if (this.tempStorage.hasOwnProperty(item.id)) {
 										//缓存有信息，在缓存拿取
 										item.name = this.tempStorage[item.id].name
 										item.mimeType = this.tempStorage[item.id].mimeType
-									}else {
+									} else {
 										//本地没有，去服务器拿
 										item.mimeType = 'loading'
 										$fetch
@@ -517,7 +517,7 @@
 					file.name = response.data?.[0]?.name
 					file.mimeType = response.data?.[0]?.mimeType
 					//将文件信息存起来，不用再去服务器拉取了
-					this.tempStorage[file.id] = {name:file.name,mimeType:file.mimeType}
+					this.tempStorage[file.id] = { name: file.name, mimeType: file.mimeType }
 					temp.push(file)
 					this.fileList = temp
 				} else {

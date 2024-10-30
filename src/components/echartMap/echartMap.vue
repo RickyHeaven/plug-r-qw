@@ -506,11 +506,11 @@
 				window.echartResizeMJ = {}
 			}
 			if (!window.echartResizeMJ[me.name]) {
-				window.addEventListener('resize',me.resizeHandler)
+				window.addEventListener('resize', me.resizeHandler)
 			}
 		},
 		methods: {
-			resizeHandler(){
+			resizeHandler() {
 				if (this.myChart) {
 					this.myChart.resize()
 					window.echartResizeMJ[this.name] = true
@@ -840,7 +840,7 @@
 				this.myChart = null
 				window.echartResizeMJ = {}
 			}
-			window.removeEventListener('resize',this.resizeHandler)
+			window.removeEventListener('resize', this.resizeHandler)
 		}
 	}
 </script>

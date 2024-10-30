@@ -38,14 +38,12 @@
 		</div>
 
 		<div class="middleBoxLLL">
-			<Button
-				class="middleBtLLL" type="default" @click="removeAll" :disabled="delAllDis"
-			>{{ t('r.removeAll') }}
+			<Button class="middleBtLLL" type="default" @click="removeAll" :disabled="delAllDis"
+				>{{ t('r.removeAll') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
-			<Button
-				class="middleBtLLL" type="default" @click="remove" :disabled="deleteDis"
-			>{{ t('r.remove') }}
+			<Button class="middleBtLLL" type="default" @click="remove" :disabled="deleteDis"
+				>{{ t('r.remove') }}
 				<Icon type="ios-arrow-forward" />
 			</Button>
 			<Button class="middleBtLLL" type="primary" @click="add" :disabled="addDis">
@@ -325,8 +323,7 @@
 				/*私有*/
 				if (typeof this.leftSearchDataFilter === 'function') {
 					this.searchDataLeft = this.leftSearchDataFilter(d)
-				}
-				else {
+				} else {
 					this.searchDataLeft = d
 				}
 			},
@@ -334,8 +331,7 @@
 				/*私有*/
 				if (typeof this.rightSearchDataFilter === 'function') {
 					this.searchDataRight = this.rightSearchDataFilter(d)
-				}
-				else {
+				} else {
 					this.searchDataRight = d
 				}
 			},
@@ -399,8 +395,7 @@
 									this.$refs.rTabRef.getTableData()
 								}
 								this.$emit('transferred')
-							}
-							else {
+							} else {
 								this.$swal(msg + this.t('r.failed'), r?.message || '', 'error')
 							}
 						})

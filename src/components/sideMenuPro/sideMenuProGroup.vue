@@ -1,23 +1,26 @@
 <template>
 	<ul class="groupBoxRX">
 		<li
-			:class="{dropItemRX:item?.children}"
-			v-for="(item, i) of data" :key="item?.path + i"
+			:class="{ dropItemRX: item?.children }"
+			v-for="(item, i) of data"
+			:key="item?.path + i"
 			@mouseenter="handleMouseenter($event, item)"
 			@mouseleave="handleMouseleave($event)"
 		>
-			<div
-				:class="getClass(item)"
-				@click="handleClick($event, item)"
-				:style="{ paddingLeft: item?.level * 20 + 'px' }"
-			>
+			<div :class="getClass(item)" @click="handleClick($event, item)" :style="{ paddingLeft: item?.level * 20 + 'px' }">
 				{{ item?.name || '-- no name --' }}
 				<Icon
-					class="dropIcoRX" type="ios-arrow-forward" :size="16" v-show="item.children && item.children.length > 0"
+					class="dropIcoRX"
+					type="ios-arrow-forward"
+					:size="16"
+					v-show="item.children && item.children.length > 0"
 				/>
 			</div>
 			<sideMenuProGroup
-				class="rightChildRX" v-if="item?.children?.length>0" v-show="current===item?.path" :data="item?.children"
+				class="rightChildRX"
+				v-if="item?.children?.length > 0"
+				v-show="current === item?.path"
+				:data="item?.children"
 				:path-name="pathName"
 			/>
 		</li>

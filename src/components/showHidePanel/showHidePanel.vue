@@ -19,16 +19,16 @@
 	export default {
 		name: 'showHidePanel',
 		props: {
-			show:{
+			show: {
 				type: Boolean,
 				default: true
 			},
-			bg:{
+			bg: {
 				type: String,
 				default: 'transparent'
 			}
 		},
-		data(){
+		data() {
 			return {
 				showT: this.show
 			}
@@ -42,8 +42,8 @@
 				}
 			}
 		},
-		watch:{
-			show(d){
+		watch: {
+			show(d) {
 				this.showT = d
 			}
 		}

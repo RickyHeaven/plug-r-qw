@@ -21,9 +21,14 @@
 		</form-r>
 		<div class="formFooterVM" v-show="showOkBt || showCancelBt" :style="{ marginLeft: labelWidth + 'px' }">
 			<div :style="{ width: contentWidth }" class="btnBoxKAL">
-				<Button @click="submit" class="form-save-btn" v-if="showOkBt" :loading="btnLoading && showLoading" :disabled="disabled">{{
-					okBtTxt || t('r.confirm')
-				}}</Button>
+				<Button
+					@click="submit"
+					class="form-save-btn"
+					v-if="showOkBt"
+					:loading="btnLoading && showLoading"
+					:disabled="disabled"
+					>{{ okBtTxt || t('r.confirm') }}</Button
+				>
 				<Button @click="close" class="form-cancel-btn" v-if="showCancelBt">{{ cancelBtTxt || t('r.cancel') }}</Button>
 			</div>
 		</div>

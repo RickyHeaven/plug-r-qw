@@ -18,7 +18,9 @@ let service = axios.create({
 })
 
 function notInitYet() {
-	console.info('store为空，请在安装插件时传入store实例，vuex：Vue.use(plugRQw,{store})，Pinia：Vue.use(plugRQw,{useStore})')
+	console.info(
+		'store为空，请在安装插件时传入store实例，vuex：Vue.use(plugRQw,{store})，Pinia：Vue.use(plugRQw,{useStore})'
+	)
 }
 
 /**

@@ -72,7 +72,6 @@ echarts 提供了常规的折线图、柱状图、散点图、饼图、K 线图�
 
 - heightT - 字符串，图表高度，默认：`384px`
 
-
 ### 事件
 
 - time-line-change 时间轴中的时间点改变后的方法,回调为当前页的索引值,在echart实例触发`timelinechanged`事件时触发
@@ -80,33 +79,39 @@ echarts 提供了常规的折线图、柱状图、散点图、饼图、K 线图�
 - series-click 点击方法，回调当前点击的图表值,在echart实例触发`click`事件时触发
 
 ### 其他
+
 该组件（echart.vue）内部的echart实例（myChart）支持一些调用,如:
 
 - 实例访问方法：
+
 ```
  <echart ref='echartRef'/>
- 
+
  this.$refs.echartRef.XXX
- 
+
 ```
 
 - 可以监听的实例事件`timelinechanged`:
+
 ```
 this.$refs.echartRef.myChart.on('timelinechanged', function (res) {
   //实现你的逻辑
 })
 ```
+
 - 可以监听的实例事件`click`:
+
 ```
 this.$refs.echartRef.myChart.on('click', 'series.bar', function (res) {
   //实现你的逻辑
 })
 ```
+
 - 可以调用的实例方法`onresize`:
+
 ```
 this.$refs.echartRef.myChart.onresize()
 ```
-
 
 ### 注意
 

@@ -260,7 +260,7 @@ const install = function (Vue, opts = {}) {
 	if (Vue.directive('clickOutside') === undefined) {
 		Vue.directive('clickOutside', clickOutside)
 	}
-	
+
 	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、pagePro的current输入框尺寸。
 	Vue.prototype.fontSizeBase = 14
 	// 搜索表单默认label宽度

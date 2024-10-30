@@ -8,97 +8,98 @@
 
 ```json
 [
-  {
-    "name": "面条",
-    "icon": "icon-tree2",
-    "level": 1,
-    "path": "/noodles",
-    "children": [
-      {
-        "name": "牛肉面",
-        "level": 2,
-        "path": "/noodles/beef"
-      },
-      {
-        "name": "小面",
-        "level": 2,
-        "path": "/noodles/vegetarian"
-      }
-    ]
-  },
-  {
-    "name": "稀饭",
-    "icon": "icon-css3",
-    "level": 1,
-    "path": "/conjee"
-  },
-  {
-    "name": "馒头",
-    "icon": "icon-selectScrollMore",
-    "level": 1,
-    "path": "/steamedBun"
-  },
-  {
-    "name": "川菜",
-    "icon": "icon-formModal",
-    "level": 1,
-    "path": "/sichuanCuisine",
-    "children": [
-      {
-        "name": "小炒",
-        "level": 2,
-        "path": "/sichuanCuisine/friedDish",
-        "children": [
-          {
-            "name": "仔姜肉丝",
-            "level": 3,
-            "path": "/sichuanCuisine/friedDish/wangGingerPork"
-          },
-          {
-            "name": "红烧肉",
-            "level": 3,
-            "path": "/sichuanCuisine/friedDish/bouilli"
-          }
-        ]
-      },
-      {
-        "name": "盖饭",
-        "level": 2,
-        "path": "/sichuanCuisine/combo",
-        "children": [
-          {
-            "name": "青椒肉丝",
-            "level": 3,
-            "path": "/sichuanCuisine/combo/shreddedPorkWithGreenPepper"
-          },
-          {
-            "name": "回锅肉",
-            "level": 3,
-            "path": "/sichuanCuisine/combo/twiceCookedPork",
-            "children": [
-              {
-                "name": "加豆干",
-                "level": 4,
-                "path": "/sichuanCuisine/combo/twiceCookedPork/sideMenuPro"
-              },
-              {
-                "name": "加洋葱",
-                "level": 4,
-                "path": "/sichuanCuisine/combo/twiceCookedPork/onion"
-              }
-            ]
-          },
-          {
-            "name": "宫保鸡丁",
-            "level": 3,
-            "path": "/sichuanCuisine/combo/kungPaoChicken"
-          }
-        ]
-      }
-    ]
-  }
+	{
+		"name": "面条",
+		"icon": "icon-tree2",
+		"level": 1,
+		"path": "/noodles",
+		"children": [
+			{
+				"name": "牛肉面",
+				"level": 2,
+				"path": "/noodles/beef"
+			},
+			{
+				"name": "小面",
+				"level": 2,
+				"path": "/noodles/vegetarian"
+			}
+		]
+	},
+	{
+		"name": "稀饭",
+		"icon": "icon-css3",
+		"level": 1,
+		"path": "/conjee"
+	},
+	{
+		"name": "馒头",
+		"icon": "icon-selectScrollMore",
+		"level": 1,
+		"path": "/steamedBun"
+	},
+	{
+		"name": "川菜",
+		"icon": "icon-formModal",
+		"level": 1,
+		"path": "/sichuanCuisine",
+		"children": [
+			{
+				"name": "小炒",
+				"level": 2,
+				"path": "/sichuanCuisine/friedDish",
+				"children": [
+					{
+						"name": "仔姜肉丝",
+						"level": 3,
+						"path": "/sichuanCuisine/friedDish/wangGingerPork"
+					},
+					{
+						"name": "红烧肉",
+						"level": 3,
+						"path": "/sichuanCuisine/friedDish/bouilli"
+					}
+				]
+			},
+			{
+				"name": "盖饭",
+				"level": 2,
+				"path": "/sichuanCuisine/combo",
+				"children": [
+					{
+						"name": "青椒肉丝",
+						"level": 3,
+						"path": "/sichuanCuisine/combo/shreddedPorkWithGreenPepper"
+					},
+					{
+						"name": "回锅肉",
+						"level": 3,
+						"path": "/sichuanCuisine/combo/twiceCookedPork",
+						"children": [
+							{
+								"name": "加豆干",
+								"level": 4,
+								"path": "/sichuanCuisine/combo/twiceCookedPork/sideMenuPro"
+							},
+							{
+								"name": "加洋葱",
+								"level": 4,
+								"path": "/sichuanCuisine/combo/twiceCookedPork/onion"
+							}
+						]
+					},
+					{
+						"name": "宫保鸡丁",
+						"level": 3,
+						"path": "/sichuanCuisine/combo/kungPaoChicken"
+					}
+				]
+			}
+		]
+	}
 ]
 ```
+
 - light: 布尔值，是否开启浅色模式，默认：`false`
 
 ### 注意

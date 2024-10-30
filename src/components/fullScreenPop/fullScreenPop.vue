@@ -43,7 +43,7 @@
 			},
 			headerFontSize: {
 				type: [String, Number],
-				default(){
+				default() {
 					return this.fontSizeBase
 				}
 			}

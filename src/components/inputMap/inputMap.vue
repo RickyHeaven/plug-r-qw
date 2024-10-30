@@ -153,7 +153,7 @@
 				}
 			},
 			initMap() {
-				if(!lazyAMapApiLoaderInstance){
+				if (!lazyAMapApiLoaderInstance) {
 					console.error('高德地图示例未初始化，lazyAMapApiLoaderInstance为null')
 					return
 				}

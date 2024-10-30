@@ -845,7 +845,7 @@
 								}
 							} else if (myTypeof(root.borrowOption) === 'String') {
 								/*借用待选项*/
-								this.$nextTick(function(){
+								this.$nextTick(function () {
 									root.options = findCollection(this.formDataT, (e) => e?.key === root.borrowOption).options
 								})
 							}
@@ -1052,6 +1052,7 @@
 								)
 							}
 						}
+						this.$emit('on-options-request-back', JSON.parse(JSON.stringify({ e: root, valGroup: this.valGroup })))
 					})
 					.catch((e) => {
 						console.warn('拉取选项出错')

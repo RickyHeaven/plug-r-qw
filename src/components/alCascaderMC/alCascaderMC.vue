@@ -69,7 +69,7 @@
 						let regP = /^\d+$/
 						if (regP.test(temp)) {
 							let lv1 = temp.substring(0, 2) + '0000000000'
-							let lv2 = temp.substring(0, 4)+'00000000'
+							let lv2 = temp.substring(0, 4) + '00000000'
 							return [lv1, lv2, temp]
 						}
 
@@ -79,11 +79,9 @@
 						}
 
 						return [temp]
-					}
-					else if (Array.isArray(this.value)) {
+					} else if (Array.isArray(this.value)) {
 						return _.cloneDeep(this.value)
-					}
-					else {
+					} else {
 						return []
 					}
 				},
@@ -91,8 +89,7 @@
 					if (_.isEmpty(val)) {
 						this.$emit('subVal', null)
 						this.$emit('on-name-change', null)
-					}
-					else {
+					} else {
 						let last = _.last(val)
 						let code = null
 						let name = null

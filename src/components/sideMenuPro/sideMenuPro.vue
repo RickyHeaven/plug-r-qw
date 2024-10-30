@@ -1,5 +1,5 @@
 <template>
-	<div ref="menuRefRX" :class="['menuBoxRPro','cannotSelect',{light:light}]">
+	<div ref="menuRefRX" :class="['menuBoxRPro', 'cannotSelect', { light: light }]">
 		<div class="menuListR" v-show="menuDisplay">
 			<sideMenuTwoLevel :data="data" :pathName="pathName" />
 		</div>
@@ -24,7 +24,7 @@
 	export default {
 		name: 'sideMenuPro',
 		mixins: [Locale],
-		components: { sideMenuTwoLevel,sideIcoMenu },
+		components: { sideMenuTwoLevel, sideIcoMenu },
 		props: {
 			data: {
 				type: Array,
@@ -54,8 +54,7 @@
 			let menuDisplay = localStorage.getItem('menuDisplayRPro')
 			if (menuDisplay !== undefined && menuDisplay !== null && menuDisplay !== '') {
 				menuDisplay = JSON.parse(menuDisplay)
-			}
-			else {
+			} else {
 				menuDisplay = true
 				localStorage.setItem('menuDisplayRPro', JSON.stringify(true))
 			}
@@ -65,7 +64,7 @@
 			$route: {
 				handler(after) {
 					this.pathName = after.path
-					this.$nextTick(function() {
+					this.$nextTick(function () {
 						setTimeout(this.addOpen, 10)
 					})
 				},
@@ -83,11 +82,11 @@
 				for (let e of t) {
 					const ico = e?.childNodes[0]?.querySelector?.('.dropIcoRX')
 					if (e?.querySelector?.('.active')) {
-						if(e?.childNodes[1]?.classList?.contains?.('rightChildRX')){
+						if (e?.childNodes[1]?.classList?.contains?.('rightChildRX')) {
 							if (!e?.childNodes[0]?.classList?.contains?.('activeR')) {
 								e?.childNodes[0].classList.add?.('activeR')
 							}
-						}else {
+						} else {
 							if (!e?.classList?.contains?.('open')) {
 								e.classList.add?.('open')
 							}
@@ -95,16 +94,16 @@
 								ico.classList.add?.('open')
 							}
 						}
-					}else {
-						if(e?.childNodes[1]?.classList?.contains?.('rightChildRX')){
+					} else {
+						if (e?.childNodes[1]?.classList?.contains?.('rightChildRX')) {
 							if (e?.childNodes[0]?.classList?.contains?.('activeR')) {
 								e?.childNodes[0].classList.remove?.('activeR')
 							}
-						}else {
-							if (e?.classList?.contains?.('open')&&!e?.classList?.contains?.('fromIcoMenu')) {
+						} else {
+							if (e?.classList?.contains?.('open') && !e?.classList?.contains?.('fromIcoMenu')) {
 								e.classList.remove?.('open')
 							}
-							if (ico?.classList?.contains?.('open')&&!ico?.classList?.contains?.('fromIcoMenu')) {
+							if (ico?.classList?.contains?.('open') && !ico?.classList?.contains?.('fromIcoMenu')) {
 								ico.classList.remove?.('open')
 							}
 						}

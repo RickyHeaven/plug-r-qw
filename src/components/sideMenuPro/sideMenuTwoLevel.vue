@@ -1,16 +1,20 @@
 <template>
 	<ul class="groupBoxRX">
-		<li :class="{dropItemRX:item?.children,open:fromIcoMenu,fromIcoMenu:fromIcoMenu}" v-for="(item, i) of data" :key="item?.path + i">
-			<div
-				:class="getClass(item)"
-				@click="handleClick($event, item)"
-				:style="{ paddingLeft: item?.level * 20 + 'px' }"
-			>
-				<Icon class="menuIcoL" :custom="'iconfont '+(item.icon||'icon-r-menu-default')" />
+		<li
+			:class="{ dropItemRX: item?.children, open: fromIcoMenu, fromIcoMenu: fromIcoMenu }"
+			v-for="(item, i) of data"
+			:key="item?.path + i"
+		>
+			<div :class="getClass(item)" @click="handleClick($event, item)" :style="{ paddingLeft: item?.level * 20 + 'px' }">
+				<Icon class="menuIcoL" :custom="'iconfont ' + (item.icon || 'icon-r-menu-default')" />
 				<span>{{ item?.name || '-- no name --' }}</span>
-				<Icon :class="['dropIcoRX',{open:fromIcoMenu,fromIcoMenu:fromIcoMenu}]" type="ios-arrow-forward" v-show="item.children && item.children.length > 0" />
+				<Icon
+					:class="['dropIcoRX', { open: fromIcoMenu, fromIcoMenu: fromIcoMenu }]"
+					type="ios-arrow-forward"
+					v-show="item.children && item.children.length > 0"
+				/>
 			</div>
-			<sideMenuProGroup :data="item?.children" v-if="item?.children" :path-name="pathName"/>
+			<sideMenuProGroup :data="item?.children" v-if="item?.children" :path-name="pathName" />
 		</li>
 	</ul>
 </template>
@@ -32,8 +36,8 @@
 				type: String,
 				default: ''
 			},
-			fromIcoMenu:{
-				type:Boolean
+			fromIcoMenu: {
+				type: Boolean
 			}
 		},
 		methods: {

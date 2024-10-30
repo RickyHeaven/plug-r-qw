@@ -2,268 +2,274 @@
 @import '../common/size';
 
 .menuBoxRPro {
-  position: relative;
-  border-top: 1px solid lighten(@sideMenuColor, 5%);
-  background-color: @sideMenuColor;
-  font-size: 14px;
+	position: relative;
+	border-top: 1px solid lighten(@sideMenuColor, 5%);
+	background-color: @sideMenuColor;
+	font-size: 14px;
 
-  ul {
-    list-style: none;
-  }
+	ul {
+		list-style: none;
+	}
 
-  * {
-    /*修改滚动条样式*/
+	* {
+		/*修改滚动条样式*/
 
-    &::-webkit-scrollbar {
-      width: 3px;
-    }
+		&::-webkit-scrollbar {
+			width: 3px;
+		}
 
-    &::-webkit-scrollbar-track {
-      background-color: lighten(@sideMenuColor, 30%);
-      border-radius: 3px;
-    }
+		&::-webkit-scrollbar-track {
+			background-color: lighten(@sideMenuColor, 30%);
+			border-radius: 3px;
+		}
 
-    &::-webkit-scrollbar-thumb {
-      background-color: lighten(@sideMenuColor, 55%);
-      border-radius: 5px;
-    }
+		&::-webkit-scrollbar-thumb {
+			background-color: lighten(@sideMenuColor, 55%);
+			border-radius: 5px;
+		}
 
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: lighten(@sideMenuColor, 60%);
-      cursor: pointer;
-    }
-  }
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: lighten(@sideMenuColor, 60%);
+			cursor: pointer;
+		}
+	}
 
-  .icoMenuR {
-    width: @sideMenuProHideW;
-    color: #fff;
-    height: 100%;
-    overflow-y: auto;
+	.icoMenuR {
+		width: @sideMenuProHideW;
+		color: #fff;
+		height: 100%;
+		overflow-y: auto;
 
-    > li {
-      > .menuTxtR {
-        height: 48px;
-        width: 48px;
-        border-radius: 50%;
-        margin: 10px 0 10px calc(50% - 24px);
-        text-align: center;
-        cursor: pointer;
+		> li {
+			> .menuTxtR {
+				height: 48px;
+				width: 48px;
+				border-radius: 50%;
+				margin: 10px 0 10px calc(50% - 24px);
+				text-align: center;
+				cursor: pointer;
 
-        .menuIcoM {
-          line-height: 48px;
-        }
-      }
+				.menuIcoM {
+					line-height: 48px;
+				}
+			}
 
-      > .menuTxtR:hover,
-      &.open > .menuTxtR,
-      > .menuTxtR.active,
-      > .menuTxtR.activeR {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
-    }
-  }
+			> .menuTxtR:hover,
+			&.open > .menuTxtR,
+			> .menuTxtR.active,
+			> .menuTxtR.activeR {
+				background-color: rgba(255, 255, 255, 0.15);
+			}
+		}
+	}
 
-  .menuListR {
-    width: @sideMenuProW;
-    height: 100%;
-    padding: 0;
-    overflow: hidden;
-    color: #fff;
-    overflow-y: auto;
-  }
+	.menuListR {
+		width: @sideMenuProW;
+		height: 100%;
+		padding: 0;
+		overflow: hidden;
+		color: #fff;
+		overflow-y: auto;
+	}
 
-  .icoMenuR > li,
-  .menuListR {
-    .groupBoxRX {
-      > li {
-        cursor: pointer;
+	.icoMenuR > li,
+	.menuListR {
+		.groupBoxRX {
+			> li {
+				cursor: pointer;
 
-        > .groupBoxRX:not(.rightChildRX) {
-          display: none;
-        }
+				> .groupBoxRX:not(.rightChildRX) {
+					display: none;
+				}
 
-        &.open > .groupBoxRX:not(.rightChildRX) {
-          display: block;
-        }
+				&.open > .groupBoxRX:not(.rightChildRX) {
+					display: block;
+				}
 
-        .dropIcoRX {
-          position: absolute;
-          top: 11px;
-          right: 16px;
-          transition: 0.3s;
+				.dropIcoRX {
+					position: absolute;
+					top: 11px;
+					right: 16px;
+					transition: 0.3s;
 
+					&.open {
+						transform: rotate(90deg);
+					}
+				}
 
-          &.open {
-            transform: rotate(90deg);
-          }
-        }
+				.menuIcoL {
+					margin-right: 8px;
+				}
+			}
+		}
+	}
 
-        .menuIcoL {
-          margin-right: 8px;
-        }
-      }
-    }
-  }
+	.icoMenuR > li,
+	.menuListR .groupBoxRX > li {
+		.rightChildRX,
+		.rightTwoMenu {
+			height: calc(100% + 1px);
+			position: absolute;
+			z-index: 2900;
+			left: 100%;
+			top: -1px;
+			background-color: @sideMenuColor;
+			border-top: 1px solid lighten(@sideMenuColor, 5%);
+			border-left: 1px solid lighten(@sideMenuColor, 5%);
+		}
 
-  .icoMenuR > li,
-  .menuListR .groupBoxRX > li {
-    .rightChildRX, .rightTwoMenu {
-      height: calc(100% + 1px);
-      position: absolute;
-      z-index: 2900;
-      left: 100%;
-      top: -1px;
-      background-color: @sideMenuColor;
-      border-top: 1px solid lighten(@sideMenuColor, 5%);
-      border-left: 1px solid lighten(@sideMenuColor, 5%);
-    }
+		.rightChildRX {
+			width: @sideMenuProChildW;
 
-    .rightChildRX {
-      width: @sideMenuProChildW;
+			.menuTxtR {
+				padding-left: 20px !important;
+			}
+		}
 
-      .menuTxtR {
-        padding-left: 20px !important;
-      }
-    }
+		.rightTwoMenu {
+			width: @sideMenuProW;
+		}
+	}
 
-    .rightTwoMenu {
-      width: @sideMenuProW;
-    }
-  }
+	.icoMenuR > li > .rightTwoMenu .menuTxtR,
+	.menuListR .groupBoxRX > li > .menuTxtR {
+		position: relative;
+		padding-top: 9px;
+		padding-bottom: 9px;
 
-  .icoMenuR > li > .rightTwoMenu .menuTxtR,
-  .menuListR .groupBoxRX > li > .menuTxtR {
-    position: relative;
-    padding-top: 9px;
-    padding-bottom: 9px;
+		&:before,
+		&:after {
+			content: '';
+			height: 100%;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
 
-    &:before, &:after {
-      content: '';
-      height: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-    }
+		&.active,
+		&.activeR,
+		&:hover {
+			&:before {
+				background-color: #fff;
+				display: block;
+				width: 100%;
+				opacity: 0.1;
+			}
+		}
 
-    &.active, &.activeR, &:hover {
-      &:before {
-        background-color: #fff;
-        display: block;
-        width: 100%;
-        opacity: 0.1;
-      }
-    }
+		&.active,
+		&.activeR {
+			font-weight: bold;
 
-    &.active, &.activeR {
-      font-weight: bold;
+			&:after {
+				border: 3px solid transparent;
+				border-left-color: #eee;
+			}
+		}
 
-      &:after {
-        border: 3px solid transparent;
-        border-left-color: #eee;
-      }
-    }
+		span {
+			font-weight: bold;
+		}
+	}
 
-    span {
-      font-weight: bold;
-    }
-  }
+	.menuShowHideIco {
+		position: absolute;
+		z-index: 1000;
+		bottom: 25px;
+		right: 17px;
+		cursor: pointer;
+		color: #fff;
+		background-color: @sideMenuColor;
 
-  .menuShowHideIco {
-    position: absolute;
-    z-index: 1000;
-    bottom: 25px;
-    right: 17px;
-    cursor: pointer;
-    color: #fff;
-    background-color: @sideMenuColor;
-
-    &:hover {
-      opacity: 0.85;
-    }
-  }
+		&:hover {
+			opacity: 0.85;
+		}
+	}
 }
 
 .menuBoxRPro.light {
-  border-top: 1px solid #fff;
-  background-color: #fff;
-  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.08);
+	border-top: 1px solid #fff;
+	background-color: #fff;
+	box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.08);
 
-  * {
-    /*修改滚动条样式*/
+	* {
+		/*修改滚动条样式*/
 
-    &::-webkit-scrollbar-track {
-      background-color: lighten(#777, 45%);
-    }
+		&::-webkit-scrollbar-track {
+			background-color: lighten(#777, 45%);
+		}
 
-    &::-webkit-scrollbar-thumb {
-      background-color: lighten(#777, 35%);
-    }
+		&::-webkit-scrollbar-thumb {
+			background-color: lighten(#777, 35%);
+		}
 
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: lighten(#777, 30%);
-    }
-  }
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: lighten(#777, 30%);
+		}
+	}
 
-  .menuListR,
-  .icoMenuR > li > .rightTwoMenu {
-    color: inherit;
-  }
+	.menuListR,
+	.icoMenuR > li > .rightTwoMenu {
+		color: inherit;
+	}
 
-  .icoMenuR > li > .rightTwoMenu.groupBoxRX,
-  .menuListR .groupBoxRX {
-    .dropIcoRX:before {
-      color: #999;
-    }
+	.icoMenuR > li > .rightTwoMenu.groupBoxRX,
+	.menuListR .groupBoxRX {
+		.dropIcoRX:before {
+			color: #999;
+		}
 
-    .menuTxtR {
-      &.active, &.activeR, &:hover {
-        color: @sideMenuColor;
+		.menuTxtR {
+			&.active,
+			&.activeR,
+			&:hover {
+				color: @sideMenuColor;
 
-        &:before {
-          background-color: @sideMenuColor;
-          opacity: 0.05;
-        }
-      }
+				&:before {
+					background-color: @sideMenuColor;
+					opacity: 0.05;
+				}
+			}
 
-      &:hover:after {
-        background-color: @sideMenuColor;
-        opacity: 0.05;
-      }
+			&:hover:after {
+				background-color: @sideMenuColor;
+				opacity: 0.05;
+			}
 
-      &.active:after, &.activeR:after {
-        border-left-color: @sideMenuColor;
-      }
-    }
-  }
+			&.active:after,
+			&.activeR:after {
+				border-left-color: @sideMenuColor;
+			}
+		}
+	}
 
-  .icoMenuR {
-    background-color: #fff;
-    color: inherit;
+	.icoMenuR {
+		background-color: #fff;
+		color: inherit;
 
-    & > li > .menuTxtR:hover,
-    & > li.open > .menuTxtR,
-    & > li > .menuTxtR.active,
-    & > li > .menuTxtR.activeR {
-      color: #fff;
-      background-color: @sideMenuColor;
-    }
-  }
+		& > li > .menuTxtR:hover,
+		& > li.open > .menuTxtR,
+		& > li > .menuTxtR.active,
+		& > li > .menuTxtR.activeR {
+			color: #fff;
+			background-color: @sideMenuColor;
+		}
+	}
 
-  .menuListR .groupBoxRX .rightChildRX,
-  .icoMenuR .rightTwoMenu,
-  .icoMenuR > li .rightChildRX {
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.08);
-  }
+	.menuListR .groupBoxRX .rightChildRX,
+	.icoMenuR .rightTwoMenu,
+	.icoMenuR > li .rightChildRX {
+		background-color: #fff;
+		border-color: #fff;
+		box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.08);
+	}
 
+	.menuShowHideIco {
+		color: #999;
+		background-color: #fff;
 
-  .menuShowHideIco {
-    color: #999;
-    background-color: #fff;
-
-    &:hover {
-      color: @sideMenuColor;
-    }
-  }
+		&:hover {
+			color: @sideMenuColor;
+		}
+	}
 }

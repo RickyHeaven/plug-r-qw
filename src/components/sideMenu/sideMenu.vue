@@ -1,5 +1,5 @@
 <template>
-	<div ref="menuRefRP" :class="['menuBoxRP','cannotSelect',{light:light}]">
+	<div ref="menuRefRP" :class="['menuBoxRP', 'cannotSelect', { light: light }]">
 		<div class="menuListR" v-show="menuDisplay">
 			<side-menu-group :data="data" :pathName="pathName" />
 		</div>
@@ -63,8 +63,8 @@
 			$route: {
 				handler(after) {
 					this.pathName = after.path
-					this.$nextTick(function(){
-						setTimeout(this.addOpen,10)
+					this.$nextTick(function () {
+						setTimeout(this.addOpen, 10)
 					})
 				},
 				immediate: true

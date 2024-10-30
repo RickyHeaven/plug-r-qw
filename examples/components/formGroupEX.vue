@@ -7,10 +7,10 @@
 			:form-data="data"
 			:form-rules="formRules"
 			width="800px"
-			@on-submit="submit"
-			@on-item-change="onItemChange"
 			cancel-bt-txt="清空"
+			@on-item-change="onItemChange"
 			@on-cancel="clear"
+			@on-submit="submit"
 		/>
 		<div style="margin-top: 30px">
 			组件提交的值：
