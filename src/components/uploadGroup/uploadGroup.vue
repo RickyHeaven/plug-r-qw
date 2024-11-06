@@ -29,7 +29,7 @@
 				>{{ t('r.selectFile') }}</Button
 			>
 		</Upload>
-		<div class="previewBoxM" v-show="previewType === 'img' && fileDefaultList.length > 0">
+		<div class="previewBoxM" v-if="previewType === 'img' && fileDefaultList.length > 0">
 			<div
 				class="previewImg"
 				:class="{ previewLoading: item?.mimeType === 'loading' }"
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="previewBoxM" v-show="previewType === 'localImg' && fileSrcList.length > 0">
+		<div class="previewBoxM" v-if="previewType === 'localImg' && fileSrcList.length > 0">
 			<div
 				class="previewImg"
 				v-if="manualUpload && item !== null"
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="customFileListM" v-show="previewType === 'localList' && fileList.length > 0">
+		<div class="customFileListM" v-if="previewType === 'localList' && fileList.length > 0">
 			<p
 				class="customFileListItem"
 				v-if="manualUpload && item !== null"
@@ -105,7 +105,7 @@
 				</span>
 			</p>
 		</div>
-		<div class="customFileListM" v-show="previewType === 'list' && fileDefaultList.length > 0">
+		<div class="customFileListM" v-if="previewType === 'list' && fileDefaultList.length > 0">
 			<div
 				class="customFileListItem"
 				v-if="!manualUpload && item !== null"
