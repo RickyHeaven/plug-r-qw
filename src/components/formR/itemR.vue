@@ -296,9 +296,7 @@
 		<!--表单项提示文字-->
 		<div v-if="Boolean(item?.info)" class="formInfoTxtXN">{{ item?.info }}</div>
 		<!--表单项标题-->
-		<div v-if="Boolean(item?.title)" class="formTitleTxtXN">
-			{{ item?.title }}
-		</div>
+		<div v-if="Boolean(item?.title)" class="formTitleTxtXN">{{ item?.title }}</div>
 	</FormItem>
 </template>
 
