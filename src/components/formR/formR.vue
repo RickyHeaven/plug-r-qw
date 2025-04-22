@@ -1052,7 +1052,15 @@
 								)
 							}
 						}
-						this.$emit('on-options-request-back', JSON.parse(JSON.stringify({ e: root, valGroup: this.valGroup })))
+						this.$emit(
+							'on-options-request-back',
+							JSON.parse(
+								JSON.stringify({
+									e: root,
+									valGroup: this.valGroup
+								})
+							)
+						)
 					})
 					.catch((e) => {
 						console.warn('拉取选项出错')
@@ -1180,7 +1188,7 @@
 											t = targetOption.map((e) => e[root.collectLabel.valKey])
 											this.$set(this.valGroup, root.collectLabel.key, t)
 											if (collectTempKey) {
-												this.$set(this.tempKeys, collectTempKey, t)
+												this.$set(this.tempKeys, collectTempKey.tempKey, t)
 											}
 										} else {
 											if (targetOption && isValidValue(targetOption[root.collectLabel.valKey])) {
@@ -1188,13 +1196,12 @@
 											}
 											this.$set(this.valGroup, root.collectLabel.key, t)
 											if (collectTempKey) {
-												this.$set(this.tempKeys, collectTempKey, t)
+												if (collectTempKey.booleanVal && typeof t === 'boolean') {
+													this.$set(this.tempKeys, collectTempKey.tempKey, t ? 1 : 0)
+												} else {
+													this.$set(this.tempKeys, collectTempKey.tempKey, t)
+												}
 											}
-										}
-
-										let sameKeyCom = findCollection(this.formDataT, (e) => e?.key === root.collectLabel.key)
-										if (sameKeyCom && sameKeyCom.tempKey) {
-											this.tempKeys[sameKeyCom.tempKey] = this.valGroup[root.collectLabel.key]
 										}
 									}
 								} else if (Array.isArray(root.collectLabel)) {
@@ -1207,7 +1214,7 @@
 												t = targetOption.map((e) => e[l.valKey])
 												this.$set(this.valGroup, l.key, t)
 												if (collectTempKey) {
-													this.$set(this.tempKeys, collectTempKey, t)
+													this.$set(this.tempKeys, collectTempKey.tempKey, t)
 												}
 											} else {
 												if (targetOption && isValidValue(targetOption[l.valKey])) {
@@ -1215,13 +1222,12 @@
 												}
 												this.$set(this.valGroup, l.key, t)
 												if (collectTempKey) {
-													this.$set(this.tempKeys, collectTempKey, t)
+													if (collectTempKey.booleanVal && typeof t === 'boolean') {
+														this.$set(this.tempKeys, collectTempKey.tempKey, t ? 1 : 0)
+													} else {
+														this.$set(this.tempKeys, collectTempKey.tempKey, t)
+													}
 												}
-											}
-
-											let sameKeyCom = findCollection(this.formDataT, (e) => e?.key === l.key)
-											if (sameKeyCom && sameKeyCom.tempKey) {
-												this.tempKeys[sameKeyCom.tempKey] = this.valGroup[l.key]
 											}
 										}
 									}
@@ -1324,7 +1330,7 @@
 			findTempKeyItem(d, k) {
 				for (let root of d) {
 					if (root.key === k) {
-						return root.tempKey
+						return root
 					}
 				}
 				return false
@@ -1641,7 +1647,7 @@
 					if (root.key2) {
 						d[root.key2] = this.valGroup[root.key2]
 					}
-					if (root.collectLabel && root.collectLabel.key) {
+					if (root.collectLabel?.key) {
 						d[root.collectLabel.key] = this.valGroup[root.collectLabel.key]
 					} else if (Array.isArray(root.collectLabel)) {
 						for (let l of root.collectLabel) {

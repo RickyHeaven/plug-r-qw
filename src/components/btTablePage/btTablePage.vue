@@ -268,8 +268,7 @@
 				if (this.sortable === 'custom') {
 					if (this.orderKeyFormat === 'underline') {
 						temp[this.order] = toLine(this.key)
-					}
-					else if (this.orderKeyFormat === 'camelcase') {
+					} else if (this.orderKeyFormat === 'camelcase') {
 						temp[this.order] = toHump(this.key)
 					}
 				}
@@ -293,8 +292,7 @@
 								})
 							}
 						}
-					}
-					else {
+					} else {
 						TTK = {
 							type: 'selection',
 							width: 60
@@ -311,8 +309,7 @@
 						if (item?.key && item.sortable !== true && item.sortable !== false) {
 							item.sortable = 'custom'
 						}
-					}
-					else {
+					} else {
 						item.sortable = false
 					}
 					if (!item?.align) {
@@ -324,8 +321,7 @@
 					if (item?.key && item.render === undefined) {
 						if (item.tooltip) {
 							item.render = tooltipManual(item.key, this.tableEmptyTdHandle, '')
-						}
-						else {
+						} else {
 							item.render = (h, params) => {
 								let td = params.row[item.key]
 								if (this.tableEmptyTdHandle) {
@@ -399,8 +395,7 @@
 				let index = null
 				if (_.isBoolean(setCurrentRow) && setCurrentRow) {
 					index = this.currentIndex
-				}
-				else if (_.isNumber(setCurrentRow)) {
+				} else if (_.isNumber(setCurrentRow)) {
 					index = setCurrentRow
 				}
 				if (index !== null) {
@@ -438,8 +433,7 @@
 					this.currentIndex = _p
 					this.currentKey = this.dataS[_p].btKey
 					this.$refs.TableXXX.clickCurrentRow(_p)
-				}
-				else if (_.isArray(_p)) {
+				} else if (_.isArray(_p)) {
 					if (this.radio || !this.selection) {
 						return
 					}
@@ -447,8 +441,7 @@
 					for (let i of _p) {
 						this.$refs.TableXXX.clickCurrentRow(i)
 					}
-				}
-				else if (_.isFunction(_p)) {
+				} else if (_.isFunction(_p)) {
 					for (let i = 0; i < this.dataS.length; i++) {
 						const e = this.dataS[i]
 						if (_p(e)) {
@@ -464,8 +457,7 @@
 						let i = this.selectedKeys[0].split('-')[1]
 						this.$set(this.dataS[i], 'btChecked', false)
 					}
-				}
-				else {
+				} else {
 					this.$refs.TableXXX.selectAll(false)
 				}
 				if (this.selected.length > 0) {
@@ -496,15 +488,13 @@
 							setTimeout(() => {
 								if (clickCurrentRow) {
 									this.$refs.TableXXX.clickCurrentRow(this.currentIndex || 0)
-								}
-								else {
+								} else {
 									this.$refs.TableXXX.clickCurrentRow(this.rowClickNum)
 								}
 							}, 10)
 						}
 					})
-				}
-				else {
+				} else {
 					this.getTableData()
 				}
 			},
@@ -553,18 +543,14 @@
 					this.getDataAndClickRow()
 				}
 			},
-			onSortChange({
-				key,
-				order
-			}) {
+			onSortChange({ key, order }) {
 				/*私有*/
 				//表头排序
 				if (order === 'normal') {
 					/*恢复到默认页面排序*/
 					this.key = this.orderKey
 					this.order = this.orderDefault
-				}
-				else {
+				} else {
 					this.key = key
 					this.order = order
 				}
@@ -591,44 +577,38 @@
 								}
 								if (myTypeof(this.dataHandler) === 'Function') {
 									r = this.dataHandler(d)
-								}
-								else {
+								} else {
 									r = d
 								}
 								if (r?.data) {
 									/*接口返回数据为空时可能是用null表示，所以有下面逻辑*/
 									if (r.data?.records || r.data?.records === null) {
 										this.dataT = r.data.records || []
-									}
-									else if (r.data?.page) {
+									} else if (r.data?.page) {
 										if (r.data.page?.records || r.data.page?.records === null) {
 											this.dataT = r.data.page.records || []
 										}
-									}
-									else if (r.data?.data) {
+									} else if (r.data?.data) {
 										if (r.data.data?.records || r.data.data?.records === null) {
 											this.dataT = r.data.data.records || []
 										}
-									}
-									else {
+									} else {
 										this.dataT = r.data
 									}
 									this.total = r.data?.page?.total || r.data?.data?.total || r.data?.total || r.total || 0
 									if (this.total === 0 && this.current > 1 && this.dataT?.length === 0) {
 										/*如果没有数据，将当前页置为1*/
 										this.current = 1
-									}
-									else if (this.current > 1 && this.total <= (this.current - 1) * this.pageSizeT) {
+									} else if (this.current > 1 && this.total <= (this.current - 1) * this.pageSizeT) {
 										/*当前页并没有数据，自动拉取前一页数据*/
 										this.current--
-										this.$nextTick(function() {
+										this.$nextTick(function () {
 											this.getTableData(order, orderKey)
 										})
 									}
 									this.$emit('on-data-change', r)
 									resolve(r)
-								}
-								else {
+								} else {
 									console.warn('请求返回数据有误，无法使用')
 									this.clearTableData()
 									this.$emit('on-data-change', r)
@@ -640,8 +620,7 @@
 								this.clearTableData()
 								this.$emit('on-data-change', e)
 							})
-					}
-					else {
+					} else {
 						console.warn('没有有效的请求地址，无法获取表格数据')
 					}
 				})
