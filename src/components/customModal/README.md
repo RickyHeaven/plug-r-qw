@@ -1,6 +1,6 @@
 ## customModal
 
-居于 view-design 的 modal 封装的弹框
+基于 view-design 的 modal 封装的弹框
 
 ### 属性
 

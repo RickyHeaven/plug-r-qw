@@ -208,18 +208,16 @@
 			@on-file-id-change="reValidateAndChangeHandle($event, item)"
 		/>
 		<!--日期选择器-->
-		<DatePicker
+		<date
 			:style="itemStyle"
 			v-else-if="item?.type === 'date'"
 			v-model="tempKeys[item.tempKey]"
 			:type="item.dateType"
 			:disabled="Boolean(item.disabled) || disabled"
-			placement="bottom-end"
 			:placeholder="item.placeholder || t('r.selectDate')"
-			:options="item.dateOptions || null"
+			:options="item.dateOptions || {}"
+			:time-picker-options="item.timePickerOptions || {}"
 			:clearable="item.clearable !== false"
-			:editable="false"
-			transfer
 			@on-change="itemChange($event, item)"
 		/>
 		<!--时间选择器-->
@@ -310,6 +308,7 @@
 	import editorPro from '../editorPro/editorPro.vue'
 	import inputMap from '../inputMap/inputMap.vue'
 	import monthRange from '../monthRange/monthRange'
+	import date from '../date/date.vue'
 
 	export default {
 		name: 'itemR',
@@ -322,7 +321,8 @@
 			editor,
 			editorPro,
 			inputMap,
-			monthRange
+			monthRange,
+			date
 		},
 		props: {
 			item: Object,
