@@ -47,6 +47,7 @@ import JsonView from 'vue-json-viewer'
 import loaders from './components/loaders/loaders.vue'
 import echartMap from './components/echartMap/echartMap.vue'
 import monthRange from './components/monthRange/monthRange.vue'
+import date from './components/date/date.vue'
 import {
 	myTypeof,
 	toHump,
@@ -131,7 +132,8 @@ const components = {
 	page404,
 	sideMenu,
 	sideMenuPro,
-	monthRange
+	monthRange,
+	date
 }
 
 /*需要从插件中单独引入的方法（使用频率低）*/
