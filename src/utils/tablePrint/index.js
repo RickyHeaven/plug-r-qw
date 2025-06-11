@@ -78,7 +78,7 @@ function columnsHandle(item) {
  * @param {Array} columns Table的列设置，同view-design
  * @param {Array|String} data Table的数据
  * @param {String} title 标题(如打印为PDF将是默认文件名)
- * @param {Object} config 打印设置，目前支持：1.customClass,用于定制打印页面样式；2.autoPrint,是否直接打印
+ * @param {Object} config 打印设置，目前支持：1.customClass,用于定制打印页面样式；2.autoPrint,是否直接打印；3.autoPrintTimeout,直接打印延时（给网页内容加载时间），默认：100ms
  */
 function print(columns, data, title, config) {
 	if (!_router) {

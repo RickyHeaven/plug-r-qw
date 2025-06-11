@@ -21,6 +21,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 				disabled: false,
 				domPrint: false,
 				autoPrint: false,
+				autoPrintTimeout: 100,
 				width: 715,
 				help: false,
 				isFrom: '',
@@ -57,6 +58,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 				vm.$data.customClass = config?.customClass
 				vm.$data.domPrint = config?.domPrint || false
 				vm.$data.autoPrint = config?.autoPrint || false
+				vm.$data.autoPrintTimeout = config?.autoPrintTimeout || 100
 				vm.$data.width = config?.width || 715
 				document.title = (title || vm.$t('r.print')) + '_' + new Date().toLocaleString()
 			})
@@ -66,7 +68,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 				let tc = window.setTimeout(() => {
 					window.clearTimeout(tc)
 					this.print()
-				}, 100)
+				}, this.autoPrintTimeout)
 			}
 			document.addEventListener('click', this.wallClick)
 			document.addEventListener('mousemove', this.handleDrag)
