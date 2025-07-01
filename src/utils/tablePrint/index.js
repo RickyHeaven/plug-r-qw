@@ -107,15 +107,17 @@ function print(columns, data, title, config) {
 	}
 
 	const funcArr = []
-	Object.entries(config).forEach(([key, value]) => {
-		if (typeof value === 'function') {
-			funcArr.push({
-				name: key,
-				func: value.toString().replaceAll(/[\r\n\t]/g, '')
-			})
-			delete config[key]
-		}
-	})
+	if (config) {
+		Object.entries(config).forEach(([key, value]) => {
+			if (typeof value === 'function') {
+				funcArr.push({
+					name: key,
+					func: value.toString().replaceAll(/[\r\n\t]/g, '')
+				})
+				delete config[key]
+			}
+		})
+	}
 
 	let _p = _router?.currentRoute?.fullPath
 	if (_p) {
