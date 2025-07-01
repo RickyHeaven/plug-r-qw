@@ -22,6 +22,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 				domPrint: false,
 				autoPrint: false,
 				autoPrintTimeout: 100,
+				spanMethod: null,
 				width: 715,
 				help: false,
 				isFrom: '',
@@ -51,7 +52,7 @@ author ricky email:zhangqingcq@foxmail.com-->
 					vm.$data.disabled = true
 					return
 				}
-				const { columns, data, title, config } = JSON.parse(d)
+				const { columns, data, title, config, funcArr } = JSON.parse(d)
 				vm.$data.columns = columns
 				vm.$data.data = data
 				vm.$data.title = title
@@ -61,6 +62,15 @@ author ricky email:zhangqingcq@foxmail.com-->
 				vm.$data.autoPrintTimeout = config?.autoPrintTimeout || 100
 				vm.$data.width = config?.width || 715
 				document.title = (title || vm.$t('r.print')) + '_' + new Date().toLocaleString()
+
+				if (funcArr?.length) {
+					for (let e of funcArr) {
+						if (e.name === 'spanMethod') {
+							vm.$data.spanMethod = new Function('return ' + e.func)()
+							break
+						}
+					}
+				}
 			})
 		},
 		mounted() {
@@ -98,6 +108,11 @@ author ricky email:zhangqingcq@foxmail.com-->
 			dragEnd() {
 				if (this.isDrag) {
 					this.isDrag = false
+				}
+			},
+			spanMethodHandle(d) {
+				if (typeof this.spanMethod === 'function') {
+					return this.spanMethod(d)
 				}
 			},
 			print() {
@@ -165,6 +180,14 @@ author ricky email:zhangqingcq@foxmail.com-->
 			<div class="settingLine" @mousedown.stop="dragStart"></div>
 		</div>
 		<div v-if="domPrint" class="domPrintContent" v-html="data" :style="domContainerStyle"></div>
-		<Table v-if="!domPrint" class="tablePW" :columns="columns" :data="data" border v-show="!disabled" />
+		<Table
+			v-if="!domPrint"
+			class="tablePW"
+			:columns="columns"
+			:data="data"
+			:span-method="spanMethodHandle"
+			border
+			v-show="!disabled"
+		/>
 	</div>
 </template>

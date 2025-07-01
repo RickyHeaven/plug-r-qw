@@ -323,7 +323,14 @@
 			},
 			handlePrint() {
 				this.tablePrint.print(this.columns, this.tabData, '表格打印示例', {
-					autoPrint: true
+					autoPrint: true,
+					spanMethod: ({ rowIndex, columnIndex }) => {
+						if (columnIndex === 2 && rowIndex === 0) {
+							return [2, 1]
+						} else if (columnIndex === 2 && rowIndex === 1) {
+							return [0, 0]
+						}
+					}
 				})
 			},
 			dataChangeHandle(d) {
