@@ -244,7 +244,8 @@
 				currentIndex: null,
 				key: this.orderKey,
 				order: this.orderDefault,
-				tableContainerHeight: 300
+				tableContainerHeight: 300,
+				debounceResize: null
 			}
 		},
 		computed: {
@@ -356,6 +357,19 @@
 		},
 		created() {
 			this.initTable()
+			this.debounceResize = _.debounce(this.handleResize, 300)
+		},
+		mounted() {
+			if (this.fixedTable) {
+				this.firstGetHeight()
+				window.addEventListener('resize', this.debounceResize)
+			}
+		},
+		destroyed() {
+			if (this.fixedTable) {
+				window.removeEventListener('resize', this.debounceResize)
+			}
+			this.debounceResize.cancel() // 销毁时取消防抖
 		},
 		watch: {
 			searchData: {
@@ -372,6 +386,25 @@
 			}
 		},
 		methods: {
+			firstGetHeight() {
+				/*私有*/
+				if (this.tableContainerHeight < 50) {
+					setTimeout(this.firstGetHeight, 100)
+				} else {
+					setTimeout(this.getTableContainerHeight, 10)
+				}
+			},
+			getTableContainerHeight() {
+				/*私有*/
+				this.tableContainerHeight = (this.$refs.tableContainerLOI && this.$refs.tableContainerLOI.clientHeight) || 0
+			},
+			handleResize() {
+				/*私有，table重新计算尺寸布局*/
+				this.getTableContainerHeight()
+				if (this.$refs.TableXXX) {
+					this.$refs.TableXXX.handleResize()
+				}
+			},
 			initTable() {
 				/*私有*/
 				if (this.initData) {
