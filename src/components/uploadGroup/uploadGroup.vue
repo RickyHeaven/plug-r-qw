@@ -241,7 +241,8 @@
 				fileSrcList: [], //本地图片模式图片文件地址集合
 				fileDefaultList: [], //从服务器返回的数据整理完成的文件集合
 				localImgSrcList: [], // 本地图片地址集合
-				tempStorage: {}
+				tempStorage: {},
+				fileLength: 0
 			}
 		},
 		computed: {
@@ -413,6 +414,7 @@
 		methods: {
 			clear() {
 				this.fileList = []
+				this.fileLength = 0
 			},
 			getName(item) {
 				return item?.name || (item?.split && _.last(item.split('/'))) || item
@@ -431,6 +433,9 @@
 					let temp = this.fileList
 					temp.splice(index, 1)
 					this.fileList = temp
+					if (this.fileLength) {
+						this.fileLength--
+					}
 				}
 			},
 			downloadDefaultFile(item) {
@@ -482,6 +487,11 @@
 				}
 			},
 			handelManualUpload(file) {
+				if (this.fileLength >= this.length) {
+					$swal(this.t('r.info.title'), this.t('r.uploadLength', [this.length]), 'warning')
+					return false
+				}
+				this.fileLength++
 				if (this.manualUpload) {
 					if (file) {
 						let type = getFileTypeByName(file.name)
@@ -558,6 +568,9 @@
 					let temp = this.fileList
 					temp.splice(fileIdList.indexOf(id), 1)
 					this.fileList = temp
+					if (this.fileLength) {
+						this.fileLength--
+					}
 				}
 			}
 		}

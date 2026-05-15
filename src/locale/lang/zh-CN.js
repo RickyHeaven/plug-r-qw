@@ -46,6 +46,7 @@ export default {
 		supportSize: '支持最大：',
 		uploadError: '上传出错',
 		uploadFail: '上传失败',
+		uploadLength: '最多可上传{0}个文件',
 		closePreview: '关闭预览',
 		fullImg: '该文件不支持图片形式预览',
 		preview: '预览',
