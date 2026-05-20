@@ -487,7 +487,7 @@
 				}
 			},
 			handelManualUpload(file) {
-				if (this.fileLength >= this.length) {
+				if (this.length && this.fileLength >= this.length) {
 					$swal(this.t('r.info.title'), this.t('r.uploadLength', [this.length]), 'warning')
 					return false
 				}
