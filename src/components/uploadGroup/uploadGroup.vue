@@ -21,13 +21,9 @@
 			:multiple="multiple || false"
 			:disabled="(length > 0 && fileList.length >= length) || Boolean(disabled)"
 		>
-			<Button
-				icon="md-cloud-upload"
-				:class="{
-					disabledR: (length > 0 && fileList.length >= length) || Boolean(disabled)
-				}"
-				>{{ t('r.selectFile') }}</Button
-			>
+			<Button icon="md-cloud-upload" :disabled="(length > 0 && fileList.length >= length) || Boolean(disabled)">{{
+				t('r.selectFile')
+			}}</Button>
 		</Upload>
 		<div class="previewBoxM" v-if="previewType === 'img' && fileDefaultList.length > 0">
 			<div
