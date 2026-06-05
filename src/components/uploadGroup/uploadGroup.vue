@@ -513,6 +513,7 @@
 				}
 			},
 			uploadError(error) {
+				this.fileLength--
 				console.warn(error)
 				$swal(this.t('r.uploadError'), '', 'error')
 			},
