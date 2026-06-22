@@ -497,10 +497,12 @@
 								this.t('r.supportType') + ((this.format.length > 0 && String(this.format)) || this.t('r.none')),
 								'warning'
 							)
+							this.fileLength--
 							return false
 						}
 						if (this.maxSize && file.size > this.maxSize * 1024) {
 							$swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + 'kb', 'warning')
+							this.fileLength--
 							return false
 						}
 						let temp = this.fileList
@@ -528,13 +530,16 @@
 					temp.push(file)
 					this.fileList = temp
 				} else {
+					this.fileLength--
 					$swal(this.t('r.uploadFail'), response?.message || '', 'error')
 				}
 			},
 			overSize() {
+				this.fileLength--
 				$swal(this.t('r.fileIsBig'), this.t('r.supportSize') + this.maxSize + ' kb', 'warning')
 			},
 			onFormatError() {
+				this.fileLength--
 				$swal(
 					this.t('r.wrongFileType'),
 					this.t('r.supportType') + ((this.format.length > 0 && String(this.format)) || this.t('r.none')),
