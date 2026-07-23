@@ -241,6 +241,8 @@
 
 - <a name='inputType'>inputType</a> 字符串，表单项 type=input 时，可指定输入框类型(开启 password=true 时，inputType 自动变为 password)，可选值同 h5 原生 input 的 type，以页面实际表现为准，不同值使用可靠性需自己验证，默认值：`'text'`
 
+- <a name='inputInMap'>inputInMap</a> 布尔对象，inputMap 输入框是否嵌入地图上方（沉浸式），设置为`false` 时，输入框独立在地图上方（分离式），默认：`true`
+
 - <a name='itemBorder'>itemBorder</a> 布尔对象，RadioGroup 选项是否带边框，默认：`false`
 
 - <a name='key'>key</a> 字符串，表单被提交时该项收集的数据所在字段，如：`{type:'input',key:'name'}`,用户输入`'Ricky'` ，提交时返回 `{name:'Ricky'}`
@@ -1026,7 +1028,7 @@
 
 - [class](#class) 单个表单项的自定义样式类名
 
-#### inputMap 地图组件
+#### inputMap 地图经纬度组件
 
 - [label](#label) 标签
 
@@ -1045,6 +1047,8 @@
 - [showMap](#showMap) 显示地图，默认：`true`
 
 - [mapHeight](#mapHeight) 地图高度，默认：`'250px'`
+
+- [inputInMap](#inputInMap) 输入框是否嵌入地图上方（沉浸式），默认：`true`
 
 - [placeholder](#placeholder) 占位符，默认：`'搜索'`
 

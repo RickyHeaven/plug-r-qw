@@ -667,8 +667,21 @@
 						label: '位置',
 						key: 'lng',
 						key2: 'lat',
+						key3: 'address',
 						defaultVal: 106.585836,
-						defaultVal2: 29.564123
+						defaultVal2: 29.564123,
+						defaultVal3: '朝天门(地铁站)'
+					},
+					{
+						type: 'inputMap',
+						label: '地址搜索（分离式）',
+						key: 'addressLng',
+						key2: 'addressLat',
+						key3: 'addressName',
+						defaultVal: 106.499401,
+						defaultVal2: 29.616077,
+						defaultVal3: '光电园(地铁站)',
+						inputInMap: false
 					},
 					{
 						type: 'editorPro',

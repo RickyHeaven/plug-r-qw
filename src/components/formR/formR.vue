@@ -179,7 +179,7 @@
 				type: String
 			},
 			disabled: {
-				/*整表禁用，仅展示*/
+				/*整个表禁用，仅展示*/
 				type: Boolean,
 				default: false
 			},
@@ -949,7 +949,7 @@
 								root.options.length = 0
 								root.options.push(
 									...tOption.map((eP) => {
-										let rP = {}
+										let rP
 										if (arrLabel) {
 											/*组合成的label*/
 											let rL = ''
@@ -1075,7 +1075,7 @@
 							)
 						)
 					})
-					.catch((e) => {
+					.catch(() => {
 						console.warn('拉取选项出错')
 					})
 			},
@@ -1640,7 +1640,7 @@
 					root
 				})
 				this.$nextTick(function () {
-					this.$refs.formGroupXRef.validateField(root.key)
+					this.$refs.formGroupXRef.validateField?.(root.key)
 				})
 			},
 			/**
