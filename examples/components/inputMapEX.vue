@@ -33,8 +33,8 @@
 		mounted() {
 			this.setTimeout(() => {
 				this.value = {
-					lat: 39.992213,
-					lng: 116.315839,
+					lat: 39.99211,
+					lng: 116.315801,
 					name: '北京大学东门'
 				}
 			}, 8000)
