@@ -1,6 +1,6 @@
 /**
  * @description 文件上传、下载、拉取信息接口
- * @author ricky zhangqingcq@foxmail.com
+ * @author Ricky zhangqingcq@foxmail.com
  * @created 2021.03.21
  */
 

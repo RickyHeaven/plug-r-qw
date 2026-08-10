@@ -1,5 +1,5 @@
 <!--created 2024.04.02
-author ricky email:zhangqingcq@foxmail.com-->
+author Ricky email:zhangqingcq@foxmail.com-->
 <script>
 	import Locale from '../../mixins/locale'
 	import { oneOf, getStringWidth } from '../../utils/functionGroup'

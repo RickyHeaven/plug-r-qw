@@ -1,5 +1,5 @@
 <!--created 2024.03.12
-author ricky email:zhangqingcq@foxmail.com-->
+author Ricky email:zhangqingcq@foxmail.com-->
 
 <script>
 	import Locale from '../../mixins/locale'

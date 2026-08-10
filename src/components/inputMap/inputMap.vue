@@ -1,5 +1,5 @@
 <!--created 2019.10.17-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div :style="containerStyle" :class="inputInMap ? 'containerIKJ' : 'containerMapAddress'">

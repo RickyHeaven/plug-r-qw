@@ -55,7 +55,7 @@ function logoutHandle() {
  */
 service.interceptors.response.use(
 	(r) => {
-		if (r?.data?.code === 403 || r?.data?.code === 409) {
+		if (service.store && (r?.data?.code === 403 || r?.data?.code === 409)) {
 			messageBox({
 				content: t('r.http.' + r.data.code),
 				onOk: logoutHandle
@@ -64,7 +64,7 @@ service.interceptors.response.use(
 		return r
 	},
 	(e) => {
-		if (e?.response?.status === 403 || e?.response?.status === 409) {
+		if (service.store && (e?.response?.status === 403 || e?.response?.status === 409)) {
 			messageBox({
 				content: t('r.http.' + e.response.status),
 				onOk: logoutHandle
@@ -272,7 +272,7 @@ export default {
 	 * @param {string} url 请求地址
 	 * @param {object} data 请求数据
 	 * @param {string} msg 错误信息，在控制台输出，方便调试，不用可以不传，例如：
-	 * @example this.$fetch.post("/getDataB",{name:'ricky'},"获取数据B失败")
+	 * @example this.$fetch.post("/getDataB",{name:'Ricky'},"获取数据B失败")
 	 * @param {Array.<string>} rPath 请求结果提取路径，如：[data,list]表示data.list,如不需过滤可不传
 	 * @param {object} config 请求配置  如请求过程需要遮罩层，设置 spin:true即可
 	 * @return {Promise<object>}
@@ -373,7 +373,7 @@ export default {
 	 * @example this.$fetch.all(
 	 *  [
 	 *    this.$fetch.get("/getData"),
-	 *    this.$fetch.post("/getDataB",{name:'ricky'})
+	 *    this.$fetch.post("/getDataB",{name:'Ricky'})
 	 *  ]
 	 * )
 	 */
@@ -383,7 +383,7 @@ export default {
 	 * @example this.$fetch.all(
 	 *  [
 	 *    this.$fetch.get("/getData"),
-	 *    this.$fetch.post("/getDataB",{name:'ricky'})
+	 *    this.$fetch.post("/getDataB",{name:'Ricky'})
 	 *  ]
 	 * )
 	 *  .then(

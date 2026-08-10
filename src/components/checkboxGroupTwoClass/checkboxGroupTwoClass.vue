@@ -1,5 +1,5 @@
 <!--created 2020.07.24-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="boxLPA">

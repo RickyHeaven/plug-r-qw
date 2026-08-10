@@ -34,7 +34,7 @@
 this.$fetch.all(
    [
      this.$fetch.get("/getData"),
-     this.$fetch.post("/getDataB",{name:'ricky'})
+     this.$fetch.post("/getDataB",{name:'Ricky'})
    ]
   )
    .then(

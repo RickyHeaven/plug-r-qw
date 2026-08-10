@@ -1,5 +1,5 @@
 <!--created 2019.04.18-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 <!--参数：columns 同iView ui table 组件columns -->
 <!--参数：data 格式见 示例参数 exampleData -->
 <!--调用方法 <table-tree :columns="columns" :data="data"/> -->

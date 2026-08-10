@@ -30,6 +30,7 @@ Vue.config.productionTip = false
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 
+Vue.use(pinia)
 Vue.use(VueI18n)
 
 const messages = {

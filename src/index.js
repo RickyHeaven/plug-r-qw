@@ -195,23 +195,32 @@ const methodsR = {
 
 const install = function (Vue, opts = {}) {
 	if (install.installed) {
+		console.warn('plug-r-qw 已经安装过，请勿重复调用 install')
 		return
 	}
-	locale.i18n(opts.i18n)
-	$fetch.init(opts.useStore || opts.store)
-	timer.init(opts.router)
-	tablePrint.init(opts.router)
-
+	install.installed = true
+	
 	if (!Vue) {
 		console.error('库安装失败，未获取到Vue对象')
 		return
 	}
 
+	locale.i18n(opts.i18n)
+	$fetch.init(opts.useStore || opts.store, Vue)
+	timer.init(opts.router)
+	tablePrint.init(opts.router)
+
 	Vue.use(arCascader)
 	Vue.use(JsonView)
 
+	if (opts.locale) {
+		locale.use(opts.locale)
+	}
+
 	Object.keys(components).forEach((key) => {
-		Vue.component(key, components[key])
+		if (!Vue.component(key)) {
+			Vue.component(key, components[key])
+		}
 	})
 
 	Object.keys(methodsR).forEach((key) => {

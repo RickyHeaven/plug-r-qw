@@ -17,7 +17,7 @@
 			this.getSize()
 
 			this.debounceS = _.debounce(() => {
-				this.$nextTick(function () {
+				this.$nextTick(() => {
 					this.getSize()
 				})
 			}, 200)
@@ -28,6 +28,9 @@
 			this.getSize()
 		},
 		beforeDestroy() {
+			if (this.debounceS) {
+				this.debounceS.cancel()
+			}
 			window.removeEventListener('resize', this.debounceS)
 		},
 		methods: {

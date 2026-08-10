@@ -1,6 +1,7 @@
 /**
- * created 2019.06.27
- * @author Ricky <zhangqingcq@foxmail.com>
+ * @description 提示框
+ * @author Ricky zhangqingcq@foxmail.com
+ * @created 2019.06.27
  */
 
 import swal from 'sweetalert'
@@ -18,111 +19,114 @@ export default function (option, text, icon, closeOnClickOutside = true) {
 	const T = (...arg) => t.apply(this, arg)
 
 	return new Promise((r, j) => {
-		switch (myTypeof(option)) {
-			case 'Object':
-				let okTxt = T('r.confirm')
-				let cancelTxt = T('r.cancel')
-				let cancelVisible = false
-				let okClass = 'swalConfirmBt'
-				let cancelClass = 'swalCancelBt'
-				const reg = /^HTML.*Element$/
-				option.type && (option.icon = option.type) && delete option.type
-				option.className = option.className || 'swalBoxX'
-				if (option.text && reg.test(myTypeof(option.text))) {
-					option.content = option.text
-					delete option.text
-				}
-				if (option.content && myTypeof(option.content) === 'String') {
-					option.text = option.content
-					delete option.content
-				}
-				if (option.button !== false) {
-					if (option.buttons && myTypeof(option.buttons) === 'Object') {
-						if (option.buttons.cancel) {
-							option.buttons.cancel.text && (cancelTxt = option.buttons.cancel.text) && (cancelVisible = true)
-							option.buttons.cancel.className && (cancelClass = option.buttons.cancel.className)
-							option.buttons.confirm.text && (okTxt = option.buttons.confirm.text)
-							option.buttons.confirm.className && (okClass = option.buttons.confirm.className)
-						}
-					} else if (option.buttons && myTypeof(option.buttons) === 'Array') {
-						if (option.buttons[0]) {
-							if (option.buttons[0] !== true) {
-								cancelTxt = option.buttons[0]
-							}
-							cancelVisible = true
-						}
-						if (option.buttons[1] && option.buttons[1] !== true) {
-							okTxt = option.buttons[1]
-						}
+		if (typeof option === 'object' && !Array.isArray(option)) {
+			let okTxt = T('r.confirm')
+			let cancelTxt = T('r.cancel')
+			let cancelVisible = false
+			let okClass = 'swalConfirmBt'
+			let cancelClass = 'swalCancelBt'
+			const reg = /^HTML.*Element$/
+
+			option.type && (option.icon = option.type) && delete option.type
+			option.className = option.className || 'swalBoxX'
+
+			let t = ''
+			if (option.text && reg.test(myTypeof(option.text))) {
+				t = 'content'
+			} else if (option.text && myTypeof(option.text) === 'String') {
+				t = 'text'
+			}
+
+			if (option.buttons) {
+				if (typeof option.buttons === 'object' && !Array.isArray(option.buttons)) {
+					if (option.buttons.cancel) {
+						option.buttons.cancel.text && (cancelTxt = option.buttons.cancel.text) && (cancelVisible = true)
+						option.buttons.cancel.className && (cancelClass = option.buttons.cancel.className)
+
+						option.buttons.confirm.text && (okTxt = option.buttons.confirm.text)
+						option.buttons.confirm.className && (okClass = option.buttons.confirm.className)
 					}
-					option.buttons = {
-						confirm: {
-							text: okTxt,
-							value: true,
-							visible: true,
-							className: okClass
-						},
-						cancel: {
-							text: cancelTxt,
-							value: null,
-							visible: cancelVisible,
-							className: cancelClass
-						}
+				} else if (Array.isArray(option.buttons)) {
+					if (option.buttons[0]) {
+						cancelTxt = option.buttons[0]
+						cancelVisible = true
+					}
+					if (option.buttons[1]) {
+						okTxt = option.buttons[1]
 					}
 				}
-				option.closeOnClickOutside = option.closeOnClickOutside ?? true
-				swal(option)
-					.then((res) => {
-						if (res && myTypeof(option.onOk) === 'Function') {
-							option.onOk()
-						}
-						r(res)
-					})
-					.catch((err) => {
-						j(err)
-					})
-				break
-			case 'String':
-				let tempOption = {
-					title: option,
-					buttons: {
-						confirm: {
-							text: T('r.confirm'),
-							value: true,
-							visible: true,
-							className: 'swalConfirmBt',
-							closeModal: true
-						}
+			}
+
+			swal({
+				title: option.title,
+				icon: option.icon,
+				className: option.className,
+				[t]: option.text,
+				buttons: {
+					confirm: {
+						text: okTxt,
+						value: true,
+						visible: true,
+						className: okClass
 					},
-					className: 'swalBoxX',
-					closeOnClickOutside: closeOnClickOutside
+					cancel: {
+						text: cancelTxt,
+						value: null,
+						visible: cancelVisible,
+						className: cancelClass
+					}
+				},
+				closeOnClickOutside: option.closeOnClickOutside ?? true
+			})
+				.then((res) => {
+					if (res && typeof option.onOk === 'function') {
+						option.onOk()
+					}
+					r(res)
+				})
+				.catch((err) => {
+					j(err)
+				})
+		} else if (typeof option === 'string') {
+			let t = ''
+			if (text) {
+				switch (typeof text) {
+					case 'string':
+						t = 'text'
+						break
+					case 'object':
+						t = 'content'
+						break
 				}
-				if (text) {
-					switch (myTypeof(text)) {
-						case 'String':
-							tempOption.text = text
-							break
-						case 'HTMLElement':
-							tempOption.content = text
-							break
+			}
+			swal({
+				title: option,
+				[t]: text || '',
+				icon: icon || '',
+				className: 'swalBoxX',
+				closeOnClickOutside: closeOnClickOutside,
+				buttons: {
+					confirm: {
+						text: T('r.confirm'),
+						value: true,
+						visible: true,
+						className: 'swalConfirmBt',
+						closeModal: true
 					}
 				}
-				icon && (tempOption.icon = icon)
-				swal(tempOption)
-					.then((res) => {
-						r(res)
-					})
-					.catch((err) => {
-						j(err)
-					})
-				break
-			case 'Boolean':
-				if (option === false) {
-					swal.close()
-				}
-				break
-			default:
-				throw new TypeError('swal第一个参数类型有误，仅支持Object/String/false')
+			})
+				.then((res) => {
+					r(res)
+				})
+				.catch((err) => {
+					j(err)
+				})
+		} else if (typeof option === 'boolean') {
+			if (!option && swal.close) {
+				swal.close()
+			}
+		} else {
+			throw new TypeError('swal第一个参数类型有误，仅支持Object/String/false')
 		}
 	})
 }

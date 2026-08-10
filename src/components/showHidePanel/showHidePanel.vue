@@ -1,5 +1,5 @@
 <!--created 2019.04.03-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 <!--参数：bg 例如：bg = '#fff' 或 bg = 'white' 不传为透明背景 (bg为自定义属性，控制该组件背景色) <show-hide-panel bg="#fff">需要包装的代码</show-hide-panel>  -->
 
 <template>

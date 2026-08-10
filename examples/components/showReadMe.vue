@@ -21,12 +21,12 @@
 		name: 'showReadMe',
 		props: {
 			routeNow: {
-				//手动设置说明地址
 				type: String,
 				default: null
 			},
 			color: {
-				default: '#46be87'
+				type: String,
+				default: '#2d8cf0'
 			}
 		},
 		data() {
@@ -46,13 +46,11 @@
 </script>
 
 <style lang="less" scoped>
-	@import '../global/variables';
-
 	.conMA {
-		position: fixed;
+		position: absolute;
 		z-index: 10;
-		top: 20px;
-		right: 120px;
+		top: -30px;
+		right: 300px;
 		text-align: left;
 
 		&.fullKA {
@@ -60,7 +58,7 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			z-index: 170;
+			z-index: 1700;
 		}
 	}
 

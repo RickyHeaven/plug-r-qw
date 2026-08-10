@@ -1,5 +1,5 @@
 <!--created 2019.07.24-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div>
@@ -131,9 +131,14 @@
 					)
 				}
 			},
-			handleChange: _.debounce((data, root) => {
+			handleChange: _.debounce(function (data, root) {
 				root.$emit('on-change', data)
 			}, 500)
+		},
+		beforeDestroy() {
+			if (this.handleChange) {
+				this.handleChange.cancel()
+			}
 		}
 	}
 </script>

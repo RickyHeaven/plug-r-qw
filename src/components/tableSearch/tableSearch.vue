@@ -1,5 +1,5 @@
 <!--created 2020.09.09-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="tableSearchV" :style="{ position: fixed ? 'fixed' : 'absolute', right: right, top: top }">
@@ -23,7 +23,7 @@
 	/**
 	 * 高级查询插件
 	 * @desc 联合showHidePanelB、searchForm等插件对table进行查询
-	 * @author ricky email:zhangqingcq@foxmail.com
+	 * @author Ricky email:zhangqingcq@foxmail.com
 	 * @date 2020.03.19
 	 * @param {string} value - 搜索框的值（v-model）必填
 	 * @param {boolean} open - 高级搜索是否开启 必填

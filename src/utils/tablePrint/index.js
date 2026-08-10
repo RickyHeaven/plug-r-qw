@@ -1,7 +1,7 @@
 /**
- * created 2024.03.13
- * @author Ricky <zhangqingcq@foxmail.com>
  * @description 表格打印，可以在预览页面调整每列宽度以及可以选择打印的列
+ * @author Ricky zhangqingcq@foxmail.com
+ * @created 2024.03.13
  * 注意：1.该插件依赖于vue-router，需要在安装库时传入router，详见该库使用说明文档；
  * 2.打印时会新开一个浏览器窗口，路由为'/tablePrint'，该路由页面需要铺满浏览器窗口，即该路由所在的router-view外部
  * 不应有任何dom元素渲染在页面上（隐藏的多余dom元素不影响打印）;
@@ -18,13 +18,17 @@ import printModal from './printModal.vue'
 import { myTypeof } from '../functionGroup'
 
 let _router = null
+let _printStyleEl = null
 
 function addStyle() {
 	const root = document.documentElement
 	root.style.setProperty('overflow', 'auto')
-	const style = document.createElement('style')
-	style.innerHTML = `body,#app{height:100% !important}`
-	document.head.appendChild(style)
+	
+	if (!_printStyleEl) {
+		_printStyleEl = document.createElement('style')
+		_printStyleEl.innerHTML = `body,#app{height:100% !important}`
+		document.head.appendChild(_printStyleEl)
+	}
 }
 
 function init(router) {
@@ -86,7 +90,7 @@ function columnsHandle(item) {
  * 1.customClass,用于定制打印页面样式；
  * 2.autoPrint,是否直接打印；
  * 3.autoPrintTimeout,直接打印延时（给网页内容加载时间），默认：100ms
- * 4.spanMethod,用于打印表格时传递表格‘行合并’或‘列合并’回调函数，回调函数使用方法见view-design的Table的span-method属性，或是参考本库示例btTablePageEX中打印功能示例
+ * 4.spanMethod,用于打印表格时传递表格'行合并'或'列合并'回调函数，回调函数使用方法见view-design的Table的span-method属性，或是参考本库示例btTablePageEX中打印功能示例
  */
 function print(columns, data, title, config) {
 	if (!_router) {
@@ -116,7 +120,10 @@ function print(columns, data, title, config) {
 			if (typeof value === 'function') {
 				funcArr.push({
 					name: key,
-					func: value.toString().replaceAll(/[\r\n\t]/g, '')
+					func: value
+						.toString()
+						.replaceAll(/[\r\n\t]/g, '')
+						.replaceAll(/\s{2,}/g, ' ')
 				})
 				delete config[key]
 			}
@@ -141,7 +148,11 @@ function print(columns, data, title, config) {
 		name: 'tablePrint',
 		params: { isFrom: _p }
 	})
-	window.open(r?.href, '_blank')
+	
+	let _w = window.open(r?.href, '_blank')
+	if (!_w) {
+		console.log('请不要禁用浏览器弹出窗口，否则无法正常使用该打印功能。')
+	}
 }
 
 export default {

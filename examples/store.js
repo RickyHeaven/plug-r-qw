@@ -6,7 +6,8 @@ import router from './router'
 export const useStore = defineStore('main', {
 	state: () => ({
 		locale: localStorage.getItem('locale') || 'zh',
-		isLogin: false
+		isLogin: false,
+		fullScreen: false
 	}),
 	actions: {
 		getIsLogin(d) {
@@ -17,7 +18,7 @@ export const useStore = defineStore('main', {
 				isLogin = Cookies.get('isLoginR') && JSON.parse(Cookies.get('isLoginR'))
 			}
 			this.isLogin = Boolean(isLogin)
-		}, // 登出
+		},
 		logout() {
 			Vue.prototype.$fetch
 				.get('/node-serve/logout')

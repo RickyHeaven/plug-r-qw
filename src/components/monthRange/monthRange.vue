@@ -1,5 +1,5 @@
 <!--created 2023.03.14-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="monthRangeBoxR">
@@ -107,20 +107,44 @@
 			}
 		},
 		mounted() {
-			document.querySelector('.monthRangeBoxR .aRoot .ivu-input-suffix').addEventListener('mouseover', () => {
-				this.mouseOver = true
-			})
-			document.querySelector('.monthRangeBoxR .aRoot .ivu-input-suffix').addEventListener('mouseout', () => {
-				this.mouseOver = false
-			})
-			document.querySelector('.monthRangeBoxR .aRoot .ivu-input-suffix').addEventListener('click', (e) => {
-				if (!this.disabled && (this.valueA || this.valueB)) {
-					e?.stopPropagation?.()
-					this.clear()
-				}
-			})
+			this.bindEvents()
+		},
+		beforeDestroy() {
+			this.unbindEvents()
 		},
 		methods: {
+			getSuffixEl() {
+				return document.querySelector('.monthRangeBoxR .aRoot .ivu-input-suffix')
+			},
+			bindEvents() {
+				const suffixEl = this.getSuffixEl()
+				if (!suffixEl) return
+
+				this._mouseoverHandler = () => {
+					this.mouseOver = true
+				}
+				this._mouseoutHandler = () => {
+					this.mouseOver = false
+				}
+				this._clickHandler = (e) => {
+					if (!this.disabled && (this.valueA || this.valueB)) {
+						e?.stopPropagation?.()
+						this.clear()
+					}
+				}
+
+				suffixEl.addEventListener('mouseover', this._mouseoverHandler)
+				suffixEl.addEventListener('mouseout', this._mouseoutHandler)
+				suffixEl.addEventListener('click', this._clickHandler)
+			},
+			unbindEvents() {
+				const suffixEl = this.getSuffixEl()
+				if (!suffixEl) return
+
+				suffixEl.removeEventListener('mouseover', this._mouseoverHandler)
+				suffixEl.removeEventListener('mouseout', this._mouseoutHandler)
+				suffixEl.removeEventListener('click', this._clickHandler)
+			},
 			focus() {
 				if (!this.disabled) {
 					this.openA = true

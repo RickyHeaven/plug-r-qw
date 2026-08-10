@@ -707,7 +707,12 @@
 				let geoCoordMap = {}
 				// loading start
 				this.myChart.showLoading()
-				let mapFeatures = echarts.getMap(name).geoJson.features
+				let mapData = echarts.getMap(name)
+				if (!mapData || !mapData.geoJson || !mapData.geoJson.features) {
+					this.myChart.hideLoading()
+					return geoCoordMap
+				}
+				let mapFeatures = mapData.geoJson.features
 				// loading end
 				this.myChart.hideLoading()
 				mapFeatures.forEach(function (v) {
@@ -718,8 +723,8 @@
 				})
 				return geoCoordMap
 			},
-			//返回地域事件，目前只有省级到中国两级，此处可以升级
-			oback() {
+		//返回地域事件，目前只有省级到中国两级，此处可以升级
+		oback() {
 				//隐藏返回按钮
 				this.back = false
 				this.mapName = 'china'

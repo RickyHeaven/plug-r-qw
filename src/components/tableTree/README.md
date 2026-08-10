@@ -30,7 +30,7 @@
 ```
 [
   {
-    np: 'ricky',
+    np: 'Ricky',
     sd: 12,
     children: [
       {

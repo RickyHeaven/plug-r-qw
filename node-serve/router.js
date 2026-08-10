@@ -1,74 +1,64 @@
 /**
  * @description 示例项目的NodeJS服务器（接口）
- * @author ricky zhangqingcq@foxmail.com
+ * @author Ricky zhangqingcq@foxmail.com
  * @created 2023.03.20
  */
 
 const express = require('express')
-const formRData = require('./data/formR')
-const {
-  _save,
-  _delete,
-  _get,
-  _edit
-} = require('./database')
+const { _save, _delete, _get, _edit } = require('./database')
 
 const router = express.Router()
 
 router.get('/people', function (req, res) {
-  const q = req.query
-  const t = formRData.people.data.filter(e => {
-    let a = true
-    for (let k in q) {
-      /*这里用了隐式转换，不能全等*/
-      if (q.hasOwnProperty(k) && e[k] != q[k]) {
-        a = false
-        break
-      }
-    }
-    return a
-  })
-  res.send(t)
+	const q = req.query
+	const result = _get('people', 1, -1)
+	const t = result.data.filter((e) => {
+		let a = true
+		for (let k in q) {
+			/*这里用了隐式转换，不能全等*/
+			if (q.hasOwnProperty(k) && e[k] != q[k]) {
+				a = false
+				break
+			}
+		}
+		return a
+	})
+	res.send(t)
 })
 
 function pageSelect(action, req, res) {
-  const {
-    current,
-    size,
-    ...others
-  } = req.query
-  const _current = current && Number(current) || 1
-  const _size = size && Number(size) || 10
-  let t = {}
-  let r
-  let msg = ''
-  const _o = Object.keys(others)
-  if (_o.length > 0) {
-    r = _get(action, _current, _size, e => {
-      for (let k in others) {
-        if (others.hasOwnProperty(k) && e?.[k]?.indexOf(others[k]) === -1) {
-          return false
-        }
-      }
-      
-      return true
-    })
-    
-    if (_o.indexOf('asc') > -1 || _o.indexOf('desc') > -1) {
-      msg = '接口暂未开发排序功能，返回数据按数据插入时间降序'
-    }
-  }
-  else {
-    r = _get(action, _current, _size)
-  }
-  t.data = r.data
-  t.total = r.total
-  t.size = _size
-  t.pages = t.total && Math.ceil(t.total / _size) || 0
-  if(msg){
-    t.message = msg
-  }
-  res.send(t)
+	const { current, size, ...others } = req.query
+	const _current = (current && Number(current)) || 1
+	const _size = (size && Number(size)) || 10
+	let t = {}
+	let r
+	let msg = ''
+	const _o = Object.keys(others)
+	if (_o.length > 0) {
+		r = _get(action, _current, _size, (e) => {
+			for (let k in others) {
+				if (others.hasOwnProperty(k) && e?.[k]?.indexOf(others[k]) === -1) {
+					return false
+				}
+			}
+
+			return true
+		})
+
+		if (_o.indexOf('asc') > -1 || _o.indexOf('desc') > -1) {
+			msg = '接口暂未开发排序功能，返回数据按数据插入时间降序'
+		}
+	} else {
+		r = _get(action, _current, _size)
+	}
+	t.data = r.data
+	t.total = r.total
+	t.size = _size
+	t.pages = (t.total && Math.ceil(t.total / _size)) || 0
+	if (msg) {
+		t.message = msg
+	}
+	res.send(t)
 }
 
 /**穿梭框--穿梭接口

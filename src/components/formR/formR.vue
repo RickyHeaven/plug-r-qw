@@ -1,5 +1,5 @@
 <!--created 2019.07.11-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<Form

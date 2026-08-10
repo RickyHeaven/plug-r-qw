@@ -1,5 +1,5 @@
 <!--created 2020.03.23-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="tabSetF" v-click-outside="clickOutsideHandle">
@@ -41,7 +41,7 @@
 	/**
 	 * 列表显示设置插件
 	 * @desc 利用table的columns和localstorage对table进行列的显示设置
-	 * @author ricky email:zhangqingcq@foxmail.com
+	 * @author Ricky email:zhangqingcq@foxmail.com
 	 * @date 2020.03.23
 	 * @param {array} value - 插件的值（v-model,对应table的columns）必填
 	 * @param {string} sKey - 插件数据在localstorage的唯一标识，命名规则：插件所在单文件名称_取名时间，如areaNew_202003231639 必填

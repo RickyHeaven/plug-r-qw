@@ -1,11 +1,12 @@
 /**
- * created 2020.07.03
- * @author Ricky <zhangqingcq@foxmail.com>
+ * @description 提示框
+ * @author Ricky zhangqingcq@foxmail.com
+ * @created 2020.07.03
  */
 import $swal from './swal.js'
 import { t } from '../locale/index'
 
-export default function (title, text, icon, onOk, closeOnClickOutside = false) {
+export default function $swalConfirm(title, text, icon, onOk, closeOnClickOutside = false) {
 	const T = (...arg) => t.apply(this, arg)
 	$swal.call(this, {
 		title: title === null ? T('r.info.title') : title,

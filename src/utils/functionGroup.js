@@ -1,6 +1,6 @@
 /**
  * @description 公共方法集合
- * @author ricky zhangqingcq@foxmail.com
+ * @author Ricky zhangqingcq@foxmail.com
  * @created 2020.06.16
  */
 
@@ -28,8 +28,39 @@ export function toLine(name) {
 
 /**
  * 去掉对象属性前后空格
+ * 注意：返回的是新对象，不会修改原始对象
  */
 export function trimObj(obj) {
+	const clonedObj = _.cloneDeep(obj)
+	let p = myTypeof(clonedObj)
+	if (p === 'Object') {
+		for (let key in clonedObj) {
+			if (clonedObj.hasOwnProperty(key)) {
+				let o = myTypeof(clonedObj[key])
+				if (o === 'String') {
+					clonedObj[key] = clonedObj[key].trim()
+				} else if (o === 'Object' || o === 'Array') {
+					trimObjInPlace(clonedObj[key])
+				}
+			}
+		}
+	} else if (p === 'Array') {
+		for (let i = 0, l = clonedObj.length; i < l; i++) {
+			let t = myTypeof(clonedObj[i])
+			if (t === 'String') {
+				clonedObj[i] = clonedObj[i].trim()
+			} else if (t === 'Array' || t === 'Object') {
+				trimObjInPlace(clonedObj[i])
+			}
+		}
+	}
+	return clonedObj
+}
+
+/**
+ * 内部函数：原地trim对象（用于递归调用）
+ */
+function trimObjInPlace(obj) {
 	let p = myTypeof(obj)
 	if (p === 'Object') {
 		for (let key in obj) {
@@ -38,7 +69,7 @@ export function trimObj(obj) {
 				if (o === 'String') {
 					obj[key] = obj[key].trim()
 				} else if (o === 'Object' || o === 'Array') {
-					trimObj(obj[key])
+					trimObjInPlace(obj[key])
 				}
 			}
 		}
@@ -48,11 +79,10 @@ export function trimObj(obj) {
 			if (t === 'String') {
 				obj[i] = obj[i].trim()
 			} else if (t === 'Array' || t === 'Object') {
-				trimObj(obj[i])
+				trimObjInPlace(obj[i])
 			}
 		}
 	}
-	return obj
 }
 
 /**
@@ -377,13 +407,25 @@ export function decimalDigitsLimit(val, num = 2) {
 }
 
 /*文件导出，调用后端接口以form表单提交数据下载文件*/
+let _downloadForm = null
+
 export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
-	let form = document.createElement('form')
 	let body = document.getElementsByTagName('body')[0]
-	body.appendChild(form)
-	form.setAttribute('style', 'display:none')
-	form.setAttribute('target', '')
-	form.setAttribute('method', method)
+	if (!body) {
+		console.error('document.body 不存在，无法执行文件下载')
+		return
+	}
+	
+	if (!_downloadForm) {
+		_downloadForm = document.createElement('form')
+		_downloadForm.setAttribute('style', 'display:none')
+		_downloadForm.setAttribute('target', '')
+		body.appendChild(_downloadForm)
+	}
+	
+	_downloadForm.innerHTML = ''
+	_downloadForm.setAttribute('method', method)
+	
 	let _url = url
 	if (window?.g) {
 		/*所有特定缩写字母开头的地址，都会被改变加上config.js（public里的全局配置文件，在index.html引入，在打包后通过更改该文件用于不
@@ -403,7 +445,7 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
 			}
 		}
 	}
-	form.setAttribute('action', _url)
+	_downloadForm.setAttribute('action', _url)
 
 	if (_.isPlainObject(data)) {
 		for (let key in data) {
@@ -412,17 +454,11 @@ export function downloadFileByFormSubmit(url, data = {}, method = 'get') {
 				input.setAttribute('type', 'hidden')
 				input.setAttribute('name', key)
 				input.setAttribute('value', data[key])
-				form.appendChild(input)
+				_downloadForm.appendChild(input)
 			}
 		}
 
-		form.submit()
-
-		let ta = setTimeout(() => {
-			body.removeChild(form)
-			clearTimeout(ta)
-			ta = null
-		}, 8000)
+		_downloadForm.submit()
 	} else {
 		console.error('请求数据格式有误，无法下载文件')
 	}
@@ -708,7 +744,7 @@ export function setValByOption({ group, condition, key, val, childKey = 'childre
  */
 export function hasPermission(value) {
 	let btnPermissions = sessionStorage.getItem('btnPermissions')
-	if (btnPermissions) {
+	if (btnPermissions && btnPermissions.trim() !== '') {
 		return btnPermissions.split(',').indexOf(value) > -1
 	}
 	return false
@@ -797,7 +833,7 @@ export function stopBubbling(e) {
 
 /*过滤对象或数组中无效值*/
 export function removeEmptyValue(data) {
-	let temp
+	let temp = {}
 	if (Array.isArray(data)) {
 		temp = []
 		for (let item of data) {
@@ -811,7 +847,7 @@ export function removeEmptyValue(data) {
 		temp = {}
 		for (let key in data) {
 			if (data.hasOwnProperty(key)) {
-				if (Array.isArray(data[key] || _.isPlainObject(data[key]))) {
+				if (Array.isArray(data[key]) || _.isPlainObject(data[key])) {
 					temp[key] = removeEmptyValue(data[key])
 				} else if (isValidValue(data[key])) {
 					temp[key] = data[key]
@@ -828,12 +864,15 @@ export function removeEmptyValue(data) {
  * @return {Promise<any>}
  */
 export function htmlPrint(data) {
-	const pwin = window.open()
-	pwin.document.write(data)
-	const tc = setTimeout(() => {
-		pwin.print()
-		window.clearTimeout(tc)
-	}, 10)
+	const pWin = window.open()
+	if (pWin) {
+		pWin.document.write(data)
+		let ta = setTimeout(() => {
+			pWin.print()
+			window.clearTimeout(ta)
+			ta = null
+		}, 10)
+	}
 }
 
 /**
@@ -843,13 +882,13 @@ export function htmlPrint(data) {
 export function siblingElems(elem) {
 	let nodes = []
 	let _elem = elem
-	while ((elem = elem.previousSibling)) {
+	while (elem.previousSibling && (elem = elem.previousSibling)) {
 		if (elem.nodeType === 1) {
 			nodes.push(elem)
 		}
 	}
 
-	while ((_elem = _elem.nextSibling)) {
+	while (_elem.nextSibling && (_elem = _elem.nextSibling)) {
 		if (_elem.nodeType === 1) {
 			nodes.push(_elem)
 		}

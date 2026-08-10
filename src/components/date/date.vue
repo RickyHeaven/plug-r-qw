@@ -1,6 +1,7 @@
 <script>
 	import Locale from '../../mixins/locale'
 	import { oneOf, myTypeof } from '../../utils/functionGroup'
+	import { setTimeout } from '../../utils/timer'
 
 	const typeList = ['date', 'daterange', 'datetime', 'datetimerange', 'year', 'month']
 
@@ -80,7 +81,7 @@
 			getOptions(d) {
 				const t = d.target
 				if (t.classList?.contains?.('ivu-date-picker-cells-cell') || t.tagName === 'EM') {
-					this.setTimeout(() => {
+					setTimeout(() => {
 						const r = this.$refs.dateC?.$refs.pickerPanel?.rangeState
 						if (r) {
 							const from = r.from
@@ -102,6 +103,10 @@
 		mounted() {
 			const el = document.getElementsByClassName(this.transferId)[0]
 			el?.addEventListener?.('click', this.getOptions, true)
+		},
+		beforeDestroy() {
+			const el = document.getElementsByClassName(this.transferId)[0]
+			el?.removeEventListener?.('click', this.getOptions, true)
 		}
 	}
 </script>

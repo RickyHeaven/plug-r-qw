@@ -1,5 +1,5 @@
 <!--created 2021.07.06-->
-<!--author ricky email:zhangqingcq@foxmail.com-->
+<!--author Ricky email:zhangqingcq@foxmail.com-->
 
 <template>
 	<div class="transferBoxRL">

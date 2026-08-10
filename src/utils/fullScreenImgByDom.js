@@ -1,6 +1,6 @@
 /**
- * @description全屏预览，原生dom技术
- * @author ricky email:zhangqingcq@foxmail.com
+ * @description 全屏预览，原生dom技术
+ * @author Ricky email:zhangqingcq@foxmail.com
  * @created 2020.05.08
  */
 
@@ -8,6 +8,7 @@ import _ from 'lodash'
 import { t } from '../locale/index'
 
 let _index = 0
+let _previewInstances = []
 
 function domHandle(src, _i, imgEl, nameEl) {
 	if (nameEl) {
@@ -92,25 +93,38 @@ export default function fullScreenImgByDom(src, index = 0) {
 		_name ? '' : 'hide'
 	}">${_name}</p>`
 
+	const imgEl = child.querySelector('img')
+	if (imgEl && _src) {
+		imgEl.src = _src
+	}
+
 	function closeHandler() {
 		let bb = _.first(document.getElementsByTagName('body'))
-		if (bb) {
+		if (bb && child.parentNode) {
 			bb.removeChild(child)
 		}
 		document.removeEventListener('keyup', keyupHandler)
+		const idx = _previewInstances.findIndex((inst) => inst.child === child)
+		if (idx > -1) {
+			_previewInstances.splice(idx, 1)
+		}
 	}
 
-	child.querySelector('.ivu-icon-md-close').addEventListener('click', closeHandler)
-	const imgEl = child.querySelector('img')
+	child.querySelector('.ivu-icon-md-close')?.addEventListener?.('click', closeHandler)
 	const nameEl = child.querySelector('.pName')
-	child.querySelector('.pageFBt.left').addEventListener('click', function () {
+	child.querySelector('.pageFBt.left')?.addEventListener('click', function () {
 		lastImg(arrSrc, src, imgEl, nameEl)
 	})
-	child.querySelector('.pageFBt.right').addEventListener('click', function () {
+	child.querySelector('.pageFBt.right')?.addEventListener('click', function () {
 		nextImg(arrSrc, src, imgEl, nameEl)
 	})
 
 	function keyupHandler(e) {
+		const activeInstance = _previewInstances[_previewInstances.length - 1]
+		if (activeInstance?.child !== child) {
+			return
+		}
+
 		if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 87 || e.keyCode === 65) {
 			//上、左、w、a
 			lastImg(arrSrc, src, imgEl, nameEl)
@@ -123,7 +137,8 @@ export default function fullScreenImgByDom(src, index = 0) {
 		}
 	}
 
+	_previewInstances.push({ child, keyupHandler })
 	document.addEventListener('keyup', keyupHandler)
-	bodyEl.appendChild(child)
+	bodyEl && bodyEl.appendChild(child)
 	child.focus({ preventScroll: true })
 }

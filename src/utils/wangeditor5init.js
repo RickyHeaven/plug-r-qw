@@ -18,7 +18,7 @@ import { t } from '../locale'
 			return ''
 		}
 
-		isActive(d) {
+		isActive() {
 			return false
 		}
 
@@ -30,14 +30,18 @@ import { t } from '../locale'
 			const e = document.getElementById('editor-preview')
 			let _w = localStorage.getItem('editorPreviewW') || 300
 			let _h = localStorage.getItem('editorPreviewH') || 500
-			const contentR = d.getHtml()
+			const contentR = d?.getHtml?.()
 
 			if (e) {
 				let wallE = e.children?.[0]?.children?.[1]?.children?.[0]
 				let outWallE = e.children?.[0]?.children?.[1]
-				wallE.innerHTML = contentR
-				wallE.style.width = _w + 'px'
-				outWallE.style.height = _h + 'px'
+				if (wallE) {
+					wallE.innerHTML = contentR
+					wallE.style.width = _w + 'px'
+				}
+				if (outWallE) {
+					outWallE.style.height = _h + 'px'
+				}
 				e.style.display = 'block'
 			} else {
 				const body = document.body
@@ -119,7 +123,7 @@ import { t } from '../locale'
 				inputH.addEventListener('blur', hHandler)
 				inputH.addEventListener('keyup', hHandler)
 				let closeE = p.children[0].children[0].children[1]
-				closeE.addEventListener('click', (e) => {
+				closeE.addEventListener('click', () => {
 					p.style.display = 'none'
 				})
 

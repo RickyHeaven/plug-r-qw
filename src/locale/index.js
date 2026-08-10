@@ -1,6 +1,6 @@
 /**
  * @description 国际化
- * @author ricky zhangqingcq@foxmail.com
+ * @author Ricky zhangqingcq@foxmail.com
  * @created 2020.10.14
  */
 
@@ -9,22 +9,41 @@ import Vue from 'vue'
 import deepmerge from 'deepmerge'
 import Format from './format'
 
+const format = Format()
 let lang = defaultLang
-let merged = false
-let i18nHandler = function () {
+const message = {
+	zh: defaultLang
+}
+let nowLang
+let merged = {}
+let vueI18n
+let isFormatting = false
+let i18nHandler = function (path, options) {
 	//如果vue原型上有$t方法，用该方法进行国际化翻译
-	const vuei18n = Object.getPrototypeOf(this || Vue).$t
-	if (typeof vuei18n === 'function' && !!Vue.locale) {
-		if (!merged) {
-			merged = true
-			Vue.locale(Vue.config.lang, deepmerge(lang, Vue.locale(Vue.config.lang) || {}, { clone: true }))
+	if (typeof this === 'object' && this.$t) {
+		return this.$t(path, options)
+	}
+	if (vueI18n && vueI18n.global) {
+		return vueI18n.global.t(path, options)
+	}
+	if (vueI18n && vueI18n.locale) {
+		if (!merged[vueI18n.locale] || nowLang !== vueI18n.locale) {
+			merged[vueI18n.locale] = true
+			const localMessage = Vue.locale(Vue.config.lang) || {}
+			const newLocalMessage = deepmerge(message[vueI18n.locale] || lang, localMessage, { clone: true })
+			lang = newLocalMessage
+			Vue.locale(Vue.config.lang, newLocalMessage)
+			nowLang = vueI18n.locale
 		}
-		return vuei18n.apply(this, arguments)
+		return vueI18n.hlang(path, options)
 	}
 }
 
 export const t = function (path, options) {
-	let value = i18nHandler.apply(this, arguments)
+	if (isFormatting) {
+		return ''
+	}
+	let value = i18nHandler.apply(this, [path, options])
 	if (value !== null && value !== undefined) {
 		return value
 	}
@@ -36,7 +55,13 @@ export const t = function (path, options) {
 		const property = array[i]
 		value = current[property]
 		if (i === j - 1) {
-			return Format(value, options)
+			//防止format中调用t（该方法），形成递归
+			isFormatting = true
+			try {
+				return format(value, options)
+			} finally {
+				isFormatting = false
+			}
 		}
 		if (!value) {
 			return ''
@@ -50,8 +75,8 @@ export const use = function (l) {
 	lang = l || lang
 }
 
-export const i18n = function (fn) {
-	i18nHandler = fn || i18nHandler
+export const i18n = function (initI18n) {
+	vueI18n = initI18n
 }
 
 export default {

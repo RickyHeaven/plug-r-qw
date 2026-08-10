@@ -1,0 +1,778 @@
+{
+  "data": {
+    "bt-table-page": [
+      {
+        "name": "电风扇",
+        "size": 666,
+        "mimeType": "gif",
+        "remark": "测试",
+        "id": 85
+      },
+      {
+        "name": "夕阳",
+        "size": 502,
+        "mimeType": "jpg",
+        "remark": "测试新增b、编辑b",
+        "id": 84
+      },
+      {
+        "name": "foot_nav3.png",
+        "size": 1058,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 81
+      },
+      {
+        "name": "head_back.png",
+        "size": 4543,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 80
+      },
+      {
+        "name": "head_more.png",
+        "size": 385,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 79
+      },
+      {
+        "name": "group_head3.png",
+        "size": 10494,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 78
+      },
+      {
+        "name": "文章正文",
+        "size": 247,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 77
+      },
+      {
+        "name": "文章正文",
+        "size": 120,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 76
+      },
+      {
+        "name": "文章正文",
+        "size": 192,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 74
+      },
+      {
+        "name": "屏幕截图 2020-10-23 111315.png",
+        "size": 32840,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 73
+      },
+      {
+        "name": "文章正文",
+        "size": 155,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 72
+      },
+      {
+        "name": "tmp_31edebac296857bd1a8f2ceb6c150b4c8f73093713b0b50f.jpg",
+        "size": 99682,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 71
+      },
+      {
+        "name": "timg.jpg",
+        "size": 26123,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 70
+      },
+      {
+        "name": "N3YAKhKf8n5t1b9fba1ebd4e7ee77c4e72d53c4781c7.png",
+        "size": 2794,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 69
+      },
+      {
+        "name": "HXrtUkgtQUYeb789d02a90825ab5004b733a0a0790f0.png",
+        "size": 426171,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 68
+      },
+      {
+        "name": "IOgcTVTR2bkn7def7483a2f80d6497475e150128d4d5.png",
+        "size": 14092,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 67
+      },
+      {
+        "name": "foot_nav03.png",
+        "size": 1232,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 66
+      },
+      {
+        "name": "head_back.png",
+        "size": 450,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 65
+      },
+      {
+        "name": "foot_nav01.png",
+        "size": 1612,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 64
+      },
+      {
+        "name": "foot_nav4.png",
+        "size": 1480,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 63
+      },
+      {
+        "name": "timg.jpg",
+        "size": 97575,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 62
+      },
+      {
+        "name": "wxbdc1cf132183b142.o6zAJsxwJCrvCC5EHSEBCJyGUAas.phs8qJpnaDrP8a9c077899ffe7525d1226350c1af131.png",
+        "size": 970,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 61
+      },
+      {
+        "name": "移动logo@2x.png",
+        "size": 18286,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 60
+      },
+      {
+        "name": "DNS设置.png",
+        "size": 26762,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 59
+      },
+      {
+        "name": "benwei.png",
+        "size": 5481,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 58
+      },
+      {
+        "name": "zan.png",
+        "size": 5652,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 57
+      },
+      {
+        "name": "111.jpg",
+        "size": 56835,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 56
+      },
+      {
+        "name": "冥界.jpg",
+        "size": 77425,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 55
+      },
+      {
+        "name": "冥海.jpg",
+        "size": 746030,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 54
+      },
+      {
+        "name": "underbrage.jpg",
+        "size": 522334,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 53
+      },
+      {
+        "name": "雪女.jpg",
+        "size": 94060,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 52
+      },
+      {
+        "name": "NB2.0&2.1_APP_V1.32T04.hex",
+        "size": 282022,
+        "mimeType": "application/octet-stream",
+        "extension": ".hex",
+        "id": 51
+      },
+      {
+        "name": "act_img_01.png",
+        "size": 115288,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 50
+      },
+      {
+        "name": "bg_07_1.png",
+        "size": 51086,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 49
+      },
+      {
+        "name": "asset_icon_01.png",
+        "size": 553,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 48
+      },
+      {
+        "name": "bus_img_06.png",
+        "size": 4092,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 47
+      },
+      {
+        "name": "文章正文",
+        "size": 143,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 46
+      },
+      {
+        "name": "NB3.1_DryPower_FourWireValve_APP_V2.20T02(1).hex",
+        "size": 309038,
+        "mimeType": "application/octet-stream",
+        "extension": ".hex",
+        "id": 45
+      },
+      {
+        "name": "timdg.jpg",
+        "size": 9781,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 44
+      },
+      {
+        "name": "文章正文",
+        "size": 37,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 43
+      },
+      {
+        "name": "文章正文",
+        "size": 22,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 42
+      },
+      {
+        "name": "文章正文",
+        "size": 89,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 41
+      },
+      {
+        "name": "文章正文",
+        "size": 86,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 40
+      },
+      {
+        "name": "timg12.jpg",
+        "size": 10315,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 39
+      },
+      {
+        "name": "文章正文",
+        "size": 206,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 38
+      },
+      {
+        "name": "文章正文",
+        "size": 132,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 37
+      },
+      {
+        "name": "文章正文",
+        "size": 1696,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 36
+      },
+      {
+        "name": "文章正文",
+        "size": 331,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 35
+      },
+      {
+        "name": "bg_03.png",
+        "size": 59676,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 34
+      },
+      {
+        "name": "bg_01_1.png",
+        "size": 20349,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 33
+      },
+      {
+        "name": "act_btn_bg1.png",
+        "size": 26006,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 32
+      },
+      {
+        "name": "bank_icon.png",
+        "size": 3547,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 31
+      },
+      {
+        "name": "banner_img.png",
+        "size": 31273,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 30
+      },
+      {
+        "name": "day03.jpg",
+        "size": 50581,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 29
+      },
+      {
+        "name": "微信图片_2020121817225810.jpg",
+        "size": 5328,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 28
+      },
+      {
+        "name": "橘猫.jpg",
+        "size": 62245,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 27
+      },
+      {
+        "name": "day07.jpg",
+        "size": 1776,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 26
+      },
+      {
+        "name": "timg.jpg",
+        "size": 11568,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 25
+      },
+      {
+        "name": "signature.jpg",
+        "size": 31091,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 24
+      },
+      {
+        "name": "signature.jpg",
+        "size": 32308,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 23
+      },
+      {
+        "name": "signature.jpg",
+        "size": 30338,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 22
+      },
+      {
+        "name": "IMG_CMP_126751526.jpeg",
+        "size": 358482,
+        "mimeType": "image/jpeg",
+        "extension": ".jpeg",
+        "id": 21
+      },
+      {
+        "name": "signature.jpg",
+        "size": 26364,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 20
+      },
+      {
+        "name": "IMG_CMP_14585679.jpeg",
+        "size": 118520,
+        "mimeType": "image/jpeg",
+        "extension": ".jpeg",
+        "id": 19
+      },
+      {
+        "name": "signature.jpg",
+        "size": 31667,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 18
+      },
+      {
+        "name": "密码.txt",
+        "size": 448,
+        "mimeType": "text/plain",
+        "extension": ".txt",
+        "id": 17
+      },
+      {
+        "name": "proManage2.jpg",
+        "size": 50165,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 16
+      },
+      {
+        "name": "画板 1.png",
+        "size": 171970,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 15
+      },
+      {
+        "name": "p4.png",
+        "size": 15962,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 14
+      },
+      {
+        "name": "scan.png",
+        "size": 485,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 13
+      },
+      {
+        "name": "topup.png",
+        "size": 44670,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 12
+      },
+      {
+        "name": "p5.png",
+        "size": 613068,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 11
+      },
+      {
+        "name": "p2.png",
+        "size": 929845,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 10
+      },
+      {
+        "name": "文章正文",
+        "size": 19,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 9
+      },
+      {
+        "name": "文章正文",
+        "size": 10,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 8
+      },
+      {
+        "name": "文章正文",
+        "size": 12,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 7
+      },
+      {
+        "name": "文章正文",
+        "size": 13,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 6
+      },
+      {
+        "name": "文章正文",
+        "size": 16,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 5
+      },
+      {
+        "name": "文章正文",
+        "size": 28,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 4
+      },
+      {
+        "name": "cat's question.jpg",
+        "size": 2291,
+        "mimeType": "image/jpeg",
+        "extension": ".jpg",
+        "id": 3
+      },
+      {
+        "name": "fund_icon_03.png",
+        "size": 2666,
+        "mimeType": "image/png",
+        "extension": ".png",
+        "id": 2
+      },
+      {
+        "name": "文章正文",
+        "size": 17,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": 1
+      }
+    ],
+    "select-scroll-more": [
+      {
+        "name": "阿海",
+        "sex": 0,
+        "birth": "1994",
+        "tel": "88888888",
+        "dep": "it",
+        "id": 1
+      },
+      {
+        "name": "阿耀",
+        "sex": 1,
+        "birth": "1991",
+        "tel": "77777777",
+        "dep": "it",
+        "id": 2
+      },
+      {
+        "name": "阿杰",
+        "sex": 1,
+        "birth": "2005",
+        "tel": "66666666",
+        "dep": "it",
+        "id": 3
+      },
+      {
+        "name": "阿菊",
+        "sex": 0,
+        "birth": "1966",
+        "tel": "55555555",
+        "dep": "hr",
+        "id": 4
+      },
+      {
+        "name": "阿军",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "22222222",
+        "dep": "hr",
+        "id": 5
+      },
+      {
+        "name": "阿的",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "11111111",
+        "dep": "hr",
+        "id": 6
+      },
+      {
+        "name": "阿和",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "33333333",
+        "dep": "hr",
+        "id": 7
+      },
+      {
+        "name": "阿看",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "44444444",
+        "dep": "hr",
+        "id": 8
+      },
+      {
+        "name": "阿人",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "9999999",
+        "dep": "hr",
+        "id": 9
+      },
+      {
+        "name": "阿吗",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "12345678",
+        "dep": "hr",
+        "id": 10
+      },
+      {
+        "name": "阿我",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "12121212",
+        "dep": "hr",
+        "id": 11
+      },
+      {
+        "name": "阿了",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "12312312",
+        "dep": "hr",
+        "id": 12
+      },
+      {
+        "name": "阿嗄",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "12341234",
+        "dep": "hr",
+        "id": 13
+      },
+      {
+        "name": "阿们",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "34343434",
+        "dep": "hr",
+        "id": 14
+      },
+      {
+        "name": "阿上",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "45454545",
+        "dep": "hr",
+        "id": 15
+      },
+      {
+        "name": "阿很",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "56565656",
+        "dep": "hr",
+        "id": 16
+      }
+    ],
+    "people": [
+      {
+        "name": "阿海",
+        "sex": 0,
+        "birth": "1994",
+        "tel": "88888888",
+        "dep": "it",
+        "id": 1
+      },
+      {
+        "name": "阿耀",
+        "sex": 1,
+        "birth": "1991",
+        "tel": "77777777",
+        "dep": "it",
+        "id": 2
+      },
+      {
+        "name": "阿杰",
+        "sex": 1,
+        "birth": "2005",
+        "tel": "66666666",
+        "dep": "it",
+        "id": 3
+      },
+      {
+        "name": "阿菊",
+        "sex": 0,
+        "birth": "1966",
+        "tel": "55555555",
+        "dep": "hr",
+        "id": 4
+      },
+      {
+        "name": "阿军",
+        "sex": 1,
+        "birth": "1968",
+        "tel": "22222222",
+        "dep": "hr",
+        "id": 5
+      }
+    ],
+    "transfer-box-added": [
+      {
+        "name": "文章正文",
+        "size": 353,
+        "mimeType": "text/html",
+        "extension": ".html",
+        "id": null,
+        "btKey": "bt-8",
+        "btChecked": false
+      },
+      {
+        "name": "向日葵",
+        "size": 304,
+        "mimeType": "bmp",
+        "remark": "测试新增、编辑",
+        "id": null,
+        "btKey": "bt-2",
+        "btChecked": false
+      }
+    ]
+  },
+  "idCount": {
+    "bt-table-page": 85,
+    "select-scroll-more": 16,
+    "people": 5,
+    "transfer-box-added": null
+  }
+}

@@ -131,8 +131,7 @@
 						this.init(res)
 					})
 					.catch((error) => {
-						console.warn('代码报错啦~')
-						console.warn(error)
+						console.warn('图表数据加载失败', error)
 					})
 			}
 		},
@@ -176,8 +175,7 @@
 								this.init(res)
 							})
 							.catch((error) => {
-								console.warn('代码报错啦~')
-								console.warn(error)
+								console.warn('图表数据加载失败', error)
 							})
 					}
 				},
@@ -188,7 +186,9 @@
 			resizeHandler() {
 				if (this.myChart) {
 					this.myChart.resize()
-					window.echartResizeMJ[this.name] = true
+					if (window.echartResizeMJ) {
+						window.echartResizeMJ[this.name] = true
+					}
 				}
 			},
 			//数据拉取
@@ -211,7 +211,7 @@
 								}
 							})
 							.catch((e) => {
-								console.warn(e)
+								console.warn('图表数据请求失败', e)
 							})
 					} else if (this?.dataT?.series || this?.seriesT?.length > 0) {
 						//没有url且有静态数据也可以执行回调
@@ -225,7 +225,12 @@
 				//事件里面进行操作，通常是当前函数this，不是父级this,可以用箭头函数或者创建变量来解决这个问题
 				let me = this
 				//实例化DOM元素（ID,主题）
-				me.myChart = echarts.init(document.getElementById(this.name), this.theme)
+				const domEl = document.getElementById(this.name)
+				if (!domEl) {
+					console.warn('图表容器不存在：', this.name)
+					return
+				}
+				me.myChart = echarts.init(domEl, this.theme)
 				//时间轴中的时间点改变后的事件，返回给父组件
 				me.myChart.on('timelinechanged', (res) => {
 					me.$emit('time-line-change', res.currentIndex)
@@ -279,7 +284,7 @@
 				me.myChart.setOption(option)
 
 				//自适应样式
-				if (window.echartResizeMJ === undefined) {
+				if (!window.echartResizeMJ) {
 					window.echartResizeMJ = {}
 				}
 				if (!window.echartResizeMJ[me.name]) {
@@ -294,7 +299,9 @@
 				this.myChart.clear()
 				this.myChart.dispose()
 				this.myChart = null
-				window.echartResizeMJ = {}
+				if (window.echartResizeMJ) {
+					delete window.echartResizeMJ[this.name]
+				}
 			}
 			window.removeEventListener('resize', this.resizeHandler)
 		}
