@@ -62,7 +62,7 @@
 
 <style scoped lang="less">
 	.examplePageL {
-		background-color: #40479a;
+		background-color: #0084ef;
 		h2 {
 			text-align: center;
 			color: aliceblue;

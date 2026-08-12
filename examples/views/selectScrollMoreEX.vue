@@ -1,10 +1,8 @@
 <template>
 	<div class="examplePageL">
 		<showReadMe />
-		<div style="margin: 20px 0">
-			请注意：该示例因为要请求接口，所以请执行“npm run node-serve”开启node-serve后方可正常演示
-		</div>
-		<well-card title="searchWordsRequired为false(默认)" width="300px" height="400px" inline>
+		<NodeServeInfo style="margin-bottom: 10px" />
+		<well-card class="wCard" title="searchWordsRequired为false(默认)" width="300px" height="400px" inline>
 			<div class="inBox">
 				<select-scroll-more
 					v-model="value"
@@ -18,7 +16,14 @@
 				</p>
 			</div>
 		</well-card>
-		<well-card title="searchWordsRequired为true" width="300px" height="400px" inline style="margin-left: 10px">
+		<well-card
+			class="wCard"
+			title="searchWordsRequired为true"
+			width="300px"
+			height="400px"
+			inline
+			style="margin-left: 10px"
+		>
 			<div class="inBox">
 				<select-scroll-more
 					v-model="value1"
@@ -33,7 +38,14 @@
 				</p>
 			</div>
 		</well-card>
-		<well-card title="optionFilter：过滤掉选项‘阿上’" width="300px" height="400px" inline style="margin-left: 10px">
+		<well-card
+			class="wCard"
+			title="optionFilter：过滤掉选项'阿上'"
+			width="300px"
+			height="400px"
+			inline
+			style="margin-left: 10px"
+		>
 			<div class="inBox">
 				<select-scroll-more
 					v-model="value2"
@@ -48,7 +60,7 @@
 				</p>
 			</div>
 		</well-card>
-		<well-card title="multiple 多选" width="300px" height="400px" inline style="margin-left: 10px">
+		<well-card class="wCard" title="multiple 多选" width="300px" height="400px" inline style="margin-left: 10px">
 			<div class="inBox">
 				<select-scroll-more
 					v-model="value3"
@@ -68,8 +80,11 @@
 </template>
 
 <script>
+	import NodeServeInfo from '../components/NodeServeInfo.vue'
+
 	export default {
 		name: 'selectInputEX',
+		components: { NodeServeInfo },
 		data() {
 			return {
 				value: null,
@@ -97,5 +112,10 @@
 	.outJ {
 		margin-top: 20px;
 		padding-left: 20px;
+	}
+
+	.examplePageL .wCard {
+		background-color: #fff;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 	}
 </style>

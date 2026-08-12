@@ -1,32 +1,37 @@
 <template>
 	<div class="exBox">
-		<span class="infoMD">请注意：该示例因为要请求接口，所以请执行“npm run node-serve”开启node-serve后方可正常演示</span>
 		<showReadMe />
-		<transfer-box
-			ref="transferRef"
-			:formDataLeft="formData"
-			:formDataRight="formData"
-			:left-table-columns="columns"
-			:right-table-columns="columns"
-			left-table-url="/node-serve/transfer-box-added"
-			right-table-url="/node-serve/transfer-box-not-added"
-			add-url="/node-serve/transfer-box-added"
-			delete-url="/node-serve/transfer-box-not-added"
-			add-all-url="/node-serve/transfer-box-added-all"
-			delete-all-url="/node-serve/transfer-box-not-added-all"
-			:add-params-handle="(e) => e"
-			:delete-params-handle="(e) => e"
-			@on-data-change-l="onChangeL"
-		/>
+		<div class="flexColumnBox">
+			<NodeServeInfo style="margin-bottom: 15px" />
+			<transfer-box
+				class="growFlexItem"
+				ref="transferRef"
+				:formDataLeft="formData"
+				:formDataRight="formData"
+				:left-table-columns="columns"
+				:right-table-columns="columns"
+				left-table-url="/node-serve/transfer-box-added"
+				right-table-url="/node-serve/transfer-box-not-added"
+				add-url="/node-serve/transfer-box-added"
+				delete-url="/node-serve/transfer-box-not-added"
+				add-all-url="/node-serve/transfer-box-added-all"
+				delete-all-url="/node-serve/transfer-box-not-added-all"
+				:add-params-handle="(e) => e"
+				:delete-params-handle="(e) => e"
+				@on-data-change-l="onChangeL"
+			/>
+		</div>
 	</div>
 </template>
 
 <script>
 	import { downloadFileReaderFile } from '../../src/utils/functionGroup'
 	import imgK from '../assets/testo.png'
+	import NodeServeInfo from '../components/NodeServeInfo.vue'
 
 	export default {
 		name: 'btTablePageEX',
+		components: { NodeServeInfo },
 		data() {
 			return {
 				columns: [
@@ -98,14 +103,7 @@
 <style lang="less" scoped>
 	.exBox {
 		height: 100%;
-		padding: 50px 20px 20px 20px;
+		padding: 15px;
 		background-color: #fff;
-		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-		.infoMD {
-			position: absolute;
-			left: 30px;
-			top: 28px;
-			color: #666;
-		}
 	}
 </style>

@@ -91,6 +91,8 @@
 		margin-right: 10px;
 		margin-bottom: 10px;
 		height: 300px;
+		background-color: #fff;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
 		.wellInnerK {
 			padding-top: 10px;

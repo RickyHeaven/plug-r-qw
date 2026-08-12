@@ -76,6 +76,8 @@
 		display: inline-block;
 		margin: 0 10px 10px 0;
 		height: 200px;
+		background-color: #fff;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
 		&.middleE {
 			width: 360px;

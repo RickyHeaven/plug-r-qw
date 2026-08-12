@@ -1,21 +1,27 @@
 <template>
 	<div class="examplePageL tc">
 		<showReadMe />
-		<Button @click="confirmHandle">点击模拟请求</Button>
-		<Button @click="confirmHandleB">请求遮罩spin</Button>
-		<Button @click="confirmHandleC('')">请求拦截器403</Button>
-		<Button @click="confirmHandleC('-b')">请求拦截器403-b</Button>
+		<NodeServeInfo />
+		<div style="margin-top: 12px">
+			<Button @click="confirmHandle">点击模拟请求</Button>
+			<Button @click="confirmHandleB">请求遮罩spin</Button>
+			<Button @click="confirmHandleC('')">请求拦截器403</Button>
+			<Button @click="confirmHandleC('-b')">请求拦截器403-b</Button>
+		</div>
 	</div>
 </template>
 
 <script>
+	import NodeServeInfo from '../components/NodeServeInfo.vue'
+
 	export default {
 		name: 'fetchEX',
+		components: { NodeServeInfo },
 		methods: {
 			confirmHandle() {
-				this.$fetch.get(location.pathname + 'testData/fetch.json').then((r) => {
+				this.$fetch.get('/testData/fetch.json').then((r) => {
 					if (r?.code === 0) {
-						this.$swal('请求成功', '名称：' + r.data.name + '; 邮箱：' + r.data.email, 'success')
+						this.$swal('请求成功', '名称：' + r.data.name + '；邮箱：' + r.data.email, 'success')
 					}
 				})
 			},
@@ -32,7 +38,7 @@
 					.then((r) => {
 						console.log(r.message)
 					})
-					.catch((e) => {})
+					.catch(() => {})
 			}
 		}
 	}

@@ -1,8 +1,10 @@
 <template>
 	<div class="exBox">
 		<showReadMe />
-		<div class="tableLK">
+		<div class="flexColumnBox">
+			<NodeServeInfo />
 			<bt-table-page
+				class="growFlexItem"
 				ref="btTab"
 				:columns="columns"
 				:url="url"
@@ -47,9 +49,11 @@
 	import { downloadFileReaderFile } from '../../src/utils/functionGroup'
 	import imgK from '../assets/testo.png'
 	import _ from 'lodash'
+	import NodeServeInfo from '../components/NodeServeInfo.vue'
 
 	export default {
 		name: 'btTablePageEX',
+		components: { NodeServeInfo },
 		data() {
 			return {
 				action: 'new',
@@ -230,7 +234,9 @@
 			handleNew() {
 				if (this.nodeServer) {
 					this.action = 'new'
-					this.$refs.formModalRef.open()
+					this.$refs.formModalRef.resetForm().then(() => {
+						this.$refs.formModalRef.open()
+					})
 				} else {
 					this.$swal('提示', '仅在node-serve模式下可执行新增', 'info')
 				}
@@ -351,13 +357,8 @@
 <style lang="less" scoped>
 	.exBox {
 		height: 100%;
-		padding: 50px 20px 20px 20px;
+		padding: 15px;
 		background-color: #fff;
-	}
-
-	.tableLK {
-		height: 100%;
-		position: relative;
 	}
 
 	.topBoxKAQ {

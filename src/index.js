@@ -89,7 +89,10 @@ import {
 	siblingElems
 } from './utils/functionGroup.js'
 import locale from './locale/index'
-import clickOutside from './directives/clickOutside'
+import clickOutside from './directives/clickOutside/index.js'
+import hasDirective from './directives/has/index.js'
+import loadmoreDirective from './directives/loadmore/index.js'
+import transferDomDirective from './directives/transferDom/index.js'
 import timer, { setTimeout, setInterval } from './utils/timer'
 import './utils/wangeditor5init'
 
@@ -234,44 +237,16 @@ const install = function (Vue, opts = {}) {
 	})
 
 	if (Vue.directive('has') === undefined) {
-		Vue.directive('has', {
-			/*权限指令*/
-			bind(el, binding) {
-				if (binding.value && !Vue.prototype.hasPermission(binding.value)) {
-					el.style.display = 'none'
-				}
-			}
-		})
+		Vue.directive('has', hasDirective)
 	}
 	if (Vue.directive('loadmore') === undefined) {
-		//select下拉滚动监听事件 可通过指令参数传递class来指定容器
-		Vue.directive('loadmore', {
-			bind(el, binding) {
-				// 获取定义好的scroll盒子
-				let SELECT_DOM
-
-				if (binding.arg) {
-					SELECT_DOM = el.querySelector('.' + binding.arg)
-				} else {
-					SELECT_DOM = el.querySelector('.ivu-select-dropdown') || el
-				}
-				SELECT_DOM.addEventListener('scroll', function () {
-					/*
-					 * scrollHeight 获取元素内容高度(只读)
-					 * scrollTop 获取或者设置元素的偏移值,常用于, 计算滚动条的位置, 当一个元素的容器没有产生垂直方向的滚动条, 那它的scrollTop的值默认为0.
-					 * clientHeight 读取元素的可见高度(只读)
-					 * 如果元素滚动到底, 下面等式返回true, 没有则返回false:
-					 * ele.scrollHeight - ele.scrollTop === ele.clientHeight;
-					 */
-					if (this.scrollTop > 0 && this.scrollHeight - this.scrollTop <= this.clientHeight) {
-						binding.value()
-					}
-				})
-			}
-		})
+		Vue.directive('loadmore', loadmoreDirective)
 	}
 	if (Vue.directive('clickOutside') === undefined) {
 		Vue.directive('clickOutside', clickOutside)
+	}
+	if (Vue.directive('transferDom') === undefined) {
+		Vue.directive('transferDom', transferDomDirective)
 	}
 
 	//库基础字号(应跟你项目设置的view-design基础字号一样)，影响范围：iconTxtBtn的txt与icon的尺寸比例、fullScreenPop的headerFontSize默认值、pagePro的current输入框尺寸。

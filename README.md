@@ -263,6 +263,9 @@
 
 ### 本库自带自定义指令
 
+每个指令在src/directives目录下都有一个对应的README文档，可参考该文档来使用该指令，这里只对每个指令进行简单的说明。
+
+
 * has
   通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`
   的内联样式，以此来实现元素的权限控制。
@@ -612,6 +615,8 @@
 
 ### 本库自带自定义指令
 
+每个指令在src/directives目录下都有一个对应的README文档，可参考该文档来使用该指令，这里只对每个指令进行简单的说明。
+
 * has
   通过本库内方法hasPermission将传入指令的值进行解析（在sessionStorage中btnPermissions中查找传入的值），如果解析结果为false，则为绑定的元素添加`display:none`
   的内联样式，以此来实现元素的权限控制。
@@ -622,3 +627,5 @@
 
 * clickOutside 在容器外部有鼠标点击事件时触发（如`v-click-outside='close'`）
 
+* transferDom 将元素从原始位置移动到指定的目标容器中，常用于解决弹窗、下拉菜单等组件的定位问题（如`v-transfer-dom="'#app'"`，不传目标容器时默认为`body`，需配合`:data-transfer="true"`使用）
+  > 注：Vue 3 项目提供了内置的 `<Teleport>` 组件实现相同功能，因此 Vue 3 版本不需要该指令。
