@@ -69,7 +69,7 @@
 			:disabled="Boolean(item?.disabled) || disabled"
 			:multiple="Boolean(item?.multiple)"
 			:placeholder="item?.placeholder || t('r.pSelect')"
-			@on-change="itemChange($event, item)"
+			@on-change="reValidateAndChangeHandle($event, item)"
 			transfer
 			:clearable="item?.clearable !== false"
 		>

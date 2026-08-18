@@ -650,7 +650,7 @@
 										(after) => {
 											this.tempKeysWatchHandle(after, root)
 										},
-										{ immediate: true }
+										{ immediate: true, sync: true }
 									)
 								)
 								break
@@ -695,7 +695,7 @@
 											(after) => {
 												this.tempKeysWatchHandle(after, root)
 											},
-											{ immediate: true }
+											{ immediate: true, sync: true }
 										)
 									)
 								}
@@ -713,7 +713,7 @@
 											(after) => {
 												this.tempKeysWatchHandle(after, root)
 											},
-											{ immediate: true }
+											{ immediate: true, sync: true }
 										)
 									)
 								}
@@ -884,7 +884,8 @@
 												this.tempKeysWatchHandle(after, root)
 											},
 											{
-												immediate: true
+												immediate: true,
+												sync: true
 											}
 										)
 									)
@@ -920,6 +921,9 @@
 										() => this.tempKeys[tempKeyB],
 										(after) => {
 											this.tempKeysWatchHandle(after, root)
+										},
+										{
+											sync: true
 										}
 									)
 								)
