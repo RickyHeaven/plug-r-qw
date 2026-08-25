@@ -294,6 +294,9 @@
 1. `npm i @zhangqingcq/plug-r-qw` or `pnpm add @zhangqingcq/plug-r-qw`
 
 2. 在main.js中添加：
+    > 特别说明：这里没有view-design的安装代码，你的项目是需要安装它的，该文档后面有安装方法，你也可以参考examples目录下的main.js；
+
+    > @zhangqingcq/plug-r-qw@1.3.0及以上版本需要安装@zhangqingcq/view-design-r（同时替换所有引用view-design的代码为@zhangqingcq/view-design-r），1.3.0以下版本需要安装view-design，至于原因该文档下面有说明。
     ```javascript
      // main.js or main.ts
    
