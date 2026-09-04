@@ -85,14 +85,21 @@
 			}
 		},
 		mounted() {
-			this.$refs.formRRef.$el.parentNode.addEventListener('keyup', (e) => {
-				if (e?.keyCode === 13) {
-					//回车
-					this.submit()
-				}
-			})
+			const parentNode = this.$refs.formRRef.$el.parentNode
+			parentNode.addEventListener('keyup', this.handleKeyup)
+		},
+		beforeDestroy() {
+			const parentNode = this.$refs.formRRef?.$el?.parentNode
+			if (parentNode) {
+				parentNode.removeEventListener('keyup', this.handleKeyup)
+			}
 		},
 		methods: {
+			handleKeyup(e) {
+				if (e?.keyCode === 13) {
+					this.submit()
+				}
+			},
 			resetForm() {
 				/*重置表单，会清空表单值并刷新表单dom，异步方法，公开*/
 				return new Promise((resolve) => {

@@ -102,7 +102,9 @@
 				options: [],
 				historyData: {},
 				isFresh: true,
-				urlChanged: false
+				urlChanged: false,
+				debouncedGetOption: null,
+				isComposing: false
 			}
 		},
 		computed: {
@@ -140,8 +142,22 @@
 						}
 			}
 		},
+		created() {
+			this.debouncedGetOption = _.debounce((e) => this.handleOptionSearch(e), 600)
+		},
 		mounted() {
 			this.addInputEventListener()
+		},
+		beforeDestroy() {
+			if (this.debouncedGetOption && typeof this.debouncedGetOption.cancel === 'function') {
+				this.debouncedGetOption.cancel()
+			}
+			const inputEl = this.$refs.selectScrollSourceRef?.$children[0]?.$refs.input
+			if (inputEl) {
+				inputEl.removeEventListener('keyup', this.debouncedGetOption)
+				inputEl.removeEventListener('compositionstart', this.handleCompositionStart)
+				inputEl.removeEventListener('compositionend', this.handleCompositionEnd)
+			}
 		},
 		watch: {
 			getOptions: {
@@ -163,10 +179,73 @@
 			}
 		},
 		methods: {
+			handleCompositionStart() {
+				this.isComposing = true
+			},
+			handleCompositionEnd(e) {
+				this.isComposing = false
+				this.debouncedGetOption(e)
+			},
+			handleOptionSearch(e) {
+				/*私有，不可调用*/
+				if (this.isComposing) {
+					return
+				}
+				const val = e?.target?.value
+				if (!this.isSelect(val)) {
+					if (isValidValue(val)) {
+						if (this.urlChanged) {
+							this.reset()
+						} else {
+							if (_.isEmpty(this.historyData)) {
+								this.historyData.current = this.current
+								this.historyData.pages = this.pages
+								this.historyData.options = _.cloneDeep(this.options)
+							}
+							if (isValidValue(this.valueT)) {
+								this.valueT = null
+							}
+						}
+						this.searchStr = val
+						this.options = []
+						this.current = 1
+						this.isFresh = true
+						this.getData()
+							.then(() => {
+								this.$nextTick(() => {
+									this.setQuery(val)
+								})
+							})
+							.catch(() => {
+								this.$nextTick(() => {
+									this.setQuery(val)
+								})
+							})
+					} else {
+						if (this.urlChanged) {
+							this.reset()
+							this.getData()
+						} else {
+							this.valueT = null
+							this.searchStr = null
+							if (this.historyData.current) {
+								this.current = this.historyData.current
+								this.pages = this.historyData.pages
+								this.options = _.cloneDeep(this.historyData.options)
+								this.historyData = {}
+							} else {
+								this.getData()
+							}
+						}
+					}
+				}
+			},
 			addInputEventListener() {
 				/*私有，不可调用*/
 				const inputEl = this.$refs.selectScrollSourceRef.$children[0].$refs.input
-				inputEl.addEventListener('keyup', this.getOption)
+				inputEl.addEventListener('keyup', this.debouncedGetOption)
+				inputEl.addEventListener('compositionstart', this.handleCompositionStart)
+				inputEl.addEventListener('compositionend', this.handleCompositionEnd)
 			},
 			setQuery(val) {
 				/*私有，不可调用*/
@@ -194,57 +273,6 @@
 				}
 				return false
 			},
-			getOption: _.debounce(function (e) {
-				/*私有，不可调用*/
-				const val = e?.target?.value
-				if (!this.isSelect(val)) {
-					if (isValidValue(val)) {
-						if (this.urlChanged) {
-							this.reset()
-						} else {
-							if (_.isEmpty(this.historyData)) {
-								this.historyData.current = this.current
-								this.historyData.pages = this.pages
-								this.historyData.options = _.cloneDeep(this.options)
-							}
-							if (isValidValue(this.valueT)) {
-								this.valueT = null
-							}
-						}
-						this.searchStr = val
-						this.options = []
-						this.current = 1
-						this.isFresh = true
-						this.getData()
-							.then(() => {
-								this.$nextTick(function () {
-									this.setQuery(val)
-								})
-							})
-							.catch(() => {
-								this.$nextTick(function () {
-									this.setQuery(val)
-								})
-							})
-					} else {
-						if (this.urlChanged) {
-							this.reset()
-							this.getData()
-						} else {
-							this.valueT = null
-							this.searchStr = null
-							if (this.historyData.current) {
-								this.current = this.historyData.current
-								this.pages = this.historyData.pages
-								this.options = _.cloneDeep(this.historyData.options)
-								this.historyData = {}
-							} else {
-								this.getData()
-							}
-						}
-					}
-				}
-			}, 600),
 			loadMore() {
 				/*私有，不可调用*/
 				if (this.urlChanged) {

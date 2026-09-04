@@ -19,6 +19,8 @@
 			:clearable="clearable"
 			:disabled="Boolean(disabled)"
 			@on-change="inputChange"
+			@compositionstart="handleCompositionStart"
+			@compositionend="handleCompositionEnd"
 		/>
 	</div>
 </template>
@@ -119,7 +121,36 @@
 				return { width: this.itemWidth + 'px' }
 			}
 		},
+		data() {
+			return {
+				handleChange: null,
+				isComposing: false
+			}
+		},
+		created() {
+			this.handleChange = _.debounce(function (data, root) {
+				if (root.isComposing) {
+					return
+				}
+				root.$emit('on-change', data)
+			}, 500)
+		},
 		methods: {
+			handleCompositionStart() {
+				this.isComposing = true
+			},
+			handleCompositionEnd(e) {
+				this.isComposing = false
+				if (e?.target?.value !== undefined) {
+					this.handleChange(
+						{
+							key: this.selectVal,
+							val: e.target.value
+						},
+						this
+					)
+				}
+			},
 			inputChange(e) {
 				if (e?.target?.value !== undefined) {
 					this.handleChange(
@@ -130,13 +161,10 @@
 						this
 					)
 				}
-			},
-			handleChange: _.debounce(function (data, root) {
-				root.$emit('on-change', data)
-			}, 500)
+			}
 		},
 		beforeDestroy() {
-			if (this.handleChange) {
+			if (this.handleChange && typeof this.handleChange.cancel === 'function') {
 				this.handleChange.cancel()
 			}
 		}
