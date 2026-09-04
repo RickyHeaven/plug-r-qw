@@ -125,7 +125,15 @@
 		data() {
 			return {
 				editor: null,
-				valueT: ''
+				valueT: '',
+				previewHandlers: {
+					wHandler: null,
+					hHandler: null,
+					closeHandler: null,
+					inputW: null,
+					inputH: null,
+					closeE: null
+				}
 			}
 		},
 		computed: {
@@ -323,6 +331,8 @@
 			}, 10)
 		},
 		beforeDestroy() {
+			this.cleanupPreviewHandlers()
+
 			let l = document.getElementById(this.editorId + 'preview')
 			if (l) {
 				document.getElementsByTagName('body')[0].removeChild(l)
@@ -336,6 +346,28 @@
 			this.xssP = null
 		},
 		methods: {
+			cleanupPreviewHandlers() {
+				const { wHandler, hHandler, closeHandler, inputW, inputH, closeE } = this.previewHandlers
+				if (inputW && wHandler) {
+					inputW.removeEventListener('blur', wHandler)
+					inputW.removeEventListener('keyup', wHandler)
+				}
+				if (inputH && hHandler) {
+					inputH.removeEventListener('blur', hHandler)
+					inputH.removeEventListener('keyup', hHandler)
+				}
+				if (closeE && closeHandler) {
+					closeE.removeEventListener('click', closeHandler)
+				}
+				this.previewHandlers = {
+					wHandler: null,
+					hHandler: null,
+					closeHandler: null,
+					inputW: null,
+					inputH: null,
+					closeE: null
+				}
+			},
 			setHtml(val) {
 				this.editor.txt.html(this.xssP.process(val))
 			},
@@ -426,9 +458,19 @@
 					inputH.addEventListener('blur', hHandler)
 					inputH.addEventListener('keyup', hHandler)
 					let closeE = preEl.children[0].children[0].children[1]
-					closeE.addEventListener('click', (e) => {
+					const closeHandler = (e) => {
 						preEl.style.display = 'none'
-					})
+					}
+					closeE.addEventListener('click', closeHandler)
+
+					this.previewHandlers = {
+						wHandler,
+						hHandler,
+						closeHandler,
+						inputW,
+						inputH,
+						closeE
+					}
 
 					wallE.innerHTML = this.value
 					wallE.style.width = _w + 'px'

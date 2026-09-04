@@ -84,6 +84,11 @@ author Ricky email:zhangqingcq@foxmail.com-->
 			document.addEventListener('mousemove', this.handleDrag)
 			document.addEventListener('mouseup', this.dragEnd)
 		},
+		beforeDestroy() {
+			document.removeEventListener('click', this.wallClick)
+			document.removeEventListener('mousemove', this.handleDrag)
+			document.removeEventListener('mouseup', this.dragEnd)
+		},
 		methods: {
 			close() {
 				if (this.isFrom) {
