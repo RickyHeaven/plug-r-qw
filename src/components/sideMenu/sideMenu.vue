@@ -71,8 +71,12 @@
 			}
 		},
 		methods: {
-			showHideMenu() {
-				this.menuDisplay = !this.menuDisplay
+			showHideMenu(display) {
+				if (display !== undefined) {
+					this.menuDisplay = Boolean(display)
+				} else {
+					this.menuDisplay = !this.menuDisplay
+				}
 				localStorage.setItem('menuDisplayR', JSON.stringify(this.menuDisplay))
 				this.$emit('on-change', this.menuDisplay)
 			},
