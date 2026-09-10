@@ -73,8 +73,8 @@
 		},
 		methods: {
 			showHideMenu(display) {
-				if (display !== undefined) {
-					this.menuDisplay = Boolean(display)
+				if (typeof display === 'boolean') {
+					this.menuDisplay = display
 				} else {
 					this.menuDisplay = !this.menuDisplay
 				}
