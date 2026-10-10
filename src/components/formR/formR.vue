@@ -203,7 +203,8 @@
 			return {
 				valGroup: {} /*表单项值，对外公开，提交时传递到外层*/,
 				formDataT: [] /*表单结构数据*/,
-				tempKeys: {} /*不对外暴露表单项值*/,
+				tempKeys:
+					{} /*不对外暴露的表单项值，主要缓存表单项的值，用于表单项在显示隐藏状态切换的情况下，保持表单项值不被清空*/,
 				watchGroup: [] /*需要监听的事件集合*/,
 				mgrUrl: window?.g?.mgrURL || null,
 				selectInputKeys:
@@ -446,6 +447,7 @@
 			 */
 			defaultValItems(d, a) {
 				for (let root of d) {
+					//tempKey的意义：缓存表单项值，用于表单项在显示隐藏状态切换的情况下，保持表单项值不被清空
 					if (root.tempKey && isValidValue(root.defaultVal)) {
 						/*将默认值转换为表单项绑定值对应的格式*/
 						this.getTempKeyDefaultVal(root, a)
@@ -1199,24 +1201,28 @@
 
 								if (myTypeof(root.collectLabel) === 'Object') {
 									if (root.collectLabel.key && root.collectLabel.valKey) {
-										const collectTempKey = this.findTempKey(root.collectLabel.key)
+										const collectTempKeys = this.findTempKey(root.collectLabel.key)
 										let t = null
 										if (Array.isArray(targetOption)) {
 											t = targetOption.map((e) => e[root.collectLabel.valKey])
 											this.$set(this.valGroup, root.collectLabel.key, t)
-											if (collectTempKey) {
-												this.$set(this.tempKeys, collectTempKey.tempKey, t)
+											if (collectTempKeys) {
+												for (const item of collectTempKeys) {
+													this.$set(this.tempKeys, item.tempKey, t)
+												}
 											}
 										} else {
 											if (targetOption && isValidValue(targetOption[root.collectLabel.valKey])) {
 												t = targetOption[root.collectLabel.valKey]
 											}
 											this.$set(this.valGroup, root.collectLabel.key, t)
-											if (collectTempKey) {
-												if (collectTempKey.booleanVal && typeof t === 'boolean') {
-													this.$set(this.tempKeys, collectTempKey.tempKey, t ? 1 : 0)
-												} else {
-													this.$set(this.tempKeys, collectTempKey.tempKey, t)
+											if (collectTempKeys) {
+												for (const item of collectTempKeys) {
+													if (item.booleanVal && typeof t === 'boolean') {
+														this.$set(this.tempKeys, item.tempKey, t ? 1 : 0)
+													} else {
+														this.$set(this.tempKeys, item.tempKey, t)
+													}
 												}
 											}
 										}
@@ -1224,25 +1230,29 @@
 								} else if (Array.isArray(root.collectLabel)) {
 									for (let l of root.collectLabel) {
 										if (l?.key && l.valKey) {
-											const collectTempKey = this.findTempKey(l.key)
+											const collectTempKeys = this.findTempKey(l.key)
 											let t = null
 
 											if (Array.isArray(targetOption)) {
 												t = targetOption.map((e) => e[l.valKey])
 												this.$set(this.valGroup, l.key, t)
-												if (collectTempKey) {
-													this.$set(this.tempKeys, collectTempKey.tempKey, t)
+												if (collectTempKeys) {
+													for (const item of collectTempKeys) {
+														this.$set(this.tempKeys, item.tempKey, t)
+													}
 												}
 											} else {
 												if (targetOption && isValidValue(targetOption[l.valKey])) {
 													t = targetOption[l.valKey]
 												}
 												this.$set(this.valGroup, l.key, t)
-												if (collectTempKey) {
-													if (collectTempKey.booleanVal && typeof t === 'boolean') {
-														this.$set(this.tempKeys, collectTempKey.tempKey, t ? 1 : 0)
-													} else {
-														this.$set(this.tempKeys, collectTempKey.tempKey, t)
+												if (collectTempKeys) {
+													for (const item of collectTempKeys) {
+														if (item.booleanVal && typeof t === 'boolean') {
+															this.$set(this.tempKeys, item.tempKey, t ? 1 : 0)
+														} else {
+															this.$set(this.tempKeys, item.tempKey, t)
+														}
 													}
 												}
 											}
@@ -1332,25 +1342,31 @@
 					return false
 				}
 			},
-			findTempKey(k) {
+			findTempKey(k, filterFn = null) {
+				const matched = []
 				if (this.formTeam) {
 					for (let e of this.formDataT) {
-						const t = this.findTempKeyItem(e, k)
-						if (t) {
-							return t
+						for (let root of e) {
+							if (root.key === k && typeof root.tempKey === 'string') {
+								matched.push(root)
+							}
 						}
 					}
-					return false
-				}
-				return this.findTempKeyItem(this.formDataT, k)
-			},
-			findTempKeyItem(d, k) {
-				for (let root of d) {
-					if (root.key === k) {
-						return root
+				} else {
+					for (let root of this.formDataT) {
+						if (root.key === k && typeof root.tempKey === 'string') {
+							matched.push(root)
+						}
 					}
 				}
-				return false
+				if (matched.length === 0) {
+					return false
+				}
+				if (filterFn && typeof filterFn === 'function') {
+					const filtered = matched.filter((item) => filterFn(item))
+					return filtered.length > 0 ? filtered : false
+				}
+				return matched
 			},
 			setItemToValGroup(data, notClearOthers) {
 				/*设置表单项的值（可添加新字段，例如添加隐藏字段，需要提交这个值，但页面不展示，公开）*/
@@ -1430,7 +1446,13 @@
 								}
 							}
 						}
-						this.valGroup[k] = data[k]
+						/*查找带有booleanVal的表单项，如果找到则将值转换为boolean*/
+						const booleanItems = this.findTempKey(k, (item) => item.booleanVal && !item.multiple)
+						if (booleanItems) {
+							this.valGroup[k] = Boolean(data[k])
+						} else {
+							this.valGroup[k] = data[k]
+						}
 					} else if (!notClearOthers) {
 						this.valGroup[k] = Array.isArray(this.valGroup[k]) ? [] : null
 					}
