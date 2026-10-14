@@ -238,7 +238,8 @@
 				fileDefaultList: [], //从服务器返回的数据整理完成的文件集合
 				localImgSrcList: [], // 本地图片地址集合
 				tempStorage: {},
-				fileLength: 0
+				fileLength: 0, // 记录正在上传+已上传的文件数量，用于限制上传数量（门卫机制）
+				_isInternalUpload: false // 标记是否是组件内部上传操作导致的 fileList 变化
 			}
 		},
 		computed: {
@@ -357,8 +358,13 @@
 				}
 			},
 			fileList: {
-				async handler(after) {
-					if (this.previewType === 'localImg') {
+			async handler(after) {
+				// 自动同步 fileLength（外部 v-model 改变或删除操作时同步，上传操作已手动维护则跳过）
+				if (!this._isInternalUpload && this.fileLength !== after.length) {
+					this.fileLength = after.length
+				}
+				this._isInternalUpload = false
+				if (this.previewType === 'localImg') {
 						if (after?.length > 0) {
 							this.fileSrcList = await this.getFileSrcList(after)
 						} else {
@@ -429,9 +435,6 @@
 					let temp = this.fileList
 					temp.splice(index, 1)
 					this.fileList = temp
-					if (this.fileLength) {
-						this.fileLength--
-					}
 				}
 			},
 			downloadDefaultFile(item) {
@@ -487,6 +490,7 @@
 					$swal(this.t('r.info.title'), this.t('r.uploadLength', [this.length]), 'warning')
 					return false
 				}
+				this._isInternalUpload = true
 				this.fileLength++
 				if (this.manualUpload) {
 					if (file) {
@@ -521,6 +525,7 @@
 			},
 			uploadSuccess(response, file) {
 				if (response?.code === 0) {
+					this._isInternalUpload = true
 					let temp = this.fileList
 					file.id = response.data?.[0]?.id
 					file.name = response.data?.[0]?.name
@@ -570,9 +575,6 @@
 					let temp = this.fileList
 					temp.splice(fileIdList.indexOf(id), 1)
 					this.fileList = temp
-					if (this.fileLength) {
-						this.fileLength--
-					}
 				}
 			}
 		}
