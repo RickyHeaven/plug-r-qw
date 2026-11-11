@@ -106,7 +106,8 @@
 						label: '地址',
 						key: 'lng',
 						key2: 'lat',
-						showMap: false
+						showMap: false,
+						inputInMap: false
 					}
 				],
 				formRules: {
