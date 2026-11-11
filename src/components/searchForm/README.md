@@ -6,6 +6,12 @@
 
 - formData 数组，组件内表单数据结构，参考[formR](../formR/README.md#属性)(1.1.0 以前版本叫 data，以后更名为 formData)
 
+- labelWidth 数字，表单项标签宽度，可通过全局变量`searchFormLabelWidth`改变默认值，默认：`84`
+
+- itemWidth 数字，表单项内容宽度（用于行内表单），可通过全局变量`searchFormItemWidth`改变默认值，默认：`202`
+
+- showInlineOkBt 布尔对象，显示查询（搜索）按钮，默认：`true`
+
 - formRules 对象，组件内表单验证规则，参考 formR
 
 - teamClass 字符串，分组表单-组容器的 class，用于布局和样式控制，默认：`formTeamBox`

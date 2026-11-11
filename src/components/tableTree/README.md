@@ -65,6 +65,8 @@
 
 - radio: 布尔类型，是否开启单选功能，默认 false，需要默认选中的，在对应节点设`checkBox:true`，注意：因为是单选，不可同时设置多个节点`checkBox:true`
 
+- lightHead: 布尔类型，浅色背景表头，避免和 headerBar 菜单紧邻时页面局部颜色不平衡，默认 false
+
 ### 事件
 
 - on-select: 节点被选中，返回选中节点数据

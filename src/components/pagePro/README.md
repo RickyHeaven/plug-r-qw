@@ -4,7 +4,7 @@
 
 ### 属性
 
-- modeValue: 正整数，当前页数
+- modelValue: 正整数，当前页数，支持 v-model 绑定
 
 - total: 非负整数，总条数
 

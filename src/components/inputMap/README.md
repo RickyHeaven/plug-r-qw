@@ -26,6 +26,8 @@ value: {
 
 - showMap: 布尔对象，是否展示地图，设置为`false`时，只有一个输入框，没有地图，默认：`true`
 
+- inputInMap: 布尔对象，搜索框是否悬浮在地图内部（否则搜索框位于地图上方），默认：`true`
+
 ### 事件
 
 - on-change: 组件值发生改变，返回改变后的值，相当于 vue-amap 的 select 事件

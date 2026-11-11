@@ -10,7 +10,7 @@
 
 - focus 布尔对象，是否在编辑器初始化时自动获取焦点，默认：`true`
 
-- changeInterval 数字，on-change 事件触发时间，默认：`200`
+- changeInterval 数字，on-change 事件触发时间间隔，默认：`800`
 
 - colors 数组，编辑器文字颜色和背景色，由 16 进制 string 组成，默认：`['#000000','#eeece0','#1c487f','#4d80bf','#c24f4a','#8baa4a','#7b5ba1','#46acc8','#f9963b','#ffffff']`
 
